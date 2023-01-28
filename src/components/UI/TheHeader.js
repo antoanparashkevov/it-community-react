@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React  from "react";
+import { Link } from "react-router-dom";
 import './TheHeader.css';
 
 const TheHeader = () => {
@@ -7,28 +8,27 @@ const TheHeader = () => {
         <React.Fragment>
             <header className='header_wrapper'>
                 <div className='header_title'>
-                    <a href="#">IT-COMMUNITY</a>
+                    <Link to="/">IT-COMMUNITY</Link>
                 </div>
                 <nav className='navbar_wrapper'>
                     <ul>
                         <li>
-                            <a href="#" className='navbar_link'>Posters</a>
+                            <Link to="/posters" className='navbar_link'>Posters</Link>
                         </li>
                         <li>
-                            <a href="" className='navbar_link'>Companies</a>
+                            <Link to="/companies" className='navbar_link'>Companies</Link>
                         </li>
                         <li>
-                            <a href="" className='navbar_link'>Messages</a>
+                            <Link to="/messages" className='navbar_link'>Messages</Link>
                         </li>
                         <li>
-                            <a href="" className='navbar_link'>Sign in</a>
+                            <Link to="/" className='navbar_link'>Sign in</Link>
                         </li>
                     </ul>
                 </nav>
             </header>
         </React.Fragment>
     )
-
 }
 
 export default TheHeader;

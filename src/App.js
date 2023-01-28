@@ -4,7 +4,11 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 //Components
-import TheHeader from "./components/UI/TheHeader";
+import Posters from "./components/pages/Posters";
+import Companies from "./components/pages/Companies";
+import Messages from "./components/pages/Messages";
+import Board from "./components/pages/Board";
+import Root from "./components/pages/Root";
 
 //create a relation between the routes and the components
 //or simply we register our routes here
@@ -12,17 +16,30 @@ import TheHeader from "./components/UI/TheHeader";
 const routes = createBrowserRouter([
   {
     path: '/',
-    element: <TheHeader/>
-  },
-  {
-    
-  },
+    element: <Root/>,
+    children: [
+      {
+        path: '/',
+        element: <Board/>
+      },
+      {
+        path: '/posters',
+        element: <Posters/>
+      },
+      {
+        path: '/companies',
+        element: <Companies/>
+      },
+      {
+        path: '/messages',
+        element: <Messages/>
+      }
+    ]
+  }
 ])
 
 function App() {
-  return (
-      <RouterProvider router={routes}/>
-  );
+      return <RouterProvider router={routes}/>
 }
 
 export default App;
