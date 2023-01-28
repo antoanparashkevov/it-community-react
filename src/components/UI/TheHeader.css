@@ -1,0 +1,39 @@
+header.header_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 90px;
+    background-color: #FFFFFF;
+    box-shadow: inset 0 4px 9px rgba(0, 0, 0, 0.25);
+    text-transform: uppercase;
+}
+
+header .header_title {
+    color: #304FFE;
+    font-weight: 700;
+    line-height: 30px;
+    font-size: 24px;
+    background-color: transparent;
+    margin-left: 40px;
+}
+
+nav.navbar_wrapper {
+    height: 100%;
+}
+
+ul {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding: 0;
+    margin: 0 78px 0 0;
+}
+
+ul li a {
+    display: block;
+    padding: 20px;
+    font-weight: 400;
+    font-size: 16px;
+}
