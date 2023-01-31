@@ -13,7 +13,7 @@ const TheHeader = () => {
                 <nav className={styles['navbar_wrapper']}>
                     <ul>
                         <li className={styles['navbar_link']}>
-                            <NavLink to="/posters" className={({isActive})=> isActive ? 'active' : undefined}>Posters</NavLink>
+                            <NavLink to="/posters" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavLink>
                         </li>
                         <li className={styles['navbar_link']}>
                         <NavLink to="/companies" className={({isActive})=> isActive ? 'active' : undefined}>Companies</NavLink>

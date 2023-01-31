@@ -8,7 +8,9 @@ const Root = ()=> {
     return (
         <React.Fragment>
             <TheHeader/>
-            <Outlet />
+            <main>
+                <Outlet />
+            </main>
         </React.Fragment>
     )
 }
