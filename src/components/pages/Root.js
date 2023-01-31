@@ -8,7 +8,7 @@ const Root = ()=> {
     return (
         <React.Fragment>
             <TheHeader/>
-            <main>
+            <main style={ {'background-color': '#F2F2F2', 'display': 'flex', 'align-items': 'center', 'justify-content': 'center'} }>
                 <Outlet />
             </main>
         </React.Fragment>
