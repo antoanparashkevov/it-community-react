@@ -9,6 +9,7 @@ import Companies from "./components/pages/Companies";
 import Messages from "./components/pages/Messages";
 import Board from "./components/pages/Board";
 import Root from "./components/pages/Root";
+import Error from "./components/pages/Error";
 
 //create a relation between the routes and the components
 //or simply we register our routes here
@@ -17,9 +18,10 @@ const routes = createBrowserRouter([
   {
     path: '/',
     element: <Root/>,
+    errorElement: <Error/>,
     children: [
       {
-        path: '/',
+        index: true,
         element: <Board/>
       },
       {
@@ -39,6 +41,7 @@ const routes = createBrowserRouter([
 ])
 
 function App() {
+      //register the list of routes
       return <RouterProvider router={routes}/>
 }
 
