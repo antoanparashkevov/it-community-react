@@ -5,10 +5,19 @@ import { Outlet } from 'react-router-dom'
 import TheHeader from "../UI/TheHeader";
 
 const Root = ()=> {
+    const mainStyles = () => {
+        return {
+            backgroundColor: '#F2F2F2',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }
+    }
+    
     return (
         <React.Fragment>
             <TheHeader/>
-            <main style={ {'background-color': '#F2F2F2', 'display': 'flex', 'align-items': 'center', 'justify-content': 'center'} }>
+            <main style={mainStyles()}>
                 <Outlet />
             </main>
         </React.Fragment>

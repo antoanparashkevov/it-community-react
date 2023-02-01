@@ -9,25 +9,26 @@ const Board = ()=> {
           <section className={styles['homepage_main']}>
               
               <div className={`${styles['homepage_categories']}`}>
-                  
-                  <div className={styles['homepage_category']}>
-                      
+
+                  { array.map((item, index) => 
+                      <div className={styles['homepage_category']} key={index}>
+
                       <section className={styles['homepage_category_header']}>
-                          
+
                           <div className={styles['homepage_category_title_wrapper']}>
                               <h1 className={styles['homepage_category_title']}>BACKEND DEVELOPMENT</h1>
                           </div>
-                          
+
                           <div className={styles['homepage_category_counter_wrapper']}>
                               <h1 className={styles['homepage_category_counter']}>1234</h1>
                           </div>
-                          
+
                       </section>
-                      
+
                       <section className={styles['homepage_category_main']}>
-                          
+
                           <div className={styles['homepage_category_main_wrapper']}>
-                              {array.map(()=> <div className={styles['homepage_category_subcategory_wrapper']}>
+                              {array.map((item, index)=> <div className={styles['homepage_category_subcategory_wrapper']} key={index}>
 
                                   <span className={styles['homepage_category_subcategory_title']}>Java</span>
 
@@ -37,14 +38,14 @@ const Board = ()=> {
 
                               </div> )}
                           </div>
-                          
+
                           <div className={styles['homepage_category_show_all_btn_wrapper']}>
                               <button>Show all</button>
                           </div>
-                          
+
                       </section>
-                      
-                  </div>
+
+                  </div> ) }
               </div>
           </section>
         </React.Fragment>

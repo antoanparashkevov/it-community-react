@@ -7,6 +7,7 @@ section.homepage_main {
     align-items: center;
     flex-direction: column;
     margin-top: 50px;
+    margin-bottom: 58px;
     border-radius: 15px;
     background-color: #FFFFFF;
 }
@@ -14,11 +15,15 @@ section.homepage_main {
 div.homepage_categories {
     width: 100%;
     padding: 90px 75px 25px 75px;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
 }
 
 div.homepage_category {
     width: 330px;
-    min-height: 350px;
+    height: 350px;
+    margin-bottom: 47px;
     border-radius: 15px;
     background-color: rgba(242, 242, 242, 0.5);;
 }
@@ -61,14 +66,52 @@ div.homepage_category_counter_wrapper .homepage_category_counter {
 
 /*MAIN START*/
 section.homepage_category_main {
+    position: relative;
 }
 
-section.homepage_category_main_wrapper {
+div.homepage_category_main_wrapper {
+    margin: 10px 10px 70px 10px;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
 }
+
 div.homepage_category_subcategory_wrapper {
-    
+    width: 132px;
+    height: 35px;
+    display: flex;
+    border-radius: 15px;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #F4F4F4;
 }
 
+span.homepage_category_subcategory_title {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+div.homepage_category_subcategory_counter_wrapper {
+    background-color: #DBE4C7;
+    border-radius: 10px;
+    width: 50px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1.homepage_category_subcategory_counter {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+/* todo check the responsive for this button */
+div.homepage_category_show_all_btn_wrapper {
+    position: absolute;
+    left: 133px;
+    top: 225px;
+}
 /*MAIN END*/
 
 
