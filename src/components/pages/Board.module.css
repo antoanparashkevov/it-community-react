@@ -15,14 +15,17 @@ section.homepage_main {
 div.homepage_categories {
     width: 100%;
     padding: 90px 75px 25px 75px;
-    display: flex;
-    flex-flow: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);/*means 1 fraction => each column will has the same width as the next one*/
+    grid-template-rows: repeat(2, 350px);
+    column-gap: 200px;
+    row-gap: 47px;
+    
 }
 
 div.homepage_category {
-    width: 330px;
-    height: 350px;
+    width: 100%;/*must to have to work the grid properly*/
+    height: 100%;
     margin-bottom: 47px;
     border-radius: 15px;
     background-color: rgba(242, 242, 242, 0.5);;
@@ -65,20 +68,19 @@ div.homepage_category_counter_wrapper .homepage_category_counter {
 
 
 /*MAIN START*/
-section.homepage_category_main {
-    position: relative;
-}
+/*section.homepage_category_main {*/
+/*}*/
 
 div.homepage_category_main_wrapper {
-    margin: 10px 10px 70px 10px;
-    display: flex;
-    flex-flow: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 35px);
+    column-gap: 35px;
+    row-gap: 10px;
+    margin: 10px 10px 10px 10px;
 }
 
 div.homepage_category_subcategory_wrapper {
-    width: 132px;
-    height: 35px;
     display: flex;
     border-radius: 15px;
     justify-content: space-around;
@@ -108,9 +110,9 @@ h1.homepage_category_subcategory_counter {
 
 /* todo check the responsive for this button */
 div.homepage_category_show_all_btn_wrapper {
-    position: absolute;
-    left: 133px;
-    top: 225px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 /*MAIN END*/
 
