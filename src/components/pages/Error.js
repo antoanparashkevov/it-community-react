@@ -1,4 +1,4 @@
-import TheHeader from "../UI/TheHeader";
+import TheHeader from "../layout/TheHeader";
 
 const ErrorPage = () => {
     return (

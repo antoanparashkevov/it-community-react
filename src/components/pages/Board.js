@@ -2,6 +2,9 @@ import React from "react";
 
 import styles from './Board.module.css'
 
+//components
+import BaseButton from "../UI/BaseButton";
+
 const Board = ()=> {
     let array = [1,2,3,4]
     return (
@@ -22,7 +25,6 @@ const Board = ()=> {
                           <div className={styles['homepage_category_counter_wrapper']}>
                               <h1 className={styles['homepage_category_counter']}>1234</h1>
                           </div>
-
                       </section>
 
                       <section className={styles['homepage_category_main']}>
@@ -40,11 +42,9 @@ const Board = ()=> {
                           </div>
 
                           <div className={styles['homepage_category_show_all_btn_wrapper']}>
-                              <button>Show all</button>
+                              <BaseButton link mode='outline' to='/posters'>Show all</BaseButton>
                           </div>
-
                       </section>
-
                   </div> ) }
               </div>
           </section>

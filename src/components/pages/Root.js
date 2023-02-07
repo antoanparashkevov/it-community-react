@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from 'react-router-dom'
 
 //Components
-import TheHeader from "../UI/TheHeader";
+import TheHeader from "../layout/TheHeader";
 
 const Root = ()=> {
     const mainStyles = () => {
