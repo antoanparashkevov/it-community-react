@@ -17,11 +17,13 @@ div.homepage_categories {
     padding: 90px 75px 25px 75px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);/*means 1 fraction => each column will has the same width as the next one*/
-    grid-template-rows: repeat(2, 350px);
+    grid-template-rows: repeat(2, 450px);
     column-gap: 200px;
     row-gap: 47px;
     
 }
+
+/* EACH CATEGORY START*/
 
 div.homepage_category {
     width: 100%;/*must to have to work the grid properly*/
@@ -31,7 +33,7 @@ div.homepage_category {
     background-color: rgba(242, 242, 242, 0.5);;
 }
 
-/* HEADER START */
+/* CATEGORY HEADER START */
 section.homepage_category_header {
     display: flex;
     justify-content: space-around;
@@ -50,6 +52,10 @@ div.homepage_category_title_wrapper > h1 {
     text-transform: uppercase;
 }
 
+/* CATEGORY HEADER END */
+
+/* CATEGORY COUNTER START */
+
 div.homepage_category_counter_wrapper {
     width: 100px;
     display: flex;
@@ -64,12 +70,12 @@ div.homepage_category_counter_wrapper .homepage_category_counter {
     color: #B3CE66;
 }
 
-/* HEADER END */
+/* CATEGORY COUNTER END */
 
 
-/*MAIN START*/
-/*section.homepage_category_main {*/
-/*}*/
+
+/* CATEGORY MAIN START*/
+/*section.homepage_category_main {}*/
 
 div.homepage_category_main_wrapper {
     display: grid;
@@ -108,12 +114,13 @@ h1.homepage_category_subcategory_counter {
     font-weight: 400;
 }
 
-/* todo check the responsive for this button */
 div.homepage_category_show_all_btn_wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-/*MAIN END*/
+
+/* CATEGORY MAIN END*/
+
 
 
