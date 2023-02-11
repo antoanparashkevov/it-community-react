@@ -1,39 +1,99 @@
-header.header_wrapper {
+.navbar {
     display: flex;
-    justify-content: space-between;
+    position: relative;/*to position the hamburger relative to the nav bar*/
+    justify-content: space-around;
     align-items: center;
-    position: relative;
-    width: 100%;
-    height: 90px;
+    flex-wrap: wrap;
     background-color: #FFFFFF;
     box-shadow: inset 0 4px 9px rgba(0, 0, 0, 0.25);
     text-transform: uppercase;
+    height: 90px;
 }
 
-header .header_title {
+.navbar_title {
     color: #304FFE;
-    font-weight: 700;
-    line-height: 30px;
     font-size: 24px;
-    background-color: transparent;
-    margin-left: 40px;
+    font-weight: 700;
+    margin: 0.5rem;
 }
 
-nav.navbar_wrapper {
-    height: 100%;
-}
-
-ul {
+.navbar_links ul {
     display: flex;
-    height: 100%;
     align-items: center;
+    gap: 50px;
+    margin: 0;
     padding: 0;
-    margin: 0 78px 0 0;
 }
 
-ul li a {
-    display: block;
-    padding: 20px;
-    font-weight: 400;
-    font-size: 16px;
+.navbar_links li:nth-child(1) a,
+.navbar_links li:nth-child(2) a {
+    color: #595959;
 }
+
+.navbar_links ul li a {
+    display: block;
+    padding: 1rem;
+}
+
+/*TODO activate the active class*/
+.navbar_links ul li:nth-child(1) a.active,
+.navbar_links ul li:nth-child(2) a.active {
+    color: #4A4A4A;
+}
+/*from 776 below -> height: auto on nav*/
+/* HAMBURGER MENU START */
+.toggle_buttons {
+    position: absolute;
+    display: none;
+    width: 30px;
+    height: 20px;
+    top: 2rem;
+    flex-direction: column;
+    right: 1rem;
+    justify-content: space-between;
+}
+
+.toggle_buttons .bar {
+    display: block;
+    background-color: #CECECE;
+    height: 3px;
+    width: 40px;
+    border-radius: 10px;
+}
+
+@media (max-width: 590px) {
+    .toggle_buttons {
+        display: flex;
+    }
+    
+    .navbar_links {
+        display: none;
+        width: 100%;
+        margin-top: 25px;
+        padding-bottom: 15px;
+    }
+    
+    .navbar_links.activate_bar {
+        display: flex;
+    }
+    
+    .navbar_links ul {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .navbar_links ul li {
+        text-align: center;
+    }
+    
+    .navbar.navbar_mobile_height {
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 776px) and (min-width: 591px) {
+    .navbar {
+        height: 115px;
+    }
+}
+/* HAMBURGER MENU END */

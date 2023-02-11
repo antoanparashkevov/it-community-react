@@ -16,7 +16,9 @@ const Root = ()=> {
     
     return (
         <React.Fragment>
-            <TheHeader/>
+            <header>
+                <TheHeader/>
+            </header>
             <main style={mainStyles()}>
                 <Outlet />
             </main>
