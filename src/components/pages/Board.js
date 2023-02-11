@@ -42,7 +42,7 @@ const Board = ()=> {
                           </div>
 
                           <div className={styles['homepage_category_show_all_btn_wrapper']}>
-                              <BaseButton link mode='outline' to='/posters'>Show all</BaseButton>
+                              <BaseButton link={false} mode='outline' to='/posters'>Show all</BaseButton>
                           </div>
                       </section>
                   </div> ) }
