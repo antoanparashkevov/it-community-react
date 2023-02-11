@@ -16,10 +16,10 @@ div.homepage_categories {
     width: 100%;
     padding: 90px 75px 25px 75px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);/*means 1 fraction => each column will has the same width as the next one*/
-    grid-template-rows: repeat(2, 450px);
+    grid-template-columns: repeat(2, minmax(280px, 1fr));/*means 1 fraction => each column will has the same width as the next one*/
+    grid-template-rows: repeat(2, 350px);
     column-gap: 200px;
-    row-gap: 47px;
+    row-gap: 100px;
     
 }
 
@@ -82,7 +82,7 @@ section.homepage_category_main {
 div.homepage_category_main_wrapper {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, 35px);
+    grid-template-rows: repeat(4, 35px);
     column-gap: 35px;
     row-gap: 10px;
     margin: 30px 10px 10px 10px;
@@ -117,7 +117,6 @@ h1.homepage_category_subcategory_counter {
 }
 
 div.homepage_category_show_all_btn_wrapper {
-    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,6 +125,15 @@ div.homepage_category_show_all_btn_wrapper {
 }
 
 /* CATEGORY MAIN END*/
+
+/* RESPONSIVE */
+@media (max-width: 1030px) {
+    div.homepage_categories {
+        width: auto;
+        grid-template-columns: minmax(210px, 330px);
+        grid-template-rows: repeat(4, 350px);
+    }
+}
 
 
 

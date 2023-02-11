@@ -1,0 +1,29 @@
+.footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas: 
+            'header header header'
+            'column1 column2 column3'
+            'column1 column2 column3'
+            'column1 column2 column3';
+    width: 100%;
+    padding: 0 30px 0 30px;
+    column-gap: 30px;
+}
+
+.footer_header {
+    grid-area: header;
+}
+
+.footer_column:nth-child(1) {
+    grid-area: column1;
+}
+
+.footer_column:nth-child(2) {
+    grid-area: column2;
+}
+
+.footer_column:nth-child(3) {
+    grid-area: column3;
+}

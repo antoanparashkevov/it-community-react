@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 //Components
 import TheHeader from "../layout/TheHeader";
+import Footer from "../layout/Footer";
 
 const Root = ()=> {
     const mainStyles = () => {
@@ -14,6 +15,14 @@ const Root = ()=> {
         }
     }
     
+    const footerStyles = () => {
+        return {
+            'height': '270px',
+            'backgroundColor': '#EBEBEB',
+            'display': 'flex',
+        }
+    }
+    
     return (
         <React.Fragment>
             <header>
@@ -22,6 +31,9 @@ const Root = ()=> {
             <main style={mainStyles()}>
                 <Outlet />
             </main>
+            <footer style={footerStyles()}>
+                <Footer/>
+            </footer>
         </React.Fragment>
     )
 }
