@@ -7,7 +7,6 @@ import BaseButton from "../UI/BaseButton";
 const Board = () => {
     let array = [1,2,3,4]
     return (
-        <React.Fragment>
           <section className={styles['homepage_main']}>
               
               <div className={`${styles['homepage_categories']}`}>
@@ -53,7 +52,6 @@ const Board = () => {
                   </article> ) }
               </div>
           </section>
-        </React.Fragment>
     )
 }
 
