@@ -1,11 +1,10 @@
 import React from "react";
-
 import styles from './Board.module.css'
 
 //components
 import BaseButton from "../UI/BaseButton";
 
-const Board = ()=> {
+const Board = () => {
     let array = [1,2,3,4]
     return (
         <React.Fragment>
@@ -42,7 +41,13 @@ const Board = ()=> {
                           </div>
 
                           <div className={styles['homepage_category_show_all_btn_wrapper']}>
-                              <BaseButton link={false} mode='rounded' to='/posters'>Show all</BaseButton>
+                              <BaseButton 
+                                  link
+                                  mode='rounded' 
+                                  to='/posters'
+                              >
+                                  Show all
+                              </BaseButton>
                           </div>
                       </section>
                   </article> ) }

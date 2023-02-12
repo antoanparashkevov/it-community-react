@@ -35,9 +35,9 @@ const TheHeader = () => {
             <div className={styles['navbar_title']}>
                 <NavLink to="/">IT-COMMUNITY</NavLink>
             </div>
-            <a href="javascript:void(0)" className={styles['toggle_buttons']} onClick={toggleNavbar}>
+            <div className={styles['toggle_buttons']} onClick={toggleNavbar}>
                 {chooseButton()}
-            </a>
+            </div>
             <div className={`${styles['navbar_links']} ${activateBar ? styles['activate_bar'] : undefined}`}>
                 <ul>
                     <li className={styles['navbar_link']}>
