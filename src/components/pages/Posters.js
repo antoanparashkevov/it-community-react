@@ -1,5 +1,5 @@
 import styles from './Posters.module.css'
-
+import { AiOutlineSearch } from "react-icons/ai";
 //components
 import BaseButton from "../UI/BaseButton";
 import BaseCard from "../UI/BaseCard";
@@ -11,15 +11,21 @@ const Posters = () => {
         <section className={styles['posters_container']}>
             <BaseCard className={styles['posters_filters_wrapper']}>
                 <aside className={styles['posters_filters']}>
-                    ASIDE
+                    <BaseButton link={false} type='button' mode='square'>CLEAR</BaseButton>
                 </aside>
             </BaseCard>
             <div className={styles['posters_wrapper']}>
-                <BaseCard className={styles['posters_search_bar']}>
-                    <input type="search" placeholder='Search...'/>
-                    <BaseButton link={false} type='button' mode='square'>Search</BaseButton>
-                </BaseCard>
                 <BaseCard className={styles['posters_list_container']}>
+                    <div className={styles['posters_search_wrapper']}>
+                        <AiOutlineSearch />
+                        <input
+                            type="text"
+                            id='search'
+                            name='search'
+                            placeholder='Search for jobs...'
+                            className={styles['posters_search_input']}
+                        />
+                    </div>
                     <div className={styles['posters_list_wrapper']}>
                         <div className={styles['posters_list_loop']}>
                             { posters.map( (item, index) => 
