@@ -3,23 +3,27 @@ import styles from './CategoriesFilter.module.css'
 const CategoriesFilter = () => {
     return (
         <div className={styles['sidebar_categories_filter']}>
-            <label htmlFor="categories">Categories</label>
+            <label htmlFor="categories" className={styles['categories_filter_label']}>Categories</label>
             <div className={styles['categories_form_controls']}>
                 <div className={styles['form_control']}>
                     <label htmlFor="frontend">Frontend</label>
                     <input type="checkbox" id='frontend' name='frontend' value='frontend'/>
+                    <span className={styles['checkmark']}></span>
                 </div>
                 <div className={styles['form_control']}>
                     <label htmlFor="backend">Backend</label>
-                    <input type="checkbox" id='backend' name='backend' value='backend'/>
+                    <input type="checkbox" id='backend' name='backend' value='backend' checked/>
+                    <span className={styles['checkmark']}></span>
                 </div>
                 <div className={styles['form_control']}>
                     <label htmlFor="qa">Quality Assurance</label>
-                    <input type="checkbox" id='qa' name='qa' value='qa'/>
+                    <input type="checkbox" id='qa' name='qa' value='qa' checked/>
+                    <span className={styles['checkmark']}></span>
                 </div>
                 <div className={styles['form_control']}>
                     <label htmlFor="infrastructure">Infrastructure</label>
-                    <input type="checkbox" id='infrastructure' value='infrastructure'/>
+                    <input type="checkbox" id='infrastructure' value='infrastructure' checked/>
+                    <span className={styles['checkmark']}></span>
                 </div>
             </div>
         </div>
