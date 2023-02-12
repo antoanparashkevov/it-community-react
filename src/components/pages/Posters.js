@@ -1,7 +1,7 @@
 import styles from './Posters.module.css'
 import { AiOutlineSearch } from "react-icons/ai";
 //components
-import BaseButton from "../UI/BaseButton";
+import Sidebar from "../layout/filters/Sidebar";
 import BaseCard from "../UI/BaseCard";
 import PosterItem from "../applying/PosterItem";
 
@@ -10,9 +10,7 @@ const Posters = () => {
     return (
         <section className={styles['posters_container']}>
             <BaseCard className={styles['posters_filters_wrapper']}>
-                <aside className={styles['posters_filters']}>
-                    <BaseButton link={false} type='button' mode='square'>CLEAR</BaseButton>
-                </aside>
+                <Sidebar />
             </BaseCard>
             <div className={styles['posters_wrapper']}>
                 <BaseCard className={styles['posters_list_container']}>
