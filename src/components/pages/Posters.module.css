@@ -1,0 +1,18 @@
+.posters_container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas: 
+    'sidebar search_list search_list search_list'
+}
+
+.posters_filters_wrapper {
+    grid-area: sidebar;
+}
+
+.posters_wrapper {
+    grid-area: search_list;
+}
+
+.posters_list_container {
+    background-color: #FFFFFF;
+}

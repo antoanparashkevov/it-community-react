@@ -1,15 +1,15 @@
 import styles from './Posters.module.css'
-import { Link } from "react-router-dom";
 
 //components
 import BaseButton from "../UI/BaseButton";
 import BaseCard from "../UI/BaseCard";
+import PosterItem from "../applying/PosterItem";
 
 const Posters = () => {
     let posters = [1,2,3,4]
     return (
         <section className={styles['posters_container']}>
-            <BaseCard>
+            <BaseCard className={styles['posters_filters_wrapper']}>
                 <aside className={styles['posters_filters']}>
                     ASIDE
                 </aside>
@@ -23,10 +23,7 @@ const Posters = () => {
                     <div className={styles['posters_list_wrapper']}>
                         <div className={styles['posters_list_loop']}>
                             { posters.map( (item, index) => 
-                               <Link to='/' className={styles['poster_list_item']} key={index}>
-                                   <div className={styles['left_company_logo']}>LOGO</div>
-                                   <div className={styles['right_company_info']}>INFO</div>
-                               </Link>
+                              <PosterItem key={index} />
                             ) }
                         </div>
                     </div>
