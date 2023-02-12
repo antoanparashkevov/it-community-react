@@ -17,7 +17,7 @@ const Posters = () => {
             <div className={styles['posters_wrapper']}>
                 <BaseCard className={styles['posters_search_bar']}>
                     <input type="search" placeholder='Search...'/>
-                    <BaseButton link={false} type='button' mode='outline'>Search</BaseButton>
+                    <BaseButton link={false} type='button' mode='square'>Search</BaseButton>
                 </BaseCard>
                 <BaseCard className={styles['posters_list_container']}>
                     <div className={styles['posters_list_wrapper']}>
