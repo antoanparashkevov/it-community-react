@@ -24,9 +24,6 @@ const Footer = () => {
                 <div className={styles['footer_column_content']}>
                     <h1>FOLLOW US</h1>
                     <div className={styles['footer_column_media_icons']}>
-                        <div></div>
-                        <div></div>
-                        <div></div>
                     </div>
                 </div>
             </section>

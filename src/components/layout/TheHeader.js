@@ -11,15 +11,32 @@ const TheHeader = () => {
         })
     }
     
+    const chooseButton = () => {
+        if(activateBar) {
+            return (
+                <div className={styles['close_bar_btn']}>
+                    <span className={ styles['close_bar'] }></span>
+                    <span className={ styles['close_bar'] }></span>
+                </div>
+            )
+        } else {
+            return (
+                <>
+                    <span className={styles['bar']}></span>
+                    <span className={styles['bar']}></span>
+                    <span className={styles['bar']}></span>
+                </>
+            )
+        }
+    }
+    
     return (
         <nav className={`${styles['navbar']} ${activateBar ? styles['navbar_mobile_height'] : undefined}`}>
             <div className={styles['navbar_title']}>
                 <NavLink to="/">IT-COMMUNITY</NavLink>
             </div>
             <a href="javascript:void(0)" className={styles['toggle_buttons']} onClick={toggleNavbar}>
-                <span className={styles['bar']}></span>
-                <span className={styles['bar']}></span>
-                <span className={styles['bar']}></span>
+                {chooseButton()}
             </a>
             <div className={`${styles['navbar_links']} ${activateBar ? styles['activate_bar'] : undefined}`}>
                 <ul>

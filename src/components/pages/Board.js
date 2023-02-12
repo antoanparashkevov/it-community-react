@@ -14,7 +14,7 @@ const Board = ()=> {
               <div className={`${styles['homepage_categories']}`}>
 
                   { array.map((item, index) => 
-                      <div className={styles['homepage_category']} key={index}>
+                      <article className={styles['homepage_category']} key={index}>
 
                       <section className={styles['homepage_category_header']}>
 
@@ -45,7 +45,7 @@ const Board = ()=> {
                               <BaseButton link={false} mode='rounded' to='/posters'>Show all</BaseButton>
                           </div>
                       </section>
-                  </div> ) }
+                  </article> ) }
               </div>
           </section>
         </React.Fragment>

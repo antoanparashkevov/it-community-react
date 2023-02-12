@@ -25,7 +25,7 @@ div.homepage_categories {
 
 /* EACH CATEGORY START*/
 
-div.homepage_category {
+article.homepage_category {
     width: 100%;/*must to have to work the grid properly*/
     height: 100%;
     margin-bottom: 47px;
@@ -134,6 +134,5 @@ div.homepage_category_show_all_btn_wrapper {
         grid-template-rows: repeat(4, 350px);
     }
 }
-
 
 

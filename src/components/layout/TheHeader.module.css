@@ -40,7 +40,8 @@
 .navbar_links ul li:nth-child(2) a.active {
     color: #4A4A4A;
 }
-/*from 776 below -> height: auto on nav*/
+
+
 /* HAMBURGER MENU START */
 .toggle_buttons {
     position: absolute;
@@ -97,3 +98,26 @@
     }
 }
 /* HAMBURGER MENU END */
+
+/* CLOSE BUTTON START */
+
+.close_bar {
+    display: block;
+    width: 40px;
+    border: 3px solid #E0E0E0;
+    background-color: #E0E0E0;
+    position: absolute;
+}
+.close_bar:nth-child(1) {
+    transform: rotate(-45deg);
+}
+
+.close_bar:nth-child(2) {
+    transform: rotate(45deg);
+}
+
+.close_bar_btn {
+    position: relative;
+}
+
+/* CLOSE BUTTON END */
