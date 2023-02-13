@@ -22,6 +22,9 @@
     position: relative;
 }
 
+/* CUSTOM CHECKBOX START */
+
+/*Remove the default input*/
 .form_control input {
     position: absolute;
     width: 25px;
@@ -31,20 +34,24 @@
     cursor: pointer;
 }
 
+/*Set default color and size to the checkmark*/
 .checkmark {
     width: 25px;
     height: 25px;
     background-color: #FFFFFF;
 }
 
+/*On mouse-over, the checkmark changes the bg color*/
 .form_control input:hover ~ .checkmark {
     background-color: #CCC;
 }
 
+/*When the input is checked*/
 .form_control input:checked ~ .checkmark {
     background-color: #2196F3;
 }
 
+/*Style the mark*/
 .checkmark:after {
     content: '';
     display: none;
@@ -59,9 +66,12 @@
     transform: rotate(45deg);
 }
 
+/*Show the mark when the input is checked*/
 .form_control input:checked ~ .checkmark:after {
     display: block;
 }
+
+/* CUSTOM CHECKBOX END */
 
 .form_control label {
     margin-right: 15px;
