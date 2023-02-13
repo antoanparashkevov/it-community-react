@@ -1,10 +1,10 @@
-.sidebar_categories_filter {
-    
-}
+/*.sidebar_categories_filter {}*/
 
 .categories_filter_label {
     font-size: 23px;
     font-weight: 700;
+    letter-spacing: 1px;
+    color: #374FFE;
 }
 
 .categories_form_controls {

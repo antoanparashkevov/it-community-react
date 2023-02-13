@@ -1,6 +1,6 @@
 import styles from './Sidebar.module.css'
 import BaseButton from "../../UI/BaseButton";
-
+import SeparationLine from "../../UI/SeparationLine";
 
 //import filters
 import CategoriesFilter from "./CategoriesFilter";
@@ -14,6 +14,7 @@ const Sidebar = () => {
             <BaseButton link={false} type='button' mode='square'>CLEAR</BaseButton>
             <div className={styles['sidebar_filters']}>
                 <CategoriesFilter />
+                <SeparationLine/>
                 <SeniorityFilter />
                 <SalaryFilter />
                 <WorkTypeFilter />

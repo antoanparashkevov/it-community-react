@@ -1,0 +1,10 @@
+.sidebar_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 200px;
+}
+
+.sidebar_filters {
+    padding: 1rem;
+}
