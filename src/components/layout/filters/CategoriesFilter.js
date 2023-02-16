@@ -1,9 +1,15 @@
 import styles from './CategoriesFilter.module.css'
 
+//import UI components
+import Arrow from "../../UI/BaseArrow";
+
 const CategoriesFilter = () => {
     return (
         <div className={styles['sidebar_categories_filter']}>
-            <label htmlFor="categories" className={styles['categories_filter_label']}>Active filters</label>
+            <div className={styles['sidebar_categories_header_and_icon']}>
+                <label htmlFor="categories" className={styles['categories_filter_label']}>Selected categories</label>
+                <Arrow rotate={true} />
+            </div>
             <div className={styles['categories_form_controls']}>
                 <div className={styles['form_control']}>
                     <label htmlFor="frontend">Frontend</label>

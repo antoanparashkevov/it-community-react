@@ -1,12 +1,16 @@
 .sidebar_categories_filter {
     display: flex;
     flex-direction: column;
+}
+
+.sidebar_categories_header_and_icon {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
 .categories_filter_label {
-    font-size: 23px;
-    font-weight: 700;
+    font-size: 16px;
     letter-spacing: 1px;
     color: #374FFE;
 }
@@ -17,6 +21,7 @@
     row-gap: 15px;
     justify-content: center;
     align-items: flex-start;
+    margin: 10px
 }
 
 .form_control {

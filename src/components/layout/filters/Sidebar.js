@@ -1,8 +1,9 @@
 import styles from './Sidebar.module.css'
-import BaseButton from "../../UI/BaseButton";
+
+//import UI components
 import SeparationLine from "../../UI/SeparationLine";
 
-//import filters
+//import filter components
 import CategoriesFilter from "./CategoriesFilter";
 import SeniorityFilter from "./SeniorityFilter";
 import SalaryFilter from "./SalaryFilter";
