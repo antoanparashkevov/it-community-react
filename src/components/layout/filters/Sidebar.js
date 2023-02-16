@@ -14,8 +14,11 @@ const Sidebar = () => {
             <CategoriesFilter />
             <SeparationLine/>
             <SeniorityFilter />
+            <SeparationLine/>
             <SalaryFilter />
+            <SeparationLine/>
             <WorkTypeFilter />
+            <SeparationLine/>
         </div>
     </aside>
    )

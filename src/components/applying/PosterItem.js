@@ -23,7 +23,6 @@ const PosterItem = (props) => {
                         <div className={styles['company_info_right_arrow']}>
                             <img src="https://dev.bg/wp-content/themes/jobsdevbg/images/arrow-right-black.svg" alt="right_arrow"/>
                         </div>
-                    {/*    TODO ADD RIGHT ARROW */}
                     </section>
                 </div>
             </Link>

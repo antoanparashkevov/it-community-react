@@ -27,9 +27,11 @@ const Root = ()=> {
             <header>
                 <TheHeader/>
             </header>
+            
             <MainWrapper>
                 <Outlet />
             </MainWrapper>
+            
             <FooterWrapper>
                 <Footer/>
             </FooterWrapper>

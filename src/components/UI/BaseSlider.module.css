@@ -1,0 +1,50 @@
+.sidebar_salary_slider_button_root {}
+
+.sidebar_salary_slider_button_container {
+    display: inline-block;
+    width: 45px;
+    height: 25px;
+    color: transparent;
+    position: relative;
+}
+
+.sidebar_salary_slider_button_container input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider_button {
+    position: absolute;
+    cursor: pointer;
+    border-radius: 34px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.slider_button:before {
+    position: absolute;
+    content: '';
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    bottom: 2px;
+    transition: .4s;
+    background-color: #333333;
+    border-radius: 50%;
+}
+
+.sidebar_salary_slider_button_container input:checked + .slider_button:before {
+    transform: translateX(20px);
+}
+
+.sidebar_salary_slider_button_container input:checked + .slider_button {
+    background-color: #8fbc8f;
+
+}
+
+.sidebar_salary_slider_button_container input + .slider_button {
+    background-color: #E2E2E2;
+}
