@@ -10,15 +10,12 @@ import WorkTypeFilter from "./WorkTypeFilter";
 
 const Sidebar = () => {
    return ( <aside className={styles['sidebar']}>
-        <div className={styles['sidebar_wrapper']}>
-            <BaseButton link={false} type='button' mode='square'>CLEAR</BaseButton>
-            <div className={styles['sidebar_filters']}>
-                <CategoriesFilter />
-                <SeparationLine/>
-                <SeniorityFilter />
-                <SalaryFilter />
-                <WorkTypeFilter />
-            </div>
+        <div className={styles['sidebar_filters']}>
+            <CategoriesFilter />
+            <SeparationLine/>
+            <SeniorityFilter />
+            <SalaryFilter />
+            <WorkTypeFilter />
         </div>
     </aside>
    )

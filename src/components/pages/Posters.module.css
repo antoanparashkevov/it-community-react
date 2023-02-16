@@ -1,49 +1,32 @@
-/* GRID SYSTEM START */
+/* FLEX BOX START */
 
 .posters_container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-areas: 
-    'sidebar search_list search_list search_list'
-}
-
-.posters_filters_wrapper {
-    grid-area: sidebar;
-}
-
-.posters_wrapper {
-    grid-area: search_list;
-}
-
-/* GRID SYSTEM END */
-
-/* SEARCH BAR START */
-
-.posters_search_bar {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: flex-start;
+    column-gap: 30px;
 }
 
-.posters_search_wrapper {
-    width: 100%;
-    border-radius: 15px;
-    text-align: start;
-    font-size: 15px;
-    padding: 10px;
+@media (max-width: 680px) {
+    .posters_container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    
+    .posters_filters_wrapper {
+        display: none;
+    }
 }
 
-.posters_search_input {
-    border-radius: 15px;
-    width: 100%;
-    height: 40px;
-}
-/* SEARCH BAR END */
+/* FLEX BOX END */
 
 /* POSTERS LIST START */
+.posters_wrapper {
 
-.posters_list_container {
-    background-color: #FFFFFF;
 }
 
+.posters_list_wrapper {
+    min-width: 650px;
+}
 /* POSTERS LIST END */

@@ -1,4 +1,8 @@
-/*.sidebar_categories_filter {}*/
+.sidebar_categories_filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .categories_filter_label {
     font-size: 23px;
@@ -38,7 +42,8 @@
 .checkmark {
     width: 25px;
     height: 25px;
-    background-color: #FFFFFF;
+    background-color: #F2F2F2;
+    border: 1px solid #000000;
 }
 
 /*On mouse-over, the checkmark changes the bg color*/

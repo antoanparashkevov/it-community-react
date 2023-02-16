@@ -8,7 +8,7 @@ import Posters from "./components/pages/Posters";
 import Companies from "./components/pages/Companies";
 import Messages from "./components/pages/Messages";
 import Board from "./components/pages/Board";
-import Root from "./components/pages/Root";
+import Root from "./components/Root";
 import Error from "./components/pages/Error";
 
 //create a relation between the routes and the components,

@@ -1,7 +1,7 @@
 import styles from './BaseCard.module.css'
 
 const BaseCard = (props) => {
-    return (<div className={styles.card}>{ props.children }</div>)
+    return (<div className={`${styles.card} ${props.hide ? styles.hidden_card : ''}`}>{ props.children }</div>)
 }
 
 export default BaseCard;

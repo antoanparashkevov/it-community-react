@@ -3,7 +3,7 @@ import styles from './CategoriesFilter.module.css'
 const CategoriesFilter = () => {
     return (
         <div className={styles['sidebar_categories_filter']}>
-            <label htmlFor="categories" className={styles['categories_filter_label']}>Categories</label>
+            <label htmlFor="categories" className={styles['categories_filter_label']}>Active filters</label>
             <div className={styles['categories_form_controls']}>
                 <div className={styles['form_control']}>
                     <label htmlFor="frontend">Frontend</label>
