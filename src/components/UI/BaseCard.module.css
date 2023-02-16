@@ -4,6 +4,7 @@
     padding: 1rem;
     margin: 2rem auto;
     background-color: #FFFFFF;
+    border-radius: 12px;
 }
 
 .card.hidden_card {

@@ -16,10 +16,9 @@ const Sidebar = () => {
             <SeparationLine/>
             <SeniorityFilter />
             <SeparationLine/>
-            <SalaryFilter />
-            <SeparationLine/>
             <WorkTypeFilter />
             <SeparationLine/>
+            <SalaryFilter />
         </div>
     </aside>
    )
