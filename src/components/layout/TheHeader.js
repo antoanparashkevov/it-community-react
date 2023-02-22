@@ -2,6 +2,26 @@ import React, {useState}  from "react";
 import { NavLink } from "react-router-dom";
 import styles from './TheHeader.module.css';
 import BaseButton from "../UI/BaseButton";
+import styled from "styled-components";
+
+const HamburgerBar = styled.span`
+        display: block;
+        background-color: #CECECE;
+        height: 3px;
+        width: 40px;
+        border-radius: 10px;
+    `
+
+const CloseBar = styled(HamburgerBar)`
+    border: 3px solid #E0E0E0;
+    background-color: #E0E0E0;
+    position: absolute;
+    transform: rotate(-45deg);
+    
+    &:nth-child(2) {
+        transform: rotate(45deg);
+    }
+`
 
 const TheHeader = () => {
     let [activateBar, updateActivateBar] = useState(false)
@@ -15,16 +35,16 @@ const TheHeader = () => {
         if(activateBar) {
             return (
                 <div className={styles['close_bar_btn']}>
-                    <span className={ styles['close_bar'] }></span>
-                    <span className={ styles['close_bar'] }></span>
+                    <CloseBar />
+                    <CloseBar />
                 </div>
             )
         } else {
             return (
                 <>
-                    <span className={styles['bar']}></span>
-                    <span className={styles['bar']}></span>
-                    <span className={styles['bar']}></span>
+                    <HamburgerBar />
+                    <HamburgerBar />
+                    <HamburgerBar />
                 </>
             )
         }

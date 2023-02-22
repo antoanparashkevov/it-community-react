@@ -1,5 +1,9 @@
 import styles from './WorkTypeFilter.module.css'
+
+//import UI components
 import Arrow from "../../UI/BaseArrow";
+import CustomCheckbox from "../../UI/CustomCheckbox";
+import Label from "../../UI/Label";
 
 const WorkTypeFilter = () => {
     return (
@@ -10,19 +14,16 @@ const WorkTypeFilter = () => {
             </div>
             <div className={styles['categories_form_controls']}>
                 <div className={styles['form_control']}>
-                    <label htmlFor="frontend">Office</label>
-                    <input type="checkbox" id='frontend' name='frontend' value='frontend' defaultChecked={true}/>
-                    <span className={styles['checkmark']}></span>
+                    <Label for='office'>Office</Label>
+                    <CustomCheckbox isChecked value={'office'} name='office' id='office' />
                 </div>
                 <div className={styles['form_control']}>
-                    <label htmlFor="backend">Home</label>
-                    <input type="checkbox" id='backend' name='backend' value='backend' defaultChecked={true}/>
-                    <span className={styles['checkmark']}></span>
+                    <Label for='home'>Home</Label>
+                    <CustomCheckbox isChecked value={'home'} name='home' id='home' />
                 </div>
                 <div className={styles['form_control']}>
-                    <label htmlFor="qa">Hybrid</label>
-                    <input type="checkbox" id='qa' name='qa' value='qa' defaultChecked={true}/>
-                    <span className={styles['checkmark']}></span>
+                    <Label for='hybrid'>Hybrid</Label>
+                    <CustomCheckbox isChecked value={'hybrid'} name='hybrid' id='hybrid' />
                 </div>
             </div>
         </div>

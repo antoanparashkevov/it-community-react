@@ -1,35 +1,33 @@
 import styles from './CategoriesFilter.module.css'
-import CustomCheckbox from "../../UI/CustomCheckbox";
 
 //import UI components
 import Arrow from "../../UI/BaseArrow";
+import CustomCheckbox from "../../UI/CustomCheckbox";
+import Label from "../../UI/Label";
 
 const CategoriesFilter = () => {
     return (
         <div className={styles['sidebar_categories_filter']}>
             <div className={styles['sidebar_categories_header_and_icon']}>
-                <label htmlFor="categories" className={styles['categories_filter_label']}>Selected categories</label>
+                <h1 className={styles['categories_filter_header']}>Selected categories</h1>
                 <Arrow $rotate />
             </div>
             <div className={styles['categories_form_controls']}>
                 <div className={styles['form_control']}>
-                    <label htmlFor="frontend">Frontend</label>
+                    <Label for='frontend'>Frontend</Label>
                     <CustomCheckbox isChecked value={'frontend'} name='frontend' id='frontend' />
                 </div>
                 <div className={styles['form_control']}>
-                    <label htmlFor="backend">Backend</label>
-                    <input type="checkbox" id='backend' name='backend' value='backend' defaultChecked={true}/>
-                    <span className={styles['checkmark']}></span>
+                    <Label for='backend'>Backend</Label>
+                    <CustomCheckbox isChecked value={'backend'} name='backend' id='backend' />
                 </div>
                 <div className={styles['form_control']}>
-                    <label htmlFor="qa">Quality Assurance</label>
-                    <input type="checkbox" id='qa' name='qa' value='qa' defaultChecked={true}/>
-                    <span className={styles['checkmark']}></span>
+                    <Label for='qa'>Quality Assurance</Label>
+                    <CustomCheckbox isChecked value={'qa'} name='qa' id='qa' />
                 </div>
                 <div className={styles['form_control']}>
-                    <label htmlFor="infrastructure">Infrastructure</label>
-                    <input type="checkbox" id='infrastructure' value='infrastructure' defaultChecked={true}/>
-                    <span className={styles['checkmark']}></span>
+                    <Label for='infrastructure'>Infrastructure</Label>
+                    <CustomCheckbox isChecked value={'infrastructure'} name='infrastructure' id='infrastructure' />
                 </div>
             </div>
         </div>

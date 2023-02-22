@@ -10,8 +10,9 @@
     align-items: center;
 }
 
-.categories_filter_label {
+.categories_filter_header {
     font-size: 16px;
+    font-weight: normal;
     letter-spacing: 1px;
     color: #374FFE;
 }
@@ -31,8 +32,3 @@
     align-items: center;
     position: relative;
 }
-
-.form_control label {
-    margin-right: 15px;
-}
-
