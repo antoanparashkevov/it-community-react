@@ -6,7 +6,7 @@ const WorkTypeFilter = () => {
         <div className={styles['sidebar_categories_filter']}>
             <div className={styles['sidebar_categories_header_and_icon']}>
                 <label htmlFor="categories" className={styles['categories_filter_label']}>Work type</label>
-                <Arrow rotate={true} />
+                <Arrow $rotate />
             </div>
             <div className={styles['categories_form_controls']}>
                 <div className={styles['form_control']}>
