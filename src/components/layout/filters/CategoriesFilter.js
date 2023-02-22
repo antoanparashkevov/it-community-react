@@ -1,4 +1,5 @@
 import styles from './CategoriesFilter.module.css'
+import CustomCheckbox from "../../UI/CustomCheckbox";
 
 //import UI components
 import Arrow from "../../UI/BaseArrow";
@@ -13,8 +14,7 @@ const CategoriesFilter = () => {
             <div className={styles['categories_form_controls']}>
                 <div className={styles['form_control']}>
                     <label htmlFor="frontend">Frontend</label>
-                    <input type="checkbox" id='frontend' name='frontend' value='frontend' defaultChecked={true}/>
-                    <span className={styles['checkmark']}></span>
+                    <CustomCheckbox isChecked value={'frontend'} name='frontend' id='frontend' />
                 </div>
                 <div className={styles['form_control']}>
                     <label htmlFor="backend">Backend</label>

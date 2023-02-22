@@ -39,7 +39,7 @@ const TheHeader = () => {
                 {chooseButton()}
             </div>
             <div className={`${styles['navbar_links']} ${activateBar ? styles['activate_bar'] : undefined}`}>
-                <ul>
+                <ul role='list'>
                     <li className={styles['navbar_link']}>
                         <NavLink to="/posters" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavLink>
                     </li>
