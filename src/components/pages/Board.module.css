@@ -21,3 +21,13 @@ div.homepage_categories {
     column-gap: 200px;
     row-gap: 100px;
 }
+
+/* RESPONSIVE */
+
+@media (max-width: 1030px) {
+    div.homepage_categories {
+        width: auto;
+        grid-template-columns: minmax(210px, 330px);
+        grid-template-rows: repeat(4, 400px);
+    }
+}

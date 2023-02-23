@@ -2,6 +2,8 @@
 
 div.homepage_category_subcategory_wrapper {
     display: flex;
+    min-width: 120px;
+    height: 40px;
     border-radius: 15px;
     justify-content: space-around;
     align-items: center;
