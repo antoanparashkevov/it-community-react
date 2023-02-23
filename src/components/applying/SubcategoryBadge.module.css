@@ -1,0 +1,31 @@
+/* EACH SUBCATEGORY BADGE START */
+
+div.homepage_category_subcategory_wrapper {
+    display: flex;
+    border-radius: 15px;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #F4F4F4;
+}
+
+span.homepage_category_subcategory_title {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+div.homepage_category_subcategory_counter_wrapper {
+    background-color: #DBE4C7;
+    border-radius: 10px;
+    width: 50px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1.homepage_category_subcategory_counter {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+/* EACH SUBCATEGORY BADGE END */
