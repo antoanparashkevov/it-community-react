@@ -5,6 +5,8 @@
     justify-content: center;
     align-items: flex-start;
     column-gap: 30px;
+    width: 90%;
+    max-width: 1300px;
 }
 
 @media (max-width: 680px) {
@@ -22,11 +24,7 @@
 /* FLEX BOX END */
 
 /* POSTERS LIST START */
-.posters_wrapper {
-
-}
-
 .posters_list_wrapper {
-    min-width: 650px;
+    width: 100%;
 }
 /* POSTERS LIST END */

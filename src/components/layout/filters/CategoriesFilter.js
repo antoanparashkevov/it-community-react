@@ -22,7 +22,7 @@ const CategoriesFilter = () => {
                     <CustomCheckbox isChecked value={'backend'} name='backend' id='backend' />
                 </div>
                 <div className={styles['form_control']}>
-                    <Label for='qa'>Quality Assurance</Label>
+                    <Label for='qa'>QA</Label>
                     <CustomCheckbox isChecked value={'qa'} name='qa' id='qa' />
                 </div>
                 <div className={styles['form_control']}>

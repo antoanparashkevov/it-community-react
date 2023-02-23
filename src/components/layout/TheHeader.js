@@ -1,8 +1,10 @@
 import React, {useState}  from "react";
-import { NavLink } from "react-router-dom";
 import styles from './TheHeader.module.css';
-import BaseButton from "../UI/BaseButton";
 import styled from "styled-components";
+
+
+//UI components
+import { NavigationLink, NavigationLinkAsButton } from "../UI/BaseLinks";
 
 const HamburgerBar = styled.span`
         display: block;
@@ -53,7 +55,7 @@ const TheHeader = () => {
     return (
         <nav className={`${styles['navbar']} ${activateBar ? styles['navbar_mobile_height'] : undefined}`}>
             <div className={styles['navbar_title']}>
-                <NavLink to="/">IT-COMMUNITY</NavLink>
+                <NavigationLink to="/">IT-COMMUNITY</NavigationLink>
             </div>
             <div className={styles['toggle_buttons']} onClick={toggleNavbar}>
                 {chooseButton()}
@@ -61,30 +63,26 @@ const TheHeader = () => {
             <div className={`${styles['navbar_links']} ${activateBar ? styles['activate_bar'] : undefined}`}>
                 <ul role='list'>
                     <li className={styles['navbar_link']}>
-                        <NavLink to="/posters" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavLink>
+                        <NavigationLink to="/posters" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavigationLink>
                     </li>
                     <li className={styles['navbar_link']}>
-                        <NavLink to="/companies" className={({isActive})=> isActive ? 'active' : undefined}>Companies</NavLink>
+                        <NavigationLink to="/companies" className={({isActive})=> isActive ? 'active' : undefined}>Companies</NavigationLink>
                     </li>
                     <li className={styles['navbar_link']}>
-                        <BaseButton 
-                            link
+                        <NavigationLinkAsButton 
                             to="/messages"
-                            mode='flat'
                             className={({isActive})=> isActive ? 'active' : undefined}
                         >
                             Messages
-                        </BaseButton>
+                        </NavigationLinkAsButton>
                     </li>
                     <li className={styles['navbar_link']}>
-                        <BaseButton 
-                            link
+                        <NavigationLinkAsButton 
                             to="/" 
-                            mode='flat'
                             className={({isActive})=> isActive ? 'active' : undefined}
                         >
                             Sign in
-                        </BaseButton>
+                        </NavigationLinkAsButton>
                     </li>
                 </ul>
             </div>

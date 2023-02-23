@@ -1,8 +1,8 @@
 import React from "react";
 import styles from './Board.module.css'
 
-//components
-import BaseButton from "../UI/BaseButton";
+//UI components
+import { RoundedLink } from "../UI/BaseLinks";
 
 const Board = () => {
     let array = [1,2,3,4]
@@ -40,13 +40,11 @@ const Board = () => {
                           </div>
 
                           <div className={styles['homepage_category_show_all_btn_wrapper']}>
-                              <BaseButton 
-                                  link
-                                  mode='rounded' 
+                              <RoundedLink
                                   to='/posters'
                               >
                                   Show all
-                              </BaseButton>
+                              </RoundedLink>
                           </div>
                       </section>
                   </article> ) }

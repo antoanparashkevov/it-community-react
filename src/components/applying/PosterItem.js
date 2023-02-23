@@ -6,7 +6,7 @@ const PosterItem = (props) => {
             <Link to='/' className={styles['poster_list_item']}>
                 {/*TODO ON SMALL VIEW TO HIDE THE COMPANY LOGO*/}
                 <div className={styles['left_company_logo']}>
-                    <img width='98' height='40' src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Logo"/>
+                    <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
                 </div>
                 <div className={styles['right_company_info']}>
                     <header className={styles['company_info_header']}>
