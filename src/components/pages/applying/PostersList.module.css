@@ -5,8 +5,11 @@
     justify-content: center;
     align-items: flex-start;
     column-gap: 30px;
-    width: 90%;
-    max-width: 1300px;
+}
+
+.aside_wrapper {
+    width: unset;
+    height: unset;
 }
 
 @media (max-width: 680px) {

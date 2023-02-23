@@ -91,3 +91,10 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+.container {
+  width: 90%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+

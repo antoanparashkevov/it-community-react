@@ -1,0 +1,100 @@
+.job-details-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* JOB ITEM START */
+.job-item-wrapper {
+    width: 100%;
+    height: 120px;
+    margin-bottom: 30px;
+}
+
+.job-item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color:  #DDEEFF;
+}
+
+.job-item-header-applying-btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.job-item-header-title {
+    color: #595959;
+    font-size: 24px;
+}
+
+
+/* JOB ITEM END */
+
+/* JOB INFO START */
+.job-info-wrapper {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    margin-right: 30px;
+}
+
+.job-info-badge-wrapper {
+    display: flex;
+    max-height: 80px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* JOB INFO END */
+
+
+/* SIDEBAR START */
+.sidebar-wrapper {
+    width: 30%;
+}
+
+.sidebar_container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    flex-wrap: wrap;
+}
+
+.sidebar_container .sidebar_company_logo img {
+    object-fit: cover;
+}
+
+.sidebar_company_desc {
+    padding: 0.5rem;
+}
+/* SIDEBAR END */
+
+/* RESPONSIVE */
+@media screen and (max-width: 740px) {
+    .job-info-wrapper,
+    .sidebar-wrapper {
+        width: 100%;
+    }
+
+    .job-info-wrapper {
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+    
+}
+
+@media screen and (max-width: 470px) {
+    .job-info-badge-wrapper span {
+        width: 90px;
+        min-width: unset;
+    }
+    
+    .job-item-header-title {
+        font-size: 18px;
+    }
+}

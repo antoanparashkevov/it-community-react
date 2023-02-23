@@ -38,5 +38,25 @@ export const CounterBadge = styled(Badge)`
     font-weight: 700;
     font-size: 15px;
     border-radius: 30px;
-    min-width: 100px;
+    width: 100px;
+`
+
+export const RemoteBadge = styled(CounterBadge)`
+    background-color: #CEF5D9;
+    color: #127C30;
+`
+
+export const WorkCategoryBadge1 = styled(CounterBadge)`
+    background-color: #3d008d;
+    color: white;
+`
+
+export const WorkCategoryBadge2 = styled(CounterBadge)`
+    background-color: #71008d;
+    color: white;
+`
+
+export const WorkCategoryBadge3 = styled(CounterBadge)`
+    background-color: #8d006e;
+    color: white;
 `
