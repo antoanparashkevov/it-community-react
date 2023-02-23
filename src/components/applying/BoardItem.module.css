@@ -30,26 +30,6 @@ div.homepage_category_title_wrapper > h1 {
 
 /* CATEGORY HEADER END */
 
-/* CATEGORY COUNTER START */
-
-div.homepage_category_counter_wrapper {
-    width: 100px;
-    display: flex;
-    border-radius: 30px;
-    justify-content: center;
-    background: #EBF3FF;
-}
-
-div.homepage_category_counter_wrapper .homepage_category_counter {
-    font-weight: 700;
-    font-size: 15px;
-    color: #B3CE66;
-}
-
-/* CATEGORY COUNTER END */
-
-
-
 /* CATEGORY MAIN START*/
 
 section.homepage_category_main {

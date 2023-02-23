@@ -5,6 +5,9 @@ import React from "react";
 //components
 import SubcategoryBadge from "./SubcategoryBadge";
 
+//UI components
+import { CounterBadge } from "../UI/BaseBadge";
+
 const BoardItem = () => {
     let array = [1,2,3,4]
     
@@ -17,9 +20,9 @@ const BoardItem = () => {
                 <h1 className={styles['homepage_category_title']}>BACKEND DEVELOPMENT</h1>
             </div>
 
-            <div className={styles['homepage_category_counter_wrapper']}>
+            <CounterBadge $mode='one_item'>
                 <h1 className={styles['homepage_category_counter']}>1234</h1>
-            </div>
+            </CounterBadge>
         </section>
 
         <section className={styles['homepage_category_main']}>

@@ -16,13 +16,7 @@ span.homepage_category_subcategory_title {
 }
 
 div.homepage_category_subcategory_counter_wrapper {
-    background-color: #DBE4C7;
-    border-radius: 10px;
-    width: 50px;
-    height: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    
 }
 
 h1.homepage_category_subcategory_counter {
