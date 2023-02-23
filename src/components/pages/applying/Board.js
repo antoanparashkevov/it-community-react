@@ -2,10 +2,7 @@ import React from "react";
 import styles from './Board.module.css'
 
 //components
-import BoardItem from "../applying/BoardItem";
-
-//UI components
-import { RoundedLink } from "../UI/BaseLinks";
+import BoardItem from "../../applying/BoardItem";
 
 const Board = () => {
     let array = [1,2,3,4]

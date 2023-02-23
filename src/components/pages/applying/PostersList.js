@@ -1,17 +1,17 @@
 import styles from './Posters.module.css'
 
 //hooks
-import useWindowDimensions from "../../hooks/useWindowDimensions";
+import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
 //components
-import Sidebar from "../layout/filters/Sidebar";
-import BaseCard from "../UI/BaseCard";
-import PosterItem from "../applying/PosterItem";
+import Sidebar from "../../layout/filters/Sidebar";
+import BaseCard from "../../UI/BaseCard";
+import PosterItem from "../../applying/PosterItem";
 
 //UI components
 
-const Posters = () => {
-    const {width: windowWidth, height: windowHeight} = useWindowDimensions()
+const PostersList = () => {
+    const { width: windowWidth } = useWindowDimensions()
     
     let posters = [1,2,3,4]
     
@@ -30,4 +30,4 @@ const Posters = () => {
     )
 }
 
-export default Posters
+export default PostersList

@@ -4,12 +4,13 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 //Components
-import Posters from "./components/pages/Posters";
-import Companies from "./components/pages/Companies";
-import Messages from "./components/pages/Messages";
-import Board from "./components/pages/Board";
+import PostersList from "./components/pages/applying/PostersList";
+import Companies from "./components/pages/applying/Companies";
+import Messages from "./components/pages/messages/Messages";
+import Board from "./components/pages/applying/Board";
 import Root from "./components/Root";
 import Error from "./components/pages/Error";
+import PosterDetails from "./components/pages/applying/PosterDetails";
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
@@ -26,7 +27,13 @@ const routes = createBrowserRouter([
       },
       {
         path: '/posters',
-        element: <Posters/>
+        element: <PostersList/>,
+        children: [
+          // {
+          //   path : 'details/:id',
+          //   element : <PosterDetails/>
+          // }
+        ]
       },
       {
         path: '/companies',
@@ -35,6 +42,10 @@ const routes = createBrowserRouter([
       {
         path: '/messages',
         element: <Messages/>
+      },
+      {
+        path: '/details',
+        element: <PosterDetails/>
       }
     ]
   }
