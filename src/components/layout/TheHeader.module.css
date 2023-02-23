@@ -50,7 +50,7 @@
     height: 20px;
     top: 2rem;
     flex-direction: column;
-    right: 3rem;
+    right: 1rem;
     justify-content: space-between;
 }
 
@@ -85,9 +85,9 @@
     }
 }
 
-@media screen and (max-width: 776px) and (min-width: 591px) {
+@media screen and (max-width: 819px) and (min-width: 591px) {
     .navbar {
-        height: 115px;
+        height: 130px;
     }
 }
 /* HAMBURGER MENU END */
