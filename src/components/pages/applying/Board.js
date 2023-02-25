@@ -10,21 +10,17 @@ import useHttp from "../../../hooks/use-http";
 const Board = () => {
     let array = [1,2,3,4]
     const [categories, setCategories] = useState(null)
-    const {isLoading, error, sendRequest: fetchCategories} = useHttp()
+    const {isLoading, error, get: fetchCategories} = useHttp()
     
-    useEffect( () => {
-        const categoriesTransformation = (data) => {
+    useEffect(  () => {
+        const categoriesResponseConverter = (data) => {
             setCategories(data)
         }
-
-        fetchCategories(
-            {url: 'https://swapi.dev/api/people/1'},
-            categoriesTransformation
-        );
         
-        console.log('LOCAL ENVIRONMENT >>> ', process.env)
+        fetchCategories('people/1', categoriesResponseConverter);
         
-    }, [fetchCategories])
+        
+    }, [])
     
     return (
           <section className={styles['homepage_main']}>
