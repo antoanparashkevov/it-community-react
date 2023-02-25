@@ -6,7 +6,7 @@ import styled from "styled-components";
 import TheHeader from "./layout/TheHeader";
 import Footer from "./layout/Footer";
 
-const MainWrapper = styled.main`
+export const MainWrapper = styled.main`
         background-color: var(--main-bg-color);
         display: flex;
         align-items: center;
@@ -14,7 +14,7 @@ const MainWrapper = styled.main`
         padding: 2rem;
 `
 
-const FooterWrapper = styled.footer`
+export const FooterWrapper = styled.footer`
         display: flex;
         height: 270px;
         background-color: var(--footer-bg-color);

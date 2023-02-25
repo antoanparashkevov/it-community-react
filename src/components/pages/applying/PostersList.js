@@ -54,7 +54,9 @@ export async function getPosters() {
         //     isError: true,
         //     message: 'Could not fetch the data!'
         // };
-        throw new Error('Could not fetch the data!')//the Error component will be triggered
+        throw new Response(JSON.stringify({message: 'Page not found!'}), {
+            status: 500
+        })//the Error component will be triggered
     } else {
         return response;
     }
