@@ -45,9 +45,9 @@ const PostersList = () => {
 export default PostersList;
 
 
-export async function getPosters() {
+export const loader = async () => {
     
-    const response = await fetch('https://swpi.dev/api/people/1')
+    const response = await fetch('https://swapi.dev/api/people/1')
 
     if( !response.ok ) {
         //the Error component will be triggered

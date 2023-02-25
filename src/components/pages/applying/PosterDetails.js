@@ -1,14 +1,21 @@
 import styles from './PosterDetails.module.css'
-import { useParams } from "react-router-dom";
+import { json, useParams, useLoaderData } from "react-router-dom";
 
 //UI components
 import { BaseCard } from "../../UI/BaseCard";
 import { SquareButton } from "../../UI/BaseButton";
 import { RemoteBadge, WorkCategoryBadge1, WorkCategoryBadge2, WorkCategoryBadge3 } from "../../UI/BaseBadge";
+import { useEffect } from "react";
 
 const PosterDetails = () => {
     //every param segment
     const paramsObject = useParams();
+    const data = useLoaderData();
+    
+    
+    useEffect( () => {
+        console.log('Poster details ITEM >>> ', data)
+    }, [])
     
     return (
         <section className={`${styles['job-details-wrapper']} container`}>
@@ -57,3 +64,16 @@ const PosterDetails = () => {
 }
 
 export default PosterDetails;
+
+export const loader = async ({request, params}) => {
+    const response = await fetch('https://swapi.dev/api/people/' + params['posterId'])
+    
+    if( !response.ok ) {
+        throw json( 
+            { message: 'Could not fetch the poster details!' },
+            { status: 500 }    
+        )
+    } else {
+        return response;
+    }
+}
