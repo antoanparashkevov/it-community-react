@@ -4,7 +4,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 //Components
-import PostersList from "./components/pages/applying/PostersList";
+import PostersList, { getPosters } from "./components/pages/applying/PostersList";
 import Companies from "./components/pages/applying/Companies";
 import Messages from "./components/pages/messages/Messages";
 import Board from "./components/pages/applying/Board";
@@ -19,7 +19,7 @@ const routes = createBrowserRouter([
     {
         path: '/',
         element: <Root/>,
-        errorElement: <Error/>,
+        errorElement: <Error/>,//this route will be triggered whenever a loader throws an Error or when a user visits wrong URL
         children: [
             {
                 // or path: ''
@@ -29,6 +29,7 @@ const routes = createBrowserRouter([
             {
                 path: '/posters',
                 element: <PostersList/>,
+                loader: getPosters
             },
             {
               path: '/posters/details/:posterId',

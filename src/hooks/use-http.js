@@ -4,7 +4,7 @@ const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('dsa')
     
-    const sendRequest = useCallback(async (requestConfig, applyData) => {
+    const sendRequest = useCallback(async (requestConfig, applyData = () => { return null }) => {
         setIsLoading(true);
         setError(null)
         
@@ -23,7 +23,10 @@ const useHttp = () => {
 
            const data = await response.json();
            console.log('Data from use-http >>> ', data)
-           applyData(data);
+           
+           if( applyData ) {
+               applyData(data);
+           }
 
        } catch ( error ) {
             setError(error.message || 'Something went wrong!');

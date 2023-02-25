@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigation } from 'react-router-dom'
 import styled from "styled-components";
 
 //Components
@@ -21,6 +21,7 @@ const FooterWrapper = styled.footer`
 `
 
 const Root = ()=> {
+    const navigation = useNavigation()
     
     return (
         <React.Fragment>
@@ -29,6 +30,7 @@ const Root = ()=> {
             </header>
             
             <MainWrapper>
+                {navigation.state === 'loading' && <p>Loading...</p>}
                 <Outlet />
             </MainWrapper>
             
