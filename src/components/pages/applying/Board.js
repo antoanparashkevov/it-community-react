@@ -22,6 +22,8 @@ const Board = () => {
             categoriesTransformation
         );
         
+        console.log('LOCAL ENVIRONMENT >>> ', process.env)
+        
     }, [fetchCategories])
     
     return (
