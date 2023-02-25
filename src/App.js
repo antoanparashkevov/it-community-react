@@ -16,41 +16,36 @@ import PosterDetails from "./components/pages/applying/PosterDetails";
 //or simply we register our routes here
 
 const routes = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root/>,
-    errorElement: <Error/>,
-    children: [
-      {
-        index: true,
-        element: <Board/>
-      },
-      {
-        path: '/posters',
-        element: <PostersList/>,
+    {
+        path: '/',
+        element: <Root/>,
+        errorElement: <Error/>,
         children: [
-          // {
-          //   path : 'details/:id',
-          //   element : <PosterDetails/>
-          // }
+            {
+                // or path: ''
+                index: true,//it's the default route that should be display if the root path is active (/)
+                element: <Board/>
+            },
+            {
+                path: '/posters',
+                element: <PostersList/>,
+            },
+            {
+              path: '/posters/details/:posterId',
+              element: <PosterDetails/>          
+            },
+            {
+                path: '/companies',
+                element: <Companies/>
+            },
+            {
+                path: '/messages',
+                element: <Messages/>
+            },
         ]
-      },
-      {
-        path: '/companies',
-        element: <Companies/>
-      },
-      {
-        path: '/messages',
-        element: <Messages/>
-      },
-      {
-        path: '/details',
-        element: <PosterDetails/>
-      }
-    ]
-  }
-])
-
+    }
+]);
+    
 function App() {
       //register the list of routes
       return <RouterProvider router={routes}/>

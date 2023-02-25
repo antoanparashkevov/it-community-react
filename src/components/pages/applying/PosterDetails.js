@@ -1,4 +1,5 @@
 import styles from './PosterDetails.module.css'
+import { useParams } from "react-router-dom";
 
 //UI components
 import { BaseCard } from "../../UI/BaseCard";
@@ -6,8 +7,12 @@ import { SquareButton } from "../../UI/BaseButton";
 import { RemoteBadge, WorkCategoryBadge1, WorkCategoryBadge2, WorkCategoryBadge3 } from "../../UI/BaseBadge";
 
 const PosterDetails = () => {
+    //every param segment
+    const paramsObject = useParams();
+    
     return (
         <section className={`${styles['job-details-wrapper']} container`}>
+            <p>Poster id {paramsObject.posterId}</p>
             <header className={styles['job-item-wrapper']}>
                 <BaseCard className={styles['job-item-container']}>
                     <div className={styles['job-item-header-applying-btn']}>
