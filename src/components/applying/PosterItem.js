@@ -3,7 +3,7 @@ import styles from "../applying/PosterItem.module.css";
 
 const PosterItem = (props) => {
     return (
-            <Link to='/posters/details/1' className={styles['poster_list_item']}>
+            <Link to='1' className={styles['poster_list_item']}>
                 <div className={styles['left_company_logo']}>
                     <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
                 </div>

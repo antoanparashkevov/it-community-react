@@ -1,5 +1,5 @@
 import styles from './PosterDetails.module.css'
-import { json, useParams, useLoaderData } from "react-router-dom";
+import { json, Link, useParams, useRouteLoaderData } from "react-router-dom";
 
 //UI components
 import { BaseCard } from "../../UI/BaseCard";
@@ -10,11 +10,11 @@ import { useEffect } from "react";
 const PosterDetails = () => {
     //every param segment
     const paramsObject = useParams();
-    const data = useLoaderData();
+    const data = useRouteLoaderData('poster-details');
     
     
     useEffect( () => {
-        console.log('Poster details ITEM >>> ', data)
+        console.log('Data from Poster Details component >>> ', data)
     }, [])
     
     return (
@@ -24,7 +24,7 @@ const PosterDetails = () => {
                 <BaseCard className={styles['job-item-container']}>
                     <div className={styles['job-item-header-applying-btn']}>
                         <h1 className={styles['job-item-header-title']}>Senior .NET</h1>
-                        <SquareButton>Apply now</SquareButton>
+                        <SquareButton as={Link} to='apply'>Apply now</SquareButton>
                     </div>
                     <RemoteBadge $mode='one_item'>Remote</RemoteBadge>
                 </BaseCard>
@@ -74,6 +74,7 @@ export const loader = async ({request, params}) => {
             { status: 500 }    
         )
     } else {
-        return response;
+        const data = await response.json();
+        return data.name;
     }
 }

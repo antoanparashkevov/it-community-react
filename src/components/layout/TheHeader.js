@@ -63,14 +63,14 @@ const TheHeader = () => {
             <div className={`${styles['navbar_links']} ${activateBar ? styles['activate_bar'] : undefined}`}>
                 <ul role='list'>
                     <li className={styles['navbar_link']}>
-                        <NavigationLink to="/posters" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavigationLink>
+                        <NavigationLink to="posters" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavigationLink>
                     </li>
                     <li className={styles['navbar_link']}>
-                        <NavigationLink to="/companies" className={({isActive})=> isActive ? 'active' : undefined}>Companies</NavigationLink>
+                        <NavigationLink to="companies" className={({isActive})=> isActive ? 'active' : undefined}>Companies</NavigationLink>
                     </li>
                     <li className={styles['navbar_link']}>
                         <NavigationLinkAsButton 
-                            to="/messages"
+                            to="messages"
                             className={({isActive})=> isActive ? 'active' : undefined}
                         >
                             Messages
@@ -78,7 +78,7 @@ const TheHeader = () => {
                     </li>
                     <li className={styles['navbar_link']}>
                         <NavigationLinkAsButton 
-                            to="/details" 
+                            to="/" 
                             className={({isActive})=> isActive ? 'active' : undefined}
                         >
                             Sign in

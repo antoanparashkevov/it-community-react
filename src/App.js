@@ -8,18 +8,19 @@ import PostersList, { loader as postersLoader } from "./components/pages/applyin
 import Companies from "./components/pages/applying/Companies";
 import Messages from "./components/pages/messages/Messages";
 import Board from "./components/pages/applying/Board";
-import Root from "./components/Root";
-import Error from "./components/pages/Error";
+import RootLayout from "./components/Root";
+import ErrorPage from "./components/pages/Error";
 import PosterDetails, { loader as posterDetailsLoader } from "./components/pages/applying/PosterDetails";
+import Applying from "./components/pages/applying/Applying";
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
 
 const routes = createBrowserRouter([
-    {
+    { 
         path: '/',
-        element: <Root/>,
-        errorElement: <Error/>,//this route will be triggered whenever a loader throws an Error or when a user visits wrong URL
+        element: <RootLayout/>,
+        errorElement: <ErrorPage/>,//this route will be triggered whenever a loader throws an Error or when a user visits wrong URL
         children: [
             {
                 // or path: ''
@@ -27,21 +28,37 @@ const routes = createBrowserRouter([
                 element: <Board/>
             },
             {
-                path: '/posters',
-                element: <PostersList/>,
-                loader: postersLoader
+                path: 'posters',
+                id: 'posters',
+                loader: postersLoader,
+                children: [
+                    {
+                        index: true,
+                        element: <PostersList/>,
+                    },
+                    {
+                        path: ':posterId',
+                        id: 'poster-details',
+                        loader: posterDetailsLoader,
+                        children: [
+                            {
+                               index: true,
+                               element: <PosterDetails/>
+                            },
+                            {
+                                path: 'apply',
+                                element: <Applying/>   
+                            }
+                        ],
+                    },
+                ]
             },
             {
-                path: '/posters/details/:posterId',
-                element: <PosterDetails/>,
-                loader: posterDetailsLoader
-            },
-            {
-                path: '/companies',
+                path: 'companies',
                 element: <Companies/>
             },
             {
-                path: '/messages',
+                path: 'messages',
                 element: <Messages/>
             },
         ]

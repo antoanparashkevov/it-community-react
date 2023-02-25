@@ -20,7 +20,7 @@ export const FooterWrapper = styled.footer`
         background-color: var(--footer-bg-color);
 `
 
-const Root = ()=> {
+const RootLayout = ()=> {
     const navigation = useNavigation()
     
     return (
@@ -41,4 +41,4 @@ const Root = ()=> {
     )
 }
 
-export default Root;
+export default RootLayout;
