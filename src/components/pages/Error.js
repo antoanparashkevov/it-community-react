@@ -19,10 +19,10 @@ const ErrorPage = () => {
     const errorResponse = useRouteError();
     
     let title = 'An error occurred!';
-    let message = 'Page not found'
+    let message;
     
     if(errorResponse.status === 404) {
-        message = JSON.parse(errorResponse.data).message
+        message = errorResponse.data.message
     } else if (errorResponse.status === 500) {
         message = 'Internal server error!'
     }
