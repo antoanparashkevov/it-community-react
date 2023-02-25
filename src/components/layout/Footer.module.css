@@ -23,12 +23,12 @@
     display: inline-block;
     width: 16px;
     height: 16px;
-    background-color: #DBE4C7;
+    background-color: var(--lighter-green-color);
     border-radius: 100%;
 }
 
 .footer_header h1 {
-    color: #304FFE;
+    color: var(--blue-text-color);
     font-size: 24px;
     font-weight: 700;
 }
@@ -37,14 +37,14 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    color: #213294;
+    color: var(--blue-text-color);
 }
 
 .footer_column .bar {
     display: block;
     width: 40px;
-    border: 3px solid #304FFE;
-    background-color: #304FFE;
+    border: 3px solid var(--blue-bg-color);
+    background-color: var(--blue-bg-color);
 }
 
 .footer_column:nth-child(1) {
@@ -67,7 +67,7 @@
     }
     
     .footer_column .footer_column_content h1 {
-        font-size: 15px;
+        font-size: var(--title-font-size);
     }
 }
 

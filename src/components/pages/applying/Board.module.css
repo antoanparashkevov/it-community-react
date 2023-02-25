@@ -9,7 +9,7 @@ section.homepage_main {
     margin-top: 50px;
     margin-bottom: 58px;
     border-radius: 15px;
-    background-color: #FFFFFF;
+    background-color: var(--header-bg-color);
 }
 
 div.homepage_categories {

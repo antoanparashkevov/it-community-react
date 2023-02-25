@@ -4,14 +4,14 @@
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    background-color: #FFFFFF;
+    background-color: var(--header-bg-color);
     box-shadow: inset 0 4px 9px rgba(0, 0, 0, 0.25);
     text-transform: uppercase;
     height: 90px;
 }
 
 .navbar_title {
-    color: #304FFE;
+    color: var(--blue-bg-color);
     font-size: 24px;
     font-weight: 700;
     margin: 0.5rem;
@@ -27,7 +27,7 @@
 
 .navbar_links li:nth-child(1) a,
 .navbar_links li:nth-child(2) a {
-    color: #595959;
+    color: var(--gray-color);
 }
 
 .navbar_links ul li a {

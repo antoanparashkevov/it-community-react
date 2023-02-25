@@ -6,9 +6,9 @@ const Button = styled.button`
     text-decoration: none;
     padding: 0.75rem 1.75rem;
     font:inherit;
-    background-color: ${props=>props.className === 'outline' ? 'transparent' : props.className === 'rounded' ? '#304FFE' : props.className === 'flat' ? '#EBF3FF' : props.className === 'square' ? '#4d4ae8' : '#3a0061'};
+    background-color: ${props=>props.className === 'outline' ? 'transparent' : props.className === 'rounded' ? 'var(--blue-bg-color)' : props.className === 'flat' ? 'var(--nav-btn-bg-color)' : props.className === 'square' ? '#4d4ae8' : '#3a0061'};
     border: ${props=>props.className === 'outline' ? '1px solid #270041' : props.className === 'rounded' ? 'none' : props.className === 'flat' ? 'none' : props.className === 'square' ? '1px solid #4D4AE8' : '1px solid #3a0061'};
-    color:${props=> props.className === 'outline' ? '#270041' : props.className === 'rounded' ? '#FFFFFF' : props.className === 'flat' ? '#304FFE' : '#FFFFFF'};
+    color:${props=> props.className === 'outline' ? '#270041' : props.className === 'rounded' ? 'var(--header-bg-color)' : props.className === 'flat' ? 'var(--blue-bg-color)' : 'var(--header-bg-color)'};
     cursor: pointer;
     border-radius: ${props=>props.className === 'outline' ? '30px' : props.className === 'rounded' ? '50px' : props.className === 'flat' ? '5px' : props.className === 'square' ? '1rem' : '30px'};
     margin-right: 0.5rem;
@@ -27,7 +27,7 @@ const Button = styled.button`
     
     &:active,
     &:hover {
-        background-color: ${props=>props.className === 'outline' ? '#edd2ff' : props.className === 'rounded' ? '#233CC8' : props.className === 'flat' ? '#DAE9FF' : props.className === 'square' ? '#3733E5' : '#3a0061'};
+        background-color: ${props=>props.className === 'outline' ? '#edd2ff' : props.className === 'rounded' ? 'var(--purple-bg-color)' : props.className === 'flat' ? 'var(--nav-hover-btn-bg-color)' : props.className === 'square' ? '#3733E5' : '#3a0061'};
         border: ${props=>props.className === 'outline' ? '1px solid #270041' : props.className === 'rounded' ? 'none' : props.className === 'flat' ? 'none' : props.className === 'square' ? '1px solid #3733E5' : '1px solid #3a0061'};
     }
     
@@ -50,22 +50,22 @@ const StyledLink = styled(NavigationLink)`
     text-decoration: none;
     padding: 0.75rem 1.75rem;
     font:inherit;
-    background-color: ${props=>props.className === 'outline' ? 'transparent' : props.className === 'rounded' ? '#304FFE' : props.className === 'flat' ? '#EBF3FF' : '#3a0061'};
+    background-color: ${props=>props.className === 'outline' ? 'transparent' : props.className === 'rounded' ? 'var(--blue-bg-color)' : props.className === 'flat' ? 'var(--nav-btn-bg-color)' : '#3a0061'};
     border: ${props=>props.className === 'outline' ? '1px solid #270041' : props.className === 'rounded' ? 'none' : props.className === 'flat' ? 'none' : '1px solid #3a0061'};
-    color:${props=> props.className === 'outline' ? '#270041' : props.className === 'rounded' ? '#FFFFFF' : props.className === 'flat' ? '#304FFE' : '#FFFFFF'};
+    color:${props=> props.className === 'outline' ? '#270041' : props.className === 'rounded' ? 'var(--header-bg-color)' : props.className === 'flat' ? 'var(--blue-bg-color)' : 'var(--header-bg-color)'};
     cursor: pointer;
     border-radius: ${props=>props.className === 'outline' ? '30px' : props.className === 'rounded' ? '50px' : props.className === 'flat' ? '5px' : '30px'};
     margin-right: 0.5rem;
 
     &:active,
     &:hover {
-        background-color: ${props=>props.className === 'outline' ? '#edd2ff' : props.className === 'rounded' ? '#233CC8' : props.className === 'flat' ? '#DAE9FF' : '#3a0061'};
+        background-color: ${props=>props.className === 'outline' ? '#edd2ff' : props.className === 'rounded' ? 'var(--purple-bg-color)' : props.className === 'flat' ? 'var(--nav-hover-btn-bg-color)' : '#3a0061'};
         border: ${props=>props.className === 'outline' ? '1px solid #270041' : props.className === 'rounded' ? 'none' : props.className === 'flat' ? 'none' : '1px solid #3a0061'};
         opacity: .95;
     }
     
     .active {
-        background-color: ${props=>props.className === 'outline' ? '#edd2ff' : props.className === 'rounded' ? '#233CC8' : props.className === 'flat' ? '#DAE9FF' : '#3a0061'};
+        background-color: ${props=>props.className === 'outline' ? '#edd2ff' : props.className === 'rounded' ? 'var(--purple-bg-color)' : props.className === 'flat' ? 'var(--nav-hover-btn-bg-color)' : '#3a0061'};
     }
 `
 

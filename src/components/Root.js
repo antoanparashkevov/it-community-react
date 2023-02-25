@@ -7,7 +7,7 @@ import TheHeader from "./layout/TheHeader";
 import Footer from "./layout/Footer";
 
 const MainWrapper = styled.main`
-        background-color: #F2F2F2;
+        background-color: var(--main-bg-color);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -17,7 +17,7 @@ const MainWrapper = styled.main`
 const FooterWrapper = styled.footer`
         display: flex;
         height: 270px;
-        background-color: #EBEBEB;
+        background-color: var(--footer-bg-color);
 `
 
 const Root = ()=> {

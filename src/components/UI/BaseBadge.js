@@ -6,7 +6,7 @@ export const Badge = styled.span`
     height: 40px;
     border-radius: 15px;
     align-items: center;
-    background-color: ${props=> props.bgColor ? props.bgColor : '#F4F4F4'};
+    background-color: ${props=> props.bgColor ? props.bgColor : 'var(--darker-gray-color)'};
     
     ${ (props) => {
         switch ( props['$mode'] ) {
@@ -33,10 +33,10 @@ export const Badge = styled.span`
 `
 
 export const CounterBadge = styled(Badge)`
-    background: #EBF3FF;
-    color: #B3CE66;
+    background: var(--nav-btn-bg-color);
+    color: var(--green-text-color);
     font-weight: 700;
-    font-size: 15px;
+    font-size: var(--title-font-size);
     border-radius: 30px;
     width: 100px;
 `

@@ -5,7 +5,7 @@
 }
 
 .sidebar_salary_filter .sidebar_salary_header {
-    font-size: 15px;
+    font-size: var(--title-font-size);
     font-weight: 700;
     letter-spacing: 1px;
 }

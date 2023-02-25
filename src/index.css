@@ -11,6 +11,31 @@ body {
   font-size: 14px;
 }
 
+:root {
+  --main-font-size: 14px;
+  --title-font-size: 15px;
+  /* COLORS */
+  --header-bg-color: #FFFFFF;
+  --main-bg-color: #F2F2F2;
+  --footer-bg-color: #EBEBEB;
+  /* BLUE */
+  --blue-text-color: #213294;
+  --ligher-blue-color: #DDEEFF;
+  --nav-btn-bg-color: #EBF3FF;
+  --nav-hover-btn-bg-color: #DAE9FF;
+  --blue-bg-color: #304FFE;
+  --purple-bg-color: #233CC8;
+  /* GREEN */
+  --lighter-green-color: #DBE4C7;
+  --light-green-color: #8fbc8f;
+  --green-text-color: #B3CE66;
+  --darker-green-color: #556b2f;
+  /* GRAY */
+  --gray-color: #595959;
+  --darker-gray-color: #F4F4F4;
+  --lighter-gray-color: rgba(242, 242, 242, 0.5);
+}
+
 /* Box sizing rules */
 *,
 *::before,

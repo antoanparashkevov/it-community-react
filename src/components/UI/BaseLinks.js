@@ -22,19 +22,19 @@ export const NavigationLink = styled(NavLink)`
 `
 
 export const NavigationLinkAsButton = styled(NavigationLink)`
-    background-color: #EBF3FF;
-    color: #304FFE;
+    background-color: var(--nav-btn-bg-color);
+    color: var(--blue-text-color);
 
     &:active,
     &:hover {
-        background-color: #DAE9FF;
+        background-color: var(--nav-hover-btn-bg-color);
         border: none;
         opacity: .95;
     }
 
     &.active {
         font-weight: 700;
-        background-color: #DAE9FF;
+        background-color: var(--nav-hover-btn-bg-color);
     }
 `
 
@@ -47,14 +47,14 @@ export const StyledLink = styled(Link)`
 `
 
 export const RoundedLink = styled(StyledLink)`
-    background-color: #304FFE;
+    background-color: var(--blue-text-color);
     border: none;
     border-radius: 50px;
-    color: #FFFFFF;
+    color: var(--header-bg-color);
 
     &:active,
     &:hover {
-        background-color: #233CC8;
+        background-color: var(--purple-bg-color);
         border: none;
     }
 `

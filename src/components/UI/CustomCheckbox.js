@@ -4,7 +4,7 @@ import React from "react";
 const Checkmark = styled.span`
     width: 25px;
     height: 25px;
-    background-color: #F2F2F2;
+    background-color: var(--main-bg-color);
     border: 1px solid #000000;
     
     &:after {

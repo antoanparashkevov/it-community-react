@@ -7,7 +7,7 @@ export const Button = styled.button`
     padding: 0.75rem 1.75rem;
     background-color: #3a0061;
     border: 1px solid #3a0061;
-    color: #FFFFFF;
+    color: var(--header-bg-color);
     cursor: pointer;
     border-radius: 30px;
     margin-right: 0.5rem;
@@ -29,27 +29,27 @@ export const OutlineButton = styled(Button)`
 `
 
 export const RoundedButton = styled(Button)`
-    background-color: #304FFE;
+    background-color: var(--blue-bg-color);
     border: none;
     border-radius: 50px;
-    color: #FFFFFF;
+    color: var(--header-bg-color);
     
     &:active,
     &:hover {
-        background-color: #233CC8;
+        background-color: var(--purple-bg-color);
         border: none;
     }
 `
 
 export const FlatButton = styled(Button)`
-    background-color: #EBF3FF;
+    background-color: var(--nav-btn-bg-color);
     border: none;
     border-radius: 5px;
-    color: #304FFE;
+    color: var(--blue-bg-color);
 
     &:active,
     &:hover {
-        background-color: #DAE9FF;
+        background-color: var(--nav-hover-btn-bg-color);
         border: none;
     }
 `

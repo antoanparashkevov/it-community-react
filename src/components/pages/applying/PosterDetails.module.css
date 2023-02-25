@@ -16,7 +16,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    background-color:  #DDEEFF;
+    background-color:  var(--ligher-blue-color);
 }
 
 .job-item-header-applying-btn {
@@ -27,7 +27,7 @@
 }
 
 .job-item-header-title {
-    color: #595959;
+    color: var(--gray-color);
     font-size: 24px;
 }
 

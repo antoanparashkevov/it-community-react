@@ -14,7 +14,7 @@ section.homepage_category_header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    font-size: 15px;
+    font-size: var(--title-font-size);
     font-weight: 700;
     text-transform: unset;
 }

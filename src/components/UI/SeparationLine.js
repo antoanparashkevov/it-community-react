@@ -5,7 +5,7 @@ const SeparationLine = styled.span`
     display: block;
     width: 100%;
     height: ${props=> props['height'] ? props['height'] : '3px'};
-    background-color: ${props => props['bgColor'] ? props['bgColor'] : '#F2F2F2'};
+    background-color: ${props => props['bgColor'] ? props['bgColor'] : 'var(--main-bg-color)'};
     transform: rotate(${props => props['degrees'] ? props['degrees'] : 0});
     border-radius: 3px;
 `
