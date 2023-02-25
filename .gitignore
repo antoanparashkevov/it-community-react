@@ -24,3 +24,7 @@ yarn-error.log*
 
 # IDE
 .idea
+
+# ENVIRONMENTS
+.env*.local
+

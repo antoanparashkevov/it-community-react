@@ -1,5 +1,8 @@
 import { useRouteLoaderData } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+
+//components
+import ApplyForm from "../../applying/ApplyForm";
 
 const Applying = () => {
     const data = useRouteLoaderData('poster-details')
@@ -9,7 +12,10 @@ const Applying = () => {
     }, [])
     
     return (
-        <h1>Applying page</h1>
+        <React.Fragment>
+            <h1>Applying page</h1>
+            <ApplyForm />
+        </React.Fragment>
     )
 }
 

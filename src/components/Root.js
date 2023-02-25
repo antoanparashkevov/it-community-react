@@ -9,6 +9,7 @@ import Footer from "./layout/Footer";
 export const MainWrapper = styled.main`
         background-color: var(--main-bg-color);
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 2rem;
