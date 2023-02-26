@@ -1,9 +1,3 @@
-.sidebar_categories_filter {
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
 .sidebar_categories_header_and_icon {
     display: flex;
     justify-content: space-between;

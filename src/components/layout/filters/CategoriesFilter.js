@@ -1,18 +1,23 @@
+import { useState } from "react";
 import styles from './CategoriesFilter.module.css'
 
 //import UI components
-import Arrow from "../../UI/BaseArrow";
 import CustomCheckbox from "../../UI/CustomCheckbox";
 import Label from "../../UI/Label";
+import { FilterContentWrapper } from "./FilterContentWrapper";
+import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 
 const CategoriesFilter = () => {
+    const [isExpanded, setIsExpanded] = useState(true)
+    
+    const checkIsExpanded = (data) =>{
+        setIsExpanded(data);
+    }
+    
     return (
-        <div className={styles['sidebar_categories_filter']}>
-            <div className={styles['sidebar_categories_header_and_icon']}>
-                <h1 className={styles['categories_filter_header']}>Selected categories</h1>
-                <Arrow $rotate />
-            </div>
-            <div className={styles['categories_form_controls']}>
+        <FilterContentWrapper>
+            <StyledFilterHeaderIconWrapper title={'Selected Categories'} onExpanded={checkIsExpanded} />
+            {isExpanded && <div className={styles['categories_form_controls']}>
                 <div className={styles['form_control']}>
                     <Label for='frontend'>Frontend</Label>
                     <CustomCheckbox isChecked value={'frontend'} name='frontend' id='frontend' />
@@ -29,8 +34,8 @@ const CategoriesFilter = () => {
                     <Label for='infrastructure'>Infrastructure</Label>
                     <CustomCheckbox isChecked value={'infrastructure'} name='infrastructure' id='infrastructure' />
                 </div>
-            </div>
-        </div>
+            </div>}
+        </FilterContentWrapper>
     )
 }
 

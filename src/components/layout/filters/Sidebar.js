@@ -11,7 +11,6 @@ import WorkTypeFilter from "./WorkTypeFilter";
 
 const Sidebar = () => {
    return ( <aside className={styles['sidebar']}>
-        <div className={styles['sidebar_filters']}>
             <CategoriesFilter />
             <SeparationLine/>
             <SeniorityFilter />
@@ -19,7 +18,6 @@ const Sidebar = () => {
             <WorkTypeFilter />
             <SeparationLine/>
             <SalaryFilter />
-        </div>
     </aside>
    )
 }

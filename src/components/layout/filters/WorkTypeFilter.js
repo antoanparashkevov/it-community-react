@@ -1,18 +1,23 @@
 import styles from './WorkTypeFilter.module.css'
+import { useState } from "react";
 
 //import UI components
-import Arrow from "../../UI/BaseArrow";
 import CustomCheckbox from "../../UI/CustomCheckbox";
 import Label from "../../UI/Label";
+import { FilterContentWrapper } from "./FilterContentWrapper";
+import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 
 const WorkTypeFilter = () => {
+    const [isExpanded, setIsExpanded] = useState(true)
+
+    const checkIsExpanded = (data) =>{
+        setIsExpanded(data);
+    }
+
     return (
-        <div className={styles['sidebar_categories_filter']}>
-            <div className={styles['sidebar_categories_header_and_icon']}>
-                <label htmlFor="categories" className={styles['categories_filter_label']}>Work type</label>
-                <Arrow $rotate />
-            </div>
-            <div className={styles['categories_form_controls']}>
+        <FilterContentWrapper>
+            <StyledFilterHeaderIconWrapper title='Work type' onExpanded={checkIsExpanded} />
+            {isExpanded && <div className={styles['categories_form_controls']}>
                 <div className={styles['form_control']}>
                     <Label for='office'>Office</Label>
                     <CustomCheckbox isChecked value={'office'} name='office' id='office' />
@@ -25,8 +30,8 @@ const WorkTypeFilter = () => {
                     <Label for='hybrid'>Hybrid</Label>
                     <CustomCheckbox isChecked value={'hybrid'} name='hybrid' id='hybrid' />
                 </div>
-            </div>
-        </div>
+            </div>}
+        </FilterContentWrapper>
     )
 }
 
