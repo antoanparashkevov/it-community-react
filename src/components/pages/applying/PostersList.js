@@ -1,4 +1,5 @@
 import styles from './PostersList.module.css'
+import { useEffect, useState } from "react";
 
 //hooks
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
@@ -8,13 +9,27 @@ import { json, useLoaderData } from "react-router-dom";
 import Sidebar from "../../layout/filters/Sidebar";
 import { BaseCard } from "../../UI/BaseCard";
 import PosterItem from "../../applying/PosterItem";
-import { useEffect } from "react";
 
 //UI components
 
 const PostersList = () => {
     const { width: windowWidth } = useWindowDimensions()
-    const posters = useLoaderData();
+    // const posters = useLoaderData();
+    const [posters, setPosters] = useState([
+        {
+            jobName: 'Full-Stack Developer',
+            workType: 'office',
+            date: '15-02-2022',
+            category: ['FullStack', 'Frontend'],
+            subCat: ['.NET', 'Vue'],
+            seniority: 'senior',
+            salary: 2000,
+            location:  {
+                country: 'Bulgaria',
+                city: 'Sofia'
+            }
+        }
+    ])
     
     // if (posters.isError) {
     //     return <p>Error occurred! {posters.message}</p>
@@ -24,9 +39,6 @@ const PostersList = () => {
         console.log('Posters >>> ', posters)
     }, [])
     
-    
-    let postersArray = [1,2,3,4]
-    
     return (
         <section className={`${styles['posters_container']} container`}>
             {/*TODO set hide prop dynamically*/}
@@ -34,8 +46,8 @@ const PostersList = () => {
                 <Sidebar />
             </BaseCard>
             <div className={styles['posters_list_wrapper']}>
-                { postersArray.map( (item, index) => 
-                  <PosterItem key={index} />
+                { posters.map( (job, index) => 
+                  <PosterItem key={index} job={job}/>
                 ) }
             </div>
         </section>

@@ -1,24 +1,43 @@
 import { Link } from "react-router-dom";
 import styles from "../applying/PosterItem.module.css";
 
-const PosterItem = (props) => {
+
+//hooks
+import useFormatDate from "../../hooks/use-format-date";
+import { useEffect } from "react";
+
+const PosterItem = ({ job }) => {
+    const { formattedDate } = useFormatDate(job.date, 'D.MS')
+    
+    const SalaryBadge = () => {
+        if( job.salary && !isNaN(job.salary) ) {
+            return (
+                <div className={styles['company_info_salary_wrapper']}>
+                    <span>{ job.salary }$</span>
+                </div>
+            )
+        }
+    }
+    
+    useEffect( () => {
+        console.log('formattedDate', formattedDate)
+    }, [])
+    
     return (
-            <Link to='1' className={styles['poster_list_item']}>
+            <Link to={ job['_id'] || '1' } className={styles['poster_list_item']}>
                 <div className={styles['left_company_logo']}>
                     <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
                 </div>
                 <div className={styles['right_company_info']}>
                     <header className={styles['company_info_header']}>
-                        <h1 className={styles['company_info_name']}>Full-Stack Developer</h1>
-                        <time className={styles['company_info_date']}>10.Feb</time>
+                        <h1 className={styles['company_info_name']}>{ job.jobName }</h1>
+                        <time className={styles['company_info_date']}>{ formattedDate }</time>
                     </header>
                     <section className={styles['company_info_additional_info']}>
                         <div className={styles['company_info_city_wrapper']}>
-                            <address className={styles['company_info_city']}>Sofia city</address>
+                            <address className={styles['company_info_city']}>{ job.location.city } city</address>
                         </div>
-                        <div className={styles['company_info_salary_wrapper']}>
-                            <span>1200$</span>
-                        </div>
+                        <SalaryBadge />
                         <div className={styles['company_info_right_arrow']}>
                             <img src="https://dev.bg/wp-content/themes/jobsdevbg/images/arrow-right-black.svg" alt="right_arrow"/>
                         </div>

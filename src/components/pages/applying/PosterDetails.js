@@ -5,11 +5,35 @@ import { json, Link, useParams, useRouteLoaderData } from "react-router-dom";
 import { BaseCard } from "../../UI/BaseCard";
 import { SquareButton } from "../../UI/BaseButton";
 import { RemoteBadge, WorkCategoryBadge1, WorkCategoryBadge2, WorkCategoryBadge3 } from "../../UI/BaseBadge";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const PosterDetails = () => {
     //every param segment
     const paramsObject = useParams();
+    const [job, setJob] = useState({
+        jobName: 'Full-Stack Developer',
+        workType: 'office',
+        date: '15-02-2022',
+        category: ['FullStack', 'Frontend'],
+        subCat: ['.NET', 'Vue'],
+        seniority: 'senior',
+        salary: 2000,
+        desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet, aut autem culpa\n' +
+            '                            cumque eligendi et facilis fugit ipsam magni maiores nesciunt numquam quod quos recusandae\n' +
+            '                            sequi sint totam veritatis.Lorem ipsum dolor sit amet, consectetur adipisicing elit.\n' +
+            '                            Asperiores blanditiis debitis dignissimos dolores ea eligendi enim eos ex illo, laborum,\n' +
+            '                            nesciunt odio quod quos reiciendis repudiandae similique temporibus ullam. Commodi.',
+        location:  {
+        country: 'Bulgaria',
+            city: 'Sofia'
+        }
+    })
+    const [company, setCompany] = useState({
+        name: 'Onthill',
+        desc: 'Lorem ipsum dolor sit amet.',
+        foundationYear: 2022,
+        employees: 102
+    })
     const data = useRouteLoaderData('poster-details');
     
     
@@ -19,31 +43,26 @@ const PosterDetails = () => {
     
     return (
         <section className={`${styles['job-details-wrapper']} container`}>
-            <p>Poster id {paramsObject.posterId}</p>
             <header className={styles['job-item-wrapper']}>
                 <BaseCard className={styles['job-item-container']}>
                     <div className={styles['job-item-header-applying-btn']}>
-                        <h1 className={styles['job-item-header-title']}>Senior .NET</h1>
+                        <h1 className={styles['job-item-header-title']}>{ job.jobName }</h1>
                         <SquareButton as={Link} to='apply'>Apply now</SquareButton>
                     </div>
-                    <RemoteBadge $mode='one_item'>Remote</RemoteBadge>
+                    <RemoteBadge $mode='one_item' className={styles['remote-badge']}>{ job.workType }</RemoteBadge>
                 </BaseCard>
             </header>
             
             <div className={styles['job-info-wrapper']}>
                 
                 <BaseCard className={styles['job-info-badge-wrapper']}>
-                        <WorkCategoryBadge1 $mode='one_item'>Badge 1</WorkCategoryBadge1>
-                        <WorkCategoryBadge2 $mode='one_item'>Badge 2</WorkCategoryBadge2>
-                        <WorkCategoryBadge3 $mode='one_item'>Badge 3</WorkCategoryBadge3>
+                    {job.subCat.map((category, index) => 
+                        <WorkCategoryBadge1 $mode='one_item' key={index}>{category}</WorkCategoryBadge1>
+                    )}
                 </BaseCard>
                 
                 <BaseCard className={styles['job-info-desc-wrapper']}>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet, aut autem culpa
-                            cumque eligendi et facilis fugit ipsam magni maiores nesciunt numquam quod quos recusandae
-                            sequi sint totam veritatis.Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Asperiores blanditiis debitis dignissimos dolores ea eligendi enim eos ex illo, laborum,
-                            nesciunt odio quod quos reiciendis repudiandae similique temporibus ullam. Commodi.</p>
+                        <p>{job.desc}</p>
                 </BaseCard>
             </div>
             
@@ -52,10 +71,11 @@ const PosterDetails = () => {
                     <div className={styles['sidebar_company_logo']}>
                         <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
                     </div>
+                    <div className={styles['sidebar_company_title']}>
+                        <p className={styles['sidebar_company_desc_para']}>{ company.name }</p>
+                    </div>
                     <div className={styles['sidebar_company_desc']}>
-                        <p className={styles['sidebar_company_desc_para']}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad aliquid delectus
-                            dignissimos dolorem doloremque doloribus eaque excepturi, exercitationem illum ipsa modi
-                            necessitatibus numquam quas, quis quos, ratione similique ullam.</p>
+                        <p className={styles['sidebar_company_desc_para']}>{ company.desc }</p>
                     </div>
                 </BaseCard>
             </aside>

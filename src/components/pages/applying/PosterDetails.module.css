@@ -31,6 +31,10 @@
     font-size: 24px;
 }
 
+.remote-badge {
+    text-transform: capitalize;
+}
+
 
 /* JOB ITEM END */
 
@@ -67,6 +71,11 @@
 
 .sidebar_container .sidebar_company_logo img {
     object-fit: cover;
+}
+
+.sidebar_company_title {
+    font-weight: 700;
+    font-size: 20px;
 }
 
 .sidebar_company_desc {
