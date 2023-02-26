@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 //components
 import TheHeader from "../layout/TheHeader";
 import PageContent from "../UI/PageContent";
-import { FooterWrapper, MainWrapper } from "../Root";
+import { FooterWrapper, MainWrapper, HeaderWrapper } from "../Root";
 import Footer from "../layout/Footer";
 
 //UI components
@@ -30,9 +30,9 @@ const ErrorPage = () => {
     
     return (
         <React.Fragment>
-            <header>
+            <HeaderWrapper>
                 <TheHeader/>
-            </header>
+            </HeaderWrapper>
             
             <MainWrapper>
                 <PageContent title={title}>

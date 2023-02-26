@@ -30,11 +30,11 @@ const routes = createBrowserRouter([
             {
                 path: 'posters',
                 id: 'posters',
-                loader: postersLoader,
                 children: [
                     {
                         index: true,
                         element: <PostersList/>,
+                        loader: postersLoader,
                     },
                     {
                         path: ':posterId',

@@ -8,28 +8,26 @@ import SubcategoryBadge from "./SubcategoryBadge";
 //UI components
 import { CounterBadge } from "../UI/BaseBadge";
 
-const BoardItem = () => {
-    let array = [1,2,3,4]
-    
+const BoardItem = ({category}) => {
     
     return ( <article className={styles['homepage_category']}>
 
         <section className={styles['homepage_category_header']}>
 
             <div className={styles['homepage_category_title_wrapper']}>
-                <h1 className={styles['homepage_category_title']}>BACKEND DEVELOPMENT</h1>
+                <h1 className={styles['homepage_category_title']}>{ category.title }</h1>
             </div>
 
             <CounterBadge $mode='one_item'>
-                <h1 className={styles['homepage_category_counter']}>1234</h1>
+                <h1 className={styles['homepage_category_counter']}>{ category.counter }</h1>
             </CounterBadge>
         </section>
 
         <section className={styles['homepage_category_main']}>
 
             <div className={styles['homepage_category_main_wrapper']}>
-                {array.map((item, index)=> 
-                    <SubcategoryBadge key={index}/>
+                {category['sub_categories'].map((subcategory, index)=> 
+                    <SubcategoryBadge key={index} subcategory={subcategory}/>
                 )}
             </div>
 

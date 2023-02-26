@@ -6,6 +6,10 @@ import styled from "styled-components";
 import TheHeader from "./layout/TheHeader";
 import Footer from "./layout/Footer";
 
+export const HeaderWrapper = styled.header`
+    width: 100%;
+`
+
 export const MainWrapper = styled.main`
         background-color: var(--main-bg-color);
         display: flex;
@@ -26,9 +30,9 @@ const RootLayout = ()=> {
     
     return (
         <React.Fragment>
-            <header>
+            <HeaderWrapper>
                 <TheHeader/>
-            </header>
+            </HeaderWrapper>
             
             <MainWrapper>
                 {navigation.state === 'loading' && <p>Loading...</p>}
