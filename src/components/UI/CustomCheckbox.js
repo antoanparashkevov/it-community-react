@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Checkmark = styled.span`
     width: 25px;
@@ -52,9 +52,26 @@ const Input = styled.input.attrs( props => {
 `
 
 const CustomCheckbox = (props) => {
+    let checkboxInfo = { 
+        isChecked: props.isChecked,
+        id: props.id,
+        type: props.name
+    }
+    
+    const checkboxHandler = (event) => {
+        checkboxInfo = {
+            isChecked : event.target.checked,
+            id: event.target.id,
+            type: event.target.name
+        }
+        
+        props.onTriggerCheckbox(checkboxInfo)
+    }
+    
     return (
         <React.Fragment>
             <Input 
+                onClick={checkboxHandler}
                 defaultChecked={props.isChecked}
                 defaultValue={props.value}
                 id={props.id}

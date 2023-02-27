@@ -19,10 +19,6 @@ const PosterItem = ({ job }) => {
         }
     }
     
-    useEffect( () => {
-        console.log('formattedDate', formattedDate)
-    }, [])
-    
     return (
             <Link to={ job['_id'] || '1' } className={styles['poster_list_item']}>
                 <div className={styles['left_company_logo']}>

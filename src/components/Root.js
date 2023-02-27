@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet, useNavigation } from 'react-router-dom'
 import styled from "styled-components";
 
 //Components
 import TheHeader from "./layout/TheHeader";
 import Footer from "./layout/Footer";
+
+//context
+import AuthContext from "../store/auth-context";
 
 export const HeaderWrapper = styled.header`
     width: 100%;
@@ -26,10 +29,13 @@ export const FooterWrapper = styled.footer`
 `
 
 const RootLayout = ()=> {
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const navigation = useNavigation()
     
     return (
-        <React.Fragment>
+        <AuthContext.Provider 
+            value={{isLoggedIn}}
+        >
             <HeaderWrapper>
                 <TheHeader/>
             </HeaderWrapper>
@@ -42,7 +48,7 @@ const RootLayout = ()=> {
             <FooterWrapper>
                 <Footer/>
             </FooterWrapper>
-        </React.Fragment>
+        </AuthContext.Provider>
     )
 }
 

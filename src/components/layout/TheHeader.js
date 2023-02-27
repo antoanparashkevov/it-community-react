@@ -1,10 +1,13 @@
-import React, {useState}  from "react";
+import React, { useState, useContext }  from "react";
 import styles from './TheHeader.module.css';
 import styled from "styled-components";
 
 
 //UI components
 import { NavigationLink, NavigationLinkAsButton } from "../UI/BaseLinks";
+
+//context
+import AuthContext from "../../store/auth-context";
 
 const HamburgerBar = styled.span`
         display: block;
@@ -27,6 +30,8 @@ const CloseBar = styled(HamburgerBar)`
 
 const TheHeader = () => {
     let [activateBar, updateActivateBar] = useState(false)
+    const authCtx = useContext(AuthContext);
+    
     const toggleNavbar = () => {
         updateActivateBar((prevState)=> {
             return prevState === false

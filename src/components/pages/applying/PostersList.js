@@ -10,7 +10,6 @@ import Sidebar from "../../layout/filters/Sidebar";
 import { BaseCard } from "../../UI/BaseCard";
 import PosterItem from "../../applying/PosterItem";
 
-//UI components
 
 const PostersList = () => {
     const { width: windowWidth } = useWindowDimensions()
@@ -31,19 +30,23 @@ const PostersList = () => {
         }
     ])
     
+    const filtersDataHandler = (data) => {
+        console.log('All filters Data >>> ', data)
+    }
+    
     // if (posters.isError) {
     //     return <p>Error occurred! {posters.message}</p>
     // }
     
     useEffect( () => {
-        console.log('Posters >>> ', posters)
+        // console.log('Posters >>> ', posters)
     }, [])
     
     return (
         <section className={`${styles['posters_container']} container`}>
             {/*TODO set hide prop dynamically*/}
             <BaseCard hide={windowWidth <= 744} className={styles['aside_wrapper']}>
-                <Sidebar />
+                <Sidebar onSaveFiltersData={filtersDataHandler} />
             </BaseCard>
             <div className={styles['posters_list_wrapper']}>
                 { posters.map( (job, index) => 
