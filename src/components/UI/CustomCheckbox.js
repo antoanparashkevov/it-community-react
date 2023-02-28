@@ -51,11 +51,11 @@ const Input = styled.input.attrs( props => {
     }
 `
 
-const CustomCheckbox = (props) => {
+const CustomCheckbox = ({ onTriggerCheckbox, isChecked, value, id, name }) => {
     let checkboxInfo = { 
-        isChecked: props.isChecked,
-        id: props.id,
-        type: props.name
+        isChecked: isChecked,
+        id: id,
+        type: name
     }
     
     const checkboxHandler = (event) => {
@@ -65,17 +65,17 @@ const CustomCheckbox = (props) => {
             type: event.target.name
         }
         
-        props.onTriggerCheckbox(checkboxInfo)
+        onTriggerCheckbox(checkboxInfo)
     }
     
     return (
         <React.Fragment>
             <Input 
                 onClick={checkboxHandler}
-                defaultChecked={props.isChecked}
-                defaultValue={props.value}
-                id={props.id}
-                name={props.name}
+                defaultChecked={isChecked}
+                defaultValue={value}
+                id={id}
+                name={name}
             />
             <Checkmark />
         </React.Fragment>

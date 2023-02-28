@@ -1,14 +1,19 @@
 import styles from './BaseSlider.module.css'
+import { useEffect, useState } from "react";
 
-const BaseSlider = () => {
-    const toggleSlider = () => {
-        console.log('clicked')
+const BaseSlider = ({ onTriggerSlider, isChecked }) => {
+    const [isSliderChecked, setIsSliderChecked] = useState(isChecked)
+    const toggleSlider = (event) => {
+        setIsSliderChecked(event.target.checked) 
     }
-    
+
+    useEffect( () => {
+        onTriggerSlider(isSliderChecked)
+    }, [isSliderChecked])
    return (
        <div className={styles['sidebar_salary_slider_button_root']} onClick={toggleSlider}>
            <label htmlFor="salarySlider" className={styles['sidebar_salary_slider_button_container']}>
-               <input type="checkbox" id='salarySlider'/>
+               <input type="checkbox" id='salarySlider' defaultChecked={isChecked}/>
                <span className={styles['slider_button']}></span>
            </label>
        </div>

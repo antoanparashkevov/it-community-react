@@ -1,5 +1,5 @@
 import styles from './PostersList.module.css'
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 //hooks
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
@@ -31,15 +31,10 @@ const PostersList = () => {
     ])
     
     const filtersDataHandler = (data) => {
-        console.log('All filters Data >>> ', data)
+        console.log('All filter criteria from Sidebar >>> ', data)
     }
     
-    // if (posters.isError) {
-    //     return <p>Error occurred! {posters.message}</p>
-    // }
-    
     useEffect( () => {
-        // console.log('Posters >>> ', posters)
     }, [])
     
     return (

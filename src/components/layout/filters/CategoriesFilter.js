@@ -7,29 +7,53 @@ import Label from "../../UI/Label";
 import { FilterContentWrapper } from "./FilterContentWrapper";
 import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 
+//context
+import { useContext } from "react";
+import FilterContext from "../../../store/filter-context";
+
 const CategoriesFilter = ({onSaveCriteria}) => {
+    let filterCtx = useContext(FilterContext)
+    
     const [isExpanded, setIsExpanded] = useState(true)
-    const [currentFilterCriteria, setCurrentFilterCriteria] = useState([])
+    const [categoriesFilter, setCategoriesFilter] = useState({ 
+        frontend: {
+            id: 'frontend',
+            type: 'categories',
+            isChecked: filterCtx.isChecked
+        },
+        backend: {
+            id: 'backend',
+            type: 'categories',
+            isChecked: filterCtx.isChecked
+        },
+        qa: {
+            id: 'qa',
+            type: 'categories',
+            isChecked: filterCtx.isChecked
+        },
+        infrastructure: {
+            id: 'infrastructure',
+            type: 'categories',
+            isChecked: filterCtx.isChecked
+        }
+    })
     
     const checkIsExpanded = (data) =>{
         setIsExpanded(data);
     }
     
     const checkboxHandler = (data) => {
-        
-        setCurrentFilterCriteria((prevState) => {
-            let sameElIndex = prevState.findIndex(el => el.id === data.id)
-            if( sameElIndex !== -1 ) {
-                prevState = prevState.splice(sameElIndex, 1);
+        setCategoriesFilter( (prevState) => {
+            return {
+                ...prevState,
+                [data.id]: data
             }
-            return [...prevState, data]
         })
-        
     }
     
     useEffect( () => {
-        onSaveCriteria(currentFilterCriteria)
-    }, [currentFilterCriteria])
+        onSaveCriteria(categoriesFilter)
+    }, [ categoriesFilter ])
     
     return (
         <FilterContentWrapper>
@@ -37,19 +61,19 @@ const CategoriesFilter = ({onSaveCriteria}) => {
             {isExpanded && <div className={styles['categories_form_controls']}>
                 <div className={styles['form_control']}>
                     <Label for='frontend'>Frontend</Label>
-                    <CustomCheckbox isChecked value={'frontend'} name='categories' id='frontend' onTriggerCheckbox={checkboxHandler} />
+                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'frontend'} name='categories' id='frontend' onTriggerCheckbox={checkboxHandler} />
                 </div>
                 <div className={styles['form_control']}>
                     <Label for='backend'>Backend</Label>
-                    <CustomCheckbox isChecked value={'backend'} name='categories' id='backend' onTriggerCheckbox={checkboxHandler}/>
+                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'backend'} name='categories' id='backend' onTriggerCheckbox={checkboxHandler}/>
                 </div>
                 <div className={styles['form_control']}>
                     <Label for='qa'>QA</Label>
-                    <CustomCheckbox isChecked value={'qa'} name='categories' id='qa' onTriggerCheckbox={checkboxHandler}/>
+                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'qa'} name='categories' id='qa' onTriggerCheckbox={checkboxHandler}/>
                 </div>
                 <div className={styles['form_control']}>
                     <Label for='infrastructure'>Infrastructure</Label>
-                    <CustomCheckbox isChecked value={'infrastructure'} name='categories' id='infrastructure' onTriggerCheckbox={checkboxHandler}/>
+                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'infrastructure'} name='categories' id='infrastructure' onTriggerCheckbox={checkboxHandler}/>
                 </div>
             </div>}
         </FilterContentWrapper>
