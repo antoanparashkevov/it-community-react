@@ -107,10 +107,10 @@ const PostersList = () => {
                     .filter(categoryFilter)
                     .filter(workTypeFilter)
                     .filter(seniorityFilter)
-                    .filter(salaryFilter)
-                    .map((job, index) => {
-                    return <PosterItem key={ index } job={ job }/>
-                }) }
+                    .filter(salaryFilter).length > 0 ?
+                    posters.map((job, index) => {
+                        return <PosterItem key={ index } job={ job }/>
+                    }) : <NoDataAvailable title='No Data Available' /> }
             </div>
         </section>
     )
