@@ -43,12 +43,18 @@ const routes = createBrowserRouter([
                         children: [
                             {
                                index: true,
-                               element: <PosterDetails/>
+                               element: <PosterDetails/>,
                             },
                             {
-                                path: 'apply',
-                                element: <Applying/>   
-                            }
+                                path: '',
+                                element: <PosterDetails/>,
+                                children: [
+                                    {
+                                        path: 'apply',
+                                        element: <Applying/>
+                                    }
+                                ]
+                            },
                         ],
                     },
                 ]

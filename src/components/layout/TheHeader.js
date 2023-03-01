@@ -58,14 +58,14 @@ const TheHeader = () => {
     }
     
     return (
-        <nav className={`${styles['navbar']} ${activateBar ? styles['navbar_mobile_height'] : undefined}`}>
+        <nav className={`${styles['navbar']} ${activateBar ? styles['navbar_mobile_height'] : ''}`}>
             <div className={styles['navbar_title']}>
                 <NavigationLink to="/">IT-COMMUNITY</NavigationLink>
             </div>
             <div className={styles['toggle_buttons']} onClick={toggleNavbar}>
                 {chooseButton()}
             </div>
-            <div className={`${styles['navbar_links']} ${activateBar ? styles['activate_bar'] : undefined}`}>
+            <div className={`${styles['navbar_links']} ${activateBar ? styles['activate_bar'] : ''}`}>
                 <ul role='list'>
                     <li className={styles['navbar_link']}>
                         <NavigationLink to="posters" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavigationLink>

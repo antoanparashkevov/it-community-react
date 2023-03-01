@@ -1,5 +1,6 @@
 import { useRouteLoaderData } from "react-router-dom";
 import React, { useEffect } from "react";
+import styles from './Applying.module.css'
 
 //components
 import ApplyForm from "../../applying/ApplyForm";
@@ -13,8 +14,10 @@ const Applying = () => {
     
     return (
         <React.Fragment>
-            <h1>Applying page</h1>
-            <ApplyForm />
+            <div className={styles['applying_container']}>
+                <h1>Applying page</h1>
+                <ApplyForm />
+            </div>
         </React.Fragment>
     )
 }
