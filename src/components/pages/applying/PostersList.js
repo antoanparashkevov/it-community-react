@@ -1,5 +1,5 @@
 import styles from './PostersList.module.css'
-import { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 
 //hooks
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
@@ -10,16 +10,19 @@ import Sidebar from "../../layout/filters/Sidebar";
 import { BaseCard } from "../../UI/BaseCard";
 import PosterItem from "../../applying/PosterItem";
 
+//UI components
+import NoDataAvailable from "../../UI/NoDataAvailable";
 
 const PostersList = () => {
     const { width: windowWidth } = useWindowDimensions()
+    let [filteredData, setFilteredData] = useState({});
     // const posters = useLoaderData();
     const [posters, setPosters] = useState([
         {
             jobName: 'Full-Stack Developer',
-            workType: 'office',
+            workType: ['office', 'hybrid'],
             date: '15-02-2022',
-            category: ['FullStack', 'Frontend'],
+            category: ['backend', 'infrastructure'],
             subCat: ['.NET', 'Vue'],
             seniority: 'senior',
             salary: 2000,
@@ -27,26 +30,87 @@ const PostersList = () => {
                 country: 'Bulgaria',
                 city: 'Sofia'
             }
-        }
+        },
     ])
     
-    const filtersDataHandler = (data) => {
-        console.log('All filter criteria from Sidebar >>> ', data)
+    const onFilterDataHandler = (data) => {
+        console.log(data)
+        setFilteredData(data)
     }
     
-    useEffect( () => {
-    }, [])
+    const categoryFilter = (job) => {
+        let toReturn = true;
+        if( filteredData && Object.keys(filteredData).length > 0 ) {
+            
+            if ( job.category && job.category.length > 0 ) {
+                
+                for(let category of job.category) {
+                    toReturn = filteredData['categories'][category].isChecked
+                    
+                    if( toReturn === false ) {
+                        break;
+                    }
+                }
+            }
+        }
+        return toReturn
+    }
+    
+    const workTypeFilter = (job) => {
+        let toReturn = true;
+        if( filteredData && Object.keys(filteredData).length > 0 ) {
+            
+            if( job.workType && job.workType.length > 0 ) {
+                
+                for(let type of job.workType) {
+                    toReturn = filteredData['workType'][type].isChecked
+                    
+                    if( toReturn === false ) {
+                        break;
+                    }
+                }
+            }
+        }
+        return toReturn
+    }
+    
+    const seniorityFilter = (job) => {
+        let toReturn = true;
+        if( filteredData && Object.keys(filteredData).length > 0 ) {
+            
+            if( job.seniority ) {
+                toReturn = filteredData['seniority'][job.seniority].isChecked
+            }
+        }
+        return toReturn
+    }
+    
+    const salaryFilter = (job) => {
+        let toReturn = true;
+        if( filteredData && Object.keys(filteredData).length > 0 ) {
+
+            if( job.salary && !isNaN(job.salary) ) {
+                toReturn = filteredData['salary']
+            }
+        }
+        return toReturn
+    }
     
     return (
         <section className={`${styles['posters_container']} container`}>
             {/*TODO set hide prop dynamically*/}
             <BaseCard hide={windowWidth <= 744} className={styles['aside_wrapper']}>
-                <Sidebar onSaveFiltersData={filtersDataHandler} />
+                <Sidebar onSaveFiltersData={onFilterDataHandler} />
             </BaseCard>
             <div className={styles['posters_list_wrapper']}>
-                { posters.map( (job, index) => 
-                  <PosterItem key={index} job={job}/>
-                ) }
+                { posters
+                    .filter(categoryFilter)
+                    .filter(workTypeFilter)
+                    .filter(seniorityFilter)
+                    .filter(salaryFilter)
+                    .map((job, index) => {
+                    return <PosterItem key={ index } job={ job }/>
+                }) }
             </div>
         </section>
     )

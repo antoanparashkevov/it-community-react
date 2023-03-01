@@ -4,7 +4,6 @@ import styles from "../applying/PosterItem.module.css";
 
 //hooks
 import useFormatDate from "../../hooks/use-format-date";
-import { useEffect } from "react";
 
 const PosterItem = ({ job }) => {
     const { formattedDate } = useFormatDate(job.date, 'D.MS')

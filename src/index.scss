@@ -1,18 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap');
-
-body {
-  margin: 0;
-  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-width: 360px;
-  font-size: 14px;
-}
+@use 'styles/base';
 
 :root {
-  --main-font-size: 14px;
+  --main-font-size: base.$primary-font-size;
   --title-font-size: 15px;
   /* COLORS */
   --header-bg-color: #FFFFFF;
@@ -62,8 +51,8 @@ dd {
 ul[role='list'],
 ol[role='list'] {
   list-style: none;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
 }
 
 /* Set core root defaults */

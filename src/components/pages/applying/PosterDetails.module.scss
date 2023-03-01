@@ -1,13 +1,21 @@
-.job_details_wrapper {
+/* EXTEND / INHERITANCE */
+%flexbox_shared {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.job_details_wrapper {
+    @extend %flexbox_shared;
     justify-content: space-between;
+    align-items: stretch;
 }
 
 /* JOB ITEM START */
 .job_item_wrapper {
     width: 100%;
-    height: 120px;
+    height: 160px;
     margin-bottom: 30px;
 }
 
@@ -20,15 +28,20 @@
 }
 
 .job_item_header_applying_btn {
+    @extend %flexbox_shared;
     width: 100%;
-    display: flex;
     justify-content: space-between;
-    align-items: center;
+    flex-wrap: nowrap;
 }
 
 .job_item_header_title {
     color: var(--gray-color);
     font-size: 24px;
+}
+
+.job_item_work_type_badges {
+    display: flex;
+    column-gap: 5px;
 }
 
 .remote_badge {

@@ -1,4 +1,4 @@
-import styles from './PosterDetails.module.css'
+import styles from './PosterDetails.module.scss'
 import { json, Link, useParams, useRouteLoaderData } from "react-router-dom";
 
 //UI components
@@ -12,7 +12,7 @@ const PosterDetails = () => {
     const paramsObject = useParams();
     const [job, setJob] = useState({
         jobName: 'Full-Stack Developer',
-        workType: 'office',
+        workType: ['office', 'remote'],
         date: '15-02-2022',
         category: ['FullStack', 'Frontend'],
         subCat: ['.NET', 'Vue'],
@@ -49,7 +49,13 @@ const PosterDetails = () => {
                         <h1 className={styles['job_item_header_title']}>{ job.jobName }</h1>
                         <SquareButton as={Link} to='apply'>Apply now</SquareButton>
                     </div>
-                    <RemoteBadge $mode='one_item' className={styles['remote_badge']}>{ job.workType }</RemoteBadge>
+                    <div className={styles['job_item_work_type_badges']}>
+                        {job.workType.map((type, index)=> {
+                            return (
+                                <RemoteBadge $mode='one_item' className={styles['remote_badge']} key={index}>{ type }</RemoteBadge>
+                            )
+                        })}
+                    </div>
                 </BaseCard>
             </header>
             
