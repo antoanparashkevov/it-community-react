@@ -61,7 +61,7 @@ const PosterDetails = () => {
     return (
         <React.Fragment>
             <section className={`${styles['job_details_applying_wrapper']} container`}>
-                <section className={`${styles['job_details_wrapper']} container`}>
+                <section className={`${styles['job_details_wrapper']} container ${isApplyFormVisible ? styles['job_details_wrapper_apply_form_is_visible'] : ''}`}>
                     <header className={styles['job_item_wrapper']}>
                         <BaseCard className={styles['job_item_container']}>
                             <div className={styles['job_item_header_applying_btn']}>

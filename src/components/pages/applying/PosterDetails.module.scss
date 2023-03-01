@@ -14,6 +14,10 @@
     column-gap: 20px;
 }
 
+.job_details_wrapper.job_details_wrapper_apply_form_is_visible {
+    width: 65%;
+}
+
 .job_details_wrapper,
 .applying_wrapper {
     @extend %flexbox_shared;
@@ -114,7 +118,7 @@
 
 /* APPLYING WRAPPER START */
 .applying_wrapper {
-    width: 30%;
+    width: 35%;
     justify-content: center;
     
 }
@@ -122,7 +126,8 @@
 
 
 /* RESPONSIVE */
-@media screen and (max-width: 740px) {
+@media screen and (max-width: 900px) {
+    
     .job_info_wrapper,
     .sidebar_wrapper {
         width: 100%;
@@ -138,11 +143,14 @@
     }
     
     .applying_wrapper {
-        width: 90%;
         order: -1;
         margin-bottom: 30px;
     }
     
+    .job_details_wrapper.job_details_wrapper_apply_form_is_visible,
+    .applying_wrapper {
+        width: 90%;
+    }
     
 }
 
