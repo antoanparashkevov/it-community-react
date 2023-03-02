@@ -22,3 +22,13 @@
     color: var(--gray-color);
 }
 
+/* VALIDATION */
+.form-control.invalid p {
+    font-weight: 700;
+    color: red;
+}
+
+.form-control.invalid input,
+.form-control.invalid textarea {
+    border: 2px solid red;
+}

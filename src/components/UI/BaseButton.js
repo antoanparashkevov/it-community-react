@@ -39,6 +39,11 @@ export const RoundedButton = styled(Button)`
         background-color: var(--purple-bg-color);
         border: none;
     }
+    
+    &:disabled {
+        background-color: #CCCCCC;
+        cursor: not-allowed;
+    }
 `
 
 export const FlatButton = styled(Button)`

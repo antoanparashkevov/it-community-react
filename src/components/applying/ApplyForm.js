@@ -1,112 +1,117 @@
 import styles from './ApplyForm.module.css';
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 //UI components
-import { FlatButton } from "../UI/BaseButton";
+import { RoundedButton } from "../UI/BaseButton";
 import { Input } from "../layout/Input";
 import { TextArea } from "../UI/TextArea";
 
+//hooks
+import useInput from "../../hooks/use-input";
+
 const ApplyForm = () => {
-    const [formIsValid, setFormIsValid] = useState(false)
+    let formIsValid;
     
-    const [enteredName, setEnteredName] = useState('');
-    const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
-    const [enteredNameTouched, setEnteredNameTouched] = useState(false);
-    const nameInputIsInvalid = !enteredNameIsValid === false && enteredNameTouched === true;
+    const {
+        value : enteredName,
+        isValid: enteredNameIsValid,
+        hasError: nameInputHasError,
+        reset : resetNameInput,
+        valueChangeHandler : nameInputChangeHandler,
+        inputBlurHandler: nameInputBlurHandler
+    } = useInput(value => value.trim() !== '')
     
-    const [enteredEmail, setEnteredEmail] = useState('');
-    const [enteredEmailIsValid, setEnteredEmailIsValid] = useState(false);
-    const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
-    const nameEmailIsInvalid = !enteredEmailIsValid === false && enteredEmailTouched === true;
-
-
-    const enteredMessage = useRef();
+    const {
+        value : enteredEmail,
+        isValid: enteredEmailIsValid,
+        hasError: emailInputHasError,
+        reset : resetEmailInput,
+        valueChangeHandler : emailInputChangeHandler,
+        inputBlurHandler: emailInputBlurHandler
+    } = useInput(value => value.trim() !== '' && value.trim().includes('@'))
     
-    const nameInputChangeHandler = (event) => {
-        //event param - event object describing the event
-        setEnteredName(event.target.value);
-
-        if(event.target.value.trim() !== '') {
-            setEnteredNameIsValid(true);
-        }
-    }
-
-    const nameInputBlurHandler = (event) => {
-        setEnteredNameTouched(true);
-        
-        if(enteredName.trim() === '') {
-            setEnteredNameIsValid(false)
-        }
-    }
+    const {
+        value : enteredMsg,
+        isValid: enteredMsgIsValid,
+        hasError: msgInputHasError,
+        reset : resetMsgInput,
+        valueChangeHandler : msgInputChangeHandler,
+        inputBlurHandler: msgInputBlurHandler
+    } = useInput(value => value.trim() !== '')
     
-    const emailInputChangeHandler = (event) => {
-        //event param - event object describing the event
-        setEnteredEmail(event.target.value);
-    }
+    
+    formIsValid = enteredNameIsValid && enteredEmailIsValid && enteredMsgIsValid;
     
     const formSubmissionHandler = (event) => {
         //event param - event object describing the event
-        
+
         /*
             the default behaviour is if the form is submitted,
             a http req is sent to the server to the same address
         */
         event.preventDefault();
-        
-        setEnteredNameTouched(true);
-        setEnteredEmailTouched(true);
-        
+
         console.log('Entered name >>> ', enteredName)
         console.log('Entered email >>> ', enteredEmail)
-        console.log('Entered message >>> ', enteredMessage.current['value'])
-        
+        console.log('Entered message >>> ', enteredMsg)
+
         //clearing the form
-        setEnteredName('');
-        setEnteredEmail('');
-        enteredMessage.current.value = '';
+        resetNameInput();
+        resetEmailInput();
+        resetMsgInput();
+    }
+
+    const formControlClasses = (isValid) => {
+       return isValid ? `${styles['form-control']} ${styles['invalid']}` : styles['form-control']
     }
     
     return (
-        <form onSubmit={formSubmissionHandler} className={styles['apply_form']}>
-            <div className={styles['form-control']}>
-                
+        <form onSubmit={ formSubmissionHandler } className={ styles['apply_form'] }>
+            <div className={ formControlClasses(nameInputHasError) }>
+
+                {nameInputHasError && <p>Please enter a valid non-empty name!</p>}
                 <label htmlFor="name">Your name*</label>
                 <Input
-                    id='name' 
-                    name='name' 
-                    onChange={nameInputChangeHandler}
-                    onBlur={nameInputBlurHandler}
-                    value={enteredName}
+                    id='name'
+                    name='name'
+                    onChange={ nameInputChangeHandler }
+                    onBlur={ nameInputBlurHandler }
+                    value={ enteredName }
                 />
             </div>
-            <div className={styles['form-control']}>
-                
+            <div className={ formControlClasses(emailInputHasError) }>
+
+                {emailInputHasError && <p>Please enter a valid non-empty email!</p> }
                 <label htmlFor="email">Email*</label>
-                <Input 
-                    typeCat='email' 
-                    id='email' 
-                    name='email' 
-                    onChange={emailInputChangeHandler}
-                    value={enteredEmail}
+                <Input
+                    typeCat='email'
+                    id='email'
+                    name='email'
+                    onChange={ emailInputChangeHandler }
+                    onBlur={ emailInputBlurHandler }
+                    value={ enteredEmail }
                 />
             </div>
-            <div className={styles['form-control']}>
-                
+            <div className={ formControlClasses(msgInputHasError) }>
+
+                {msgInputHasError && <p>Please enter a valid non-empty message!</p>}
                 <label htmlFor="msg">Your message</label>
-                <TextArea 
-                    id='msg' 
+                <TextArea
+                    id='msg'
                     name='msg'
-                    ref={enteredMessage}
+                    onChange={ msgInputChangeHandler }
+                    onBlur={ msgInputBlurHandler }
+                    value={ enteredMsg }
                 />
             </div>
-            <div className={styles['form-actions']}>
-                
-                <FlatButton 
+            <div className={ styles['form-actions'] }>
+
+                <RoundedButton
                     type='submit'
-                    disabled={!formIsValid}
+                    disabled={ !formIsValid }
                 >
                     Submit
-                </FlatButton>
+                </RoundedButton>
             </div>
         </form>
     )
