@@ -3,15 +3,27 @@ import styled from "styled-components";
 /* BASIC COMPONENTS START */
 
 export const Button = styled.button`
-    font:inherit;
+    font: inherit;
     padding: 0.75rem 1.75rem;
-    background-color: #3a0061;
-    border: 1px solid #3a0061;
+    background-color: #9000ff;
+    border: 1px solid #9000ff;
     color: var(--header-bg-color);
     cursor: pointer;
     border-radius: 30px;
     margin-right: 0.5rem;
     display: inline-block;
+
+    &:disabled {
+        opacity: .65;
+        cursor: not-allowed;
+    }
+
+    &:hover,
+    &:active {
+        background-color: #8000e3;
+        border-color: #8000e3;
+    }
+
 `
 
 /* BASIC COMPONENTS END */
@@ -39,11 +51,11 @@ export const RoundedButton = styled(Button)`
         background-color: var(--purple-bg-color);
         border: none;
     }
-    
-    &:disabled {
-        background-color: #CCCCCC;
-        cursor: not-allowed;
+
+    &:hover:disabled {
+        background-color: var(--blue-bg-color);
     }
+    
 `
 
 export const FlatButton = styled(Button)`
@@ -78,6 +90,13 @@ export const SquareButton = styled(Button)`
     
     &:active:focus {
         box-shadow: rgba(46, 54, 80, 0.125) 0 3px 5px inset, rgba(104, 101, 235, 0.5) 0 0 0 .2rem;
+    }
+    
+    &:disabled {
+        background-image: none;
+        box-shadow: none;
+        opacity: .65;
+        pointer-events: none;
     }
 `
 

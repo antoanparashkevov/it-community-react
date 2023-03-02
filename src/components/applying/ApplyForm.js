@@ -62,7 +62,7 @@ const ApplyForm = () => {
     }
 
     const formControlClasses = (hasError) => {
-       return hasError ? `${styles['form-control']} ${styles['invalid']}` : styles['form-control']
+       return hasError ? `${styles['form-control']} invalid` : styles['form-control']
     }
     
     return (
@@ -95,7 +95,7 @@ const ApplyForm = () => {
             <div className={ formControlClasses(msgInputHasError) }>
 
                 {msgInputHasError && <p>Please enter a valid non-empty message!</p>}
-                <label htmlFor="msg">Your message</label>
+                <label htmlFor="msg">Your message*</label>
                 <TextArea
                     id='msg'
                     name='msg'

@@ -113,3 +113,13 @@ select {
   margin: 0 auto;
 }
 
+/* VALIDATION */
+.invalid p {
+  font-weight: 700;
+  color: red;
+}
+
+.invalid input,
+.invalid textarea {
+  border: 2px solid red;
+}
