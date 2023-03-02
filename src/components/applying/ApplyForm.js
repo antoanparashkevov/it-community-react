@@ -61,8 +61,8 @@ const ApplyForm = () => {
         resetMsgInput();
     }
 
-    const formControlClasses = (isValid) => {
-       return isValid ? `${styles['form-control']} ${styles['invalid']}` : styles['form-control']
+    const formControlClasses = (hasError) => {
+       return hasError ? `${styles['form-control']} ${styles['invalid']}` : styles['form-control']
     }
     
     return (
