@@ -4,22 +4,8 @@ import styled from "styled-components";
 
 //UI components
 import { FlatButton } from "../UI/BaseButton";
+import { Input } from "../layout/Input";
 
-const Input = styled.input.attrs((props)=> ({
-    type: props.typeCat ||  'text'
-}))`
-    width: 100%;
-    height: 30px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font: inherit;
-    
-    &:focus {
-        border-color: #3d008d;
-        background-color: #faf6ff;
-        outline: none;
-    }
-`
 
 const TextArea = styled(Input).attrs((props) => ({
     rows: props['rows_count'] || 5,
@@ -39,7 +25,7 @@ const ApplyForm = () => {
             </div>
             <div className={styles['form-control']}>
                 <label htmlFor="email">Email*</label>
-                <Input typeCat='password' id='email' name='email'/>
+                <Input typeCat='email' id='email' name='email'/>
             </div>
             <div className={styles['form-control']}>
                 <label htmlFor="msg">Your message</label>

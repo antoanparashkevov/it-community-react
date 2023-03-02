@@ -5,13 +5,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 //Components
 import PostersList, { loader as postersLoader } from "./components/pages/applying/PostersList";
-import Companies from "./components/pages/messages/Companies";
+import Companies from "./components/pages/companies/Companies";
 import Messages from "./components/pages/messages/Messages";
 import Board from "./components/pages/applying/Board";
 import RootLayout from "./components/Root";
 import ErrorPage from "./components/pages/Error";
 import PosterDetails, { loader as posterDetailsLoader } from "./components/pages/applying/PosterDetails";
 import Applying from "./components/pages/applying/Applying";
+import UserAuth from "./components/pages/auth/UserAuth";
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
@@ -67,6 +68,10 @@ const routes = createBrowserRouter([
                 path: 'messages',
                 element: <Messages/>
             },
+            {
+                path: 'auth',
+                element: <UserAuth/>
+            }
         ]
     }
 ]);

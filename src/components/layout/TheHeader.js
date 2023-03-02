@@ -83,7 +83,7 @@ const TheHeader = () => {
                     </li>
                     <li className={styles['navbar_link']}>
                         <NavigationLinkAsButton 
-                            to="/" 
+                            to="auth" 
                             className={({isActive})=> isActive ? 'active' : undefined}
                         >
                             Sign in
