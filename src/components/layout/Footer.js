@@ -31,12 +31,12 @@ const Footer = () => {
                     <ul role='list' className={styles['footer_column_jobs']}>
                         <li>
                             <Link to='/posters'>
-                                List Jobs
+                                Jobs
                             </Link>
                         </li>
                         <li>
                             <Link to='/companies'>
-                                List Companies
+                                Companies
                             </Link>
                         </li>
                     </ul>

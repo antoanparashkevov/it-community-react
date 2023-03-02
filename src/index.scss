@@ -72,10 +72,6 @@ a:not([class]) {
   text-decoration-skip-ink: auto;
 }
 
-a {
-  text-decoration: none;
-}
-
 /* Make images easier to work with */
 img,
 picture {
@@ -105,21 +101,4 @@ select {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-.container {
-  width: 90%;
-  max-width: 1300px;
-  margin: 0 auto;
-}
-
-/* VALIDATION */
-.invalid p {
-  font-weight: 700;
-  color: red;
-}
-
-.invalid input,
-.invalid textarea {
-  border: 2px solid red;
 }

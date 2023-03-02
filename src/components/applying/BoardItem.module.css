@@ -61,4 +61,15 @@ div.homepage_category_show_all_btn_wrapper {
 
 /* EACH CATEGORY END*/
 
+/* RESPONSIVE */
+@media screen and (max-width: 500px) {
+    .homepage_category_title {
+        font-size: 0.8rem;
+    }
+    
+    .homepage_category_header .homepage_category_main_counter {
+        max-width: 70px;
+        min-width: unset;
+    }
+}
 

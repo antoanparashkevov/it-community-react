@@ -18,3 +18,24 @@ body {
     font-size: $primary-font-size;
     color: $primary-color;
 }
+
+.container {
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* VALIDATION */
+.invalid p {
+    font-weight: 700;
+    color: red;
+}
+
+.invalid input,
+.invalid textarea {
+    border: 2px solid red;
+}
+
+a {
+    text-decoration: none;
+}

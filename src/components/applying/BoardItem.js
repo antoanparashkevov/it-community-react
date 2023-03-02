@@ -18,7 +18,7 @@ const BoardItem = ({category}) => {
                 <h1 className={styles['homepage_category_title']}>{ category.title }</h1>
             </div>
 
-            <CounterBadge $mode='one_item'>
+            <CounterBadge $mode='one_item' className={styles['homepage_category_main_counter']}>
                 <h1 className={styles['homepage_category_counter']}>{ category.counter }</h1>
             </CounterBadge>
         </section>
