@@ -3,9 +3,9 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-template-areas: 
-            'header header header'
-            'column1 column2 column3'
-            'column1 column2 column3';
+            'header header'
+            'column1 column2'
+            'column1 column2';
     width: 100%;
     padding: 0 30px 0 30px;
     column-gap: 30px;
@@ -40,23 +40,38 @@
     color: var(--blue-text-color);
 }
 
-.footer_column .bar {
+.bar {
     display: block;
     width: 40px;
     border: 3px solid var(--blue-bg-color);
     background-color: var(--blue-bg-color);
 }
 
-.footer_column:nth-child(1) {
+.footer_column_jobs {
     grid-area: column1;
 }
 
-.footer_column:nth-child(2) {
+.footer_column_follow_us {
     grid-area: column2;
 }
 
-.footer_column:nth-child(3) {
-    grid-area: column3;
+/* JOBS SECTION */
+.footer_column_jobs {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer_column_jobs a {
+    font-size: 20px;
+    color: var(--blue-text-color)
+}
+
+/* FOLLOW US SECTION */
+.footer_column_media_icons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 /* RESPONSIVE START */
