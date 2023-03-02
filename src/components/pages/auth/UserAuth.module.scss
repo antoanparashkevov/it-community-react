@@ -4,3 +4,16 @@
     flex-direction: column;
     align-items: center;
 }
+
+/* RESPONSIVE */
+@media screen and (max-width: 840px) {
+    .auth_container {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .auth_container {
+        width: 100%;
+    }
+}
