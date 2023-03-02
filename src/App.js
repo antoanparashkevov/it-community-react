@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 //Components
 import PostersList, { loader as postersLoader } from "./components/pages/applying/PostersList";
-import Companies from "./components/pages/applying/Companies";
+import Companies from "./components/pages/messages/Companies";
 import Messages from "./components/pages/messages/Messages";
 import Board from "./components/pages/applying/Board";
 import RootLayout from "./components/Root";
