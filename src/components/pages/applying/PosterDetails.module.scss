@@ -61,10 +61,10 @@
     text-transform: capitalize;
 }
 
-
 /* JOB ITEM END */
 
 /* JOB INFO START */
+
 .job_info_wrapper {
     width: 65%;
     display: flex;
@@ -83,7 +83,8 @@
 .job_info_badge_wrapper {
     display: flex;
     max-height: 80px;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: 20px;
     align-items: center;
 }
 
@@ -91,6 +92,7 @@
 
 
 /* SIDEBAR START */
+
 .sidebar_wrapper {
     width: 30%;
 }
@@ -114,18 +116,22 @@
 .sidebar_company_desc {
     padding: 0.5rem;
 }
+
 /* SIDEBAR END */
 
 /* APPLYING WRAPPER START */
+
 .applying_wrapper {
     width: 35%;
     justify-content: center;
     
 }
+
 /* APPLYING WRAPPER END */
 
 
 /* RESPONSIVE */
+
 @media screen and (max-width: 900px) {
     
     .job_info_wrapper,

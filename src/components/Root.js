@@ -32,6 +32,8 @@ const RootLayout = ()=> {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const navigation = useNavigation()
     
+    console.log('process.env', process.env)
+    
     return (
         <AuthContext.Provider 
             value={{isLoggedIn}}

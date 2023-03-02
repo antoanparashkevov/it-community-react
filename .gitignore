@@ -26,6 +26,5 @@ yarn-error.log*
 .idea
 
 # ENVIRONMENTS
-.env*.local
-.env*
+environments
 

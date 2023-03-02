@@ -34,7 +34,6 @@ const PostersList = () => {
     ])
     
     const onFilterDataHandler = (data) => {
-        console.log(data)
         setFilteredData(data)
     }
     
