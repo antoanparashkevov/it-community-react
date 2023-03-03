@@ -1,7 +1,11 @@
 const {Schema, model} = require('mongoose')
 
 
-const proposalSchema = new Schema({
+const applicationSchema = new Schema({
+    fullName: {
+        type: String,
+        required: true  
+    },
     email: {
         type: String,
         required: true,
@@ -17,6 +21,6 @@ const proposalSchema = new Schema({
     }
 })
 
-const Proposal = model('Proposal', proposalSchema)
+const Application = model('Application', applicationSchema)
 
-module.exports = Proposal
+module.exports = Application

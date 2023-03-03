@@ -1,9 +1,9 @@
-const {getAll, create, getById, getFreelancerRegistration, update, deleteById } = require("../services/freelancerService");
+const {getAll, create, getById, getFreelancerRegistration, update, deleteById } = require("../services/jobService");
 const parseError = require('../util/parser')
 const {hasUser} = require("../middlewares/guards");
 const router = require('express').Router();
 
-router.get('/freelancers',async(req, res)=>{
+router.get('/jobs',async(req, res)=>{
     let items = []
     try {
         if(req.query.where) {
@@ -32,7 +32,7 @@ router.get('/freelancers',async(req, res)=>{
 //     }
 // })
 
-router.post('/freelancers',hasUser(),async (req,res)  => {
+router.post('/jobs',hasUser(),async (req,res)  => {
   try{
       const data = Object.assign({_ownerId: req.user._id}, req.body)
       const item = await create(data)
@@ -43,7 +43,7 @@ router.post('/freelancers',hasUser(),async (req,res)  => {
   }
 })
 
-router.get('/freelancers/:id', async (req,res) =>{
+router.get('/jobs/:id', async (req,res) =>{
     try {
         const id = req.params.id
         const item = await getById(id);
@@ -54,7 +54,7 @@ router.get('/freelancers/:id', async (req,res) =>{
     }
 })
 
-router.put('/freelancers/:id', hasUser(), async (req,res) =>{
+router.put('/jobs/:id', hasUser(), async (req,res) =>{
     const id = req.params.id
     console.log('freelancerId from Service >>> ', id)
     const data = req.body
@@ -75,7 +75,7 @@ router.put('/freelancers/:id', hasUser(), async (req,res) =>{
     }
 })
 
-router.delete('/freelancers/:id', hasUser(), async (req,res)=> {
+router.delete('/jobs/:id', hasUser(), async (req,res)=> {
     const id = req.params.id
     const item = await getById(id);
     

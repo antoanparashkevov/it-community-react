@@ -10,14 +10,20 @@ const userSchema = new Schema({
     hashedPassword:{
         type: String,
         required: true
+    },
+    role: {
+        type: String,
+        default: 'user'//it can be either a user or a company
     }
 })
+
 userSchema.index({email: 1}/*asc order*/, {
     collation: {
         locale: 'en',//english letters only
         strength: 2 //case insensitive
     }
 })
+
 const User = model('User', userSchema)
 
 module.exports = User

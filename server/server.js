@@ -3,12 +3,12 @@ const express = require('express')
 const mongoose = require("mongoose");
 
 const port = 3030;
-const CONNECTION_STR = 'mongodb://localhost:27017/freelancers'
+const CONNECTION_STR = 'mongodb://localhost:27017/it-community'
 
 //Controllers...
 const authController = require('./controllers/authController')
-const freelancerController = require('./controllers/freelancerController')
-const proposalController = require('./controllers/proposalController')
+const freelancerController = require('./controllers/jobController')
+const proposalController = require('./controllers/applicationController')
 const profileController = require('./controllers/profileController')
 
 //Middlewares
@@ -40,8 +40,8 @@ async function start() {
     });
     
     app.use('/users', authController)
-    app.use('/freelancersData', freelancerController)
-    app.use('/proposalsData', proposalController)
+    app.use('/jobData', freelancerController)
+    app.use('/applicationData', proposalController)
     app.use('/profileData', profileController)
     
     app.listen(port, () => console.log('Server listening on port ' + port))

@@ -1,9 +1,10 @@
-const { create, getById } = require("../services/proposalService");
+const { create, getById } = require("../services/applicationService");
 const { hasUser } = require("../middlewares/guards");
 const parseError = require("../util/parser");
+
 const router = require('express').Router();
 
-router.post('/proposals', async (req,res)=>{
+router.post('/applications', async (req,res)=>{
     try{
         const data = req.body
         const item = await create(data)
@@ -14,7 +15,7 @@ router.post('/proposals', async (req,res)=>{
     }
 })
 
-router.get('/proposals/:id', hasUser(), async (req,res)=>{
+router.get('/applications/:id', hasUser(), async (req,res)=>{
     try {
         const id = req.params.id
         let item = await getById(id);
