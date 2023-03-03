@@ -20,18 +20,6 @@ router.get('/jobs',async(req, res)=>{
     }
 })
 
-//unnecessary because we merged two requests (one with query param and one without)
-
-// router.get('/freelancers', async (req,res)=>{
-//     try {
-//         let items = await getAll();
-//         res.json(items)
-//     } catch ( err ) {
-//         const message = parseError(err)
-//         res.status(400).json({message})
-//     }
-// })
-
 router.post('/jobs',hasUser(),async (req,res)  => {
   try{
       const data = Object.assign({_ownerId: req.user._id}, req.body)

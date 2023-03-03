@@ -7,9 +7,11 @@ const CONNECTION_STR = 'mongodb://localhost:27017/it-community'
 
 //Controllers...
 const authController = require('./controllers/authController')
-const freelancerController = require('./controllers/jobController')
-const proposalController = require('./controllers/applicationController')
+const jobController = require('./controllers/jobController')
+const applicationController = require('./controllers/applicationController')
 const profileController = require('./controllers/profileController')
+const categoryController = require('./controllers/categoryController')
+const subCategoryController = require('./controllers/subCategoryController')
 
 //Middlewares
 const cors = require('./middlewares/cors')
@@ -40,8 +42,10 @@ async function start() {
     });
     
     app.use('/users', authController)
-    app.use('/jobData', freelancerController)
-    app.use('/applicationData', proposalController)
+    app.use('/jobData', jobController)
+    app.use('/applicationData', applicationController)
+    app.use('/categoryData', categoryController)
+    app.use('/subCategoryData', subCategoryController)
     app.use('/profileData', profileController)
     
     app.listen(port, () => console.log('Server listening on port ' + port))
