@@ -51,7 +51,23 @@ async function start() {
     app.use('/profileData', profileController)
     
     app.get('/cookies', (req,res) => {
-        res.json({cookies: req.cookies})
+        res.json({
+            cookies: req.cookies,
+            theme: req.cookies['theme']
+        })
+    })
+    
+    app.post('/setTheme', (req,res) => {
+        
+        /*
+        * req.body structure
+        * {
+        *   "theme": "dark/light"
+        * }
+        * */
+        
+        res.cookie('theme', req.body.theme);
+        res.json(req.body)
     })
     
     app.listen(port, () => console.log('Server listening on port ' + port))
