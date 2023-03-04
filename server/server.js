@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const cookieParser = require('cookie-parser');
 
 const mongoose = require("mongoose");
 
@@ -25,15 +26,16 @@ async function start() {
 
     try {
        await mongoose.connect(CONNECTION_STR)
-        console.log('DATABASE connected!')
+        console.log('Database connected!');
     } catch (err) {
-        console.error(err.message)
+        console.error(err.message);
     }
 
-    app.use(express.json())
-    app.use(cors())
-    app.use(trimBody())
-    app.use(session())
+    app.use(cookieParser());
+    app.use(express.json());
+    app.use(cors());
+    app.use(trimBody());
+    app.use(session());
     
     app.get('/', (req,res)=>{
        res.json({
@@ -47,6 +49,10 @@ async function start() {
     app.use('/categoryData', categoryController)
     app.use('/subCategoryData', subCategoryController)
     app.use('/profileData', profileController)
+    
+    app.get('/cookies', (req,res) => {
+        res.json({cookies: req.cookies})
+    })
     
     app.listen(port, () => console.log('Server listening on port ' + port))
 }
