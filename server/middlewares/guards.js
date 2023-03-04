@@ -1,5 +1,7 @@
 function hasUser() {
+    
     return (req,res,next) => {
+        
         if( req.user ) {
             next();
         }else {
@@ -11,6 +13,7 @@ function hasUser() {
 function isGuest () {
     
     return ( req,res,next ) => {
+        
         if( req.user ) {
             res.status(400).json( {message: 'You are already logged in'} )
         } else {
@@ -22,6 +25,7 @@ function isGuest () {
 function hasRole() {
     
     return ( req, res, next ) => {
+        
         if( req.user.roles.includes('company') === false ) {
             res.status(400).json( { message: 'You are not registered as a company!' })
         } else {
@@ -31,8 +35,21 @@ function hasRole() {
     }
 }
 
+function isAdmin() {
+    
+    return ( req,res,next ) => {
+        
+        if( req.user.roles.includes('admin') === false ) {
+            res.status(400).json( { message: 'You don\'t have permissions to perform this action! Contact support!' } )
+        } else {
+            next();
+        }
+    }
+}
+
 module.exports = {
     hasUser,
     isGuest,
-    hasRole
+    hasRole,
+    isAdmin
 }

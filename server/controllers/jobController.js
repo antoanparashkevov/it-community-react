@@ -8,16 +8,21 @@ const setCookie = require("../util/setCookie");
 router.get('/jobs',async(req, res) => {
     let items = []
     try {
+        
         if(req.query.where) {
             const ownerId = JSON.parse(req.query.where.split('=')[1])
              items = await getFreelancerRegistration(ownerId)
         } else {
             items = await getAll();
         }
-        res.json(items)
+        
+        res.json({ 
+            jobs: items
+        })
+        
     } catch ( err ) {
         const message = parseError(err);
-        res.status(400).json({message})
+        res.status(400).json({ message })
     }
 })
 
@@ -28,7 +33,17 @@ router.get('/jobs/:jobId', async (req,res) => {
         setCookie(req,res,jobId)
 
         const item = await getById(jobId);
-
+        
+        let location = {
+            country: item['country'],
+            city: item['city']
+        }
+        
+        delete item['country'];
+        delete item['city'];
+        
+        item.location = location;
+        
         res.json({
             jobItem: item,
             visited: req.cookies[`visited_${jobId}`] || '1'
@@ -41,8 +56,10 @@ router.get('/jobs/:jobId', async (req,res) => {
 })
 
 router.post('/jobs', hasUser(), hasRole(), async (req,res)  => {
+    
     const formData = req.body;
-  try {
+    
+    try {
       const data = Object.assign({
           _ownerId: req.user._id,
           companyOwner: req.user.companyName
@@ -51,10 +68,10 @@ router.post('/jobs', hasUser(), hasRole(), async (req,res)  => {
       const item = await create(data)
       
       res.json(item)
-  } catch (err) {
+    } catch (err) {
       const message = parseError(err)
       res.status(400).json({message})
-  }
+    }
 })
 
 router.put('/jobs/:jobId', hasUser(), hasRole(), async (req,res) => {
@@ -72,7 +89,7 @@ router.put('/jobs/:jobId', hasUser(), hasRole(), async (req,res) => {
     try {
         const result = await update(jobId, data)
         res.json(result)
-    }catch (err) {
+    } catch (err) {
         const message = parseError(err);
         res.status(400).json({message})
     }
@@ -89,10 +106,11 @@ router.delete('/jobs/:jobId', hasUser(), hasRole(), async (req,res)=> {
     try {
         await deleteById(jobId)
         res.status(204).end()
-    }catch (err) {
+    } catch (err) {
         const message = parseError(err);
         res.status(400).json({message})
     }
+    
 })
 
 module.exports = router;
