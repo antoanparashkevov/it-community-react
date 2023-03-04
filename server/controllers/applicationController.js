@@ -2,7 +2,7 @@ const { create, getById } = require("../services/applicationService");
 const { hasUser } = require("../middlewares/guards");
 
 //parsers
-const parseError = require("../util/parser");
+const parseError = require("../util/parseError");
 const parseCookie = require("../util/parseCookie");
 
 const router = require('express').Router();

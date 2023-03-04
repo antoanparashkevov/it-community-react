@@ -13,6 +13,7 @@ const applicationController = require('./controllers/applicationController')
 const profileController = require('./controllers/profileController')
 const categoryController = require('./controllers/categoryController')
 const subCategoryController = require('./controllers/subCategoryController')
+const cookieController = require('./controllers/cookieController')
 
 //Middlewares
 const cors = require('./middlewares/cors')
@@ -49,26 +50,7 @@ async function start() {
     app.use('/categoryData', categoryController)
     app.use('/subCategoryData', subCategoryController)
     app.use('/profileData', profileController)
-    
-    app.get('/cookies', (req,res) => {
-        res.json({
-            cookies: req.cookies,
-            theme: req.cookies['theme']
-        })
-    })
-    
-    app.post('/setTheme', (req,res) => {
-        
-        /*
-        * req.body structure
-        * {
-        *   "theme": "dark/light"
-        * }
-        * */
-        
-        res.cookie('theme', req.body.theme);
-        res.json(req.body)
-    })
+    app.use('/cookieData', cookieController)
     
     app.listen(port, () => console.log('Server listening on port ' + port))
 }

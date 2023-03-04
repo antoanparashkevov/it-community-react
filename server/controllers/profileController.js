@@ -1,5 +1,5 @@
 const { hasUser } = require("../middlewares/guards");
-const parseError = require("../util/parser");
+const parseError = require("../util/parseError");
 
 const router = require('express').Router()
 

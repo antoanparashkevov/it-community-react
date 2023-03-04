@@ -1,5 +1,5 @@
 const {getAll, create, getById, getFreelancerRegistration, update, deleteById } = require("../services/jobService");
-const parseError = require('../util/parser')
+const parseError = require('../util/parseError')
 const {hasUser} = require("../middlewares/guards");
 const router = require('express').Router();
 

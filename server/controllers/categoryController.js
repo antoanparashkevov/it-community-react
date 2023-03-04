@@ -1,5 +1,5 @@
 const { getAll, create } = require('../services/categoryService');
-const parseError = require('../util/parser')
+const parseError = require('../util/parseError')
 const router = require('express').Router();
 
 
