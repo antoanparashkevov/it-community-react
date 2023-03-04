@@ -24,9 +24,9 @@ const userSchema = new Schema({
       type: Number,
         
     },
-    role: {
-        type: String,
-        default: 'user'//it can be either a user or a company
+    roles: {
+        type: [String],
+        default: ['user']//it can be either a user or a company
     },
 })
 

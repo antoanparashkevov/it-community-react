@@ -20,10 +20,10 @@ async function registerAsCompany(email,password, companyName, desc, foundationYe
         companyName,
         desc,
         foundationYear,
-        role
+        role: ['user', 'company']
     });
     
-    return createToken(user, 'company')
+    return createToken(user, ['user', 'company'])
 }
 
 async function register(email,password, role = 'user') {
@@ -37,10 +37,10 @@ async function register(email,password, role = 'user') {
     const user = await User.create({
         email,
         hashedPassword,
-        role
+        roles: ['user']
     });
     
-    return createToken(user, 'user')
+    return createToken(user, ['user'])
     
 }
 async function login(email,password) {
@@ -64,22 +64,22 @@ async function logout(token) {
     tokenBlackList.add(token);
 }
 
-const createToken = function(user, role) {
+const createToken = function(user, roles) {
     let payload;
     
-    if( role === 'company') {
+    if( roles.includes('company') ) {
         
         payload = {
             _id: user._id,
             email: user.email,
             companyName: user.companyName,
-            role: user.role
+            roles
         };
-    } else if ( role === 'user' ) {
+    } else if ( roles.includes('user') ) {
         payload = {
             _id: user._id,
             email: user.email,
-            role: user.role
+            roles
         };
     }
     
@@ -88,7 +88,7 @@ const createToken = function(user, role) {
        accessToken: jwt.sign(payload, SECRET_KEY),
        _id: user._id,
        email: user.email,
-       role: user.role
+       roles
    }
 }
 

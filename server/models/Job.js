@@ -10,7 +10,7 @@ const jobSchema = new Schema({
     workType:{
         type: String,
         enum: {
-            value: ['hybrid', 'remote', 'office'],
+            values: ['hybrid', 'remote', 'office'],
             message: '{VALUE} is not supported!'
         },
         required: true
@@ -28,7 +28,7 @@ const jobSchema = new Schema({
     seniority: {
         type: String,
         enum: {
-            value: ['intern', 'junior', 'senior', 'team_lead'],
+            values: ['intern', 'junior', 'senior', 'team_lead'],
             message: '{VALUE} is not supported!'
         },
         required: true,  
