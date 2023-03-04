@@ -16,17 +16,18 @@ async function create(item) {
 //     return Job.find({_ownerId: ownerId})
 // }
 
-// async function update(itemId, modifiedItemData) {
-//     let existing = await Job.findById(itemId)
-//    
-//     existing.firstName = modifiedItemData.firstName
-//     existing.lastName = modifiedItemData.lastName
-//     existing.description = modifiedItemData.description
-//     existing.hourlyRate = modifiedItemData.hourlyRate
-//     existing.skills = modifiedItemData.skills
-//    
-//     return await existing.save()//will return the saved Job Registration
-// }
+async function update(itemId, modifiedItemData) {
+    let existing = await Job.findById(itemId)
+    console.log('Existing job item >>>')
+    //TODO update all entries wit the correct ones
+    // existing.firstName = modifiedItemData.firstName
+    // existing.lastName = modifiedItemData.lastName
+    // existing.description = modifiedItemData.description
+    // existing.hourlyRate = modifiedItemData.hourlyRate
+    // existing.skills = modifiedItemData.skills
+
+    // return await existing.save()//will return the saved Job Registration
+}
 
 async function deleteById(id) {
     return Job.findByIdAndRemove(id)
@@ -36,6 +37,7 @@ module.exports = {
     getAll,
     getById,
     create,
+    update,
     deleteById
 }
 
