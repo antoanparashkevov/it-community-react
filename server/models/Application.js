@@ -4,6 +4,8 @@ const {Schema, model} = require('mongoose')
 const applicationSchema = new Schema({
     fullName: {
         type: String,
+        minLength: [5, 'Please type your full first and last names!'],
+        maxLength: [30, 'The restriction is 30 characters for your full name!'],
         required: true  
     },
     email: {

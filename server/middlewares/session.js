@@ -1,10 +1,11 @@
 const {parseToken} = require("../services/authService");
-module.exports = () => (req,res,next)=>{
+
+module.exports = () => (req,res,next) => {
     const token = req.headers['x-authorization']
-    if(token) {
+    
+    if ( token ) {
         try {
-            const payload = parseToken(token);
-            req.user = payload;
+            req.user = parseToken(token);
             req.token = token;
         }catch (error) {
             return res.status(401).json({message: 'Invalid authorization token!'})

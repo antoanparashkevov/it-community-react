@@ -8,6 +8,11 @@ const subCategorySchema = new Schema({
     counter: {
         type: Number,
         required: true,
+    },
+    mainCategory: {
+        type: ObjectId,
+        ref: 'Category',
+        required: true
     }
 })
 

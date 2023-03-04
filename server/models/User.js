@@ -11,10 +11,18 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    desc: {
+        type: String,
+        min: [20, 'The description must be at least 20 characters long! Try to describe yourself as good as possible!']
+    },
+    foundationYear: {
+      type: Number,
+        
+    },
     role: {
         type: String,
         default: 'user'//it can be either a user or a company
-    }
+    },
 })
 
 userSchema.index({email: 1}/*asc order*/, {
