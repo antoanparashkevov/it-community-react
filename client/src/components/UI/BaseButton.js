@@ -99,5 +99,3 @@ export const SquareButton = styled(Button)`
         pointer-events: none;
     }
 `
-
-// todo make an example with 'as' 

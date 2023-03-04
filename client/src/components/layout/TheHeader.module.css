@@ -35,13 +35,6 @@
     padding: 1rem;
 }
 
-/*TODO activate the active class*/
-.navbar_links ul li:nth-child(1) a.active,
-.navbar_links ul li:nth-child(2) a.active {
-    color: #4A4A4A;
-}
-
-
 /* HAMBURGER MENU START */
 .toggle_buttons {
     position: absolute;

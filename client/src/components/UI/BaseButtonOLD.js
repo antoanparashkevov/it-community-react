@@ -1,6 +1,5 @@
 import {NavLink} from "react-router-dom";
 import styled from "styled-components";
-//TODO format the Base Button component
 //button is just a regular HTML tag
 const Button = styled.button`
     text-decoration: none;

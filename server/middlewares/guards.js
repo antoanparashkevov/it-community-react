@@ -18,6 +18,8 @@ function isGuest() {
     }
 }
 
+//todo add guard hasRole
+
 module.exports = {
     hasUser,
     isGuest
