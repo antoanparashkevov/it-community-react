@@ -1,6 +1,10 @@
+import FormPageContent from "../../UI/FormPageContent";
+
 const CreateSubCategory = () => {
     return (
-     <h1>subcat</h1>
+        <FormPageContent title='Create a sub category'>
+            
+        </FormPageContent>
     )   
 }
 

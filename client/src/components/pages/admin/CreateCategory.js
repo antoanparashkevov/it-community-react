@@ -1,6 +1,16 @@
+import styles from './CreateCategory.module.scss';
+
+//components
+import CategoryForm from "../../admin/CategoryForm";
+
+//UI components
+import FormPageContent from "../../UI/FormPageContent";
+
 const CreateCategory = () => {
     return (
-        <h1>cate</h1>
+        <FormPageContent title='Create a category'>
+            <CategoryForm />
+        </FormPageContent>
     )
 }
 

@@ -6,8 +6,8 @@ import AuthForm from "../../auth/AuthForm";
 import CompanyForm from "../../auth/CompanyForm";
 
 //UI components
-import { BaseCard } from "../../UI/BaseCard";
 import BaseSlider from "../../UI/BaseSlider";
+import FormPageContent from "../../UI/FormPageContent";
 
 const UserAuth = () => {
     const [switchToCompany, setSwitchToCompany] = useState(false)
@@ -24,15 +24,13 @@ const UserAuth = () => {
     }
     
     return (
-        <section className={styles['auth_container']}>
-            <BaseCard>
-                <div className={styles['auth_mode']}>
-                    <span style={ { fontWeight: switchToCompany ? '700' : 'normal'} }>As a company</span>
-                    <BaseSlider onTriggerSlider={switchMode} isChecked={switchToCompany} />
-                </div>
-                {form}     
-            </BaseCard>
-        </section>
+        <FormPageContent className={styles['auth_container']}>
+            <div className={styles['auth_mode']}>
+                <span style={ { fontWeight: switchToCompany ? '700' : 'normal'} }>As a company</span>
+                <BaseSlider onTriggerSlider={switchMode} isChecked={switchToCompany} />
+            </div>
+            {form}
+        </FormPageContent>
     )
 }
 
