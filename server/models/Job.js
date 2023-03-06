@@ -19,6 +19,11 @@ const jobSchema = new Schema({
         type: Date,
         default: Date.now()
     },
+    category: {
+      type: ObjectId,
+      ref: 'Category',
+      required: true,  
+    },
     subCat: {
         type: [ObjectId],
         default: [],
@@ -41,10 +46,6 @@ const jobSchema = new Schema({
         type: String,
         required: true,
         min: [20, 'Description must be at least 20 characters long']
-    },
-    country: {
-        type: String,
-        required: true
     },
     city: {
         type: String,
