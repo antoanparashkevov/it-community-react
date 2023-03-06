@@ -81,7 +81,7 @@ const CreateJobForm = () => {
         reset : resetSalaryInput,
         valueChangeHandler : salaryInputChangeHandler,
         inputBlurHandler: salaryInputBlurHandler
-    } = useInput(value => !isNaN(value) && Number(value) > 0);
+    } = useInput(value => value);
 
     const {
         value : enteredDesc,
@@ -211,9 +211,8 @@ const CreateJobForm = () => {
                 />
             </div>
             
-            <div className={ formControlClasses(salaryInputHasError) }>
+            <div className={ styles['form-control'] }>
 
-                {salaryInputHasError && <p>Please enter a valid non-negative salary</p> }
                 <Label for="salary">Salary</Label>
                 <Input
                     typeCat='number'
@@ -226,7 +225,7 @@ const CreateJobForm = () => {
             </div>
             <div className={ formControlClasses(cityInputHasError) }>
 
-                {cityInputHasError && <p>Please enter a valid non-empty description with at least 20 characters!</p>}
+                {cityInputHasError && <p>Please enter a valid non-empty city which is located in Bulgaria!</p>}
                 <Label for="city">City in Bulgaria*</Label>
                 <Input
                     id='city'
@@ -239,7 +238,7 @@ const CreateJobForm = () => {
             
             <div className={ formControlClasses(descInputHasError) }>
 
-                {descInputHasError && <p>Please enter a valid non-empty city which is located in Bulgaria!</p>}
+                {descInputHasError && <p>Please enter a valid non-empty description with at least 20 characters!</p>}
                 <Label for="desc">Job description*</Label>
                 <TextArea
                     id='desc'
