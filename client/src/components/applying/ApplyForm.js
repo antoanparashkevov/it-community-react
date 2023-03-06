@@ -4,6 +4,7 @@ import styles from './ApplyForm.module.css';
 import { RoundedButton } from "../UI/BaseButton";
 import { Input } from "../layout/Input";
 import { TextArea } from "../UI/TextArea";
+import Label from "../UI/Label";
 
 //hooks
 import useInput from "../../hooks/use-input";
@@ -69,7 +70,7 @@ const ApplyForm = () => {
             <div className={ formControlClasses(nameInputHasError) }>
 
                 {nameInputHasError && <p>Please enter a valid non-empty name!</p>}
-                <label htmlFor="name">Your name*</label>
+                <Label for="name">Your name*</Label>
                 <Input
                     id='name'
                     name='name'
@@ -81,7 +82,7 @@ const ApplyForm = () => {
             <div className={ formControlClasses(emailInputHasError) }>
 
                 {emailInputHasError && <p>Please enter a valid non-empty email!</p> }
-                <label htmlFor="email">Email*</label>
+                <Label for="email">Email*</Label>
                 <Input
                     typeCat='email'
                     id='email'
@@ -94,7 +95,7 @@ const ApplyForm = () => {
             <div className={ formControlClasses(msgInputHasError) }>
 
                 {msgInputHasError && <p>Please enter a valid non-empty message!</p>}
-                <label htmlFor="msg">Your message*</label>
+                <Label for="msg">Your message*</Label>
                 <TextArea
                     id='msg'
                     name='msg'

@@ -1,9 +1,14 @@
 import styles from './CategoryForm.module.scss'
+
+//hooks
 import useInput from "../../hooks/use-input";
+
+//UI components
 import { Input } from "../layout/Input";
 import { RoundedButton } from "../UI/BaseButton";
+import Label from "../UI/Label";
 
-const CategoryForm = ({ children }) => {
+const CategoryForm = ({ children, style }) => {
     let formIsValid;
 
     const {
@@ -37,11 +42,11 @@ const CategoryForm = ({ children }) => {
     }
 
     return (
-        <form className={ styles['category_form'] } onSubmit={ formSubmissionHandler }>
+        <form className={ styles['category_form'] } onSubmit={ formSubmissionHandler } style={style}>
             <div className={ formControlClasses(categoryNameInputHasError) }>
 
                 {categoryNameInputHasError && <p>Please enter a valid non-empty category name and at least 5 characters long!</p>}
-                <label htmlFor="cat_name">Category name*</label>
+                <Label for="cat_name">Category name*</Label>
                 <Input
                     typeCat='cat_name'
                     id='cat_name'

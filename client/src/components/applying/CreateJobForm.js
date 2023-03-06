@@ -5,6 +5,7 @@ import { RoundedButton } from "../UI/BaseButton";
 import { Input } from "../layout/Input";
 import { TextArea } from "../UI/TextArea";
 import DataSelectorWrapper from "../UI/DataSelectorWrapper";
+import Label from "../UI/Label";
 
 //hooks
 import useInput from "../../hooks/use-input";
@@ -124,7 +125,7 @@ const CreateJobForm = () => {
             <div className={ formControlClasses(jobNameInputHasError) }>
 
                 {jobNameInputHasError && <p>Please enter a valid non-empty job name!</p>}
-                <label htmlFor="job_name">Job name*</label>
+                <Label for="job_name">Job name*</Label>
                 <Input
                     id='job_name'
                     name='job_name'
@@ -135,7 +136,7 @@ const CreateJobForm = () => {
             </div>
             
             <div className={styles['form-control']}>
-                <label htmlFor="work_type">Work type*</label>
+                <Label for="work_type">Work type*</Label>
                 <DataSelectorWrapper
                     selectorData={orderedWorkTypeListData}
                     initialPlaceholderValue={orderedWorkTypeListData[0].displayName}
@@ -144,7 +145,7 @@ const CreateJobForm = () => {
             </div>
             
             <div className={styles['form-control']}>
-                <label htmlFor="category_type">Category type*</label>
+                <Label for="category_type">Category type*</Label>
                 <DataSelectorWrapper
                     selectorData={orderedCategoryListData}
                     initialPlaceholderValue={orderedCategoryListData[0].displayName}
@@ -153,7 +154,7 @@ const CreateJobForm = () => {
             </div>
             
             <div className={styles['form-control']}>
-                <label htmlFor="subcategory_type">Sub Category type*</label>
+                <Label for="subcategory_type">Sub Category type*</Label>
                 <DataSelectorWrapper
                     selectorData={orderedSubCategoryListData}
                     initialPlaceholderValue={orderedSubCategoryListData[0].displayName}
@@ -162,7 +163,7 @@ const CreateJobForm = () => {
             </div>
             
             <div className={styles['form-control']}>
-                <label htmlFor="seniority">Seniority*</label>
+                <Label for="seniority">Seniority*</Label>
                 <DataSelectorWrapper
                     selectorData={orderedSubCategoryListData}
                     initialPlaceholderValue={orderedSubCategoryListData[0].displayName}
@@ -173,7 +174,7 @@ const CreateJobForm = () => {
             <div className={ formControlClasses(salaryInputHasError) }>
 
                 {salaryInputHasError && <p>Please enter a valid non-negative salary</p> }
-                <label htmlFor="salary">Salary</label>
+                <Label for="salary">Salary</Label>
                 <Input
                     typeCat='number'
                     id='salary'
@@ -186,7 +187,7 @@ const CreateJobForm = () => {
             <div className={ formControlClasses(cityInputHasError) }>
 
                 {cityInputHasError && <p>Please enter a valid non-empty description with at least 20 characters!</p>}
-                <label htmlFor="city">City in Bulgaria*</label>
+                <Label for="city">City in Bulgaria*</Label>
                 <Input
                     id='city'
                     name='city'
@@ -199,7 +200,7 @@ const CreateJobForm = () => {
             <div className={ formControlClasses(descInputHasError) }>
 
                 {descInputHasError && <p>Please enter a valid non-empty city which is located in Bulgaria!</p>}
-                <label htmlFor="desc">Job description*</label>
+                <Label for="desc">Job description*</Label>
                 <TextArea
                     id='desc'
                     name='desc'

@@ -30,8 +30,9 @@ export const FooterWrapper = styled.footer`
 
 const RootLayout = ()=> {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const [isAdmin, setIsAdmin] = useState(true)
+    const [isAdmin, setIsAdmin] = useState(false)
     const [userName, setUserName] = useState('Antoan')
+    
     const navigation = useNavigation()
     
     return (

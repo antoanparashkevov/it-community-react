@@ -4,6 +4,7 @@ import { useState } from "react";
 //UI components
 import { Input } from "../layout/Input";
 import { OutlineButton, Button } from "../UI/BaseButton";
+import Label from "../UI/Label";
 
 //hooks
 import useInput from "../../hooks/use-input";
@@ -112,7 +113,7 @@ const CompanyForm = () => {
             <div className={ formControlClasses(emailInputHasError) }>
 
                 {emailInputHasError && <p>Please enter a valid non-empty name!</p>}
-                <label htmlFor="email">Email*</label>
+                <Label for="email">Email*</Label>
                 <Input
                     typeCat='email'
                     id='email'
@@ -125,7 +126,7 @@ const CompanyForm = () => {
             <div className={ formControlClasses(passwordInputHasError) }>
 
                 {passwordInputHasError && <p>Please enter a non-empty password!</p>}
-                <label htmlFor="pass">Password*</label>
+                <Label for="pass">Password*</Label>
                 <Input
                     typeCat='password'
                     id='pass'
@@ -138,7 +139,7 @@ const CompanyForm = () => {
             <div className={ formControlClasses(companyNameInputHasError) }>
 
                 {companyNameInputHasError && <p>Please enter a non-empty company name and company name between 5 and 30 characters!</p>}
-                <label htmlFor="company_name">Company Name*</label>
+                <Label for="company_name">Company Name*</Label>
                 <Input
                     id='company_name'
                     name='company_name'
@@ -150,7 +151,7 @@ const CompanyForm = () => {
             <div className={ formControlClasses(descriptionInputHasError) }>
 
                 {descriptionInputHasError && <p>Please enter a non-empty description and it should be between 20 and 70 characters!</p>}
-                <label htmlFor="desc">Description*</label>
+                <Label for="desc">Description*</Label>
                 <TextArea
                     id='desc'
                     name='desc'
@@ -162,7 +163,7 @@ const CompanyForm = () => {
             <div className={ formControlClasses(foundationYearInputHasError) }>
 
                 {foundationYearInputHasError && <p>Please enter a valid year!</p>}
-                <label htmlFor="date">Date*</label>
+                <Label for="date">Date*</Label>
                 <Input
                     typeCat='date'
                     id='date'

@@ -8,14 +8,15 @@ const LabelWrapper = styled.label`
 `
 
 const LabelText = styled.span`
-    color: #000000;
+    color: var(--gray-color);
     font-size: 16px;
+    font-weight: 700;
 `
 
 const Label = (props) => {
     return (
         <React.Fragment>
-            <LabelWrapper htmlFor={props.for}>
+            <LabelWrapper htmlFor={props.for} style={props.style}>
                 <LabelText>{props.children}</LabelText>
             </LabelWrapper>
         </React.Fragment>

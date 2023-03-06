@@ -4,6 +4,7 @@ import { useState } from "react";
 //UI components
 import { Input } from "../layout/Input";
 import { OutlineButton, Button } from "../UI/BaseButton";
+import Label from "../UI/Label";
 
 //hooks
 import useInput from "../../hooks/use-input";
@@ -70,7 +71,7 @@ const AuthForm = () => {
             <div className={ formControlClasses(emailInputHasError) }>
 
                 {emailInputHasError && <p>Please enter a valid non-empty name!</p>}
-                <label htmlFor="email">Email*</label>
+                <Label for="email">Email*</Label>
                 <Input 
                     typeCat='email' 
                     id='email' 
@@ -83,7 +84,7 @@ const AuthForm = () => {
             <div className={ formControlClasses(passwordInputHasError) }>
 
                 {passwordInputHasError && <p>Please enter a non-empty password!</p>}
-                <label htmlFor="pass">Password*</label>
+                <Label for="pass">Password*</Label>
                 <Input 
                     typeCat='password' 
                     id='pass' 
