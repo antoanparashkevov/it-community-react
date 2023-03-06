@@ -12,6 +12,9 @@ const Arrow = styled.div.attrs((props) => {
     width: ${props => props.width};
     height: ${props => props.height};
     ${props=> props.$rotate === true ? 'transform: rotateX(180deg);' : ''}
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 `
 
 export default Arrow;
