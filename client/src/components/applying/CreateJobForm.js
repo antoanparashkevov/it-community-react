@@ -9,6 +9,7 @@ import Label from "../UI/Label";
 
 //hooks
 import useInput from "../../hooks/use-input";
+import CustomCheckbox from "../UI/CustomCheckbox";
 
 const CreateJobForm = () => {
     let formIsValid;
@@ -54,16 +55,19 @@ const CreateJobForm = () => {
     
     const orderedSubCategoryListData = [
         {
-            code: 'frontend',
-            displayName : 'frontend',
+            code: 'vue',
+            displayName : 'Vue',
+            category: 'frontend'
         },
         {
-          code: 'backend',
-          displayName : 'backend'  
+            code: 'react',
+            displayName : 'React',
+            category: 'frontend'
         },
         {
-            code: 'qa',
-            displayName : 'qa'
+            code: 'angular',
+            displayName : 'Angular',
+            category: 'frontend'
         }
     ]
     const {
@@ -119,9 +123,14 @@ const CreateJobForm = () => {
     const formControlClasses = (hasError) => {
         return hasError ? `${styles['form-control']} invalid` : styles['form-control']
     }
+    
+    const subCategoryCheckboxHandler = (data) => {
+        console.log('Data from subCategoryCheckboxHandler >>> ', data)
+    }
 
     return (
         <form onSubmit={ formSubmissionHandler } className={ styles['apply_form'] }>
+            
             <div className={ formControlClasses(jobNameInputHasError) }>
 
                 {jobNameInputHasError && <p>Please enter a valid non-empty job name!</p>}
@@ -154,12 +163,21 @@ const CreateJobForm = () => {
             </div>
             
             <div className={styles['form-control']}>
-                <Label for="subcategory_type">Sub Category type*</Label>
-                <DataSelectorWrapper
-                    selectorData={orderedSubCategoryListData}
-                    initialPlaceholderValue={orderedSubCategoryListData[0].displayName}
-                    closeOnHover
-                />
+                <Label for="subcategory_type">Choose sub categories (at least one*)</Label>
+                <div className={styles['form_control_subcategory_wrapper']}>
+                    {orderedSubCategoryListData.map( (sub_cat, index ) =>
+                        <div className={styles['form_control_subcategory']} key={index}>
+                            <Label for={sub_cat.code}>{ sub_cat.displayName }</Label>
+                            <CustomCheckbox
+                                isChecked
+                                value={sub_cat.code}
+                                id={sub_cat.code}
+                                name={sub_cat.category}
+                                onTriggerCheckbox={subCategoryCheckboxHandler}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
             
             <div className={styles['form-control']}>

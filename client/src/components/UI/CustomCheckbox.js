@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const Checkmark = styled.span`
     width: 25px;
@@ -25,7 +25,7 @@ const Checkmark = styled.span`
 
 const Input = styled.input.attrs( props => {
     return {
-        type: 'checkbox'
+        type: props.type || 'checkbox'
     }
 })`
     position: absolute;

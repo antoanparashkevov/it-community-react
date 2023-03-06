@@ -16,6 +16,19 @@
     align-items: flex-start;
 }
 
+.form_control_subcategory_wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.form_control_subcategory {
+    display: flex;
+    padding: 0.5rem;
+    align-items: center;
+    position: relative;
+}
+
 .form-control label {
     font-weight: 700;
     font-size: 16px;
