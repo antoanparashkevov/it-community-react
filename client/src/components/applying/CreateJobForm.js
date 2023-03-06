@@ -1,4 +1,5 @@
 import styles from './CreateJobForm.module.scss';
+import { useEffect, useState } from "react";
 
 //UI components
 import { RoundedButton } from "../UI/BaseButton";
@@ -6,24 +7,16 @@ import { Input } from "../layout/Input";
 import { TextArea } from "../UI/TextArea";
 import DataSelectorWrapper from "../UI/DataSelectorWrapper";
 import Label from "../UI/Label";
+import CustomCheckbox from "../UI/CustomCheckbox";
 
 //hooks
 import useInput from "../../hooks/use-input";
-import CustomCheckbox from "../UI/CustomCheckbox";
 
 const CreateJobForm = () => {
+    let isDefaultCheckboxChecked = true;
+    
     let formIsValid;
 
-    const {
-        value : enteredJobName,
-        isValid: enteredJobNameIsValid,
-        hasError: jobNameInputHasError,
-        reset : resetJobNameInput,
-        valueChangeHandler : jobNameInputChangeHandler,
-        inputBlurHandler: jobNameInputBlurHandler
-    } = useInput(value => value.trim() !== '')
-
-    //TODO workType with dropdown selector
     const orderedWorkTypeListData = [
         {
             code: 'hybrid',
@@ -51,8 +44,7 @@ const CreateJobForm = () => {
             code: 'qa',
             displayName : 'qa'
         }
-    ] 
-    
+    ]
     const orderedSubCategoryListData = [
         {
             code: 'vue',
@@ -70,6 +62,18 @@ const CreateJobForm = () => {
             category: 'frontend'
         }
     ]
+
+    const [subCategoryCheckbox, setSubCategoryCheckbox] = useState([])
+    
+    const {
+        value : enteredJobName,
+        isValid: enteredJobNameIsValid,
+        hasError: jobNameInputHasError,
+        reset : resetJobNameInput,
+        valueChangeHandler : jobNameInputChangeHandler,
+        inputBlurHandler: jobNameInputBlurHandler
+    } = useInput(value => value.trim() !== '')
+    
     const {
         value : enteredSalary,
         isValid: enteredSalaryIsValid,
@@ -125,8 +129,23 @@ const CreateJobForm = () => {
     }
     
     const subCategoryCheckboxHandler = (data) => {
+        
         console.log('Data from subCategoryCheckboxHandler >>> ', data)
+        setSubCategoryCheckbox((prevState) => {
+            
+            if(prevState.length > 0) {
+                prevState = prevState.filter(c => c.id !== data.id)
+            }
+            
+            return [...prevState, data]
+        })
     }
+    
+    useEffect( () => {
+        //TODO fill the setSubCategoryCheckbox with real data
+        
+        console.log('subCategoryCheckbox', subCategoryCheckbox)
+    },[subCategoryCheckbox])
 
     return (
         <form onSubmit={ formSubmissionHandler } className={ styles['apply_form'] }>
@@ -163,13 +182,16 @@ const CreateJobForm = () => {
             </div>
             
             <div className={styles['form-control']}>
+                
                 <Label for="subcategory_type">Choose sub categories (at least one*)</Label>
+                
                 <div className={styles['form_control_subcategory_wrapper']}>
+                    
                     {orderedSubCategoryListData.map( (sub_cat, index ) =>
                         <div className={styles['form_control_subcategory']} key={index}>
                             <Label for={sub_cat.code}>{ sub_cat.displayName }</Label>
                             <CustomCheckbox
-                                isChecked
+                                isChecked={isDefaultCheckboxChecked}
                                 value={sub_cat.code}
                                 id={sub_cat.code}
                                 name={sub_cat.category}
