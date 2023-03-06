@@ -66,7 +66,7 @@ const TheHeader = () => {
     return (
         <nav className={`${styles['navbar']} ${activateBar ? styles['navbar_mobile_height'] : ''}`}>
             <div className={styles['navbar_title']}>
-                <NavigationLink to="/">IT-COMMUNITY</NavigationLink>
+                <NavigationLink to="/">IT-COMMUNITY{authCtx.isAdmin ? '-ADMIN' : ''}</NavigationLink>
             </div>
             <div className={styles['toggle_buttons']} onClick={toggleNavbar}>
                 {chooseButton()}
