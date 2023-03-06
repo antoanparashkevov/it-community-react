@@ -21,3 +21,9 @@
     font-size: 16px;
     color: var(--gray-color);
 }
+
+@media screen and (max-width: 660px) {
+    .apply_form {
+        padding: 0 1rem;
+    }
+}

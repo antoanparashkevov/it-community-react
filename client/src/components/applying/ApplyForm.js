@@ -1,5 +1,4 @@
 import styles from './ApplyForm.module.css';
-import { useState } from "react";
 
 //UI components
 import { RoundedButton } from "../UI/BaseButton";

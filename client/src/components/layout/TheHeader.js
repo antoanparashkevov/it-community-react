@@ -29,6 +29,7 @@ const CloseBar = styled(HamburgerBar)`
 `
 
 const TheHeader = () => {
+    //TODO RESPONSIVE DESIGN
     let [activateBar, updateActivateBar] = useState(false)
     const authCtx = useContext(AuthContext);
     
@@ -72,6 +73,14 @@ const TheHeader = () => {
                     </li>
                     <li className={styles['navbar_link']}>
                         <NavigationLink to="companies" className={({isActive})=> isActive ? 'active' : undefined}>Companies</NavigationLink>
+                    </li>
+                    <li className={styles['navbar_link']}>
+                        <NavigationLinkAsButton
+                            to="create"
+                            className={({isActive})=> isActive ? 'active' : undefined}
+                        >
+                            Create
+                        </NavigationLinkAsButton>
                     </li>
                     <li className={styles['navbar_link']}>
                         <NavigationLinkAsButton 
