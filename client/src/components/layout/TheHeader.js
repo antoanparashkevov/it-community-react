@@ -2,9 +2,12 @@ import React, { useState, useContext }  from "react";
 import styles from './TheHeader.module.css';
 import styled from "styled-components";
 
+//components
+import AdminNavigationHeader from "../admin/AdminNavigationHeader";
+import UserNavigationHeader from "./UserNavigationHeader";
 
 //UI components
-import { NavigationLink, NavigationLinkAsButton } from "../UI/BaseLinks";
+import { NavigationLink } from "../UI/BaseLinks";
 
 //context
 import AuthContext from "../../store/auth-context";
@@ -58,6 +61,8 @@ const TheHeader = () => {
         }
     }
     
+    const navigation = authCtx.isAdmin === true ? <AdminNavigationHeader /> : <UserNavigationHeader />
+    
     return (
         <nav className={`${styles['navbar']} ${activateBar ? styles['navbar_mobile_height'] : ''}`}>
             <div className={styles['navbar_title']}>
@@ -67,38 +72,7 @@ const TheHeader = () => {
                 {chooseButton()}
             </div>
             <div className={`${styles['navbar_links']} ${activateBar ? styles['activate_bar'] : ''}`}>
-                <ul role='list'>
-                    <li className={styles['navbar_link']}>
-                        <NavigationLink to="posters" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavigationLink>
-                    </li>
-                    <li className={styles['navbar_link']}>
-                        <NavigationLink to="companies" className={({isActive})=> isActive ? 'active' : undefined}>Companies</NavigationLink>
-                    </li>
-                    <li className={styles['navbar_link']}>
-                        <NavigationLinkAsButton
-                            to="create"
-                            className={({isActive})=> isActive ? 'active' : undefined}
-                        >
-                            Create
-                        </NavigationLinkAsButton>
-                    </li>
-                    <li className={styles['navbar_link']}>
-                        <NavigationLinkAsButton 
-                            to="messages"
-                            className={({isActive})=> isActive ? 'active' : undefined}
-                        >
-                            Messages
-                        </NavigationLinkAsButton>
-                    </li>
-                    <li className={styles['navbar_link']}>
-                        <NavigationLinkAsButton 
-                            to="auth" 
-                            className={({isActive})=> isActive ? 'active' : undefined}
-                        >
-                            Sign in
-                        </NavigationLinkAsButton>
-                    </li>
-                </ul>
+                {navigation}
             </div>
         </nav>
     )

@@ -17,24 +17,6 @@
     margin: 0.5rem;
 }
 
-.navbar_links ul {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar_links li:nth-child(1) a,
-.navbar_links li:nth-child(2) a {
-    color: var(--gray-color);
-}
-
-.navbar_links ul li a {
-    display: block;
-    padding: 1rem;
-}
-
 /* HAMBURGER MENU START */
 .toggle_buttons {
     position: absolute;
@@ -64,15 +46,6 @@
         display: flex;
     }
     
-    .navbar_links ul {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .navbar_links ul li {
-        text-align: center;
-    }
-    
     .navbar.navbar_mobile_height {
         height: auto;
     }
@@ -80,7 +53,7 @@
 
 @media screen and (max-width: 819px) and (min-width: 591px) {
     .navbar {
-        height: 130px;
+        height: 140px;
     }
 }
 /* HAMBURGER MENU END */

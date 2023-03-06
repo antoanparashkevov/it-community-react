@@ -13,6 +13,11 @@ import Messages from "../components/pages/messages/Messages";
 import UserAuth from "../components/pages/auth/UserAuth";
 import CreateJob from "../components/pages/applying/CreateJob";
 
+//Admin Components
+import AdminRootLayout from "../components/admin/AdminRootLayout";
+import CreateCategory from "../components/pages/admin/CreateCategory";
+import CreateSubCategory from "../components/pages/admin/CreateSubCategory";
+
 //create a relation between the routes and the components,
 //or simply we register our routes here
 
@@ -74,6 +79,20 @@ export const routes = createBrowserRouter([
             {
                 path: 'create',
                 element: <CreateJob/>
+            },
+            {
+                path: 'admin',
+                element: <AdminRootLayout/>,
+                children: [
+                            {
+                                path: 'category',
+                                element: <CreateCategory/>
+                            },
+                            {
+                                path: 'subcategory',
+                                element: <CreateSubCategory/>
+                            }
+                ]
             }
         ]
     }

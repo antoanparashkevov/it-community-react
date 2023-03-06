@@ -30,11 +30,15 @@ export const FooterWrapper = styled.footer`
 
 const RootLayout = ()=> {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(true)
     const navigation = useNavigation()
     
     return (
         <AuthContext.Provider 
-            value={{isLoggedIn}}
+            value={{
+                isLoggedIn,
+                isAdmin
+            }}
         >
             <HeaderWrapper>
                 <TheHeader/>

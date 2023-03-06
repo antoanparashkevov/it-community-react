@@ -1,0 +1,28 @@
+ul.admin_links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.admin_links li:nth-child(1) a,
+.admin_links li:nth-child(2) a {
+    color: var(--gray-color);
+}
+
+ul.admin_links li a {
+    display: block;
+    padding: 1rem;
+}
+
+@media (max-width: 590px) {
+    ul.admin_links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    ul.admin_links li {
+        text-align: center;
+    }
+}
