@@ -7,7 +7,7 @@ const subCategorySchema = new Schema({
     },
     counter: {
         type: Number,
-        required: true,
+        default: 0
     },
     mainCategory: {
         type: ObjectId,

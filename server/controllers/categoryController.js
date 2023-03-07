@@ -14,8 +14,10 @@ router.get('/categories', async (req,res) => {
     }
 })
 
-router.post('/categories', isAdmin(), async (req,res) => {
+//todo add the isAdmin guard
+router.post('/categories', async (req,res) => {
     const formData = req.body;
+    console.log('formData (category) >>> ', req.body)
     try {
         const category = formData;
         

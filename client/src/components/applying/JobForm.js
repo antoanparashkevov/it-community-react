@@ -1,4 +1,4 @@
-import styles from './CreateJobForm.module.scss';
+import styles from './JobForm.module.scss';
 import { useEffect, useState } from "react";
 
 //UI components
@@ -12,7 +12,7 @@ import CustomCheckbox from "../UI/CustomCheckbox";
 //hooks
 import useInput from "../../hooks/use-input";
 
-const CreateJobForm = () => {
+const JobForm = () => {
     let isDefaultCheckboxChecked = true;
     
     let formIsValid;
@@ -262,4 +262,4 @@ const CreateJobForm = () => {
 }
 
 
-export default CreateJobForm;
+export default JobForm;

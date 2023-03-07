@@ -4,6 +4,7 @@ const categorySchema = new Schema({
     title: {
         type: String,
         min: [5, 'The Category name requires to be at least 5 characters long'],
+        unique: true,
         required: true,
     },
     counter: {
@@ -13,7 +14,13 @@ const categorySchema = new Schema({
     subCategories: {
         type: [ObjectId],
         ref: 'SubCategory',
-        required: true
+    }
+})
+
+categorySchema.index({title: 1}/*asc order*/, {
+    collation: {
+        locale: 'en',//english letters only
+        strength: 2 //case insensitive
     }
 })
 

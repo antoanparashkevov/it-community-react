@@ -6,10 +6,15 @@ const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     
-    const sendRequest = useCallback(async (url, method, applyData = () => { return null }, data = {}) => {
+    const sendRequest = useCallback(async (url, method, applyData, data) => {
+        console.log('METHOD', method)
+        console.log('HOST', host)
+        console.log('URL', url)
+        console.log('Data to POST >>> ', data)
+        
         setIsLoading(true);
         setError(null);
-
+    
         const options = {
             method: method,
             headers: {}
@@ -54,29 +59,10 @@ const useHttp = () => {
         setIsLoading(false)
     }, [])
     
-    function get(url, transformDataFunction) {
-        return sendRequest(url, 'GET', transformDataFunction);
-    }
-    
-    function post(url, applyData, data) {
-        return sendRequest(url,'POST', applyData, data)
-    }
-    
-    function put(url, applyData) {
-        return sendRequest(url,'PUT', applyData);
-    }
-    
-    function del(url, applyData) {
-        return sendRequest(url,'DELETE', applyData);
-    }
-    
     return {
         isLoading,
         error,
-        get,
-        post,
-        put,
-        del
+        sendRequest
     }
 };
 

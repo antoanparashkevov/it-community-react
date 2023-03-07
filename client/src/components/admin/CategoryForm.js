@@ -8,7 +8,7 @@ import { Input } from "../layout/Input";
 import { RoundedButton } from "../UI/BaseButton";
 import Label from "../UI/Label";
 
-const CategoryForm = ({ children, style }) => {
+const CategoryForm = ({ children, style, onSaveData }) => {
     let formIsValid;
 
     const {
@@ -31,9 +31,12 @@ const CategoryForm = ({ children, style }) => {
             a http req is sent to the server to the same address
         */
         event.preventDefault();
-
-        console.log('category name >>> ', enteredCategoryName);
-
+        
+        if( !formIsValid ) {
+            return;
+        }
+        
+        onSaveData({ title: enteredCategoryName })
         resetCategoryNameInput();
     }
 
