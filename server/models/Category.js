@@ -20,7 +20,7 @@ const categorySchema = new Schema({
 categorySchema.index({title: 1}/*asc order*/, {
     collation: {
         locale: 'en',//english letters only
-        strength: 2 //case insensitive
+        strength: 1 //case sensitive
     }
 })
 
