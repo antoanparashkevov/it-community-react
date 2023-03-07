@@ -5,8 +5,8 @@ import React from "react";
 import RootLayout from "../components/Root";
 import ErrorPage from "../components/pages/Error";
 import Board from "../components/pages/applying/Board";
-import PostersList, { loader as postersLoader } from "../components/pages/applying/PostersList";
-import PosterDetails, { loader as posterDetailsLoader } from "../components/pages/applying/PosterDetails";
+import PostersList from "../components/pages/applying/PostersList";
+import PosterDetails from "../components/pages/applying/PosterDetails";
 import Applying from "../components/pages/applying/Applying";
 import Companies from "../components/pages/companies/Companies";
 import Messages from "../components/pages/messages/Messages";
@@ -20,7 +20,8 @@ import CreateSubCategory from "../components/pages/admin/CreateSubCategory";
 
 //utils
 import loader from "./loader";
-const sendRequest = loader();
+import action from "./action";
+import { transformCategoryFormData } from "../components/admin/CategoryForm";
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
@@ -43,12 +44,10 @@ export const routes = createBrowserRouter([
                     {
                         index: true,
                         element: <PostersList/>,
-                        loader: postersLoader,
                     },
                     {
                         path: ':posterId',
                         id: 'poster-details',
-                        loader: posterDetailsLoader,
                         children: [
                             {
                                 index: true,
@@ -87,11 +86,12 @@ export const routes = createBrowserRouter([
             {
                 path: 'admin',
                 element: <AdminRootLayout/>,
-                loader: ({request, params}) => sendRequest('/categoryData/categories'),
+                loader: ({request, params}) => loader('/categoryData/categories'),
                 id: 'admin',
                 children: [
                     {
                         path: 'category',
+                        action: ({request, params}) => action(request, params, transformCategoryFormData , '/categoryData/categories'),
                         element: <CreateCategory/>
                     },
                     {

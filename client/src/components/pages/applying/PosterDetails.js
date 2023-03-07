@@ -15,7 +15,6 @@ const PosterDetails = () => {
     const { width: windowWidth } = useWindowDimensions()
     const location = useLocation();
     const paramsObject = useParams();
-    const data = useRouteLoaderData('poster-details');
     
     const [isApplyFormVisible, setIsApplyFormVisible] = useState(false);
     const [applyButtonLink, setApplyButtonLink] = useState('apply');
@@ -46,7 +45,6 @@ const PosterDetails = () => {
     });
     
     useEffect( () => {
-        console.log('Data from Poster Details component >>> ', data)
 
         if ( location.pathname.includes('apply') ) {
             setIsApplyFormVisible(true)
@@ -118,17 +116,3 @@ const PosterDetails = () => {
 }
 
 export default PosterDetails;
-
-export const loader = async ({request, params}) => {
-    const response = await fetch('https://swapi.dev/api/people/' + params['posterId'])
-    
-    if( !response.ok ) {
-        throw json( 
-            { message: 'Could not fetch the poster details!' },
-            { status: 500 }    
-        )
-    } else {
-        const data = await response.json();
-        return data.name;
-    }
-}

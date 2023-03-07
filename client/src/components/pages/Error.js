@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 //components
 import TheHeader from "../layout/TheHeader";
@@ -19,14 +19,13 @@ const ErrorPage = () => {
     const errorResponse = useRouteError();
     
     let title = 'An error occurred!';
-    let message;
     
-    if(errorResponse.status === 404) {
-        message = errorResponse.data.message
-    } else if (errorResponse.status === 500) {
-        message = 'Internal server error!'
-    }
+    let message = 
+        errorResponse && Object.keys(errorResponse.data).length > 0  ?
+            errorResponse.data.message :
+            null;
     
+    console.log('errorResponse', errorResponse)
     
     return (
         <React.Fragment>

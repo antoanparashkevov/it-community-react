@@ -1,5 +1,5 @@
-import styles from './CreateCategory.module.scss';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouteLoaderData } from "react-router-dom";
 
 //components
 import CategoryForm from "../../admin/CategoryForm";
@@ -11,16 +11,18 @@ import BaseSpinner from "../../UI/BaseSpinner";
 //hooks
 import useHttp from "../../../hooks/use-http";
 
+
 const CreateCategory = () => {
     const {sendRequest: postRequest, isLoading, error} = useHttp();
-    const [postedData, setPostedData] = useState(false);
     
-    const handleSuccessfulReq = () => {
-        setPostedData(true)
-    }
+    const [categories, setCategories] = useState(useRouteLoaderData('admin'))
+    
+    
+    useEffect(() => {
+        console.log('categories', categories)
+    }, [])
     
     const handleFormSubmission = async (formData) => {
-        setPostedData(false)
         console.log('formData >>> ', formData)
         
         await postRequest('/categoryData/categories','POST', handleSuccessfulReq, formData)

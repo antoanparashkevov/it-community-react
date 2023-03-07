@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, useNavigation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import styled from "styled-components";
 
 //Components
@@ -33,7 +33,6 @@ const RootLayout = ()=> {
     const [isAdmin, setIsAdmin] = useState(false)
     const [userName, setUserName] = useState('Antoan')
     
-    const navigation = useNavigation()
     
     return (
         <AuthContext.Provider 
@@ -48,7 +47,6 @@ const RootLayout = ()=> {
             </HeaderWrapper>
             
             <MainWrapper>
-                {navigation.state === 'loading' && <p>Loading...</p>}
                 <Outlet />
             </MainWrapper>
             

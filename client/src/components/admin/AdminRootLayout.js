@@ -1,16 +1,12 @@
 import { Outlet } from "react-router-dom";
 import styles from './AdminRootLayout.module.scss';
-import { useRouteLoaderData } from "react-router-dom";
 
 //context
 import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
 
 const AdminRootLayout = () => {
-    const categories = useRouteLoaderData('admin')
     const authCtx = useContext(AuthContext);
-    
-    console.log('categories >>> ', categories)
     
     return (
         <section className={`${styles['admin_root_container']} container`}>

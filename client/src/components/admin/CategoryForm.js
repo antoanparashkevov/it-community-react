@@ -1,4 +1,5 @@
 import styles from './CategoryForm.module.scss'
+import { Form } from "react-router-dom";
 
 //hooks
 import useInput from "../../hooks/use-input";
@@ -45,7 +46,7 @@ const CategoryForm = ({ children, style, onSaveData }) => {
     }
 
     return (
-        <form className={ styles['category_form'] } onSubmit={ formSubmissionHandler } style={style}>
+        <Form method='post' className={ styles['category_form'] } style={style}>
             <div className={ formControlClasses(categoryNameInputHasError) }>
 
                 {categoryNameInputHasError && <p>Please enter a valid non-empty category name and at least 5 characters long!</p>}
@@ -70,8 +71,15 @@ const CategoryForm = ({ children, style, onSaveData }) => {
                     Create
                 </RoundedButton>
             </div>
-        </form>
+        </Form>
     )
 }
     
 export default CategoryForm;
+
+//used in the action
+export const transformCategoryFormData = (data) => {
+    return {
+        title: data.get('cat_name')
+    }
+}

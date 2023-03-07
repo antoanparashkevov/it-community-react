@@ -16,7 +16,7 @@ import NoDataAvailable from "../../UI/NoDataAvailable";
 const PostersList = () => {
     const { width: windowWidth } = useWindowDimensions()
     let [filteredData, setFilteredData] = useState({});
-    // const posters = useLoaderData();
+
     const [posters, setPosters] = useState([
         {
             jobName: 'Full-Stack Developer',
@@ -115,34 +115,3 @@ const PostersList = () => {
 }
 
 export default PostersList;
-
-
-export const loader = async () => {
-    
-    const response = await fetch('https://swapi.dev/api/people/1')
-
-    if( !response.ok ) {
-        //the Error component will be triggered
-        
-        // return {
-        //     isError: true,
-        //     message: 'Could not fetch the data!'
-        // };
-        
-        
-        // throw new Response(JSON.stringify({message: 'Page not found!'}), {
-        //     status: 500
-        // })
-        
-        /*
-        * JSON utility function will automatically convert our object to JSON and parse it to the place where we use this Response
-        * */
-        throw json(
-            {message: 'Page not found!'},
-            { status : 404 }
-            )
-        
-    } else {
-        return response;
-    }
-}
