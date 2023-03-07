@@ -7,6 +7,10 @@ const categorySchema = new Schema({
         unique: true,
         required: true,
     },
+    code: {
+        type: String,
+        required: true
+    },
     counter: {
         type: Number,
         default: 0
