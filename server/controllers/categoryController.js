@@ -3,6 +3,9 @@ const parseError = require('../util/parseError');
 const { isAdmin } = require("../middlewares/guards");
 const router = require('express').Router();
 
+//util
+const capitalLetterWord = require('../util/capitalLetterWord');
+const transformWhiteSpacesUnderscore = require('../util/transformWhiteSpacesUnderscore');
 
 router.get('/categories', async (req,res) => {
     try {
@@ -23,9 +26,9 @@ router.post('/categories', async (req,res) => {
     if( formData && formData.title ) {
         
         //make the first letter for each word a capital
-        formData.title = formData.title.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+        formData.title = capitalLetterWord(formData.title);
         
-        code = formData.title.toLowerCase().trim().replace(' ','_')
+        code = transformWhiteSpacesUnderscore(formData.title)
     }
     
     try {

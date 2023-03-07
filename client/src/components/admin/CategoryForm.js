@@ -9,7 +9,7 @@ import { Input } from "../layout/Input";
 import { RoundedButton } from "../UI/BaseButton";
 import Label from "../UI/Label";
 
-const CategoryForm = ({ children, style, onSaveData }) => {
+const CategoryForm = ({ children, style }) => {
     let formIsValid;
 
     const {
@@ -23,23 +23,6 @@ const CategoryForm = ({ children, style, onSaveData }) => {
     
 
     formIsValid = categoryNameInputIsValid
-
-    const formSubmissionHandler = (event) => {
-        //event param - event object describing the event
-
-        /*
-            the default behaviour is if the form is submitted,
-            a http req is sent to the server to the same address
-        */
-        event.preventDefault();
-        
-        if( !formIsValid ) {
-            return;
-        }
-        
-        onSaveData({ title: enteredCategoryName })
-        resetCategoryNameInput();
-    }
 
     const formControlClasses = (hasError) => {
         return hasError ? `${styles['form-control']} invalid` : styles['form-control']

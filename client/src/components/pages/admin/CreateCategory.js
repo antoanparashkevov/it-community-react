@@ -21,18 +21,12 @@ const CreateCategory = () => {
     useEffect(() => {
         console.log('categories', categories)
     }, [])
-    
-    const handleFormSubmission = async (formData) => {
-        console.log('formData >>> ', formData)
-        
-        await postRequest('/categoryData/categories','POST', handleSuccessfulReq, formData)
-    }
 
     console.log(error)
     return (
         <FormPageContent title='Create a category'>
             {isLoading && <BaseSpinner />}
-            <CategoryForm onSaveData={handleFormSubmission}/>
+            <CategoryForm/>
         </FormPageContent>
     )
 }
