@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser');
 const mongoose = require("mongoose");
 
 const port = 3030;
+
+//TODO with environment
 const CONNECTION_STR = 'mongodb://localhost:27017/it-community'
 
 //Controllers...

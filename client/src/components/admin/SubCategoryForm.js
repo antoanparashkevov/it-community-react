@@ -1,5 +1,5 @@
 import styles from './SubCategoryForm.module.scss'
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 
 //hooks
 import useInput from "../../hooks/use-input";
@@ -11,6 +11,8 @@ import Label from "../UI/Label";
 import DataSelectorWrapper from "../UI/DataSelectorWrapper";
 
 const SubCategoryForm = ({ categories }) => {
+    const navigation = useNavigation();
+    
     let formIsValid;
 
     const {
@@ -57,10 +59,10 @@ const SubCategoryForm = ({ categories }) => {
             
             <div className={ styles['form-actions'] }>
                 <RoundedButton
-                    disabled={ !formIsValid }
+                    disabled={ !formIsValid || navigation.state === 'submitting' }
                     type='submit'
                 >
-                    Create
+                    { navigation.state === 'submitting' ? 'Submitting...' : 'Create' }
                 </RoundedButton>
             </div>
         </Form>

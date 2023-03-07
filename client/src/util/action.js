@@ -14,7 +14,7 @@ const action = async (request, params, transformFetchedFormData , url) => {
     
     try {
         const response = await fetch(host + url, {
-            method: 'POST',
+            method: request.method,
             headers: {
               'Content-Type': 'application/json'  
             },

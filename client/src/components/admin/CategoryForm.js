@@ -1,5 +1,5 @@
 import styles from './CategoryForm.module.scss'
-import { Form } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 
 //hooks
 import useInput from "../../hooks/use-input";
@@ -10,8 +10,10 @@ import { RoundedButton } from "../UI/BaseButton";
 import Label from "../UI/Label";
 
 const CategoryForm = () => {
+    const navigation = useNavigation();
+    
     let formIsValid;
-
+    
     const {
         value : enteredCategoryName,
         isValid : categoryNameInputIsValid,
@@ -29,6 +31,7 @@ const CategoryForm = () => {
     }
 
     return (
+        //this Form built-in component automatically trigger the action function
         <Form method='post' className={ styles['category_form'] }>
             <div className={ formControlClasses(categoryNameInputHasError) }>
 
@@ -45,10 +48,10 @@ const CategoryForm = () => {
             </div>
             <div className={ styles['form-actions'] }>
                 <RoundedButton
-                    disabled={ !formIsValid }
+                    disabled={ !formIsValid || navigation.state === 'submitting' }
                     type='submit'
                 >
-                    Create
+                    { navigation.state === 'submitting' ? 'Submitting...' : 'Create' }
                 </RoundedButton>
             </div>
         </Form>
