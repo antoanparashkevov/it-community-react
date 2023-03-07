@@ -6,7 +6,7 @@ const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     
-    const sendRequest = useCallback(async (url, method, applyData, data) => {
+    const sendRequest = useCallback(async (url, method, applyData, data = {}) => {
         console.log('METHOD', method)
         console.log('HOST', host)
         console.log('URL', url)

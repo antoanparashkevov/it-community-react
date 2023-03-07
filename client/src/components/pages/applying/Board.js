@@ -90,14 +90,14 @@ const Board = () => {
             ]
         },
     ])
-    const {isLoading, error, get: fetchCategories} = useHttp()
+    const {isLoading, error, sendRequest: fetchCategories} = useHttp()
     
     useEffect(  () => {
         const categoriesResponseConverter = (data) => {
             setCategories(data)
         }
         
-        fetchCategories('people/1', categoriesResponseConverter);
+        fetchCategories('people/1','GET', categoriesResponseConverter);
         
         
     }, [])

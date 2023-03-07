@@ -18,6 +18,10 @@ import AdminRootLayout from "../components/admin/AdminRootLayout";
 import CreateCategory from "../components/pages/admin/CreateCategory";
 import CreateSubCategory from "../components/pages/admin/CreateSubCategory";
 
+//utils
+import loader from "./loader";
+const sendRequest = loader();
+
 //create a relation between the routes and the components,
 //or simply we register our routes here
 
@@ -83,15 +87,17 @@ export const routes = createBrowserRouter([
             {
                 path: 'admin',
                 element: <AdminRootLayout/>,
+                loader: ({request, params}) => sendRequest('/categoryData/categories'),
+                id: 'admin',
                 children: [
-                            {
-                                path: 'category',
-                                element: <CreateCategory/>
-                            },
-                            {
-                                path: 'subcategory',
-                                element: <CreateSubCategory/>
-                            }
+                    {
+                        path: 'category',
+                        element: <CreateCategory/>
+                    },
+                    {
+                        path: 'subcategory',
+                        element: <CreateSubCategory/>
+                    }
                 ]
             }
         ]

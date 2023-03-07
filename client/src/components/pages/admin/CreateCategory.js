@@ -30,7 +30,6 @@ const CreateCategory = () => {
     return (
         <FormPageContent title='Create a category'>
             {isLoading && <BaseSpinner />}
-            {postedData.toString()}
             <CategoryForm onSaveData={handleFormSubmission}/>
         </FormPageContent>
     )
