@@ -32,7 +32,6 @@ const CloseBar = styled(HamburgerBar)`
 `
 
 const TheHeader = () => {
-    //TODO RESPONSIVE DESIGN
     let [activateBar, updateActivateBar] = useState(false)
     const authCtx = useContext(AuthContext);
     

@@ -22,6 +22,7 @@ import CreateSubCategory from "../components/pages/admin/CreateSubCategory";
 import loader from "./loader";
 import action from "./action";
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
+import { transformSubCategoryFormData } from "../components/admin/SubCategoryForm";
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
@@ -96,6 +97,7 @@ export const routes = createBrowserRouter([
                     },
                     {
                         path: 'subcategory',
+                        action: ({request, params}) => action(request, params, transformSubCategoryFormData, '/subCategoryData/subcategories'),
                         element: <CreateSubCategory/>
                     }
                 ]

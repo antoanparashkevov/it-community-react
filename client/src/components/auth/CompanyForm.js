@@ -62,11 +62,10 @@ const CompanyForm = () => {
         let year  = value.split('-')[0];
         
         if( year ) {
-            return !(Number(year) < 1900 || Number(year) > 2023);
+            return !(Number(year) < 1900 || Number(year) > new Date().getFullYear());
         }
         
     });
-    //TODO replace 2023 with a dynamic value representing the current year
     
     formIsValid = emailInputIsValid && passwordInputIsValid && companyNameInputIsValid && descriptionInputIsValid && foundationYearInputIsValid
 

@@ -70,8 +70,9 @@ const SubCategoryForm = ({ categories }) => {
 export default SubCategoryForm;
 
 //used in the action
-export const transformCategoryFormData = (data) => {
+export const transformSubCategoryFormData = (data) => {
     return {
-        title: data.get('cat_name')
+        title: data.get('subcat_name'),
+        // TODO - > mainCategory: 
     }
 }
