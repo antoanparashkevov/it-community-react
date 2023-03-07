@@ -3,7 +3,7 @@ const { Schema, model, Types: {ObjectId} } = require('mongoose')
 const categorySchema = new Schema({
     title: {
         type: String,
-        min: [5, 'The Category name requires to be at least 5 characters long'],
+        minLength: [5, 'The Category name requires to be at least 5 characters long'],
         unique: true,
         required: true,
     },
