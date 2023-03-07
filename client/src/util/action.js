@@ -21,9 +21,8 @@ const action = async (request, params, transformFetchedFormData , url) => {
             body: JSON.stringify(formData)
         })
         
-        if( response.ok === false ) {
-            const error = await response.json();
-            throw new Error(error.message)
+        if( response.ok === false  || response.status === 400) {
+            return response;
         }
         
         return response;

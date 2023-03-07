@@ -1,5 +1,6 @@
+import React from "react";
 import styles from './SubCategoryForm.module.scss'
-import { Form, useNavigation } from "react-router-dom";
+import { Form, useActionData, useNavigation } from "react-router-dom";
 
 //hooks
 import useInput from "../../hooks/use-input";
@@ -9,9 +10,11 @@ import { Input } from "../layout/Input";
 import { RoundedButton } from "../UI/BaseButton";
 import Label from "../UI/Label";
 import DataSelectorWrapper from "../UI/DataSelectorWrapper";
+import BaseDialog from "../UI/BaseDialog";
 
 const SubCategoryForm = ({ categories }) => {
     const navigation = useNavigation();
+    const error = useActionData();
     
     let formIsValid;
 
@@ -32,40 +35,43 @@ const SubCategoryForm = ({ categories }) => {
     }
 
     return (
-        <Form method='post' className={ styles['category_form'] }>
-            <div className={ formControlClasses(subCategoryNameInputHasError) }>
+        <React.Fragment>
+            {error && <BaseDialog title='Validation error' fixed={false}>{error.message}</BaseDialog>}
+            <Form method='post' className={ styles['category_form'] }>
+                <div className={ formControlClasses(subCategoryNameInputHasError) }>
 
-                {subCategoryNameInputHasError && <p>Please enter a valid non-empty sub category name and at least 3 characters long!</p>}
-                <Label for="subcat_name">Category name*</Label>
-                <Input
-                    typeCat='subcat_name'
-                    id='subcat_name'
-                    name='subcat_name'
-                    onChange={ subCategoryNameChangeHandler }
-                    onBlur={ subCategoryNameBlurHandler }
-                    value={ enteredSubCategoryName }
-                />
-            </div>
+                    {subCategoryNameInputHasError && <p>Please enter a valid non-empty sub category name and at least 3 characters long!</p>}
+                    <Label for="subcat_name">Category name*</Label>
+                    <Input
+                        typeCat='subcat_name'
+                        id='subcat_name'
+                        name='subcat_name'
+                        onChange={ subCategoryNameChangeHandler }
+                        onBlur={ subCategoryNameBlurHandler }
+                        value={ enteredSubCategoryName }
+                    />
+                </div>
 
-            <div className={ styles['form-control'] }>
-                <Label for='category'>Choose a category</Label>
-                <DataSelectorWrapper 
-                    closeOnHover 
-                    selectorData={categories}
-                    initialPlaceholderValue={categories[0].title}
-                />
-            </div>
+                <div className={ styles['form-control'] }>
+                    <Label for='category'>Choose a category</Label>
+                    <DataSelectorWrapper
+                        closeOnHover
+                        selectorData={categories}
+                        initialPlaceholderValue={categories[0].title}
+                    />
+                </div>
 
-            
-            <div className={ styles['form-actions'] }>
-                <RoundedButton
-                    disabled={ !formIsValid || navigation.state === 'submitting' }
-                    type='submit'
-                >
-                    { navigation.state === 'submitting' ? 'Submitting...' : 'Create' }
-                </RoundedButton>
-            </div>
-        </Form>
+
+                <div className={ styles['form-actions'] }>
+                    <RoundedButton
+                        disabled={ !formIsValid || navigation.state === 'submitting' }
+                        type='submit'
+                    >
+                        { navigation.state === 'submitting' ? 'Submitting...' : 'Create' }
+                    </RoundedButton>
+                </div>
+            </Form>
+        </React.Fragment>
     )
 }
 

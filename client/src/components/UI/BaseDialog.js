@@ -13,6 +13,7 @@ const Backdrop = ({ tryClose }) => {
 }
 
 const ModalOverlay = ({ children, title, fixed, tryClose, activateMoreActions }) => {
+    //TODO fix the close dialog
     return (
         <dialog open className={styles['dialog']}>
             <header className={styles['dialog_header']}>
