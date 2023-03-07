@@ -1,22 +1,17 @@
+import { useRouteLoaderData } from "react-router-dom";
+
 //UI components
 import FormPageContent from "../../UI/FormPageContent";
-import CategoryForm from "../../admin/CategoryForm";
-import DataSelectorWrapper from "../../UI/DataSelectorWrapper";
-import Label from '../../UI/Label';
+import SubCategoryForm from "../../admin/SubCategoryForm";
 
 const CreateSubCategory = () => {
-    const categories = [
-        {
-            code: 'frontend',
-            displayName: 'Frontend'
-        }
-    ]
+   const categories = useRouteLoaderData('admin')
+    
+    console.log('categories from CreateSubCategory >>> ', categories);
+   
     return (
         <FormPageContent title='Create a sub category'>
-            <CategoryForm style={ { alignItems: 'flex-start' } }>
-                <Label style={ {fontWeight: 700} }>Choose a category</Label>
-                <DataSelectorWrapper closeOnHover selectorData={categories} initialPlaceholderValue={categories[0].displayName}/>
-            </CategoryForm>
+            <SubCategoryForm categories={categories} />
         </FormPageContent>
     )   
 }

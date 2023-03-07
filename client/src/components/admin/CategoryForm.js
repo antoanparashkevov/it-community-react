@@ -9,7 +9,7 @@ import { Input } from "../layout/Input";
 import { RoundedButton } from "../UI/BaseButton";
 import Label from "../UI/Label";
 
-const CategoryForm = ({ children, style }) => {
+const CategoryForm = () => {
     let formIsValid;
 
     const {
@@ -29,7 +29,7 @@ const CategoryForm = ({ children, style }) => {
     }
 
     return (
-        <Form method='post' className={ styles['category_form'] } style={style}>
+        <Form method='post' className={ styles['category_form'] }>
             <div className={ formControlClasses(categoryNameInputHasError) }>
 
                 {categoryNameInputHasError && <p>Please enter a valid non-empty category name and at least 5 characters long!</p>}
@@ -43,9 +43,6 @@ const CategoryForm = ({ children, style }) => {
                     value={ enteredCategoryName }
                 />
             </div>
-
-            {children}
-            
             <div className={ styles['form-actions'] }>
                 <RoundedButton
                     disabled={ !formIsValid }

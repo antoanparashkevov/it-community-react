@@ -49,7 +49,7 @@ const DataSelectorWrapper = ( { initialPlaceholderValue, selectorData, closeOnHo
                                 onClick={switchData}
                                 key={i.code}
                             >
-                                    {i.displayName}
+                                    {i.title}
                             </li>
                         )
                     })}

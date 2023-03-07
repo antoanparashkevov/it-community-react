@@ -2,27 +2,13 @@ import { json } from "react-router-dom";
 
 const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';
 
-const loader = async (url, data = {}) => {
+const loader = async (url) => {
     
     console.log('HOST', host)
     console.log('URL', url)
-    console.log('Data to POST >>> ', data)
-    
-    const options = {
-        method: 'GET',
-        headers: {}
-    }
-
-    if( Object.keys(data).length > 0 ) {
-        options.headers['Content-Type'] = 'application/json';
-        options.body = JSON.stringify(data)
-    }
 
     try {
-        const response = await fetch(
-            host + url,
-            options
-        )
+        const response = await fetch(host + url)
 
         if( response.ok === false ) {
 
