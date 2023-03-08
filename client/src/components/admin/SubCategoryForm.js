@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from './SubCategoryForm.module.scss'
 import { Form, useActionData, useNavigation } from "react-router-dom";
 
@@ -15,6 +15,12 @@ import BaseDialog from "../UI/BaseDialog";
 const SubCategoryForm = ({ categories }) => {
     const navigation = useNavigation();
     const error = useActionData();
+    
+    const [placeholderValue, setPlaceholderValue] = useState(categories[0].title || '')
+    const [selectedCategory, setSelectedCategory] = useState({ 
+        title: categories[0].title,
+        code: categories[0].code
+    });
     
     let formIsValid;
 
@@ -33,6 +39,18 @@ const SubCategoryForm = ({ categories }) => {
     const formControlClasses = (hasError) => {
         return hasError ? `${styles['form-control']} invalid` : styles['form-control']
     }
+    
+    const handleCategoryChange = (dataObject) => {
+        setPlaceholderValue(dataObject.value)
+        setSelectedCategory({
+            title: dataObject.value,
+            code: dataObject.valueCode
+        })
+    }
+    
+    useEffect( () => {
+        console.log('selectedCategory', selectedCategory)
+    }, [selectedCategory])
 
     return (
         <React.Fragment>
@@ -57,7 +75,8 @@ const SubCategoryForm = ({ categories }) => {
                     <DataSelectorWrapper
                         closeOnHover
                         selectorData={categories}
-                        initialPlaceholderValue={categories[0].title}
+                        initialPlaceholderValue={placeholderValue}
+                        onResubForNewData={handleCategoryChange}
                     />
                 </div>
 

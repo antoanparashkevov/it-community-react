@@ -4,18 +4,23 @@ import React, { useState } from "react";
 //UI components
 import Arrow from "./BaseArrow";
 
-const DataSelectorWrapper = ( { initialPlaceholderValue, selectorData, closeOnHover } ) => {
+const DataSelectorWrapper = ( { initialPlaceholderValue, selectorData, closeOnHover, onResubForNewData } ) => {
     const [isSelectorClicked, setIsSelectorClicked] = useState(false);
     
     const expandCollapseSelector = () => {
-        console.log('expand/collapse functionality triggered')
+        
         setIsSelectorClicked( (prevState) => {
             return !prevState;
         })
     }
     
-    const switchData = () => {
-        console.log('switch data triggered!')
+    const switchData = ( code, value) => {
+        setIsSelectorClicked((prevState) => !prevState);
+        
+        onResubForNewData({
+            valueCode: code,
+            value
+        })
     }
     
     const hoverToClose = () => {
@@ -42,14 +47,17 @@ const DataSelectorWrapper = ( { initialPlaceholderValue, selectorData, closeOnHo
 
             {isSelectorClicked &&
                 <ul className={styles['data_selector_list']} role='list'>
-                    {selectorData.map( (i) => {
+                    {selectorData.map( (valueObject) => {
                         return (
                             <li 
-                                className={styles['data_selector_list_item']}
-                                onClick={switchData}
-                                key={i.code}
+                                className={`
+                                    ${styles['data_selector_list_item']} 
+                                    ${initialPlaceholderValue === valueObject.title ? styles['selected_item'] : ''}
+                                `}
+                                onClick={switchData.bind(this, valueObject.code, valueObject.title)}
+                                key={valueObject.code}
                             >
-                                    {i.title}
+                                    {valueObject.title}
                             </li>
                         )
                     })}
