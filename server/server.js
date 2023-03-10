@@ -28,7 +28,10 @@ async function start() {
     const app = express();
 
     try {
-       await mongoose.connect(CONNECTION_STR)
+       await mongoose.connect(CONNECTION_STR, {
+           useUnifiedTopology: true,
+           useNewUrlParser: true
+       })
         console.log('Database connected!');
     } catch (err) {
         console.error(err.message);

@@ -14,7 +14,7 @@ const applicationSchema = new Schema({
     },
     message:{
         type: String,
-        min: [20, 'The message must be at least 20 characters long'],
+        minLength: [20, 'The message must be at least 20 characters long'],
         required: true
     },
     userId: {

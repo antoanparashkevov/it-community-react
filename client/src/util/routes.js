@@ -97,7 +97,7 @@ export const routes = createBrowserRouter([
                     },
                     {
                         path: 'subcategory',
-                        action: ({request, params}) => action(request, params, transformSubCategoryFormData, '/subCategoryData/subcategories'),
+                        // action: ({request, params}) => action(request, params, transformSubCategoryFormData, '/subCategoryData/subcategories'),
                         element: <CreateSubCategory/>
                     }
                 ]

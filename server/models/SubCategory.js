@@ -1,10 +1,11 @@
-const { Schema, model, Types: { ObjectId } } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const subCategorySchema = new Schema({
     title: {
         type: String,
         minLength: [3, 'The Category name requires to be at least 5 characters long'],
-        required: true,
+        unique: true,
+        required: [true, 'This is a required field!'],
     },
     code: {
         type: String,
@@ -14,11 +15,6 @@ const subCategorySchema = new Schema({
         type: Number,
         default: 0
     },
-    mainCategory: {
-        type: ObjectId,
-        ref: 'Category',
-        required: true
-    }
 })
 
 subCategorySchema.index( {title: 1}, {
@@ -27,6 +23,7 @@ subCategorySchema.index( {title: 1}, {
         strength: 1 //case sensitive
     }
 })
+
 
 const SubCategory = model('SubCategory', subCategorySchema)
 

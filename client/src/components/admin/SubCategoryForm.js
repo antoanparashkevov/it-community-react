@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from './SubCategoryForm.module.scss'
-import { Form, useActionData, useNavigation } from "react-router-dom";
+import { useActionData, useNavigation } from "react-router-dom";
 
 //hooks
 import useInput from "../../hooks/use-input";
@@ -11,11 +11,12 @@ import { RoundedButton } from "../UI/BaseButton";
 import Label from "../UI/Label";
 import DataSelectorWrapper from "../UI/DataSelectorWrapper";
 import BaseDialog from "../UI/BaseDialog";
+import useHttp from "../../hooks/use-http";
 
 const SubCategoryForm = ({ categories }) => {
     const navigation = useNavigation();
-    const error = useActionData();
-    
+    const { isLoading, error, sendRequest: postSubCategory} = useHttp()
+
     const [placeholderValue, setPlaceholderValue] = useState(categories[0].title || '')
     const [selectedCategory, setSelectedCategory] = useState({ 
         title: categories[0].title,
@@ -51,11 +52,23 @@ const SubCategoryForm = ({ categories }) => {
     useEffect( () => {
         console.log('selectedCategory', selectedCategory)
     }, [selectedCategory])
-
+    
+    const saveData = async (ev) => {
+        ev.preventDefault();
+        
+        console.log('enteredSubCategoryName', enteredSubCategoryName)
+        console.log('selectedCategory', selectedCategory)
+        
+        
+        await postSubCategory('/subCategoryData/subcategories', 'POST',(data) => data ,{ title: enteredSubCategoryName, categoryCode: selectedCategory.code } )
+        
+        resetSubCategoryNameInput();
+        
+    }
     return (
         <React.Fragment>
-            {error && <BaseDialog title='Validation error' fixed={false}>{error.message}</BaseDialog>}
-            <Form method='post' className={ styles['category_form'] }>
+            {/*{error && <BaseDialog title='Validation error' fixed={false}>{error.message}</BaseDialog>}*/}
+            <form onSubmit={saveData} className={ styles['category_form'] }>
                 <div className={ formControlClasses(subCategoryNameInputHasError) }>
 
                     {subCategoryNameInputHasError && <p>Please enter a valid non-empty sub category name and at least 3 characters long!</p>}
@@ -76,6 +89,7 @@ const SubCategoryForm = ({ categories }) => {
                         closeOnHover
                         selectorData={categories}
                         initialPlaceholderValue={placeholderValue}
+                        name={selectedCategory.code}
                         onResubForNewData={handleCategoryChange}
                     />
                 </div>
@@ -89,17 +103,17 @@ const SubCategoryForm = ({ categories }) => {
                         { navigation.state === 'submitting' ? 'Submitting...' : 'Create' }
                     </RoundedButton>
                 </div>
-            </Form>
+            </form>
         </React.Fragment>
     )
 }
 
 export default SubCategoryForm;
 
-//used in the action
-export const transformSubCategoryFormData = (data) => {
-    return {
-        title: data.get('subcat_name'),
-        // TODO - > mainCategory: 
-    }
-}
+// //used in the action
+// export const transformSubCategoryFormData = (data) => {
+//     return {
+//         title: data.get('subcat_name'),
+//         mainCategory: data.get('')
+//     }
+// }

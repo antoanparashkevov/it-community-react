@@ -45,7 +45,7 @@ const jobSchema = new Schema({
     desc:{
         type: String,
         required: true,
-        min: [20, 'Description must be at least 20 characters long']
+        minLength: [20, 'Description must be at least 20 characters long']
     },
     city: {
         type: String,

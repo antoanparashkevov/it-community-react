@@ -1,4 +1,5 @@
 const { getAll, create } = require('../services/subCategoryService')
+const { getByCode } = require('../services/categoryService')
 const parseError = require('../util/parseError');
 const { isAdmin } = require('../middlewares/guards');
 const capitalLetterWord = require("../util/capitalLetterWord");
@@ -29,17 +30,20 @@ router.post('/subcategories', async (req,res) => {
 
         code = transformWhiteSpacesUnderscore(formData.title)
     }
-    
+
+    const subCategoryToCreate = {
+        title: formData.title,
+        code
+    }
     try {
-        const subcategory = formData;
+        let mainCategory = await getByCode(formData.categoryCode);
+        let subCategory = await create(subCategoryToCreate);
         
-        const subCategoryToCreate = {
-            ...subcategory,
-            code
-        }
         
-        await create(subCategoryToCreate);
-        res.json(subCategoryToCreate);
+        mainCategory.subCategories.push(subCategory);
+        await mainCategory.save();
+        
+        res.json({ subCategory: subCategory, category: mainCategory });
     } catch ( err ) {
         
         const message = parseError( err )

@@ -26,7 +26,7 @@ const BoardItem = ({category}) => {
         <section className={styles['homepage_category_main']}>
 
             <div className={styles['homepage_category_main_wrapper']}>
-                {category['sub_categories'].map((subcategory, index)=> 
+                {category['subCategories'].map((subcategory, index)=> 
                     <SubcategoryBadge key={index} subcategory={subcategory}/>
                 )}
             </div>
