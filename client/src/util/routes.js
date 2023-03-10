@@ -22,7 +22,7 @@ import CreateSubCategory from "../components/pages/admin/CreateSubCategory";
 import loader from "./loader";
 import action from "./action";
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
-import { transformSubCategoryFormData } from "../components/admin/SubCategoryForm";
+import { formatCategoryData } from "../components/applying/JobForm";
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
@@ -82,6 +82,8 @@ export const routes = createBrowserRouter([
             },
             {
                 path: 'create',
+                loader: ({request, params}) => loader('/categoryData/categories', formatCategoryData),
+                id:'create-job',
                 element: <CreateJob/>
             },
             {

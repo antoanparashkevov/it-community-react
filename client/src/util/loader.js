@@ -2,7 +2,7 @@ import { json } from "react-router-dom";
 
 const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';
 
-const loader = async (url) => {
+const loader = async (url, formatData) => {
     
     console.log('HOST', host)
     console.log('URL', url)
@@ -19,8 +19,13 @@ const loader = async (url) => {
             throw new Error(error.message)
         }
 
-            //the loader automatically extracts the data from the response
-            return response;
+            if( formatData ) {
+                const data = await response.json();
+                return formatData(data)
+            } else {
+                //the loader automatically extracts the data from the response
+                return response;
+            }
 
     } catch ( error ) {
         // throw new Response(JSON.stringify({ message: error.message || 'Something went wrong!' }))

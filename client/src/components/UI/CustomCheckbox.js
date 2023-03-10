@@ -71,7 +71,7 @@ const CustomCheckbox = ({ onTriggerCheckbox, isChecked, value, id, name }) => {
     return (
         <React.Fragment>
             <Input 
-                onClick={checkboxHandler}
+                onChange={checkboxHandler}
                 defaultChecked={isChecked}
                 defaultValue={value}
                 id={id}

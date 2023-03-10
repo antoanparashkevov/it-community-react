@@ -1,4 +1,4 @@
-const { getAll, create } = require('../services/categoryService');
+const { getAll, create, getByCode } = require('../services/categoryService');
 const parseError = require('../util/parseError');
 const { isAdmin } = require("../middlewares/guards");
 const router = require('express').Router();
@@ -9,8 +9,15 @@ const transformWhiteSpacesUnderscore = require('../util/transformWhiteSpacesUnde
 
 router.get('/categories', async (req,res) => {
     try {
-        let items = await getAll()
-        res.json(items)
+        
+        if(req.query && req.query.where) {
+            const categoryCode = req.query.where.split('=')[1]
+            let category = await getByCode(categoryCode)
+            res.json(category)
+        } else {
+            let items = await getAll()
+            res.json(items)
+        }
     } catch ( error ) {
         const message = parseError( error );
         res.status(400).json({ message })

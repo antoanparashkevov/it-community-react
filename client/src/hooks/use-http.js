@@ -7,10 +7,10 @@ const useHttp = () => {
     const [error, setError] = useState(null)
     
     const sendRequest = useCallback(async (url, method, applyData, data = {}) => {
-        console.log('METHOD', method)
-        console.log('HOST', host)
-        console.log('URL', url)
-        console.log('Data to POST >>> ', data)
+        // console.log('METHOD', method)
+        // console.log('HOST', host)
+        // console.log('URL', url)
+        // console.log('Data to POST >>> ', data)
         
         setIsLoading(true);
         setError(null);
@@ -41,7 +41,7 @@ const useHttp = () => {
            }
            
            if( response.status === 204 ) {
-               return response;
+                return response;
            } else {
                
                if( applyData ) {
@@ -59,9 +59,14 @@ const useHttp = () => {
         setIsLoading(false)
     }, [])
     
+    const resetError = () => {
+        setError(null)
+    }
+    
     return {
         isLoading,
         error,
+        resetError,
         sendRequest
     }
 };

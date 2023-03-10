@@ -12,12 +12,14 @@ import Label from "../UI/Label";
 import DataSelectorWrapper from "../UI/DataSelectorWrapper";
 import BaseDialog from "../UI/BaseDialog";
 import useHttp from "../../hooks/use-http";
+import BaseSpinner from "../UI/BaseSpinner";
 
 const SubCategoryForm = ({ categories }) => {
     const navigation = useNavigation();
-    const { isLoading, error, sendRequest: postSubCategory} = useHttp()
+    const { isLoading, error, sendRequest: postSubCategory, resetError} = useHttp()
 
     const [placeholderValue, setPlaceholderValue] = useState(categories[0].title || '')
+    
     const [selectedCategory, setSelectedCategory] = useState({ 
         title: categories[0].title,
         code: categories[0].code
@@ -49,25 +51,20 @@ const SubCategoryForm = ({ categories }) => {
         })
     }
     
-    useEffect( () => {
-        console.log('selectedCategory', selectedCategory)
-    }, [selectedCategory])
-    
     const saveData = async (ev) => {
         ev.preventDefault();
         
-        console.log('enteredSubCategoryName', enteredSubCategoryName)
-        console.log('selectedCategory', selectedCategory)
-        
-        
         await postSubCategory('/subCategoryData/subcategories', 'POST',(data) => data ,{ title: enteredSubCategoryName, categoryCode: selectedCategory.code } )
         
-        resetSubCategoryNameInput();
-        
+        if( !error ) {
+            resetSubCategoryNameInput();
+        }
     }
+    
     return (
         <React.Fragment>
-            {/*{error && <BaseDialog title='Validation error' fixed={false}>{error.message}</BaseDialog>}*/}
+            {error && <BaseDialog show={!!error} title='Validation error' fixed={false} onCloseDialog={resetError}>{error}</BaseDialog>}
+            {isLoading && <BaseSpinner />}
             <form onSubmit={saveData} className={ styles['category_form'] }>
                 <div className={ formControlClasses(subCategoryNameInputHasError) }>
 
