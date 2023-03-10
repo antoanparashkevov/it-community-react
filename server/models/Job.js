@@ -10,30 +10,27 @@ const jobSchema = new Schema({
     workType:{
         type: String,
         enum: {
-            values: ['hybrid', 'remote', 'office'],
+            values: ['Hybrid', 'Remote', 'Office'],
             message: '{VALUE} is not supported!'
         },
         required: true
     },
     date: {
-        type: Date,
-        default: Date.now()
+        type: Date
     },
     category: {
       type: ObjectId,
       ref: 'Category',
-      required: true,  
     },
-    subCat: {
+    subCategory: {
         type: [ObjectId],
         default: [],
         ref: 'SubCategory',
-        required: true,
     },
     seniority: {
         type: String,
         enum: {
-            values: ['intern', 'junior', 'senior', 'team_lead'],
+            values: ['Intern', 'Junior', 'Senior', 'Team Lead'],
             message: '{VALUE} is not supported!'
         },
         required: true,  
@@ -51,16 +48,16 @@ const jobSchema = new Schema({
         type: String,
         required: true,
     },
-    companyOwner: {
-        type: ObjectId,
-        ref: 'User',
-        required: true,  
-    },
-    _ownerId: {
-        type: ObjectId,
-        ref: 'User',
-        required: true
-    }
+    // companyOwner: {
+    //     type: ObjectId,
+    //     ref: 'User',
+    //     required: true,  
+    // },
+    // _ownerId: {
+    //     type: ObjectId,
+    //     ref: 'User',
+    //     required: true
+    // }
 })
 
 const Job = model('Job', jobSchema)

@@ -4,6 +4,10 @@ async function getAll() {
     return SubCategory.find({})
 }
 
+async function getByCode(code) {
+    return SubCategory.find({ code: code })
+}
+
 async function create(item) {
     return SubCategory.create(item)
 }
@@ -11,5 +15,6 @@ async function create(item) {
 
 module.exports = {
     getAll,
+    getByCode,
     create
 }

@@ -134,8 +134,8 @@ const JobForm = () => {
     
     const orderedSeniorityData = [
         {
-            title: 'Mid Level',
-            code: 'mid_level',
+            title: 'Team Lead',
+            code: 'team_lead',
         },
         {
             title: 'Junior',
@@ -172,7 +172,7 @@ const JobForm = () => {
         reset : resetJobNameInput,
         valueChangeHandler : jobNameInputChangeHandler,
         inputBlurHandler: jobNameInputBlurHandler
-    } = useInput(value => value.trim() !== '')
+    } = useInput(value => value.trim() !== '' && value.trim().length >= 5 && value.trim().length <= 30)
     
     const {
         value : enteredSalary,
@@ -204,7 +204,7 @@ const JobForm = () => {
 
     formIsValid = enteredJobNameIsValid && enteredSalaryIsValid && enteredDescIsValid && enteredCityIsValid;
 
-    const formSubmissionHandler = (event) => {
+    const formSubmissionHandler = async (event) => {
         //event param - event object describing the event
 
         /*
@@ -220,7 +220,21 @@ const JobForm = () => {
         console.log('subCategories >>>', subCategories);
         console.log('selectedSeniorityType >>>', selectedSeniorityType);
         console.log('Entered salary >>> ', enteredSalary);
+        console.log('Entered city', enteredCity)
         console.log('Entered desc >>> ', enteredDesc);
+        
+        let selectedSubCategories = subCategoryCheckbox.filter( s => s.isChecked ).map( s =>  s.id )
+        
+        await sendRequest('/jobData/jobs','POST', (data) => data, {
+            jobName: enteredJobName,
+            workType: selectedWorkType.title,
+            categoryCode: selectedCategoryType.code,
+            subCategories: selectedSubCategories,
+            seniority: selectedSeniorityType.title,
+            salary: enteredSalary ? enteredSalary : null,
+            desc: enteredDesc,
+            city: enteredCity
+        })
         
         //clearing the form
         if( !error ) {

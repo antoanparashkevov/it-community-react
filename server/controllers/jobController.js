@@ -1,4 +1,7 @@
-const { getAll, create, getById, getFreelancerRegistration, update, deleteById } = require("../services/jobService");
+const { getAll, create, getById, update, deleteById } = require("../services/jobService");
+const { getByCode: getSubCategoryByCode  } = require('../services/subCategoryService');
+const { getByCode: getCategoryByCode } = require("../services/categoryService");
+
 const parseError = require('../util/parseError')
 const { hasUser, hasRole } = require("../middlewares/guards");
 const router = require('express').Router();
@@ -7,18 +10,11 @@ const setCookie = require("../util/setCookie");
 
 router.get('/jobs',async(req, res) => {
     let items = []
+    
     try {
         
-        if(req.query.where) {
-            const ownerId = JSON.parse(req.query.where.split('=')[1])
-             items = await getFreelancerRegistration(ownerId)
-        } else {
-            items = await getAll();
-        }
-        
-        res.json({ 
-            jobs: items
-        })
+        items = await getAll();
+        res.json(items)
         
     } catch ( err ) {
         const message = parseError(err);
@@ -55,19 +51,51 @@ router.get('/jobs/:jobId', async (req,res) => {
     }
 })
 
-router.post('/jobs', hasUser(), hasRole(), async (req,res)  => {
+//TODO ADD hasUser(), hasRole()
+router.post('/jobs', async (req,res)  => {
     
     const formData = req.body;
-    
+
     try {
-      const data = Object.assign({
-          _ownerId: req.user._id,
-          companyOwner: req.user.companyName
-      }, formData)
-      
-      const item = await create(data)
-      
-      res.json(item)
+        let data = {}
+        let category = await getCategoryByCode(formData.categoryCode)
+        
+        category['counter']++;
+        await category.save();
+        
+        
+        data = {
+            jobName: formData.jobName,
+            workType: formData.workType,
+            seniority: formData.seniority,
+            desc: formData.desc,
+            city: formData.city
+        }
+        
+        if ( formData.salary ) {
+            data.salary = formData.salary
+        }
+        
+        let job = await create(data)
+        
+        for( let subCategoryCode of formData['subCategories']) {
+            const subCategory = await getSubCategoryByCode(subCategoryCode)
+            
+            if( subCategory ) {
+                job['subCategory'].push(subCategory[0])
+            }
+        }
+        
+        job.category = category
+        await job.save();
+        
+        console.log('JOB >>> ', job)
+      //data = Object.assign({
+      //     _ownerId: req.user._id,
+      //     companyOwner: req.user.companyName
+      // }, formData)
+        
+      // res.json(data)
     } catch (err) {
       const message = parseError(err)
       res.status(400).json({message})
