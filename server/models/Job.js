@@ -8,7 +8,7 @@ const jobSchema = new Schema({
         required: true,
     },
     workType:{
-        type: String,
+        type: [String],
         enum: {
             values: ['Hybrid', 'Remote', 'Office'],
             message: '{VALUE} is not supported!'
@@ -16,7 +16,8 @@ const jobSchema = new Schema({
         required: true
     },
     date: {
-        type: Date
+        type: String,
+        required: true
     },
     category: {
       type: ObjectId,
