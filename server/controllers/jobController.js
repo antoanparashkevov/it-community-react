@@ -1,10 +1,12 @@
+const router = require('express').Router();
 const { getAll, create, getById, update, deleteById } = require("../services/jobService");
-const { getByCode: getSubCategoryByCode  } = require('../services/subCategoryService');
+const { getByCode: getSubCategoryByCode, getById: getSubCategoryById  } = require('../services/subCategoryService');
 const { getByCode: getCategoryByCode } = require("../services/categoryService");
 
+//utils
 const parseError = require('../util/parseError')
 const { hasUser, hasRole } = require("../middlewares/guards");
-const router = require('express').Router();
+const formatDate = require('../util/formatDate')
 
 const setCookie = require("../util/setCookie");
 
@@ -12,10 +14,8 @@ router.get('/jobs',async(req, res) => {
     let items = []
     
     try {
-        
         items = await getAll();
         res.json(items)
-        
     } catch ( err ) {
         const message = parseError(err);
         res.status(400).json({ message })
@@ -25,20 +25,9 @@ router.get('/jobs',async(req, res) => {
 router.get('/jobs/:jobId', async (req,res) => {
     try {
         const jobId = req.params['jobId'];
-
         setCookie(req,res,jobId)
 
         const item = await getById(jobId);
-        
-        let location = {
-            country: item['country'],
-            city: item['city']
-        }
-        
-        delete item['country'];
-        delete item['city'];
-        
-        item.location = location;
         
         res.json({
             jobItem: item,
@@ -64,12 +53,15 @@ router.post('/jobs', async (req,res)  => {
         await category.save();
         
         
+        let formattedDate = formatDate();
+        
         data = {
             jobName: formData.jobName,
             workType: formData.workType,
             seniority: formData.seniority,
             desc: formData.desc,
-            city: formData.city
+            city: formData.city,
+            date: formattedDate
         }
         
         if ( formData.salary ) {
@@ -80,6 +72,9 @@ router.post('/jobs', async (req,res)  => {
         
         for( let subCategoryCode of formData['subCategories']) {
             const subCategory = await getSubCategoryByCode(subCategoryCode)
+            subCategory[0]['counter'] += 1;
+            
+            await subCategory[0].save();
             
             if( subCategory ) {
                 job['subCategory'].push(subCategory[0])
@@ -89,7 +84,6 @@ router.post('/jobs', async (req,res)  => {
         job.category = category
         await job.save();
         
-        console.log('JOB >>> ', job)
       //data = Object.assign({
       //     _ownerId: req.user._id,
       //     companyOwner: req.user.companyName
