@@ -19,7 +19,7 @@ const PosterItem = ({ job }) => {
     }
     
     return (
-            <Link to={ job['_id'] || '1' } className={styles['poster_list_item']}>
+            <Link to={ job['id'] } className={styles['poster_list_item']}>
                 <div className={styles['left_company_logo']}>
                     <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
                 </div>
@@ -30,7 +30,7 @@ const PosterItem = ({ job }) => {
                     </header>
                     <section className={styles['company_info_additional_info']}>
                         <div className={styles['company_info_city_wrapper']}>
-                            <address className={styles['company_info_city']}>{ job.location.city } city</address>
+                            <address className={styles['company_info_city']}>{ job.city } city</address>
                         </div>
                         <SalaryBadge />
                         <div className={styles['company_info_right_arrow']}>

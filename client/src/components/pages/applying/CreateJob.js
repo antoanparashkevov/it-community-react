@@ -1,4 +1,3 @@
-import styles from './CreateJob.module.scss';
 import React from "react";
 
 //components

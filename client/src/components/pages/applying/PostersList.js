@@ -1,9 +1,9 @@
 import styles from './PostersList.module.css'
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 
 //hooks
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
-import { json, useLoaderData } from "react-router-dom";
+import useHttp from "../../../hooks/use-http";
 
 //components
 import Sidebar from "../../layout/filters/Sidebar";
@@ -15,23 +15,40 @@ import NoDataAvailable from "../../UI/NoDataAvailable";
 
 const PostersList = () => {
     const { width: windowWidth } = useWindowDimensions()
+    const { isLoading, error, sendRequest } = useHttp();
+    
     let [filteredData, setFilteredData] = useState({});
-
-    const [posters, setPosters] = useState([
-        {
-            jobName: 'Full-Stack Developer',
-            workType: ['office', 'hybrid'],
-            date: '15-02-2022',
-            category: ['backend', 'infrastructure'],
-            subCat: ['.NET', 'Vue'],
-            seniority: 'senior',
-            salary: 2000,
-            location:  {
-                country: 'Bulgaria',
-                city: 'Sofia'
+    
+    const [posters, setPosters] = useState([])
+    
+    useEffect( () => {
+        fetchJobs();
+    }, [])
+    
+    const fetchJobs = useCallback( async () => {
+        await sendRequest('/jobData/jobs', 'GET', transformJobData)
+    },[])
+    
+    const transformJobData = (response) => {
+        const posters = response.map( j => {
+            return {
+                id: j._id,
+                jobName: j.jobName,
+                workType: j.workType.map(w_type => w_type.toLowerCase()),
+                category: j.category.code,
+                subCat: j.subCategory.map( sub_cat => sub_cat.title),
+                seniority: j.seniority.toLowerCase(),
+                salary: j.salary && !isNaN(j.salary) ? j.salary : null,
+                city: j.city,
+                date: j.date
             }
-        },
-    ])
+        })
+        if( posters && posters.length > 0) {
+            setPosters(posters);
+        } else {
+            setPosters([])
+        }
+    }
     
     const onFilterDataHandler = (data) => {
         setFilteredData(data)
@@ -41,15 +58,8 @@ const PostersList = () => {
         let toReturn = true;
         if( filteredData && Object.keys(filteredData).length > 0 ) {
             
-            if ( job.category && job.category.length > 0 ) {
-                
-                for(let category of job.category) {
-                    toReturn = filteredData['categories'][category].isChecked
-                    
-                    if( toReturn === false ) {
-                        break;
-                    }
-                }
+            if ( job.category ) {
+                toReturn = filteredData['categories'][job.category].isChecked
             }
         }
         return toReturn
