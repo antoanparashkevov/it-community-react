@@ -38,20 +38,38 @@ const JobForm = () => {
         }
     ]
     
-    const [placeholderWorkTypeValue, setPlaceholderWorkTypeValue] = useState(orderedWorkTypeListData[0].title)
-    const [selectedWorkType, setSelectedWorkType] = useState({
-        title: orderedWorkTypeListData[0].title,
-        code: orderedWorkTypeListData[0].title
-    })
-    
-    const handleWorkTypeChange = (dataObject) => {
-        setPlaceholderWorkTypeValue(dataObject.value);
-        setSelectedWorkType({ 
-            title: dataObject.value,
-            code: dataObject.valueCode
+    const [workTypeCheckbox, setWorkTypeCheckbox] = useState(
+          [
+              {
+                  isChecked : isDefaultCheckboxChecked,
+                  id: 'hybrid',
+                  type: 'hybrid',
+              },
+              {
+                  isChecked : isDefaultCheckboxChecked,
+                  id: 'office',
+                  type: 'office',
+              },
+              {
+                  isChecked : isDefaultCheckboxChecked,
+                  id: 'remote',
+                  type: 'remote',
+              },
+          ]
+    )
+
+    const handleWorkTypeChange = (data) => {
+
+        setWorkTypeCheckbox((prevState) => {
+
+            if(prevState.length > 0) {
+                prevState = prevState.filter(c => c.id !== data.id)
+            }
+
+            return [...prevState, data]
         })
     }
-
+    
     /* WORK TYPE END */
     
     /* CATEGORIES START */
@@ -214,7 +232,7 @@ const JobForm = () => {
         event.preventDefault();
 
         console.log('Entered job Name >>> ', enteredJobName);
-        console.log('selectedWorkType >>>', selectedWorkType);
+        console.log('workTypeCheckbox >>>', workTypeCheckbox);
         console.log('selectedCategoryType >>>', selectedCategoryType);
         console.log('subCategoryCheckbox >>>', subCategoryCheckbox);
         console.log('subCategories >>>', subCategories);
@@ -224,10 +242,11 @@ const JobForm = () => {
         console.log('Entered desc >>> ', enteredDesc);
         
         let selectedSubCategories = subCategoryCheckbox.filter( s => s.isChecked ).map( s =>  s.id )
+        let selectedWorkTypes = workTypeCheckbox.filter( w_type => w_type.isChecked).map( w_type => w_type.id.charAt(0).toUpperCase() + w_type.id.slice(1))
         
         await sendRequest('/jobData/jobs','POST', (data) => data, {
             jobName: enteredJobName,
-            workType: selectedWorkType.title,
+            workType: selectedWorkTypes,
             categoryCode: selectedCategoryType.code,
             subCategories: selectedSubCategories,
             seniority: selectedSeniorityType.title,
@@ -271,13 +290,21 @@ const JobForm = () => {
 
                 <div className={styles['form-control']}>
                     <Label for="work_type">Work type*</Label>
-                    <DataSelectorWrapper
-                        closeOnHover
-                        selectorData={orderedWorkTypeListData}
-                        initialPlaceholderValue={placeholderWorkTypeValue}
-                        name={selectedWorkType.code}
-                        onResubForNewData={handleWorkTypeChange}
-                    />
+                    <div className={styles['form_control_work_type_wrapper']}>
+
+                        {orderedWorkTypeListData.map( (w_type, index ) =>
+                            <div className={styles['form_control_subcategory']} key={index}>
+                                <Label for={w_type.code}>{ w_type.title }</Label>
+                                <CustomCheckbox
+                                    isChecked={isDefaultCheckboxChecked}
+                                    value={w_type.code}
+                                    id={w_type.code}
+                                    name={w_type.code}
+                                    onTriggerCheckbox={handleWorkTypeChange}
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 <div className={styles['form-control']}>
