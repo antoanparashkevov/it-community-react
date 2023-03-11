@@ -20,9 +20,9 @@ const WorkTypeFilter = ({ onSaveCriteria }) => {
             id: 'office',
             type: 'work_type'
         },
-        home: {
+        remote: {
             isChecked: filterCtx.isChecked,
-            id: 'home',
+            id: 'remote',
             type: 'work_type'
         },
         hybrid: {
@@ -57,8 +57,8 @@ const WorkTypeFilter = ({ onSaveCriteria }) => {
                     <CustomCheckbox isChecked={filterCtx.isChecked} value={'office'} name='work_type' id='office' onTriggerCheckbox={checkboxHandler} />
                 </div>
                 <div className={styles['form_control']}>
-                    <Label for='home'>Home</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'home'} name='work_type' id='home' onTriggerCheckbox={checkboxHandler} />
+                    <Label for='home'>Remote</Label>
+                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'remote'} name='work_type' id='remote' onTriggerCheckbox={checkboxHandler} />
                 </div>
                 <div className={styles['form_control']}>
                     <Label for='hybrid'>Hybrid</Label>
