@@ -23,6 +23,7 @@ import loader from "./loader";
 import action from "./action";
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
 import { formatCategoryData } from "../components/applying/JobForm";
+import { formatJobDetailsData } from '../components/pages/applying/PosterDetails';
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
@@ -49,6 +50,7 @@ export const routes = createBrowserRouter([
                     {
                         path: ':posterId',
                         id: 'poster-details',
+                        loader: ({request, params}) => loader('/jobData/jobs/' + params['posterId'], formatJobDetailsData),
                         children: [
                             {
                                 index: true,
