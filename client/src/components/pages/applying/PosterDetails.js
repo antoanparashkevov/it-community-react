@@ -14,29 +14,13 @@ import useWindowDimensions from "../../../hooks/useWindowDimensions";
 const PosterDetails = () => {
     const { width: windowWidth } = useWindowDimensions()
     const location = useLocation();
-    const paramsObject = useParams();
+    const data = useRouteLoaderData('poster-details');
     
     const [isApplyFormVisible, setIsApplyFormVisible] = useState(false);
     const [applyButtonLink, setApplyButtonLink] = useState('apply');
     
-    const [job, setJob] = useState({
-        jobName: 'Full-Stack Developer',
-        workType: ['office', 'remote'],
-        date: '15-02-2022',
-        category: ['FullStack', 'Frontend'],
-        subCat: ['.NET', 'Vue'],
-        seniority: 'senior',
-        salary: 2000,
-        desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet, aut autem culpa\n' +
-            '                            cumque eligendi et facilis fugit ipsam magni maiores nesciunt numquam quod quos recusandae\n' +
-            '                            sequi sint totam veritatis.Lorem ipsum dolor sit amet, consectetur adipisicing elit.\n' +
-            '                            Asperiores blanditiis debitis dignissimos dolores ea eligendi enim eos ex illo, laborum,\n' +
-            '                            nesciunt odio quod quos reiciendis repudiandae similique temporibus ullam. Commodi.',
-        location:  {
-        country: 'Bulgaria',
-            city: 'Sofia'
-        }
-    });
+    const [job, setJob] = useState(data);
+    
     const [company, setCompany] = useState({
         name: 'Onthill',
         desc: 'Lorem ipsum dolor sit amet.',
@@ -116,3 +100,18 @@ const PosterDetails = () => {
 }
 
 export default PosterDetails;
+
+export const formatJobDetailsData = (data) => {
+    return {
+        jobName: data.jobItem.jobName,
+        date: data.jobItem.date,
+        category: data.jobItem.category.title,
+        subCat: data.jobItem.subCategory.map( sub_cat => sub_cat.title),
+        workType: data.jobItem.workType,
+        seniority: data.jobItem.seniority,
+        salary: data.jobItem.salary && !isNaN(data.jobItem.salary) ? data.jobItem.salary : null,
+        desc: data.jobItem.desc,
+        city: data.jobItem.city
+        
+    }
+}
