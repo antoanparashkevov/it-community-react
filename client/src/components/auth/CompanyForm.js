@@ -9,11 +9,10 @@ import Label from "../UI/Label";
 //hooks
 import useInput from "../../hooks/use-input";
 import { TextArea } from "../UI/TextArea";
+import { Link } from "react-router-dom";
 
-const CompanyForm = () => {
+const CompanyForm = ( { authMode } ) => {
     let formIsValid;
-
-    const [authMode, setAuthMode] = useState('login')
 
     const {
         value : enteredEmail,
@@ -95,15 +94,6 @@ const CompanyForm = () => {
         return hasError ? `${styles['form-control']} invalid` : styles['form-control']
     }
 
-    const switchAuthMode = () => {
-        setAuthMode((prevState) => {
-            if(prevState === 'login') {
-                return 'signup'
-            }
-            return 'login'
-        })
-    }
-
     const submitButtonCaption = authMode === 'login' ? 'Login' : 'Sign up as company'
     const switchButtonCaption = authMode === 'login' ? 'Sign up instead' : 'Login instead'
 
@@ -183,7 +173,8 @@ const CompanyForm = () => {
                 <OutlineButton
                     className={ styles['form-second-btn'] }
                     type='button'
-                    onClick={switchAuthMode}
+                    as={Link}
+                    to={`?mode=${authMode === 'login' ? 'signup' : 'login'}`}
                 >
                     { switchButtonCaption }
                 </OutlineButton>

@@ -12,9 +12,11 @@ import PosterItem from "../../applying/PosterItem";
 
 //UI components
 import NoDataAvailable from "../../UI/NoDataAvailable";
+import { useNavigation } from "react-router-dom";
 
 const PostersList = () => {
     const { width: windowWidth } = useWindowDimensions()
+    const navigation = useNavigation();
     const { isLoading, error, sendRequest } = useHttp();
     
     let [filteredData, setFilteredData] = useState({});
@@ -110,6 +112,8 @@ const PostersList = () => {
             <BaseCard hide={windowWidth <= 744} className={styles['aside_wrapper']}>
                 <Sidebar onSaveFiltersData={onFilterDataHandler} />
             </BaseCard>
+            {/*TODO NAVIGATION STATE*/}
+            {/*{navigation.state}*/}
             <div className={styles['posters_list_wrapper']}>
                 { posters
                     .filter(categoryFilter)

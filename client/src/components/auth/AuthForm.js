@@ -1,5 +1,6 @@
 import styles from './AuthForm.module.scss';
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 //UI components
 import { Input } from "../layout/Input";
@@ -9,10 +10,8 @@ import Label from "../UI/Label";
 //hooks
 import useInput from "../../hooks/use-input";
 
-const AuthForm = () => {
+const AuthForm = ( { authMode } ) => {
     let formIsValid;
-    
-    const [authMode, setAuthMode] = useState('login')
     
     const {
         value : enteredEmail,
@@ -52,15 +51,6 @@ const AuthForm = () => {
 
     const formControlClasses = (hasError) => {
         return hasError ? `${styles['form-control']} invalid` : styles['form-control']
-    }
-    
-    const switchAuthMode = () => {
-        setAuthMode((prevState) => {
-            if(prevState === 'login') {
-                return 'signup'
-            }
-                return 'login'
-        })
     }
     
     const submitButtonCaption = authMode === 'login' ? 'Login' : 'Sign up'
@@ -106,7 +96,8 @@ const AuthForm = () => {
                 <OutlineButton 
                     className={ styles['form-second-btn'] }
                     type='button'
-                    onClick={switchAuthMode}
+                    as={Link}
+                    to={`?mode=${authMode === 'login' ? 'signup' : 'login'}`}
                 >
                     { switchButtonCaption }
                 </OutlineButton>

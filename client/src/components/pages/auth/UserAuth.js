@@ -1,5 +1,6 @@
 import styles from './UserAuth.module.scss'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from 'react-router-dom';
 
 //components
 import AuthForm from "../../auth/AuthForm";
@@ -15,30 +16,38 @@ import BaseDialog from "../../UI/BaseDialog";
 import BaseSpinner from "../../UI/BaseSpinner";
 
 const UserAuth = () => {
-    const [shouldCloseDialog, setShouldCloseDialog] = useState(true );
     const [switchToCompany, setSwitchToCompany] = useState(false)
-    const { sendRequest, error, isLoading } = useHttp();
+    const { isLoading, error, resetError, sendRequest } = useHttp();
+    
+    const [queryParams] = useSearchParams();//useSearchParams basically means Query Params :)
+    
+    const [authMode, setAuthMode] = useState(null)
+    
+    useEffect( () => {
+        setAuthMode(queryParams.get('mode'))
+    }, [queryParams, authMode])
+
+    console.log('query param >>> ', queryParams.get('mode'))
     
     const switchMode = (data) => {
         setSwitchToCompany(data)
     }
     
     const closeDialog = (data) => {
-        setShouldCloseDialog(data); 
+        resetError();
     }
     
     let form;
     if( switchToCompany ) {
-        form = <CompanyForm />
+        form = <CompanyForm authMode={authMode} />
     } else {
-        form = <AuthForm />
+        form = <AuthForm authMode={authMode}/>
     }
     
     return (
         <React.Fragment>
-            
-            {shouldCloseDialog && error && 
-                <BaseDialog title='Basic title' fixed={false} onCloseDialog={closeDialog}>
+            { error && 
+                <BaseDialog show={!!error} title='Basic title' fixed={false} onCloseDialog={closeDialog}>
                     {error}
                 </BaseDialog>
             }
