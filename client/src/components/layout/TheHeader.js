@@ -8,9 +8,7 @@ import UserNavigationHeader from "./UserNavigationHeader";
 
 //UI components
 import { NavigationLink } from "../UI/BaseLinks";
-
-//context
-import AuthContext from "../../store/auth-context";
+import { useRouteLoaderData } from "react-router-dom";
 
 const HamburgerBar = styled.span`
         display: block;
@@ -33,7 +31,7 @@ const CloseBar = styled(HamburgerBar)`
 
 const TheHeader = () => {
     let [activateBar, updateActivateBar] = useState(false)
-    const authCtx = useContext(AuthContext);
+    const userData = useRouteLoaderData('root')
     
     const toggleNavbar = () => {
         updateActivateBar((prevState)=> {
@@ -60,12 +58,12 @@ const TheHeader = () => {
         }
     }
     
-    const navigation = authCtx.isAdmin === true ? <AdminNavigationHeader /> : <UserNavigationHeader />
+    const navigation = userData && userData.roles.includes('admin') ? <AdminNavigationHeader /> : <UserNavigationHeader />
     
     return (
         <nav className={`${styles['navbar']} ${activateBar ? styles['navbar_mobile_height'] : ''}`}>
             <div className={styles['navbar_title']}>
-                <NavigationLink to="/">IT-COMMUNITY{authCtx.isAdmin ? '-ADMIN' : ''}</NavigationLink>
+                <NavigationLink to="/">IT-COMMUNITY{userData && userData.roles.includes('admin') ? '-ADMIN' : ''}</NavigationLink>
             </div>
             <div className={styles['toggle_buttons']} onClick={toggleNavbar}>
                 {chooseButton()}

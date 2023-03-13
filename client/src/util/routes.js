@@ -26,6 +26,7 @@ import { action as logoutAction } from '../components/pages/auth/Logout'
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
 import { formatCategoryData } from "../components/applying/JobForm";
 import { formatJobDetailsData } from '../components/pages/applying/PosterDetails';
+import { getAuthData } from "./auth";
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
@@ -35,6 +36,8 @@ export const routes = createBrowserRouter([
         path: '/',
         element: <RootLayout/>,
         errorElement: <ErrorPage/>,//this route will be triggered whenever a loader throws an Error or when a user visits wrong URL
+        id: 'root',
+        loader: getAuthData,
         children: [
             {
                 // or path: ''

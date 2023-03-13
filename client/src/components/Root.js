@@ -6,9 +6,6 @@ import styled from "styled-components";
 import TheHeader from "./layout/TheHeader";
 import Footer from "./layout/Footer";
 
-//context
-import AuthContext from "../store/auth-context";
-
 export const HeaderWrapper = styled.header`
     width: 100%;
 `
@@ -28,32 +25,22 @@ export const FooterWrapper = styled.footer`
         background-color: var(--footer-bg-color);
 `
 
-const RootLayout = ()=> {
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const [isAdmin, setIsAdmin] = useState(false)
-    const [userName, setUserName] = useState('Antoan')
-    
+const RootLayout = () => {
     
     return (
-        <AuthContext.Provider 
-            value={{
-                isLoggedIn,
-                isAdmin,
-                userName
-            }}
-        >
+        <React.Fragment>
             <HeaderWrapper>
                 <TheHeader/>
             </HeaderWrapper>
-            
+
             <MainWrapper>
                 <Outlet />
             </MainWrapper>
-            
+
             <FooterWrapper>
                 <Footer/>
             </FooterWrapper>
-        </AuthContext.Provider>
+        </React.Fragment>
     )
 }
 
