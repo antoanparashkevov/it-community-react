@@ -28,16 +28,10 @@ const action = async (request, params, transformFetchedFormData , url) => {
         return response;
         
     } catch ( err ) {
-        throw json({message: err.message || 'Could not create the Category! Try again later'}, {
+        throw json({message: err.message || 'Could not create! Try again later'}, {
             status: 500
         })
     }
-    
-    
-    
-    
-    console.log('formData >>> ', formData);
-    
 }
 
 export default action;

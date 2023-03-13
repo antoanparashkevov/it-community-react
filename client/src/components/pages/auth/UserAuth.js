@@ -6,9 +6,6 @@ import { useSearchParams } from 'react-router-dom';
 import AuthForm from "../../auth/AuthForm";
 import CompanyForm from "../../auth/CompanyForm";
 
-//hooks
-import useHttp from "../../../hooks/use-http";
-
 //UI components
 import BaseSlider from "../../UI/BaseSlider";
 import FormPageContent from "../../UI/FormPageContent";
@@ -17,7 +14,6 @@ import BaseSpinner from "../../UI/BaseSpinner";
 
 const UserAuth = () => {
     const [switchToCompany, setSwitchToCompany] = useState(false)
-    const { isLoading, error, resetError, sendRequest } = useHttp();
     
     const [queryParams] = useSearchParams();//useSearchParams basically means Query Params :)
     
@@ -33,10 +29,6 @@ const UserAuth = () => {
         setSwitchToCompany(data)
     }
     
-    const closeDialog = (data) => {
-        resetError();
-    }
-    
     let form;
     if( switchToCompany ) {
         form = <CompanyForm authMode={authMode} />
@@ -45,21 +37,13 @@ const UserAuth = () => {
     }
     
     return (
-        <React.Fragment>
-            { error && 
-                <BaseDialog show={!!error} title='Basic title' fixed={false} onCloseDialog={closeDialog}>
-                    {error}
-                </BaseDialog>
-            }
-            {isLoading && <BaseSpinner />}
-            <FormPageContent className={styles['auth_container']}>
-                <div className={styles['auth_mode']}>
-                    <span style={ { fontWeight: switchToCompany ? '700' : 'normal'} }>As a company</span>
-                    <BaseSlider onTriggerSlider={switchMode} isChecked={switchToCompany} />
-                </div>
-                {form}
-            </FormPageContent>
-        </React.Fragment>
+        <FormPageContent className={styles['auth_container']}>
+            <div className={styles['auth_mode']}>
+                <span style={ { fontWeight: switchToCompany ? '700' : 'normal'} }>As a company</span>
+                <BaseSlider onTriggerSlider={switchMode} isChecked={switchToCompany} />
+            </div>
+            {form}
+        </FormPageContent>
     )
 }
 
