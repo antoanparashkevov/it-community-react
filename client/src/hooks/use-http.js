@@ -63,10 +63,15 @@ const useHttp = () => {
         setError(null)
     }
     
+    const setAdditionalErrors = (error) => {
+        setError(error)
+    }
+    
     return {
         isLoading,
         error,
         resetError,
+        setAdditionalErrors,
         sendRequest
     }
 };
