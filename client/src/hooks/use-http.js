@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { getAuthToken } from "../util/auth";
 
 const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';
 
@@ -11,6 +12,7 @@ const useHttp = () => {
         // console.log('HOST', host)
         // console.log('URL', url)
         // console.log('Data to POST >>> ', data)
+        const token = getAuthToken();
         
         setIsLoading(true);
         setError(null);
@@ -18,6 +20,10 @@ const useHttp = () => {
         const options = {
             method: method,
             headers: {}
+        }
+        
+        if ( token ) {
+            options.headers['X-Authorization'] = token;
         }
         
         if( Object.keys(data).length > 0 ) {
