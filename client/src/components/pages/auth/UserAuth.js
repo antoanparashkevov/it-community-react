@@ -9,8 +9,6 @@ import CompanyForm from "../../auth/CompanyForm";
 //UI components
 import BaseSlider from "../../UI/BaseSlider";
 import FormPageContent from "../../UI/FormPageContent";
-import BaseDialog from "../../UI/BaseDialog";
-import BaseSpinner from "../../UI/BaseSpinner";
 
 const UserAuth = () => {
     const [switchToCompany, setSwitchToCompany] = useState(false)
