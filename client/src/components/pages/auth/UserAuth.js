@@ -21,8 +21,6 @@ const UserAuth = () => {
         setAuthMode(queryParams.get('mode'))
     }, [queryParams, authMode])
 
-    console.log('query param >>> ', queryParams.get('mode'))
-    
     const switchMode = (data) => {
         setSwitchToCompany(data)
     }

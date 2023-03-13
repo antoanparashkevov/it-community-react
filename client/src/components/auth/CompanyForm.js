@@ -77,11 +77,11 @@ const CompanyForm = ( { authMode } ) => {
         */
         event.preventDefault();
 
-        console.log('email >>> ', enteredEmail);
-        console.log('password >>> ', enteredPassword);
-        console.log('companyName >>> ', enteredCompanyName);
-        console.log('description >>> ', enteredDescription);
-        console.log('foundationYear >>> ', enteredFoundationYear);
+        // console.log('email >>> ', enteredEmail);
+        // console.log('password >>> ', enteredPassword);
+        // console.log('companyName >>> ', enteredCompanyName);
+        // console.log('description >>> ', enteredDescription);
+        // console.log('foundationYear >>> ', enteredFoundationYear);
 
         resetEmailInput();
         resetPasswordInput();

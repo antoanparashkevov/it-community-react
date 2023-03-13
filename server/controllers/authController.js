@@ -24,8 +24,7 @@ router.get('/logout', async (req,res)=>{
 
 async function authAction(req,res, action, httpErrorStatus) {
     const formData = req.body;
-    console.log('formData', formData)
-    console.log('action >>> ', action)
+    
     try {
         const { errors } = validationResult(req)//an array
         
@@ -45,7 +44,7 @@ async function authAction(req,res, action, httpErrorStatus) {
                 
             }
         } else {
-            data = await login(formData.email, formData.password)
+            data = await login(formData.email, formData.password, formData.role)
         }
         
         res.json(data);

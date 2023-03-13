@@ -1,5 +1,5 @@
 import styles from './AuthForm.module.scss';
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 //UI components
@@ -13,12 +13,15 @@ import useHttp from "../../hooks/use-http";
 import BaseDialog from "../UI/BaseDialog";
 import BaseSpinner from "../UI/BaseSpinner";
 
+//utils
+import { handleAuthentication } from "../../util/auth";
+
 const AuthForm = ( { authMode } ) => {
     let formIsValid;
+    let authResponse = null;
     
     const { isLoading, error, resetError, setAdditionalErrors, sendRequest } = useHttp();
-    const [authResponse, setAuthResponse] = useState(null);
-    const navigation = useNavigate();
+    const navigate = useNavigate();
     
     const {
         value : enteredEmail,
@@ -49,34 +52,31 @@ const AuthForm = ( { authMode } ) => {
         */
         event.preventDefault();
 
-        console.log('email >>> ', enteredEmail);
-        console.log('password >>> ', enteredPassword);
-
-        
-        
        if(authMode !== 'login' || authMode !== 'signup') {
            setAdditionalErrors('Invalid authentication mode!')
        }
        
-       await sendRequest('/authData/' + authMode, 'POST', (data) => setAuthResponse(data), {
-           email: enteredEmail,
-           password: enteredPassword,
-           role: 'user'
-       })
-
-        console.log('formIsValid', formIsValid)
-        console.log('error', !error)
-        
-        if( error || formIsValid === false ) {
-            return
+       await authRequest();
+       
+       
+        if ( authResponse ) {
+            handleAuthentication(authResponse.email, authResponse._id, authResponse.accessToken, authResponse.roles)
+            resetPasswordInput();
+            resetEmailInput();
+            navigate('/')
         }
-
-        resetPasswordInput();
-        resetEmailInput();
-        navigation('/')
         
     }
-
+    
+    const authRequest = useCallback(async () => {
+        await sendRequest('/authData/' + authMode, 'POST', (data) => authResponse = data, {
+            email: enteredEmail,
+            password: enteredPassword,
+            role: 'user'
+        })
+        
+    }, [authMode, enteredEmail, enteredPassword, authResponse])
+ 
     const formControlClasses = (hasError) => {
         return hasError ? `${styles['form-control']} invalid` : styles['form-control']
     }

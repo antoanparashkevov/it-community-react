@@ -25,7 +25,7 @@ const ErrorPage = () => {
             errorResponse.data.message :
             null;
     
-    console.log('errorResponse', errorResponse)
+    // console.log('errorResponse', errorResponse)
     
     return (
         <React.Fragment>

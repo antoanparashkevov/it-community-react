@@ -231,15 +231,15 @@ const JobForm = () => {
         */
         event.preventDefault();
 
-        console.log('Entered job Name >>> ', enteredJobName);
-        console.log('workTypeCheckbox >>>', workTypeCheckbox);
-        console.log('selectedCategoryType >>>', selectedCategoryType);
-        console.log('subCategoryCheckbox >>>', subCategoryCheckbox);
-        console.log('subCategories >>>', subCategories);
-        console.log('selectedSeniorityType >>>', selectedSeniorityType);
-        console.log('Entered salary >>> ', enteredSalary);
-        console.log('Entered city', enteredCity)
-        console.log('Entered desc >>> ', enteredDesc);
+        // console.log('Entered job Name >>> ', enteredJobName);
+        // console.log('workTypeCheckbox >>>', workTypeCheckbox);
+        // console.log('selectedCategoryType >>>', selectedCategoryType);
+        // console.log('subCategoryCheckbox >>>', subCategoryCheckbox);
+        // console.log('subCategories >>>', subCategories);
+        // console.log('selectedSeniorityType >>>', selectedSeniorityType);
+        // console.log('Entered salary >>> ', enteredSalary);
+        // console.log('Entered city', enteredCity)
+        // console.log('Entered desc >>> ', enteredDesc);
         
         let selectedSubCategories = subCategoryCheckbox.filter( s => s.isChecked ).map( s =>  s.id )
         let selectedWorkTypes = workTypeCheckbox.filter( w_type => w_type.isChecked).map( w_type => w_type.id.charAt(0).toUpperCase() + w_type.id.slice(1))

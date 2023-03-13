@@ -23,7 +23,7 @@ async function registerAsCompany(email,password, companyName, desc, foundationYe
         role: ['user', 'company']
     });
     
-    return createToken(user, ['user', 'company'])
+    return createToken(user, 'company')
 }
 
 async function register(email,password) {
@@ -39,11 +39,11 @@ async function register(email,password) {
         hashedPassword,
         roles: ['user']
     });
-    
-    return createToken(user, ['user'])
+
+    return createToken(user, 'user')
     
 }
-async function login(email,password) {
+async function login(email,password, role) {
     const user = await User.findOne({email}).collation({locale: 'en', strength: 2})
     
     if(!user) {
@@ -57,17 +57,19 @@ async function login(email,password) {
         throw new Error ('Incorrect email or password')
     }
     
-    return createToken(user)
+    return createToken(user, role)
 }
 
 async function logout(token) {
     tokenBlackList.add(token);
 }
 
-const createToken = function(user, roles) {
+const createToken = function(user, role) {
     let payload;
+    let roles;
     
-    if( roles.includes('company') ) {
+    if( role === 'company' ) {
+        roles = ['user', 'company']
         
         payload = {
             _id: user._id,
@@ -76,7 +78,8 @@ const createToken = function(user, roles) {
             roles
         };
         
-    } else if ( roles.includes('user') ) {
+    } else if ( role === 'user' ) {
+        roles = ['user']
         
         payload = {
             _id: user._id,
