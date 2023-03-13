@@ -6,7 +6,7 @@ const SECRET_KEY = 'IT-COMMUNITY-SECRET-KEY'
 
 let tokenBlackList = new Set();
 
-async function registerAsCompany(email,password, companyName, desc, foundationYear, role = 'company') {
+async function registerAsCompany(email,password, companyName, desc, foundationYear) {
     const isExisting = await User.findOne({email}).collation({ locale:'en', strength:2 })
 
     if( isExisting ) {
@@ -26,7 +26,7 @@ async function registerAsCompany(email,password, companyName, desc, foundationYe
     return createToken(user, ['user', 'company'])
 }
 
-async function register(email,password, role = 'user') {
+async function register(email,password) {
     const isExisting = await User.findOne({email}).collation({ locale:'en', strength:2 })
     
     if( isExisting ) {
@@ -75,12 +75,15 @@ const createToken = function(user, roles) {
             companyName: user.companyName,
             roles
         };
+        
     } else if ( roles.includes('user') ) {
+        
         payload = {
             _id: user._id,
             email: user.email,
             roles
         };
+        
     }
     
     
@@ -97,12 +100,14 @@ function parseToken(token) {
     if(tokenBlackList.has(token)) {
         throw new Error('The token is blacklisted!')
     }
+    
     /* PAYLOAD TO RETURN
     * _id: user._id
     * email: user.email
     * companyName?: role.companyName,
     * role: user.role
     * */
+    
     return jwt.verify(token,SECRET_KEY) //the payload
 }
 

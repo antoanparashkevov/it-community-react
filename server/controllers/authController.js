@@ -4,20 +4,15 @@ const router = require('express').Router();
 
 const parseError = require('../util/parseError');
 
-router.post('/register',
+router.post('/signup',
     body('email').isEmail().withMessage('Invalid email'),
-    body('password').isLength({min: 3}).withMessage('Password must be at least 3 characters long!'),
+    body('password').isLength({min: 6}).withMessage('Password must be at least 6 characters long!'),
     async (req,res)=> {
-    
-    if( req.body.role === 'user' ) {
-        await authAction(req,res,register,400)
-    } else if( req.body.role === 'company' ) {
-        await authAction(req,res,registerAsCompany,400)
-    }
+    await authAction(req,res,'register',400)
 })
 
 router.post('/login', async(req,res)=> {
-    await authAction(req,res,login,401)
+    await authAction(req,res,'login',401)
 })
 
 router.get('/logout', async (req,res)=>{
@@ -29,7 +24,8 @@ router.get('/logout', async (req,res)=>{
 
 async function authAction(req,res, action, httpErrorStatus) {
     const formData = req.body;
-    
+    console.log('formData', formData)
+    console.log('action >>> ', action)
     try {
         const { errors } = validationResult(req)//an array
         
@@ -42,14 +38,14 @@ async function authAction(req,res, action, httpErrorStatus) {
         if ( action  === 'register' ) {
             
             if( formData.role === 'user' ) {
-                data = await action(formData.email, formData.password, 'user')
+                data = await register(formData.email, formData.password)
                 
             } else if( formData.role === 'company' ) {
-                data = await action(formData.email, formData.password, formData.companyName, formData.desc, formData.foundationYear, 'company')
+                data = await registerAsCompany(formData.email, formData.password, formData.companyName, formData.desc, formData.foundationYear)
                 
             }
         } else {
-            data = await action(formData.email, formData.password)
+            data = await login(formData.email, formData.password)
         }
         
         res.json(data);

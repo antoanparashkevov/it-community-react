@@ -49,7 +49,7 @@ async function start() {
        })
     });
     
-    app.use('/users', authController)
+    app.use('/authData', authController)
     app.use('/jobData', jobController)
     app.use('/applicationData', applicationController)
     app.use('/categoryData', categoryController)
