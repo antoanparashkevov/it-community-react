@@ -16,6 +16,10 @@ ul.user_links li a {
     padding: 1rem;
 }
 
+.logout_btn {
+    text-transform: uppercase;
+}
+
 @media (max-width: 590px) {
     ul.user_links {
         flex-direction: column;

@@ -21,6 +21,8 @@ import CreateSubCategory from "../components/pages/admin/CreateSubCategory";
 //utils
 import loader from "./loader";
 import action from "./action";
+import { action as logoutAction } from '../components/pages/auth/Logout'
+
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
 import { formatCategoryData } from "../components/applying/JobForm";
 import { formatJobDetailsData } from '../components/pages/applying/PosterDetails';
@@ -81,6 +83,10 @@ export const routes = createBrowserRouter([
             {
                 path: 'auth',
                 element: <UserAuth/>
+            },
+            {
+              path: 'logout',
+              action: logoutAction  
             },
             {
                 path: 'create',

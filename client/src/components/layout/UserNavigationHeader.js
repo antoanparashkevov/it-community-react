@@ -1,6 +1,9 @@
 import styles from './UserNavigationHeader.module.scss';
-import { NavigationLink, NavigationLinkAsButton } from "../UI/BaseLinks";
 import React from "react";
+import { Form, Link } from 'react-router-dom';
+
+//UI components
+import { NavigationLink, NavigationLinkAsButton } from "../UI/BaseLinks";
 
 const UserNavigationHeader = () => {
     return (
@@ -35,6 +38,13 @@ const UserNavigationHeader = () => {
                     Sign in
                 </NavigationLinkAsButton>
             </li>
+            <Form method='post' action='/logout'>
+                <li className={styles['navbar_link']} >
+                    <NavigationLinkAsButton as='button' className={styles['logout_btn']}>
+                        Logout
+                    </NavigationLinkAsButton>
+                </li>
+            </Form>
         </ul>
     )
 }
