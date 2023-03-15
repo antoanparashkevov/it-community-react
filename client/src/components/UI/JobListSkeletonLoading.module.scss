@@ -1,0 +1,42 @@
+.posters_list_skeleton_loading_root {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.posters_list_skeleton_loading_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+.event_container {
+    height: 160px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #d1d1d1;
+    position: relative;
+    overflow: hidden;
+}
+
+.event_container::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(90deg, rgba(242, 242, 242, 0) 0%, rgba(242, 242, 242, 0.2) 20%, rgba(242, 242, 242, 0.5) 65%, rgba(242, 242, 242, 0));
+    --webkit-animation: shimmer 1.5s infinite;
+    animation: shimmer 2s infinite;
+    content: "";
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+    
