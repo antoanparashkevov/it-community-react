@@ -9,8 +9,8 @@ const action = async (request, params, transformFetchedFormData , url) => {
     //transformFetchedFormData is a function which gets all fields from the form and create an object to send
     const formData = transformFetchedFormData(data)
     
-    console.log('FETCHED data from formData() >>> ', data)
-    console.log('formData >>> ', formData)
+    // console.log('FETCHED data from formData() >>> ', data)
+    // console.log('formData >>> ', formData)
     
     try {
         const response = await fetch(host + url, {
