@@ -1,4 +1,4 @@
-import { useRouteLoaderData } from "react-router-dom";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import styles from './JobForm.module.scss';
 import React, { useCallback, useEffect, useState } from "react";
 
@@ -18,6 +18,8 @@ import useHttp from "../../hooks/use-http";
 
 const JobForm = () => {
     const { isLoading, error, resetError, sendRequest } = useHttp();
+    const navigate = useNavigate();
+    let resp = null;
     
     let isDefaultCheckboxChecked = true;
     let formIsValid;
@@ -103,7 +105,7 @@ const JobForm = () => {
 
     
     const formatSubCategories = (data) => {
-        const subCategories = data.subCategories.map( s => {
+        const subCategories = data.category.subCategories.map( s => {
             return {
                 title: s.title,
                 code: s.code
@@ -241,10 +243,29 @@ const JobForm = () => {
         // console.log('Entered city', enteredCity)
         // console.log('Entered desc >>> ', enteredDesc);
         
+        await postJob();
+        
+        if ( error ) {
+            return;
+        }
+        
+        //clearing the form
+        if( !error && resp ) {
+            console.log('dataResp', resp)
+            resetJobNameInput();
+            resetSalaryInput();
+            resetDescInput();
+            resetCityInput();
+            navigate('/posters/' + resp._id);
+        }
+        
+    }
+    
+    const postJob = async () => {
         let selectedSubCategories = subCategoryCheckbox.filter( s => s.isChecked ).map( s =>  s.id )
         let selectedWorkTypes = workTypeCheckbox.filter( w_type => w_type.isChecked).map( w_type => w_type.id.charAt(0).toUpperCase() + w_type.id.slice(1))
         
-        await sendRequest('/jobData/jobs','POST', (data) => data, {
+        await sendRequest('/jobData/jobs','POST', (data) => resp = data, {
             jobName: enteredJobName,
             workType: selectedWorkTypes,
             categoryCode: selectedCategoryType.code,
@@ -254,15 +275,6 @@ const JobForm = () => {
             desc: enteredDesc,
             city: enteredCity
         })
-        
-        //clearing the form
-        if( !error ) {
-            resetJobNameInput();
-            resetSalaryInput();
-            resetDescInput();
-            resetCityInput();
-        }
-        
     }
 
     const formControlClasses = (hasError) => {
@@ -406,7 +418,7 @@ const JobForm = () => {
 export default JobForm;
 
 export const formatCategoryData = (data) => {
-    return data.map( c => {
+    return data.items.map( c => {
         return {
             title: c.title,
             code: c.code
