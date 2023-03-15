@@ -6,14 +6,18 @@ const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';
 const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
+    const [resolved, setResolved] = useState(false)
     
-    const sendRequest = useCallback(async (url, method, applyData, data = {}) => {
+    const sendRequest = useCallback(async (url, method = 'GET', applyData, data = {}) => {
+        
         // console.log('METHOD', method)
         // console.log('HOST', host)
         // console.log('URL', url)
         // console.log('Data to POST >>> ', data)
+        
         const token = getAuthToken();
         
+        setResolved(false);
         setIsLoading(true);
         setError(null);
     
@@ -44,6 +48,8 @@ const useHttp = () => {
                }
                const error = await response.json()
                throw new Error(error.message)
+           } else {
+               setResolved(true);
            }
            
            if( response.status === 204 ) {
@@ -72,12 +78,19 @@ const useHttp = () => {
     const setAdditionalErrors = (error) => {
         setError(error)
     }
+
+    if( resolved ) {
+        setTimeout( () => {
+            setResolved(false);
+        }, 4000)
+    }
     
     return {
         isLoading,
         error,
         resetError,
         setAdditionalErrors,
+        resolved,
         sendRequest
     }
 };
