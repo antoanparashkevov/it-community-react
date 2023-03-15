@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model, Types: { ObjectId }} = require('mongoose')
 
 
 const applicationSchema = new Schema({
@@ -15,10 +15,15 @@ const applicationSchema = new Schema({
     message:{
         type: String,
         minLength: [20, 'The message must be at least 20 characters long'],
+        maxLength: [70, 'The message is too long! The max characters are 70'],
         required: true
     },
     userId: {
-        type: String,
+        type: ObjectId,
+        required: true
+    },
+    companyId: {
+        type: ObjectId,
         required: true
     }
 })
