@@ -18,7 +18,7 @@ import { handleAuthentication } from "../../util/auth";
 
 const AuthForm = ( { authMode } ) => {
     let formIsValid;
-    let authResponse = null;
+    let authResponse;
     
     const { isLoading, error, resetError, setAdditionalErrors, sendRequest } = useHttp();
     const navigate = useNavigate();
@@ -51,6 +51,10 @@ const AuthForm = ( { authMode } ) => {
             a http req is sent to the server to the same address
         */
         event.preventDefault();
+        
+        if( !formIsValid ) {
+            return;
+        }
 
        if(authMode !== 'login' || authMode !== 'signup') {
            setAdditionalErrors('Invalid authentication mode!')
@@ -58,24 +62,20 @@ const AuthForm = ( { authMode } ) => {
        
        await authRequest();
        
-       
-        if ( authResponse ) {
-            handleAuthentication(authResponse.email, authResponse._id, authResponse.accessToken, authResponse.roles)
-            resetPasswordInput();
-            resetEmailInput();
-            navigate('/')
-        }
-        
+       if( !error ) {
+           handleAuthentication(authResponse.email, authResponse._id, authResponse.accessToken)
+           resetPasswordInput();
+           resetEmailInput();
+           navigate('/')
+       }
     }
     
-    const authRequest = useCallback(async () => {
+    const authRequest = async () => {
         await sendRequest('/authData/' + authMode, 'POST', (data) => authResponse = data, {
             email: enteredEmail,
             password: enteredPassword,
-            role: 'user'
         })
-        
-    }, [authMode, enteredEmail, enteredPassword, authResponse])
+    }
  
     const formControlClasses = (hasError) => {
         return hasError ? `${styles['form-control']} invalid` : styles['form-control']
