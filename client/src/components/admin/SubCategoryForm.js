@@ -13,10 +13,11 @@ import DataSelectorWrapper from "../UI/DataSelectorWrapper";
 import BaseDialog from "../UI/BaseDialog";
 import useHttp from "../../hooks/use-http";
 import BaseSpinner from "../UI/BaseSpinner";
+import BasePopUp from "../UI/BasePopUp";
 
 const SubCategoryForm = ({ categories }) => {
     const navigation = useNavigation();
-    const { isLoading, error, sendRequest: postSubCategory, resetError} = useHttp()
+    const { isLoading, error, sendRequest: postSubCategory, resetError, resolved } = useHttp();
 
     const [placeholderValue, setPlaceholderValue] = useState(categories[0].title || '')
     
@@ -63,6 +64,7 @@ const SubCategoryForm = ({ categories }) => {
     
     return (
         <React.Fragment>
+            { resolved && <BasePopUp>Successfully created SubCategory!</BasePopUp>}
             {error && <BaseDialog show={!!error} title='Validation error' fixed={false} onCloseDialog={resetError}>{error}</BaseDialog>}
             {isLoading && <BaseSpinner />}
             <form onSubmit={saveData} className={ styles['category_form'] }>

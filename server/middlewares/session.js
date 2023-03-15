@@ -7,7 +7,7 @@ module.exports = () => (req,res,next) => {
         try {
             req.user = parseToken(token);
             req.token = token;
-        }catch (error) {
+        } catch (error) {
             return res.status(401).json({message: 'Invalid authorization token!'})
         }
     }
