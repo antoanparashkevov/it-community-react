@@ -108,6 +108,7 @@ const PostersList = () => {
     
     return (
         <section className={`${styles['posters_container']} container`}>
+            {/*TODO PAGINATION*/}
             <BaseCard hide={windowWidth <= 744} className={styles['aside_wrapper']}>
                 <Sidebar onSaveFiltersData={onFilterDataHandler} />
             </BaseCard>

@@ -35,7 +35,8 @@ const Board = () => {
             {/*TODO MAYBE REPLACE WITH A SKELETON LOADING*/}
             {isLoading && <BaseSpinner />}
             <section className={styles['homepage_main']}>
-
+            {/*TODO WHEN WE CLICK A SHOW ALL BUTTON FOR A SPECIFIC CATEGORY, TO FILTER OUT ONLY THOSE JOBS WITH THE SAME CATEGORY. WHEN A USER CLICKS AND ENTER, TO HIDE THE CATEGORY FILTER BECAUSE IT IS NOT NEEDED*/}
+            {/*TODO ADD A SHOW ALL BUTTON ABOVE THE CATEGORIES TO SHOW ALL LISTS FOR ALL CATEGORIES*/}
                 <div className={`${styles['homepage_categories']}`}>
 
                     { categories.map((category, index) =>
