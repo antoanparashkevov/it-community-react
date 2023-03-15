@@ -20,7 +20,7 @@ const Applying = () => {
         <BaseCard className={styles['applying_container']}>
             <h1 className={styles['applying_header']}>Send a message</h1>
             <SeparationLine max-width='300px' />
-            <ApplyForm />
+            <ApplyForm initialEmailValue={data.userData.userData.email ? data.userData.userData.email : ''} companyId={data.jobItem.company._id ? data.jobItem.company._id : ''}/>
         </BaseCard>
     )
 }
