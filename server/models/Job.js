@@ -49,16 +49,11 @@ const jobSchema = new Schema({
         type: String,
         required: true,
     },
-    // companyOwner: {
-    //     type: ObjectId,
-    //     ref: 'User',
-    //     required: true,  
-    // },
-    // _ownerId: {
-    //     type: ObjectId,
-    //     ref: 'User',
-    //     required: true
-    // }
+    companyId: {
+        type: ObjectId,
+        ref: 'Company',
+        required: true,  
+    },
 })
 
 const Job = model('Job', jobSchema)
