@@ -16,6 +16,11 @@ ul.admin_links li a {
     padding: 1rem;
 }
 
+.logout_btn,
+.switch_btn {
+    text-transform: uppercase;
+}
+
 @media (max-width: 590px) {
     ul.admin_links {
         flex-direction: column;
