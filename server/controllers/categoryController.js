@@ -6,17 +6,25 @@ const router = require('express').Router();
 //util
 const capitalLetterWord = require('../util/capitalLetterWord');
 const transformWhiteSpacesUnderscore = require('../util/transformWhiteSpacesUnderscore');
+const getUserData = require('../util/getUserData');
 
 router.get('/categories', async (req,res) => {
     try {
+        const user = getUserData(req.user, req.token)
         
         if(req.query && req.query.where) {
             const categoryCode = req.query.where.split('=')[1]
             let category = await getByCode(categoryCode)
-            res.json(category)
+            res.json({ 
+                category,
+                user
+            })
         } else {
             let items = await getAll()
-            res.json(items)
+            res.json({ 
+                items,
+                user
+            })
         }
     } catch ( error ) {
         const message = parseError( error );
@@ -24,8 +32,7 @@ router.get('/categories', async (req,res) => {
     }
 })
 
-//todo add the isAdmin guard
-router.post('/categories', async (req,res) => {
+router.post('/categories', isAdmin(), async (req,res) => {
     const formData = req.body;
     console.log('formData (category) >>> ', req.body)
     let code;

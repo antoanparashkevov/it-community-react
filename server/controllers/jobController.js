@@ -7,15 +7,21 @@ const { getByCode: getCategoryByCode } = require("../services/categoryService");
 const parseError = require('../util/parseError')
 const { hasUser, hasRole } = require("../middlewares/guards");
 const formatDate = require('../util/formatDate')
+const getUserData = require('../util/getUserData');
 
 const setCookie = require("../util/setCookie");
 
 router.get('/jobs',async(req, res) => {
     let items = []
-    
     try {
         items = await getAll();
-        res.json(items)
+        const user = getUserData(req.user, req.token)
+        
+        res.json({
+            user,
+            jobs: items,
+        })
+        
     } catch ( err ) {
         const message = parseError(err);
         res.status(400).json({ message })
@@ -28,10 +34,12 @@ router.get('/jobs/:jobId', async (req,res) => {
         setCookie(req,res,jobId)
 
         const item = await getById(jobId);
+        const user = getUserData(req.user, req.token);
         
         res.json({
             jobItem: item,
-            visited: req.cookies[`visited_${jobId}`] || '1'
+            visited: req.cookies[`visited_${jobId}`] || '1',
+            user
         })
 
     } catch ( err ) {
@@ -40,14 +48,20 @@ router.get('/jobs/:jobId', async (req,res) => {
     }
 })
 
-//TODO ADD hasUser(), hasRole()
-router.post('/jobs', async (req,res)  => {
-    
+router.post('/jobs', hasUser(), hasRole(), async (req,res)  => {
     const formData = req.body;
-
+    
     try {
-        let data = {}
+        let data = {};
+        let companyId;
         let category = await getCategoryByCode(formData.categoryCode)
+        
+        if( req.user && req.user._id ) {
+            companyId = req.user._id;
+        } else {
+            throw new Error('You have a problem with your authentication as a company!')
+        }
+        
         
         category['counter']++;
         await category.save();
@@ -61,7 +75,8 @@ router.post('/jobs', async (req,res)  => {
             seniority: formData.seniority,
             desc: formData.desc,
             city: formData.city,
-            date: formattedDate
+            date: formattedDate,
+            companyId
         }
         
         if ( formData.salary ) {
@@ -83,13 +98,12 @@ router.post('/jobs', async (req,res)  => {
         
         job.category = category
         await job.save();
-        
-      //data = Object.assign({
-      //     _ownerId: req.user._id,
-      //     companyOwner: req.user.companyName
-      // }, formData)
-        
-      // res.json(data)
+      
+      res.json({
+          _ownerId: req.user._id,
+          companyOwner: req.user.companyName,
+          ...job['_doc']
+      })
     } catch (err) {
       const message = parseError(err)
       res.status(400).json({message})
