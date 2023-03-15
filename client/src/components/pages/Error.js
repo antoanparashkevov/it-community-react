@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 //components
 import TheHeader from "../layout/TheHeader";
@@ -10,21 +10,23 @@ import Footer from "../layout/Footer";
 import { RoundedLink } from "../UI/BaseLinks";
 
 //hooks
-import { useRouteError } from "react-router-dom";
+// import { useRouteError } from "react-router-dom";
 
 const ErrorPage = () => {
     /*
     * if we return a Response as an error, the useRouteError hook will return an object with 'status' property and 'data' property
     * */
-    const errorResponse = useRouteError();
+    // const errorResponse = useRouteError();
     
     let title = 'An error occurred!';
     
-    let message = 
-        errorResponse && Object.keys(errorResponse.data).length > 0  ?
-            errorResponse.data.message :
-            null;
     
+    //TODO FIX THE ERROR PAGE
+    // let message = 
+    //     errorResponse && Object.keys(errorResponse.data).length > 0  ?
+    //         errorResponse.data.message :
+    //         null;
+    const message = ''
     // console.log('errorResponse', errorResponse)
     
     return (
