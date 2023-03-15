@@ -13,44 +13,43 @@ import PosterItem from "../../applying/PosterItem";
 //UI components
 import NoDataAvailable from "../../UI/NoDataAvailable";
 import { useNavigation } from "react-router-dom";
+import BaseDialog from "../../UI/BaseDialog";
+import JobListSkeletonLoading from "../../UI/JobListSkeletonLoading";
 
 const PostersList = () => {
     const { width: windowWidth } = useWindowDimensions()
     const navigation = useNavigation();
-    const { isLoading, error, sendRequest } = useHttp();
+    const { isLoading, error, resetError, sendRequest } = useHttp();
     
     let [filteredData, setFilteredData] = useState({});
     
     const [posters, setPosters] = useState([])
     
     useEffect( () => {
-        fetchJobs();
-    }, [])
-    
-    const fetchJobs = useCallback( async () => {
-        await sendRequest('/jobData/jobs', 'GET', transformJobData)
-    },[])
-    
-    const transformJobData = (response) => {
-        const posters = response.map( j => {
-            return {
-                id: j._id,
-                jobName: j.jobName,
-                workType: j.workType.map(w_type => w_type.toLowerCase()),
-                category: j.category.code,
-                subCat: j.subCategory.map( sub_cat => sub_cat.title),
-                seniority: j.seniority.toLowerCase(),
-                salary: j.salary && !isNaN(j.salary) ? j.salary : null,
-                city: j.city,
-                date: j.date
+        const transformJobData = (response) => {
+            const posters = response.jobs.map( j => {
+                return {
+                    id: j._id,
+                    jobName: j.jobName,
+                    workType: j.workType.map(w_type => w_type.toLowerCase()),
+                    category: j.category.code,
+                    subCat: j.subCategory.map( sub_cat => sub_cat.title),
+                    seniority: j.seniority.toLowerCase(),
+                    salary: j.salary && !isNaN(j.salary) ? j.salary : null,
+                    city: j.city,
+                    date: j.date
+                }
+            })
+            if( posters && posters.length > 0) {
+                setPosters(posters);
+            } else {
+                setPosters([])
             }
-        })
-        if( posters && posters.length > 0) {
-            setPosters(posters);
-        } else {
-            setPosters([])
         }
-    }
+
+        sendRequest('/jobData/jobs', 'GET', transformJobData)
+        
+    }, [])
     
     const onFilterDataHandler = (data) => {
         setFilteredData(data)
@@ -112,18 +111,20 @@ const PostersList = () => {
             <BaseCard hide={windowWidth <= 744} className={styles['aside_wrapper']}>
                 <Sidebar onSaveFiltersData={onFilterDataHandler} />
             </BaseCard>
-            {/*TODO NAVIGATION STATE*/}
-            {/*{navigation.state}*/}
-            <div className={styles['posters_list_wrapper']}>
-                { posters
-                    .filter(categoryFilter)
-                    .filter(workTypeFilter)
-                    .filter(seniorityFilter)
-                    .filter(salaryFilter).length > 0 ?
-                    posters.map((job, index) => {
-                        return <PosterItem key={ index } job={ job }/>
-                    }) : <NoDataAvailable title='No Data Available' /> }
-            </div>
+            {error && <BaseDialog show={!!error} onCloseDialog={resetError} fixed={false} title='An error occurred during fetching the jobs!'>{error}</BaseDialog>}
+            {isLoading ? 
+                <JobListSkeletonLoading /> :
+                <div className={styles['posters_list_wrapper']}>
+                    { posters
+                        .filter(categoryFilter)
+                        .filter(workTypeFilter)
+                        .filter(seniorityFilter)
+                        .filter(salaryFilter).length > 0 ?
+                        posters.map((job, index) => {
+                            return <PosterItem key={ index } job={ job }/>
+                        }) : <NoDataAvailable title='No Data Available' /> }
+                </div>
+            }
         </section>
     )
 }

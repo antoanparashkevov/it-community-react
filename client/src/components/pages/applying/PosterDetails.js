@@ -19,14 +19,10 @@ const PosterDetails = () => {
     const [isApplyFormVisible, setIsApplyFormVisible] = useState(false);
     const [applyButtonLink, setApplyButtonLink] = useState('apply');
     
-    const [job, setJob] = useState(data);
+    let job = data;
     
-    const [company, setCompany] = useState({
-        name: 'Onthill',
-        desc: 'Lorem ipsum dolor sit amet.',
-        foundationYear: 2022,
-        employees: 102
-    });
+   let company = data.jobItem.company;
+    
     
     useEffect( () => {
 
@@ -47,11 +43,11 @@ const PosterDetails = () => {
                     <header className={styles['job_item_wrapper']}>
                         <BaseCard className={styles['job_item_container']}>
                             <div className={styles['job_item_header_applying_btn']}>
-                                <h1 className={styles['job_item_header_title']}>{ job.jobName }</h1>
-                                <SquareButton as={Link} to={applyButtonLink}>Apply now</SquareButton>
+                                <h1 className={styles['job_item_header_title']}>{ job.jobItem.jobName }</h1>
+                                {job.userData.userData.hasData === true && job.userData.userData.roles.includes('user') && <SquareButton as={Link} to={applyButtonLink}>Apply now</SquareButton>}
                             </div>
                             <div className={styles['job_item_work_type_badges']}>
-                                {job.workType.map((type, index)=> {
+                                {job.jobItem.workType.map((type, index)=> {
                                     return (
                                         <RemoteBadge $mode='one_item' className={styles['remote_badge']} key={index}>{ type }</RemoteBadge>
                                     )
@@ -63,13 +59,13 @@ const PosterDetails = () => {
                     <div className={`${styles['job_info_wrapper']} ${isApplyFormVisible ? styles['job_info_wrapper_apply_form_is_visible'] : ''}`}>
 
                         <BaseCard className={styles['job_info_badge_wrapper']}>
-                            {job.subCat.map((category, index) =>
+                            {job.jobItem.subCat.map((category, index) =>
                                 <WorkCategoryBadge1 $mode='one_item' key={index}>{category}</WorkCategoryBadge1>
                             )}
                         </BaseCard>
 
                         <BaseCard className={styles['job_info_desc_wrapper']}>
-                            <p>{job.desc}</p>
+                            <p>{job.jobItem.desc}</p>
                         </BaseCard>
                     </div>
 
@@ -79,7 +75,7 @@ const PosterDetails = () => {
                                 <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
                             </div>
                             <div className={styles['sidebar_company_title']}>
-                                <p className={styles['sidebar_company_desc_para']}>{ company.name }</p>
+                                <p className={styles['sidebar_company_desc_para']}>{ company.companyName }</p>
                             </div>
                             <div className={styles['sidebar_company_desc']}>
                                 <p className={styles['sidebar_company_desc_para']}>{ company.desc }</p>
@@ -103,15 +99,19 @@ export default PosterDetails;
 
 export const formatJobDetailsData = (data) => {
     return {
-        jobName: data.jobItem.jobName,
-        date: data.jobItem.date,
-        category: data.jobItem.category.title,
-        subCat: data.jobItem.subCategory.map( sub_cat => sub_cat.title),
-        workType: data.jobItem.workType,
-        seniority: data.jobItem.seniority,
-        salary: data.jobItem.salary && !isNaN(data.jobItem.salary) ? data.jobItem.salary : null,
-        desc: data.jobItem.desc,
-        city: data.jobItem.city
+        jobItem: {
+            jobName: data.jobItem.jobName,
+            date: data.jobItem.date,
+            category: data.jobItem.category.title,
+            subCat: data.jobItem.subCategory.map( sub_cat => sub_cat.title),
+            workType: data.jobItem.workType,
+            seniority: data.jobItem.seniority,
+            salary: data.jobItem.salary && !isNaN(data.jobItem.salary) ? data.jobItem.salary : null,
+            desc: data.jobItem.desc,
+            city: data.jobItem.city,
+            company: data.jobItem.companyId
+        },
+        userData: data.user
         
     }
 }
