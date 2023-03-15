@@ -17,8 +17,14 @@ const UserAuth = () => {
     
     const [authMode, setAuthMode] = useState(null)
     
+    //TODO fix the query param change
     useEffect( () => {
+        if (queryParams.get('mode') !== 'login' || queryParams.get('mode') !== 'signup') {
+            setAuthMode('login')
+        }
+
         setAuthMode(queryParams.get('mode'))
+        
     }, [queryParams, authMode])
 
     const switchMode = (data) => {
