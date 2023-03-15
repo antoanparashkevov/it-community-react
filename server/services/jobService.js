@@ -39,7 +39,6 @@ module.exports = {
     getAll,
     getById,
     create,
-    update,
     deleteById
 }
 
