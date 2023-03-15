@@ -251,7 +251,6 @@ const JobForm = () => {
         
         //clearing the form
         if( !error && resp ) {
-            console.log('dataResp', resp)
             resetJobNameInput();
             resetSalaryInput();
             resetDescInput();

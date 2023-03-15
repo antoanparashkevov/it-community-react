@@ -34,7 +34,7 @@ router.get('/categories', async (req,res) => {
 
 router.post('/categories', isAdmin(), async (req,res) => {
     const formData = req.body;
-    console.log('formData (category) >>> ', req.body)
+
     let code;
     
     if( formData && formData.title ) {

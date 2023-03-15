@@ -72,9 +72,9 @@ const ApplyForm = ( { initialEmailValue, companyId, onResolved }) => {
         */
         event.preventDefault();
 
-        console.log('Entered name >>> ', enteredName)
-        console.log('Entered email >>> ', enteredEmail)
-        console.log('Entered message >>> ', enteredMsg)
+        // console.log('Entered name >>> ', enteredName)
+        // console.log('Entered email >>> ', enteredEmail)
+        // console.log('Entered message >>> ', enteredMsg)
         
         await postMessage();
         

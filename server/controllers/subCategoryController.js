@@ -29,7 +29,7 @@ router.get('/subcategories', async (req,res) => {
 
 router.post('/subcategories', isAdmin(), async (req,res) => {
     const formData = req.body;
-    console.log('formData (subCategory) >>> ', formData);
+
     let code;
 
     if( formData && formData.title ) {

@@ -64,7 +64,6 @@ async function start() {
     app.get('/userData', (req, res) => {
         const user = getUserData(req.user, req.token)
         try {
-            console.log('user', user)
             res.json(user);
         } catch ( err ) {
             const message = parseError(err);

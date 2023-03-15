@@ -22,7 +22,6 @@ router.get('/applications/:companyId', hasUser(), hasRole(), async (req,res)=>{
 
 router.post('/applications', hasUser(), async (req,res)=> {
     const formData = req.body
-    console.log('formData >>> ', formData)
     
     try{
         const item = await create(formData)
