@@ -8,7 +8,7 @@ import Board from "../components/pages/applying/Board";
 import PostersList from "../components/pages/applying/PostersList";
 import PosterDetails from "../components/pages/applying/PosterDetails";
 import Applying from "../components/pages/applying/Applying";
-import Companies from "../components/pages/companies/Companies";
+import Profile from "../components/pages/profile/Profile";
 import Messages from "../components/pages/messages/Messages";
 import UserAuth from "../components/pages/auth/UserAuth";
 import CreateJob from "../components/pages/applying/CreateJob";
@@ -26,7 +26,7 @@ import { action as logoutAction } from '../components/pages/auth/Logout'
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
 import { formatCategoryData } from "../components/applying/JobForm";
 import { formatJobDetailsData } from '../components/pages/applying/PosterDetails';
-import { getAuthData } from "./auth";
+import { getAuthToken } from "./auth";
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
@@ -37,7 +37,7 @@ export const routes = createBrowserRouter([
         element: <RootLayout/>,
         errorElement: <ErrorPage/>,//this route will be triggered whenever a loader throws an Error or when a user visits wrong URL
         id: 'root',
-        loader: getAuthData,
+        loader: ({request, params}) => getAuthToken() !== 'EXPIRED' ? loader('/userData') : null,
         children: [
             {
                 // or path: ''
@@ -76,8 +76,8 @@ export const routes = createBrowserRouter([
                 ]
             },
             {
-                path: 'companies',
-                element: <Companies/>
+                path: 'profile',
+                element: <Profile/>
             },
             {
                 path: 'messages',
@@ -93,14 +93,14 @@ export const routes = createBrowserRouter([
             },
             {
                 path: 'create',
-                loader: ({request, params}) => loader('/categoryData/categories', formatCategoryData),
+                loader: ({request, params}) => loader('/categoryData/categories', formatCategoryData, ['company']),
                 id:'create-job',
                 element: <CreateJob/>
             },
             {
                 path: 'admin',
                 element: <AdminRootLayout/>,
-                loader: ({request, params}) => loader('/categoryData/categories'),
+                loader: ({request, params}) => loader('/categoryData/categories', (data) => data.items, ['admin']),
                 id: 'admin',
                 children: [
                     {
