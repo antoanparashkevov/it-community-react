@@ -22,6 +22,10 @@ const cors = require('./middlewares/cors')
 const trimBody = require('./middlewares/trimBody')
 const session = require('./middlewares/session')
 
+//utils
+const parseError = require("./util/parseError");
+const getUserData = require('./util/getUserData');
+
 start();
 
 async function start() {
@@ -56,6 +60,17 @@ async function start() {
     app.use('/subCategoryData', subCategoryController)
     app.use('/profileData', profileController)
     app.use('/cookieData', cookieController)
+    
+    app.get('/userData', (req, res) => {
+        const user = getUserData(req.user, req.token)
+        try {
+            console.log('user', user)
+            res.json(user);
+        } catch ( err ) {
+            const message = parseError(err);
+            res.status(400).json({ message })
+        }
+    })
     
     app.listen(port, () => console.log('Server listening on port ' + port))
 }
