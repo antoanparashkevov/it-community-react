@@ -21,7 +21,12 @@ const useInput = (validateInputHandler) => {
         setIsTouched(false);
     }
     
+    const setInitialValue = (value) => {
+        setInputValue(value)
+    }
+    
     return {
+        initialValue: setInitialValue,
         value: inputValue,
         isValid: valueIsValid,
         hasError,
