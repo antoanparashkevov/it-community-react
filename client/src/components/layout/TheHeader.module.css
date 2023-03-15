@@ -30,7 +30,7 @@
 }
 
 
-@media (max-width: 590px) {
+@media (max-width: 760px) {
     .toggle_buttons {
         display: flex;
     }
@@ -51,7 +51,7 @@
     }
 }
 
-@media screen and (max-width: 819px) and (min-width: 591px) {
+@media screen and (max-width: 1010px) and (min-width: 760px) {
     .navbar {
         height: 140px;
     }
