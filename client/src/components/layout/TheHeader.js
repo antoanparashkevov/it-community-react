@@ -31,8 +31,10 @@ const CloseBar = styled(HamburgerBar)`
 
 const TheHeader = () => {
     let [activateBar, updateActivateBar] = useState(false)
-    const userData = useRouteLoaderData('root')
     
+    const user = useRouteLoaderData('root')
+    const [adminNavigation, setAdminNavigation] = useState(false)
+
     const toggleNavbar = () => {
         updateActivateBar((prevState)=> {
             return prevState === false
@@ -57,13 +59,21 @@ const TheHeader = () => {
             )
         }
     }
-    
-    const navigation = userData && userData.roles.includes('admin') ? <AdminNavigationHeader /> : <UserNavigationHeader />
+
+    const handleNavMode = (mode) => {
+        if ( mode === 'user' ) {
+            setAdminNavigation(false)
+        } else {
+            setAdminNavigation(true)
+        }
+    }
+
+    const navigation = user && user.userData && user.userData.roles.includes('admin') && adminNavigation === true ? <AdminNavigationHeader onNavMode={handleNavMode} /> : <UserNavigationHeader onNavMode={handleNavMode}/>
     
     return (
         <nav className={`${styles['navbar']} ${activateBar ? styles['navbar_mobile_height'] : ''}`}>
             <div className={styles['navbar_title']}>
-                <NavigationLink to="/">IT-COMMUNITY{userData && userData.roles.includes('admin') ? '-ADMIN' : ''}</NavigationLink>
+                <NavigationLink to="/">IT-COMMUNITY{user && user.userData && user.userData.roles.includes('admin') && adminNavigation === true ? '-ADMIN' : ''}</NavigationLink>
             </div>
             <div className={styles['toggle_buttons']} onClick={toggleNavbar}>
                 {chooseButton()}
