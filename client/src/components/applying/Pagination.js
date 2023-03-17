@@ -1,16 +1,14 @@
 import styles from './Pagination.module.scss';
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const Pagination = ( { jobsPerPage, totalJobs, onHandleCurrentPage } ) => {
     const pageNumbers = [];
-    const [clickedPage, setClickedPage] = useState(1)
-    
+    const [queryParams, setQueryParams] = useSearchParams()
     for( let i = 1; i <= Math.ceil(totalJobs / jobsPerPage); i++ ) {
         pageNumbers.push(i);//if we have 11 jobs, and jobs per page are 5, we will push 1,2,3, because 11/5 = 2.2. Math ceil always round up
     }
     
     const changePage = (clickedPage) => {
-        setClickedPage(clickedPage);
         onHandleCurrentPage(clickedPage)
 
         window.scroll({
@@ -25,7 +23,7 @@ const Pagination = ( { jobsPerPage, totalJobs, onHandleCurrentPage } ) => {
         <div className={styles['pagination_root']} id='pagination-root'>
             <ul className={styles['pagination_list']} role='list'>
                 { pageNumbers.map( p => (
-                    <li className={`${styles['pagination_item']} ${clickedPage === p ? styles['pagination_item_active'] : ''}`} key={p} onClick={() => changePage(p)}>
+                    <li className={`${styles['pagination_item']} ${ Number(queryParams.get('page')) === p ? styles['pagination_item_active'] : ''}`} key={p} onClick={() => {changePage(p); setQueryParams(prev => Object.assign({}, prev, {page: p}))}}>
                         <div>{p}</div>
                     </li>
                 )) }

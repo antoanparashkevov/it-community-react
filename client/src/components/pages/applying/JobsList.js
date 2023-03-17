@@ -16,11 +16,31 @@ import BaseDialog from "../../UI/BaseDialog";
 import JobListSkeletonLoading from "../../UI/JobListSkeletonLoading";
 
 import Pagination from "../../applying/Pagination";
+import { useSearchParams } from "react-router-dom";
 
 const JobsList = () => {
     const { width: windowWidth } = useWindowDimensions()
     const { isLoading, error, resetError, sendRequest } = useHttp();
-    // TODO change the query param when we switch around different pages
+    
+    const [queryParams, setQueryParams] = useSearchParams();
+    
+
+    useEffect(() => {
+        //validation for the page query param
+        if ( 
+            Number(queryParams.get('page')) <= 0 ||
+            isNaN(Number(queryParams.get('page')))
+        ) {
+            setQueryParams(prev => {
+                return {
+                    ...prev,
+                    page: '1'
+                }
+            })
+        }
+        
+        setCurrentPage(Number(queryParams.get('page')))
+    }, [queryParams])
     
     let [filteredData, setFilteredData] = useState({});
     

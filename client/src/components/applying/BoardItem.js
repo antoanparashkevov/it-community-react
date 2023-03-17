@@ -33,7 +33,7 @@ const BoardItem = ({category}) => {
 
             <div className={styles['homepage_category_show_all_btn_wrapper']}>
                 <RoundedLink
-                    to='posters'
+                    to='posters?page=1'
                 >
                     Show all
                 </RoundedLink>

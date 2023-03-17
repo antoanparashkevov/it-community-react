@@ -13,14 +13,21 @@ import FormPageContent from "../../UI/FormPageContent";
 const UserAuth = () => {
     const [switchToCompany, setSwitchToCompany] = useState(false)
     
-    const [queryParams] = useSearchParams();//useSearchParams basically means Query Params :)
-    
+    const [queryParams, setQueryParams] = useSearchParams();//useSearchParams basically means Query Params :)
+
     const [authMode, setAuthMode] = useState(null)
     
     //TODO fix the query param change
     useEffect( () => {
+        //validation for the mode query param
         if (queryParams.get('mode') !== 'login' || queryParams.get('mode') !== 'signup') {
             setAuthMode('login')
+            setQueryParams((prevState)=> {
+                return {
+                    ...prevState,
+                    mode: 'login'
+                }
+            })
         }
 
         setAuthMode(queryParams.get('mode'))
