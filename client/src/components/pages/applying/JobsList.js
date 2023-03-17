@@ -67,9 +67,6 @@ const JobsList = () => {
         setFilteredData(data)
     }
     
-    console.log('filteredData ', filteredData)
-    console.log('posters', posters)
-    
     const categoryFilter = (job) => {
         let toReturn = true;
         if( filteredData && Object.keys(filteredData).length > 0 ) {
@@ -121,21 +118,22 @@ const JobsList = () => {
         return toReturn
     }
     
+    const jobsLength = posters
+        .filter(categoryFilter)
+        .filter(workTypeFilter)
+        .filter(seniorityFilter)
+        .filter(salaryFilter).length
+    
     return (
         <section className={`${styles['posters_container']} container`}>
             <BaseCard hide={windowWidth <= 744} className={styles['aside_wrapper']}>
                 <Sidebar onSaveFiltersData={onFilterDataHandler} />
             </BaseCard>
             {error && <BaseDialog show={!!error} onCloseDialog={resetError} fixed={false} title='An error occurred during fetching the jobs!'>{error}</BaseDialog>}
-            {/*TODO FIX THE BROKEN PAGINATION*/}
             {isLoading ? 
                 <JobListSkeletonLoading /> :
                 <div className={styles['posters_list_wrapper']}>
-                    { posters
-                        .filter(categoryFilter)
-                        .filter(workTypeFilter)
-                        .filter(seniorityFilter)
-                        .filter(salaryFilter).length > 0 ? 
+                    { jobsLength > 0 ? 
                         posters
                             .filter(categoryFilter)
                             .filter(workTypeFilter)
@@ -147,11 +145,7 @@ const JobsList = () => {
                         )) : <NoDataAvailable title='No Data Available' />
                     }
                     {
-                        posters
-                            .filter(categoryFilter)
-                            .filter(workTypeFilter)
-                            .filter(seniorityFilter)
-                            .filter(salaryFilter).length > 0 && <Pagination totalJobs={posters.length} jobsPerPage={jobsPerPage} onHandleCurrentPage={changeCurrentPage} />
+                       jobsLength > 0 && <Pagination totalJobs={jobsLength} jobsPerPage={jobsPerPage} onHandleCurrentPage={changeCurrentPage} />
                     }
                     
                 </div>
