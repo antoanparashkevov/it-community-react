@@ -15,7 +15,7 @@ const UserNavigationHeader = ( { onNavMode } ) => {
     return (
         <ul role='list' className={styles['user_links']}>
             <li className={styles['navbar_link']}>
-                <NavigationLink to="posters" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavigationLink>
+                <NavigationLink to="posters?page=1" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavigationLink>
             </li>
             {user && user.userData && user.userData.roles.includes('company') &&
                 <React.Fragment>
