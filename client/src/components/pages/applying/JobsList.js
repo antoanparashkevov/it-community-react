@@ -26,7 +26,7 @@ const JobsList = () => {
     
 
     useEffect(() => {
-        //validation for the page query param
+        // validation for the page query param
         if ( 
             Number(queryParams.get('page')) <= 0 ||
             isNaN(Number(queryParams.get('page')))
@@ -34,6 +34,7 @@ const JobsList = () => {
             setQueryParams(prev => {
                 return {
                     ...prev,
+                    category: queryParams.get('category'),
                     page: '1'
                 }
             })
@@ -87,16 +88,20 @@ const JobsList = () => {
     const onFilterDataHandler = (data) => {
         setFilteredData(data)
     }
-    
+    console.log('filteredData >>> ', filteredData)
     const categoryFilter = (job) => {
-        let toReturn = true;
-        if( filteredData && Object.keys(filteredData).length > 0 ) {
-            
-            if ( job.category ) {
-                toReturn = filteredData['categories'][job.category].isChecked
+
+        if ( !queryParams.get('category') || queryParams.get('category') && queryParams.get('category').length === 0 ) {
+            let toReturn = true;
+            if( filteredData && Object.keys(filteredData).length > 0 ) {
+
+                if ( job.category && filteredData['categories'] ) {
+                    toReturn = filteredData['categories'][job.category].isChecked
+                }
             }
+            return toReturn
         }
-        return toReturn
+        return true;
     }
     
     const workTypeFilter = (job) => {

@@ -16,6 +16,13 @@ const Pagination = ( { jobsPerPage, totalJobs, onHandleCurrentPage } ) => {
             behavior: "smooth",
         });
         
+        setQueryParams(prev => {
+            return {
+                ...prev,
+                category: queryParams.get('category'),
+                page: clickedPage
+            }
+        })
     }
     
     
@@ -23,7 +30,7 @@ const Pagination = ( { jobsPerPage, totalJobs, onHandleCurrentPage } ) => {
         <div className={styles['pagination_root']} id='pagination-root'>
             <ul className={styles['pagination_list']} role='list'>
                 { pageNumbers.map( p => (
-                    <li className={`${styles['pagination_item']} ${ Number(queryParams.get('page')) === p ? styles['pagination_item_active'] : ''}`} key={p} onClick={() => {changePage(p); setQueryParams(prev => Object.assign({}, prev, {page: p}))}}>
+                    <li className={`${styles['pagination_item']} ${ Number(queryParams.get('page')) === p ? styles['pagination_item_active'] : ''}`} key={p} onClick={() => changePage(p)}>
                         <div>{p}</div>
                     </li>
                 )) }

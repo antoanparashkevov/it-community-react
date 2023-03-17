@@ -1,5 +1,5 @@
 import styles from './Sidebar.module.css'
-import { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 
 //import UI components
 import SeparationLine from "../../UI/SeparationLine";
@@ -12,6 +12,7 @@ import WorkTypeFilter from "./WorkTypeFilter";
 
 //context
 import FilterContext from "../../../store/filter-context";
+import { useSearchParams } from "react-router-dom";
 
 //can be created outside the scope of this component function. It does not need to interact with anything inside the component function.
 const filterDataReducer = (state, action) => {
@@ -49,6 +50,9 @@ const filterDataReducer = (state, action) => {
 
 const Sidebar = ({onSaveFiltersData}) => {
     let isByDefaultChecked = true;
+    
+    const [queryParams, setQueryParams] = useSearchParams();
+    
     const [filterData, dispatchFilterData] = useReducer(filterDataReducer, {
         categories: [],
         seniority: [],
@@ -94,8 +98,13 @@ const Sidebar = ({onSaveFiltersData}) => {
            isChecked : isByDefaultChecked
        }}>
        <aside className={styles['sidebar']}>
-            <CategoriesFilter onSaveCriteria={getCategoriesCriteria} />
-            <SeparationLine/>
+           { 
+               !queryParams.get('category') &&
+               <React.Fragment>
+                   <CategoriesFilter onSaveCriteria={getCategoriesCriteria} />
+                   <SeparationLine/>
+               </React.Fragment>
+           }
             <SeniorityFilter onSaveCriteria={getSeniorityCriteria} />
             <SeparationLine/>
             <WorkTypeFilter onSaveCriteria={getWorkTypeCriteria} />
