@@ -5,8 +5,8 @@ import React from "react";
 import RootLayout from "../components/Root";
 import ErrorPage from "../components/pages/Error";
 import Board from "../components/pages/applying/Board";
-import PostersList from "../components/pages/applying/PostersList";
-import PosterDetails from "../components/pages/applying/PosterDetails";
+import JobsList from "../components/pages/applying/JobsList";
+import JobDetails from "../components/pages/applying/JobDetails";
 import Applying from "../components/pages/applying/Applying";
 import Profile from "../components/pages/profile/Profile";
 import Messages from "../components/pages/messages/Messages";
@@ -25,7 +25,7 @@ import { action as logoutAction } from '../components/pages/auth/Logout'
 
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
 import { formatCategoryData } from "../components/applying/JobForm";
-import { formatJobDetailsData } from '../components/pages/applying/PosterDetails';
+import { formatJobDetailsData } from '../components/pages/applying/JobDetails';
 import { getAuthToken } from "./auth";
 
 //create a relation between the routes and the components,
@@ -50,7 +50,7 @@ export const routes = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <PostersList/>,
+                        element: <JobsList/>,
                     },
                     {
                         path: ':posterId',
@@ -59,11 +59,11 @@ export const routes = createBrowserRouter([
                         children: [
                             {
                                 index: true,
-                                element: <PosterDetails/>,
+                                element: <JobDetails/>,
                             },
                             {
                                 path: '',
-                                element: <PosterDetails/>,
+                                element: <JobDetails/>,
                                 children: [
                                     {
                                         path: 'apply',

@@ -1,4 +1,4 @@
-import styles from './PosterDetails.module.scss'
+import styles from './JobDetails.module.scss'
 import { json, Link, Outlet, useParams, useRouteLoaderData, useLocation } from "react-router-dom";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import { RemoteBadge, WorkCategoryBadge1, WorkCategoryBadge2, WorkCategoryBadge3
 //hooks
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
-const PosterDetails = () => {
+const JobDetails = () => {
     const { width: windowWidth } = useWindowDimensions()
     const location = useLocation();
     const data = useRouteLoaderData('poster-details');
@@ -95,7 +95,7 @@ const PosterDetails = () => {
     )
 }
 
-export default PosterDetails;
+export default JobDetails;
 
 export const formatJobDetailsData = (data) => {
     return {

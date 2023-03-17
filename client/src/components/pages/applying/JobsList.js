@@ -1,5 +1,5 @@
-import styles from './PostersList.module.css'
-import React, { useCallback, useEffect, useReducer, useState } from "react";
+import styles from './JobsList.module.css'
+import React, { useEffect, useState } from "react";
 
 //hooks
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
@@ -12,13 +12,11 @@ import PosterItem from "../../applying/PosterItem";
 
 //UI components
 import NoDataAvailable from "../../UI/NoDataAvailable";
-import { useNavigation } from "react-router-dom";
 import BaseDialog from "../../UI/BaseDialog";
 import JobListSkeletonLoading from "../../UI/JobListSkeletonLoading";
 
-const PostersList = () => {
+const JobsList = () => {
     const { width: windowWidth } = useWindowDimensions()
-    const navigation = useNavigation();
     const { isLoading, error, resetError, sendRequest } = useHttp();
     
     let [filteredData, setFilteredData] = useState({});
@@ -34,7 +32,7 @@ const PostersList = () => {
                     workType: j.workType.map(w_type => w_type.toLowerCase()),
                     category: j.category.code,
                     subCat: j.subCategory.map( sub_cat => sub_cat.title),
-                    seniority: j.seniority.toLowerCase(),
+                    seniority: j.seniority.toLowerCase().replace(' ', '_'),
                     salary: j.salary && !isNaN(j.salary) ? j.salary : null,
                     city: j.city,
                     date: j.date
@@ -130,4 +128,4 @@ const PostersList = () => {
     )
 }
 
-export default PostersList;
+export default JobsList;

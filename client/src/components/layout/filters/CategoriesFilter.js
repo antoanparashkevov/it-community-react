@@ -26,8 +26,8 @@ const CategoriesFilter = ({onSaveCriteria}) => {
             type: 'categories',
             isChecked: filterCtx.isChecked
         },
-        qa: {
-            id: 'qa',
+        quality_assurance: {
+            id: 'quality_assurance',
             type: 'categories',
             isChecked: filterCtx.isChecked
         },
@@ -69,7 +69,7 @@ const CategoriesFilter = ({onSaveCriteria}) => {
                 </div>
                 <div className={styles['form_control']}>
                     <Label for='qa'>QA</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'qa'} name='categories' id='qa' onTriggerCheckbox={checkboxHandler}/>
+                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'quality_assurance'} name='categories' id='quality_assurance' onTriggerCheckbox={checkboxHandler}/>
                 </div>
                 <div className={styles['form_control']}>
                     <Label for='infrastructure'>Infrastructure</Label>

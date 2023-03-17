@@ -16,9 +16,9 @@ const SeniorityFilter = ({onSaveCriteria}) => {
     
     const [isExpanded, setIsExpanded] = useState(true)
     const [seniorityFilter, setSeniorityFilter] = useState({ 
-        internship: {
+        intern: {
             isChecked: filterCtx.isChecked,
-            id: 'internship',
+            id: 'intern',
             type: 'seniority'
         },
         junior: {
@@ -62,7 +62,7 @@ const SeniorityFilter = ({onSaveCriteria}) => {
             {isExpanded &&  <div className={styles['categories_form_controls']}>
                 <div className={styles['form_control']}>
                     <Label for='internship'>Internship</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'internship'} name='seniority' id='internship' onTriggerCheckbox={checkboxHandler} />
+                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'intern'} name='seniority' id='intern' onTriggerCheckbox={checkboxHandler} />
                 </div>
                 <div className={styles['form_control']}>
                     <Label for='junior'>Junior</Label>
