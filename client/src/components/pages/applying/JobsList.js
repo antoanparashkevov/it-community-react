@@ -20,6 +20,7 @@ import Pagination from "../../applying/Pagination";
 const JobsList = () => {
     const { width: windowWidth } = useWindowDimensions()
     const { isLoading, error, resetError, sendRequest } = useHttp();
+    // TODO change the query param when we switch around different pages
     
     let [filteredData, setFilteredData] = useState({});
     

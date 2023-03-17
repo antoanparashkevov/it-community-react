@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { getAuthToken } from "../util/auth";
+import { useSubmit } from "react-router-dom";
 
 const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';
 
@@ -7,6 +8,8 @@ const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     const [resolved, setResolved] = useState(false)
+    const submit = useSubmit();
+    const token = getAuthToken();
     
     const sendRequest = useCallback(async (url, method = 'GET', applyData, data = {}) => {
         
@@ -15,7 +18,6 @@ const useHttp = () => {
         // console.log('URL', url)
         // console.log('Data to POST >>> ', data)
         
-        const token = getAuthToken();
         
         setResolved(false);
         setIsLoading(true);
@@ -44,24 +46,29 @@ const useHttp = () => {
            if( response.ok === false ) {
                
                if( response.status === 401 ) {
-                   //todo util func
+                   submit(null, {
+                       action: '/logout',
+                       method: 'POST'
+                   })
+                   window.location.reload();
+                   return;
                }
+               
                const error = await response.json()
                throw new Error(error.message)
            } else {
                setResolved(true);
            }
            
-           if( response.status === 204 ) {
+           if( response.status === 204 ) {//for logout case, the server returns response without body
                 return response;
-           } else {
+           } 
                
-               if( applyData ) {
-                    const data = await response.json()
-                    applyData(data)
-               } else {
-                   return data
-               }
+           if( applyData ) {
+                const data = await response.json()
+                applyData(data)
+           } else {
+               return data
            }
            
        } catch ( error ) {

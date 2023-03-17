@@ -30,7 +30,6 @@ const Board = () => {
     
     return (
         <React.Fragment>
-            {/* TODO FOR ALL ROUTES ?*/}
             {error && <BaseDialog show={!!error} onCloseDialog={resetError} fixed={false} title={getAuthToken() === 'EXPIRED' ? 'Your session expired!' : 'Something went wrong with fetching the Categories!'}>{ getAuthToken() === 'EXPIRED' ? 'Reload the page and sign in again' : error }</BaseDialog>}
             {/*TODO MAYBE REPLACE WITH A SKELETON LOADING*/}
             {isLoading && <BaseSpinner />}

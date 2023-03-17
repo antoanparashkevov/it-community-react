@@ -10,7 +10,7 @@ const loader = async (url, formatData, userType) => {
     // console.log('URL', url)
     
     const token = getAuthToken();
-    
+
     const options = {
         method: 'GET',
         headers: {}
@@ -27,7 +27,7 @@ const loader = async (url, formatData, userType) => {
 
             const data = await response.json();
 
-            if( data.userData.hasData === false ){
+            if( data.userData.hasData === false ) {
                 return redirect('/auth')
             }
 
@@ -59,8 +59,11 @@ const loader = async (url, formatData, userType) => {
             if( response.ok === false ) {
 
                 if( response.status === 401 ) {
-                    //todo util func
+                    localStorage.clear();
+                    window.location.reload();
+                    return null;
                 }
+                
                 const error = await response.json()
                 throw new Error(error.message)
             }
@@ -81,7 +84,6 @@ const loader = async (url, formatData, userType) => {
             } )
         }
     }
-    
     return null;
 }
 
