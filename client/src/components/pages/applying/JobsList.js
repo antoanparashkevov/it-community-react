@@ -124,6 +124,12 @@ const JobsList = () => {
         .filter(seniorityFilter)
         .filter(salaryFilter).length
     
+    const filteredJobs = posters
+        .filter(categoryFilter)
+        .filter(workTypeFilter)
+        .filter(seniorityFilter)
+        .filter(salaryFilter)
+    
     return (
         <section className={`${styles['posters_container']} container`}>
             <BaseCard hide={windowWidth <= 744} className={styles['aside_wrapper']}>
@@ -134,13 +140,9 @@ const JobsList = () => {
                 <JobListSkeletonLoading /> :
                 <div className={styles['posters_list_wrapper']}>
                     { jobsLength > 0 ? 
-                        posters
-                            .filter(categoryFilter)
-                            .filter(workTypeFilter)
-                            .filter(seniorityFilter)
-                            .filter(salaryFilter)
-                            .slice(indexOfFirstJob, indexOfLastJob)
-                            .map((job, index) => (
+                        filteredJobs
+                        .slice(indexOfFirstJob, indexOfLastJob)
+                        .map((job, index) => (
                             <PosterItem key={ index } job={ job }/>
                         )) : <NoDataAvailable title='No Data Available' />
                     }

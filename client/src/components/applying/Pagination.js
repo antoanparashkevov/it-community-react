@@ -12,10 +12,17 @@ const Pagination = ( { jobsPerPage, totalJobs, onHandleCurrentPage } ) => {
     const changePage = (clickedPage) => {
         setClickedPage(clickedPage);
         onHandleCurrentPage(clickedPage)
+
+        window.scroll({
+            top: 100,
+            behavior: "smooth",
+        });
+        
     }
     
+    
     return (
-        <div className={styles['pagination_root']}>
+        <div className={styles['pagination_root']} id='pagination-root'>
             <ul className={styles['pagination_list']} role='list'>
                 { pageNumbers.map( p => (
                     <li className={`${styles['pagination_item']} ${clickedPage === p ? styles['pagination_item_active'] : ''}`} key={p} onClick={() => changePage(p)}>
