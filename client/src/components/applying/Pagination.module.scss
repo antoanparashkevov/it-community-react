@@ -1,0 +1,31 @@
+.pagination_root {
+    width: 100%;    
+    min-height: 60px;
+}
+
+.pagination_list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pagination_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    border: 1px solid #bea6ff;
+    margin: 8px;
+}
+
+.pagination_item_active {
+    background-color: #ebe5ff;
+}
+
+.pagination_item a {
+    color: #6b04fd;
+}

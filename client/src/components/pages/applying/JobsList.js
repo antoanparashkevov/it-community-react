@@ -15,6 +15,8 @@ import NoDataAvailable from "../../UI/NoDataAvailable";
 import BaseDialog from "../../UI/BaseDialog";
 import JobListSkeletonLoading from "../../UI/JobListSkeletonLoading";
 
+import Pagination from "../../applying/Pagination";
+
 const JobsList = () => {
     const { width: windowWidth } = useWindowDimensions()
     const { isLoading, error, resetError, sendRequest } = useHttp();
@@ -22,6 +24,18 @@ const JobsList = () => {
     let [filteredData, setFilteredData] = useState({});
     
     const [posters, setPosters] = useState([])
+    
+    //Pagination
+    const [currentPage, setCurrentPage] = useState(1);//starts from the first page
+    const [jobsPerPage] = useState(5);//jobs per page (number)
+    
+    const indexOfLastJob = currentPage * jobsPerPage;//for ex, if we are on the second page, the last index of the job would be 10
+    const indexOfFirstJob = indexOfLastJob - jobsPerPage;//for ex, if we are on the second page, the last index of the job would be 10, 10 - 5 (jobs per page) = 5 
+    
+    
+    const changeCurrentPage = (currentNumberPage) => {
+        setCurrentPage(currentNumberPage)
+    }
     
     useEffect( () => {
         const transformJobData = (response) => {
@@ -52,6 +66,9 @@ const JobsList = () => {
     const onFilterDataHandler = (data) => {
         setFilteredData(data)
     }
+    
+    console.log('filteredData ', filteredData)
+    console.log('posters', posters)
     
     const categoryFilter = (job) => {
         let toReturn = true;
@@ -106,11 +123,11 @@ const JobsList = () => {
     
     return (
         <section className={`${styles['posters_container']} container`}>
-            {/*TODO PAGINATION*/}
             <BaseCard hide={windowWidth <= 744} className={styles['aside_wrapper']}>
                 <Sidebar onSaveFiltersData={onFilterDataHandler} />
             </BaseCard>
             {error && <BaseDialog show={!!error} onCloseDialog={resetError} fixed={false} title='An error occurred during fetching the jobs!'>{error}</BaseDialog>}
+            {/*TODO FIX THE BROKEN PAGINATION*/}
             {isLoading ? 
                 <JobListSkeletonLoading /> :
                 <div className={styles['posters_list_wrapper']}>
@@ -118,10 +135,25 @@ const JobsList = () => {
                         .filter(categoryFilter)
                         .filter(workTypeFilter)
                         .filter(seniorityFilter)
-                        .filter(salaryFilter).length > 0 ?
-                        posters.map((job, index) => {
-                            return <PosterItem key={ index } job={ job }/>
-                        }) : <NoDataAvailable title='No Data Available' /> }
+                        .filter(salaryFilter).length > 0 ? 
+                        posters
+                            .filter(categoryFilter)
+                            .filter(workTypeFilter)
+                            .filter(seniorityFilter)
+                            .filter(salaryFilter)
+                            .slice(indexOfFirstJob, indexOfLastJob)
+                            .map((job, index) => (
+                            <PosterItem key={ index } job={ job }/>
+                        )) : <NoDataAvailable title='No Data Available' />
+                    }
+                    {
+                        posters
+                            .filter(categoryFilter)
+                            .filter(workTypeFilter)
+                            .filter(seniorityFilter)
+                            .filter(salaryFilter).length > 0 && <Pagination totalJobs={posters.length} jobsPerPage={jobsPerPage} onHandleCurrentPage={changeCurrentPage} />
+                    }
+                    
                 </div>
             }
         </section>
