@@ -23,7 +23,7 @@ const JobsList = () => {
     
     let [filteredData, setFilteredData] = useState({});
     
-    const [posters, setPosters] = useState([])
+    const [jobs, setJobs] = useState([])
     
     //Pagination
     const [currentPage, setCurrentPage] = useState(1);//starts from the first page
@@ -53,9 +53,9 @@ const JobsList = () => {
                 }
             })
             if( posters && posters.length > 0) {
-                setPosters(posters);
+                setJobs(posters);
             } else {
-                setPosters([])
+                setJobs([])
             }
         }
 
@@ -118,13 +118,13 @@ const JobsList = () => {
         return toReturn
     }
     
-    const jobsLength = posters
+    const jobsLength = jobs
         .filter(categoryFilter)
         .filter(workTypeFilter)
         .filter(seniorityFilter)
         .filter(salaryFilter).length
     
-    const filteredJobs = posters
+    const filteredJobs = jobs
         .filter(categoryFilter)
         .filter(workTypeFilter)
         .filter(seniorityFilter)
