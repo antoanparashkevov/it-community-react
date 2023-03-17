@@ -4,6 +4,10 @@ async function getAll() {
     return Job.find({}).populate('category').populate('subCategory');
 }
 
+async function getByCategory(category_code) {
+    return Job.find({ category_code }).populate('category').populate('subCategory');
+}
+
 async function getById(id) {
     return Job.findById(id).populate('category').populate('subCategory').populate('companyId');
 }
@@ -37,6 +41,7 @@ async function deleteById(id) {
 
 module.exports = {
     getAll,
+    getByCategory,
     getById,
     create,
     deleteById

@@ -80,8 +80,13 @@ const JobsList = () => {
                 setJobs([])
             }
         }
-
-        sendRequest('/jobData/jobs', 'GET', transformJobData)
+        
+        if( queryParams.get('category') && queryParams.get('category').length > 0) {
+            sendRequest('/jobData/jobs?where=category%3D' + queryParams.get('category'), 'GET', transformJobData)//%3D means =
+        } else {
+            sendRequest('/jobData/jobs', 'GET', transformJobData)
+        }
+        
         
     }, [])
     

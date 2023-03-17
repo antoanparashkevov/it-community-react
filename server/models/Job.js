@@ -23,6 +23,10 @@ const jobSchema = new Schema({
       type: ObjectId,
       ref: 'Category',
     },
+    category_code: {
+        type: String,
+        required: true
+    },
     subCategory: {
         type: [ObjectId],
         default: [],

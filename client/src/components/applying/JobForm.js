@@ -76,7 +76,7 @@ const JobForm = () => {
     
     /* CATEGORIES START */
     
-    const [orderedCategoryListData, setOrderedCategoryListData] = useState(useRouteLoaderData('create-job'))
+    const [orderedCategoryListData] = useState(useRouteLoaderData('create-job'))
     
     const [placeholderCategoryValue, setPlaceholderCategoryValue] = useState(orderedCategoryListData[0].title)
     
@@ -197,7 +197,6 @@ const JobForm = () => {
     const {
         value : enteredSalary,
         isValid: enteredSalaryIsValid,
-        hasError: salaryInputHasError,
         reset : resetSalaryInput,
         valueChangeHandler : salaryInputChangeHandler,
         inputBlurHandler: salaryInputBlurHandler
@@ -288,7 +287,7 @@ const JobForm = () => {
 
                 <div className={ formControlClasses(jobNameInputHasError) }>
 
-                    {jobNameInputHasError && <p>Please enter a valid non-empty job name!</p>}
+                    {jobNameInputHasError && <p>Please enter a valid non-empty job name with maximum 30 characters!</p>}
                     <Label for="job_name">Job name*</Label>
                     <Input
                         id='job_name'

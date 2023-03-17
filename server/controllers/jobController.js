@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { getAll, create, getById, update, deleteById } = require("../services/jobService");
-const { getByCode: getSubCategoryByCode, getById: getSubCategoryById  } = require('../services/subCategoryService');
+const { getAll, create, getById, update, deleteById, getByCategory } = require("../services/jobService");
+const { getByCode: getSubCategoryByCode } = require('../services/subCategoryService');
 const { getByCode: getCategoryByCode } = require("../services/categoryService");
 
 //utils
@@ -11,17 +11,23 @@ const getUserData = require('../util/getUserData');
 
 const setCookie = require("../util/setCookie");
 
-router.get('/jobs',async(req, res) => {
+router.get('/jobs', async (req,res) => {
+    console.log('req.query >>> ', req.query)
     let items = []
     try {
-        items = await getAll();
+        if( req.query && req.query.where ) {
+            let categoryCode = req.query.where.split('=')[1]
+            items = await getByCategory(categoryCode);
+        } else {
+            items = await getAll();
+        }
         const user = getUserData(req.user, req.token)
-        
+
         res.json({
             user,
             jobs: items,
         })
-        
+
     } catch ( err ) {
         const message = parseError(err);
         res.status(400).json({ message })
@@ -73,6 +79,7 @@ router.post('/jobs', hasUser(), hasRole(), async (req,res)  => {
             jobName: formData.jobName,
             workType: formData.workType,
             seniority: formData.seniority,
+            category_code: formData.categoryCode,
             desc: formData.desc,
             city: formData.city,
             date: formattedDate,
