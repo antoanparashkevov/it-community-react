@@ -8,7 +8,7 @@ import useHttp from "../../../hooks/use-http";
 //components
 import Sidebar from "../../layout/filters/Sidebar";
 import { BaseCard } from "../../UI/BaseCard";
-import PosterItem from "../../applying/PosterItem";
+import JobItem from "../../applying/JobItem";
 
 //UI components
 import NoDataAvailable from "../../UI/NoDataAvailable";
@@ -93,7 +93,7 @@ const JobsList = () => {
     const onFilterDataHandler = (data) => {
         setFilteredData(data)
     }
-    console.log('filteredData >>> ', filteredData)
+    
     const categoryFilter = (job) => {
 
         if ( !queryParams.get('category') || queryParams.get('category') && queryParams.get('category').length === 0 ) {
@@ -174,7 +174,7 @@ const JobsList = () => {
                         filteredJobs
                         .slice(indexOfFirstJob, indexOfLastJob)
                         .map((job, index) => (
-                            <PosterItem key={ index } job={ job }/>
+                            <JobItem key={ index } job={ job }/>
                         )) : <NoDataAvailable title='No Data Available' />
                     }
                     {

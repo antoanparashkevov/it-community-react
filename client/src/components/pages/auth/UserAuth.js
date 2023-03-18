@@ -19,7 +19,7 @@ const UserAuth = () => {
     
     useEffect( () => {
         //validation for the mode query param
-        if (queryParams.get('mode') !== 'login' || queryParams.get('mode') !== 'signup') {
+        if (queryParams.get('mode') !== 'login' && queryParams.get('mode') !== 'signup') {
             setAuthMode('login')
             setQueryParams((prevState)=> {
                 return {

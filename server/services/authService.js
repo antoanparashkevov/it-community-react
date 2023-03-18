@@ -97,6 +97,9 @@ const createToken = function(user, role) {
     
     if( role === 'company' ) {
         payload.companyName = user.companyName
+        payload.foundationYear = user.foundationYear
+        payload.employees = user.employees
+        payload.desc = user.desc
     }
     
    return {

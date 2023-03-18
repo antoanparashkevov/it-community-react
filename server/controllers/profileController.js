@@ -1,13 +1,13 @@
-const { hasUser } = require("../middlewares/guards");
+const { hasUser, hasRole } = require("../middlewares/guards");
 const parseError = require("../util/parseError");
+const { getJobRegistration } = require("../services/jobService");
 
 const router = require('express').Router()
 
-router.get('/userInfo', hasUser(), async (req,res)=> {
+router.get('/userInfo', hasUser(), hasRole(), async (req,res)=> {
     try{
-        const userEmail = req.user.email;
-        const userId = req.user._id
-        res.json({ email: userEmail, _id: userId })
+        const jobs = await getJobRegistration(req.user._id)
+        res.json({ userData: req.user, jobs })
     }catch (err) {
         const message = parseError(err)
         res.status(400).json({message})

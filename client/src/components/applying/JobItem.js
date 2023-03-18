@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import styles from "../applying/PosterItem.module.css";
+import styles from "./JobItem.module.css";
 
 
 //hooks
 import useFormatDate from "../../hooks/use-format-date";
 
-const PosterItem = ({ job }) => {
+const JobItem = ({ job }) => {
     const { formattedDate } = useFormatDate(job.date, 'D.MS')
     
     const SalaryBadge = () => {
@@ -42,5 +42,5 @@ const PosterItem = ({ job }) => {
     )    
 }
 
-export default PosterItem
+export default JobItem
 

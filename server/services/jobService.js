@@ -16,10 +16,10 @@ async function create(item) {
     return Job.create(item)
 }
 
-// async function getJobRegistration(ownerId) {
-//     return Job.find({_ownerId: ownerId})
-// }
-//
+async function getJobRegistration(ownerId) {
+    return Job.find({companyId: ownerId})
+}
+
 // async function update(itemId, modifiedItemData) {
 //     let existing = await Job.findById(itemId)
 //    
@@ -42,6 +42,7 @@ async function deleteById(id) {
 module.exports = {
     getAll,
     getByCategory,
+    getJobRegistration,
     getById,
     create,
     deleteById

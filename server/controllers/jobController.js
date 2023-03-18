@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getAll, create, getById, update, deleteById, getByCategory } = require("../services/jobService");
+const { getAll, create, getById, update, deleteById, getByCategory, getJobRegistration } = require("../services/jobService");
 const { getByCode: getSubCategoryByCode } = require('../services/subCategoryService');
 const { getByCode: getCategoryByCode } = require("../services/categoryService");
 

@@ -26,6 +26,7 @@ import { action as logoutAction } from '../components/pages/auth/Logout'
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
 import { formatCategoryData } from "../components/applying/JobForm";
 import { formatJobDetailsData } from '../components/pages/applying/JobDetails';
+import { formatProfileData } from '../components/pages/profile/Profile';
 import { getAuthToken } from "./auth";
 
 //create a relation between the routes and the components,
@@ -77,6 +78,8 @@ export const routes = createBrowserRouter([
             },
             {
                 path: 'profile',
+                id: 'profile-info',
+                loader: ( { request, params } ) => loader('/profileData/userInfo', formatProfileData, ['company']),
                 element: <Profile/>
             },
             {
