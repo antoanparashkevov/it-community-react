@@ -141,7 +141,7 @@ router.delete('/jobs/:jobId', hasUser(), hasRole(), async (req,res)=> {
     const jobId = req.params['jobId'];
     const item = await getById(jobId);
     
-    if(req.user._id !== item['_ownerId'].toString()) {
+    if(req.user._id !== item['companyId']._id.toString()) {
         return res.status(403).json({message: "You cannot modify this resource!"})
     }
 

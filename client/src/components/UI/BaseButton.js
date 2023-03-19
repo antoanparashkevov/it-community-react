@@ -104,6 +104,7 @@ export const DeleteButton = styled(Button)`
     background-color: transparent;
     border: 1px solid #d26b6b;
     color: #d26b6b;
+    pointer-events: auto;
     
     &:hover,
     &:active {
@@ -122,6 +123,7 @@ export const EditButton = styled(Button)`
     background-color: transparent;
     border: 1px solid darkseagreen;
     color: darkseagreen;
+    pointer-events: auto;
     
     &:hover,
     &:active {

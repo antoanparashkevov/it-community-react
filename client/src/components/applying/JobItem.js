@@ -8,7 +8,7 @@ import { DeleteButton, EditButton } from "../UI/BaseButton";
 import useFormatDate from "../../hooks/use-format-date";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 
-const JobItem = ({ job, hideCompanyLogoWidth, forProfile }) => {
+const JobItem = ({ job, hideCompanyLogoWidth, forProfile, onDelete }) => {
     const { formattedDate } = useFormatDate(job.date, 'D.MS');
     const { width: windowWidth } = useWindowDimensions();
     
@@ -45,7 +45,7 @@ const JobItem = ({ job, hideCompanyLogoWidth, forProfile }) => {
                         { forProfile &&
                             <div className={styles['job_actions']}>
                                 <EditButton className={styles['job_actions_edit']}>Edit</EditButton>
-                                <DeleteButton className={styles['job_actions_delete']}>Delete</DeleteButton>
+                                <DeleteButton className={styles['job_actions_delete']} onClick={() => onDelete({ toDelete: true, jobId: job._id })}>Delete</DeleteButton>
                             </div>
                         }
                     </section>

@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import styles from './BaseDialog.module.scss';
 
 //UI components
-import { RoundedButton } from "./BaseButton";
+import { DeleteButton, EditButton, RoundedButton } from "./BaseButton";
 import { getAuthToken } from "../../util/auth";
 
 const Backdrop = ({ tryClose, show }) => {
@@ -17,7 +17,7 @@ const Backdrop = ({ tryClose, show }) => {
     )
 }
 
-const ModalOverlay = ({ children, title, fixed, tryClose, activateMoreActions, show, crud }) => {
+const ModalOverlay = ({ children, title, fixed, tryClose, show, deleteAction, onDelete }) => {
     let token = getAuthToken();
     
     return (
@@ -27,20 +27,13 @@ const ModalOverlay = ({ children, title, fixed, tryClose, activateMoreActions, s
                     <h2>{title}</h2>
                 </header>
                 <section className={styles['dialog_section']}>{children}</section>
-                { fixed === false &&
-                    <React.Fragment>
-                        { token !== 'EXPIRED' && token && 
-                            <menu className={styles['dialog_menu']}>
-                                <RoundedButton onClick={tryClose}>Close</RoundedButton>
-                            </menu>
+                { fixed === false && token !== 'EXPIRED' && token && 
+                    <menu className={styles['dialog_menu']}>
+                        <RoundedButton onClick={tryClose}>Close</RoundedButton>
+                        { deleteAction &&
+                            <DeleteButton onClick={() => onDelete(true)}>Delete</DeleteButton>
                         }
-                        { activateMoreActions && crud &&
-                            <menu className={styles['dialog_menu']}>
-                                <RoundedButton>Delete</RoundedButton>
-                                <RoundedButton>Edit</RoundedButton>
-                            </menu>
-                        }
-                    </React.Fragment>
+                    </menu>
                 }
                 { token === 'EXPIRED' || !token &&
                     <menu className={styles['dialog_menu']}>
@@ -53,10 +46,14 @@ const ModalOverlay = ({ children, title, fixed, tryClose, activateMoreActions, s
     )
 }
 
-const BaseDialog = ({ title, children, fixed, activateMoreActions, onCloseDialog, show, crud }) => {
+const BaseDialog = ({ title, children, fixed, onCloseDialog, show, deleteAction, onDelete }) => {
     
     const tryClose = () => {
         onCloseDialog(show = false)
+    }
+    
+    const handleDeleteAction = (data) => {
+        onDelete(data)
     }
     
     return (
@@ -64,11 +61,11 @@ const BaseDialog = ({ title, children, fixed, activateMoreActions, onCloseDialog
             {ReactDom.createPortal(<Backdrop tryClose={tryClose} show={show} />, document.getElementById('backdrop-root'))}
             {ReactDom.createPortal(<ModalOverlay
                 title={title}
-                activateMoreActions={activateMoreActions}
                 fixed={fixed}
                 show={show}
+                onDelete={handleDeleteAction}
                 tryClose={tryClose}
-                crud={crud}
+                deleteAction={deleteAction}
                 children={children}
             />,
             document.getElementById('overlay-root')

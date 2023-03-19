@@ -61,6 +61,7 @@ const useHttp = () => {
            }
            
            if( response.status === 204 ) {//for logout case, the server returns response without body
+               setIsLoading(false);
                 return response;
            } 
                
