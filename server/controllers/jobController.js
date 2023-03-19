@@ -12,7 +12,6 @@ const getUserData = require('../util/getUserData');
 const setCookie = require("../util/setCookie");
 
 router.get('/jobs', async (req,res) => {
-    console.log('req.query >>> ', req.query)
     let items = []
     try {
         if( req.query && req.query.where ) {

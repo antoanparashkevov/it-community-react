@@ -36,6 +36,7 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
+    padding: 15px;
 }
 
 .profile_info_desc p {
@@ -46,14 +47,35 @@
     @extend %flexbox_shared;
 }
 
+.profile_list_jobs_container {
+    @extend %flexbox_shared;
+    flex-direction: column;
+    min-width: 100%;
+}
+.profile_list_jobs_container a {
+    width: 100%;    
+}
+
 @media screen and (max-width: 935px) {
     .profile_info_wrapper,
     .profile_info_image {
         width: 100%;
     }
-    .separation_line {
+    .profile_root .separation_line {
         transform: rotate(0);
         max-width: 100%;
     }
 
+}
+
+@media screen and (max-width: 650px) {
+    .profile_root {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 715px) {
+    .profile_root .left_company_logo {
+        display: none;
+    }
 }

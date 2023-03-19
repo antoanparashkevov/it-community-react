@@ -46,10 +46,10 @@ const Messages = () => {
                     <h1 className={styles['messages_title']}>Incoming messages</h1>
                     <SeparationLine />
                     <ul role='list' className={styles['messages_list']}>
-                        {/*TODO ADD NO MESSAGES*/}
-                        { messages.map((m, index) => {
+                        { messages && messages.length > 0 && messages.map((m, index) => {
                             return <MessageItem message={ m } key={ index }/>
                         }) }
+                        { messages && messages.length === 0 && <h1>You don't have any messages!</h1> }
                     </ul>
                 </BaseCard>
             </section>

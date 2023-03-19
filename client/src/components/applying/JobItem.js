@@ -4,9 +4,11 @@ import styles from "./JobItem.module.css";
 
 //hooks
 import useFormatDate from "../../hooks/use-format-date";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
-const JobItem = ({ job }) => {
-    const { formattedDate } = useFormatDate(job.date, 'D.MS')
+const JobItem = ({ job, hideCompanyLogoWidth }) => {
+    const { formattedDate } = useFormatDate(job.date, 'D.MS');
+    const { width: windowWidth } = useWindowDimensions();
     
     const SalaryBadge = () => {
         if( job.salary && !isNaN(job.salary) ) {
@@ -20,9 +22,11 @@ const JobItem = ({ job }) => {
     
     return (
             <Link to={ job['id'] } className={styles['poster_list_item']}>
-                <div className={styles['left_company_logo']}>
-                    <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
-                </div>
+                { windowWidth > (hideCompanyLogoWidth ? hideCompanyLogoWidth : 500) &&  
+                    <div className={styles['left_company_logo']}>
+                        <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
+                    </div>
+                }
                 <div className={styles['right_company_info']}>
                     <header className={styles['company_info_header']}>
                         <h1 className={styles['company_info_name']}>{ job.jobName }</h1>

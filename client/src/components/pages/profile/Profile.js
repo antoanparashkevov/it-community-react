@@ -8,9 +8,12 @@ import JobItem from "../../applying/JobItem";
 import { BaseCard } from "../../UI/BaseCard";
 import SeparationLine from "../../UI/SeparationLine";
 import { useRouteLoaderData } from "react-router-dom";
+import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
 const Profile = () => {
     const profileInfo = useRouteLoaderData('profile-info');
+    const { width: windowWidth } = useWindowDimensions()
+    
     const userData = profileInfo.userData;
     const jobs = profileInfo.jobs;
     
@@ -37,11 +40,13 @@ const Profile = () => {
                         </div>
                     </div>
                 </BaseCard>
-                <BaseCard>
+                <BaseCard style={ { padding: '1.5rem'} }>
                     <div className={styles['profile_list_jobs_container']}>
                         { jobs && jobs.length > 0 && jobs.map( (job, index) => (
-                            <JobItem key={index} job={job} />
+                            <JobItem key={index} job={job} hideCompanyLogoWidth={750}/>
+                        //     TODO hide the left company logo at 715px and down with js into the jobitem using the usewindowdimensions hook
                         ))}
+                        { jobs && jobs.length === 0 && <h1>You don't have any jobs! Create one now!</h1> }
                     </div>
                 </BaseCard>
             </section>
