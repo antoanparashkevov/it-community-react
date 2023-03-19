@@ -43,8 +43,7 @@ const Profile = () => {
                 <BaseCard style={ { padding: '1.5rem'} }>
                     <div className={styles['profile_list_jobs_container']}>
                         { jobs && jobs.length > 0 && jobs.map( (job, index) => (
-                            <JobItem key={index} job={job} hideCompanyLogoWidth={750}/>
-                        //     TODO hide the left company logo at 715px and down with js into the jobitem using the usewindowdimensions hook
+                            <JobItem key={index} job={job} hideCompanyLogoWidth={750} forProfile/>
                         ))}
                         { jobs && jobs.length === 0 && <h1>You don't have any jobs! Create one now!</h1> }
                     </div>

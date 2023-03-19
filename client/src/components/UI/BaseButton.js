@@ -99,3 +99,39 @@ export const SquareButton = styled(Button)`
         pointer-events: none;
     }
 `
+
+export const DeleteButton = styled(Button)`
+    background-color: transparent;
+    border: 1px solid #d26b6b;
+    color: #d26b6b;
+    
+    &:hover,
+    &:active {
+        background-color: transparent;
+        border: 1px solid #e07c7c;
+        opacity: .75;
+    }
+    
+    &:disabled {
+        opacity: .4;
+        pointer-events: none;
+    }
+`
+
+export const EditButton = styled(Button)`
+    background-color: transparent;
+    border: 1px solid darkseagreen;
+    color: darkseagreen;
+    
+    &:hover,
+    &:active {
+        background-color: transparent;
+        border: 1px solid darkolivegreen;
+        opacity: .75;
+    }
+    
+    &:disabled {
+        opacity: .4;
+        pointer-events: none;
+    }
+`

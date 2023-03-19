@@ -119,3 +119,18 @@
 }
 
 /* COMPANY INFO END */
+
+/* JOB ACTIONS START */
+
+
+.job_actions {
+    order: -1;
+    margin: 5px 10px;
+}
+
+.job_actions_edit,
+.job_actions_delete {
+    margin-bottom: 8px;
+}
+
+/* JOB ACTIONS END */
