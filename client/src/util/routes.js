@@ -108,7 +108,7 @@ export const routes = createBrowserRouter([
                 children: [
                     {
                         path: 'category',
-                        action: ({request, params}) => action(request, params, transformCategoryFormData , '/categoryData/categories', '/admin'),
+                        action: ({request, params}) => action(request, params, transformCategoryFormData , '/categoryData/categories', '/admin/subcategory'),
                         element: <CreateCategory/>
                     },
                     {

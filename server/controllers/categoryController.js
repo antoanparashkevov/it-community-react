@@ -49,7 +49,7 @@ router.post('/categories', hasUser(), hasRole(), isAdmin(), async (req,res) => {
     try {
         const category = formData;
         
-        const existingCategory = Category.findOne({ code }).collation({
+        const existingCategory = await Category.findOne({ code }).collation({
             locale: 'en',
             strength: 2
         })
