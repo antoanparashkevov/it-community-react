@@ -1,6 +1,7 @@
 const { getAll, create, getByCode } = require('../services/categoryService');
 const parseError = require('../util/parseError');
-const { isAdmin } = require("../middlewares/guards");
+const { hasRole, isAdmin, hasUser } = require("../middlewares/guards");
+const Category = require('../models/Category');
 const router = require('express').Router();
 
 //util
@@ -32,7 +33,7 @@ router.get('/categories', async (req,res) => {
     }
 })
 
-router.post('/categories', isAdmin(), async (req,res) => {
+router.post('/categories', hasUser(), hasRole(), isAdmin(), async (req,res) => {
     const formData = req.body;
 
     let code;
@@ -47,6 +48,15 @@ router.post('/categories', isAdmin(), async (req,res) => {
     
     try {
         const category = formData;
+        
+        const existingCategory = Category.findOne({ code }).collation({
+            locale: 'en',
+            strength: 2
+        })
+        
+        if( existingCategory ) {
+            throw new Error('You are trying to create a category which already exists!')
+        }
         
         const categoryToCreate = {
             ...category,

@@ -1,5 +1,5 @@
 const { create, getById } = require("../services/applicationService");
-const { hasUser, hasRole, isAdmin } = require("../middlewares/guards");
+const { hasUser, hasRole } = require("../middlewares/guards");
 
 //parsers
 const parseError = require("../util/parseError");
@@ -31,10 +31,5 @@ router.post('/applications', hasUser(), async (req,res)=> {
         res.status(400).json({message})
     }
 })
-
-
-
-
-
 
 module.exports = router;

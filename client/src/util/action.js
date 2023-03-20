@@ -1,10 +1,13 @@
-import { json } from "react-router-dom";
+import { redirect } from "react-router-dom";
+import { getAuthToken } from "./auth";
 
 const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';
 
 
-const action = async (request, params, transformFetchedFormData , url) => {
+const action = async (request, params, transformFetchedFormData , url, redirectURL) => {
     const data = await request.formData();
+    
+    const token = getAuthToken();
     
     //transformFetchedFormData is a function which gets all fields from the form and create an object to send
     const formData = transformFetchedFormData(data)
@@ -16,21 +19,20 @@ const action = async (request, params, transformFetchedFormData , url) => {
         const response = await fetch(host + url, {
             method: request.method,
             headers: {
-              'Content-Type': 'application/json'  
+                'Content-Type': 'application/json',
+                'X-Authorization': token
             },
             body: JSON.stringify(formData)
         })
         
-        if( response.ok === false  || response.status === 400) {
+        if( response.ok === false  || response.status === 400 || !token ) {
             return response;
         }
         
-        return response;
+        return redirect(redirectURL);
         
     } catch ( err ) {
-        throw json({message: err.message || 'Could not create! Try again later'}, {
-            status: 500
-        })
+        return err;
     }
 }
 
