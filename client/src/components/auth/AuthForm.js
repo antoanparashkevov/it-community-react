@@ -53,14 +53,15 @@ const AuthForm = ( { authMode } ) => {
         event.preventDefault();
         
         if( !formIsValid ) {
+            setAdditionalErrors('Please fill the inputs with correct data!')
             return;
         }
 
-       if(authMode !== 'login' || authMode !== 'signup') {
-           setAdditionalErrors('Invalid authentication mode!')
-       }
-       
        await authRequest();
+       
+       if( error ) {
+           return;
+       }
        
        if( !error ) {
            handleAuthentication(authResponse.email, authResponse._id, authResponse.accessToken)

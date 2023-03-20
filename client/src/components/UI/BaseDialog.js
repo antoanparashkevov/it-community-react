@@ -27,7 +27,7 @@ const ModalOverlay = ({ children, title, fixed, tryClose, show, deleteAction, on
                     <h2>{title}</h2>
                 </header>
                 <section className={styles['dialog_section']}>{children}</section>
-                { fixed === false && token !== 'EXPIRED' && token && 
+                { fixed === false && token !== 'EXPIRED' && 
                     <menu className={styles['dialog_menu']}>
                         <RoundedButton onClick={tryClose}>Close</RoundedButton>
                         { deleteAction &&
@@ -35,7 +35,7 @@ const ModalOverlay = ({ children, title, fixed, tryClose, show, deleteAction, on
                         }
                     </menu>
                 }
-                { token === 'EXPIRED' || !token &&
+                { token === 'EXPIRED' &&
                     <menu className={styles['dialog_menu']}>
                         <RoundedButton onClick={() => window.location.reload()}>Reload</RoundedButton>
                     </menu>

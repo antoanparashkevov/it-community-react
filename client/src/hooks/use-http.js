@@ -45,7 +45,7 @@ const useHttp = () => {
 
            if( response.ok === false ) {
                
-               if( response.status === 401 ) {
+               if( response.status === 403 ) {
                    submit(null, {
                        action: '/logout',
                        method: 'POST'
