@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getAll, create, getById, update, deleteById, getByCategory, getJobRegistration } = require("../services/jobService");
+const { getAll, create, getById, update, deleteById, getByCategory } = require("../services/jobService");
 const { getByCode: getSubCategoryByCode } = require('../services/subCategoryService');
 const { getByCode: getCategoryByCode } = require("../services/categoryService");
 
@@ -140,6 +140,16 @@ router.put('/jobs/:jobId', hasUser(), hasRole(), async (req,res) => {
 router.delete('/jobs/:jobId', hasUser(), hasRole(), async (req,res)=> {
     const jobId = req.params['jobId'];
     const item = await getById(jobId);
+    
+    const category = await getCategoryByCode(item['category'].code)
+    category.counter -= 1;
+    await category.save();
+    
+    for( let subcategory in item['subCategory'] ) {
+        const subCategoryItem = await getSubCategoryByCode(item['subCategory'][subcategory]['code'])
+        subCategoryItem[0].counter -= 1;
+        await subCategoryItem[0].save();
+    }
     
     if(req.user._id !== item['companyId']._id.toString()) {
         return res.status(403).json({message: "You cannot modify this resource!"})

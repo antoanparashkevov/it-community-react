@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import styles from './Profile.module.scss';
 
@@ -21,10 +21,6 @@ const Profile = () => {
     
     const [tryingToDelete, setTryingToDelete] = useState(false);
     const [jobId, setJobId] = useState(null);
-    
-    useEffect( () => {
-        console.log('tryingToDelete ... ', tryingToDelete)
-    }, [tryingToDelete])
     
     const userData = profileInfo.userData;
     const jobs = profileInfo.jobs;
