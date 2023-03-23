@@ -271,7 +271,7 @@ const JobForm = ({ job, className, isImported }) => {
     )
 
 
-    formIsValid = enteredJobNameIsValid && enteredSalaryIsValid && enteredDescIsValid && enteredCityIsValid;
+    formIsValid = enteredJobNameIsValid && enteredDescIsValid && enteredCityIsValid;
 
     const formSubmissionHandler = async (event) => {
         //event param - event object describing the event
@@ -473,12 +473,3 @@ const JobForm = ({ job, className, isImported }) => {
 
 
 export default JobForm;
-
-// export const formatCategoryData = (data) => {
-//     return data.items.map( c => {
-//         return {
-//             title: c.title,
-//             code: c.code
-//         }
-//     })
-// }

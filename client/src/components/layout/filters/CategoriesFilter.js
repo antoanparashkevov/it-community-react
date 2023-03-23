@@ -10,74 +10,75 @@ import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 //context
 import { useContext } from "react";
 import FilterContext from "../../../store/filter-context";
+import { useLoaderData } from "react-router-dom";
 
 const CategoriesFilter = ({onSaveCriteria}) => {
     let filterCtx = useContext(FilterContext)
+    const [fetchedCategories, setFetchedCategories] = useState(useLoaderData());
     
     const [isExpanded, setIsExpanded] = useState(true)
-    const [categoriesFilter, setCategoriesFilter] = useState({ 
-        frontend: {
-            id: 'frontend',
-            type: 'categories',
-            isChecked: filterCtx.isChecked
-        },
-        backend: {
-            id: 'backend',
-            type: 'categories',
-            isChecked: filterCtx.isChecked
-        },
-        quality_assurance: {
-            id: 'quality_assurance',
-            type: 'categories',
-            isChecked: filterCtx.isChecked
-        },
-        infrastructure: {
-            id: 'infrastructure',
-            type: 'categories',
-            isChecked: filterCtx.isChecked
-        }
-    })
+    
+    useEffect( () => {
+        setFetchedCategories((prevState) => {
+            prevState = prevState.map(c => {
+                return {
+                    ...c,
+                    isChecked: filterCtx.isChecked
+                }
+            })
+            return prevState;
+        })
+        
+    }, [])
+    
     
     const checkIsExpanded = (data) =>{
         setIsExpanded(data);
     }
     
     const checkboxHandler = (data) => {
-        setCategoriesFilter( (prevState) => {
-            return {
-                ...prevState,
-                [data.id]: data
-            }
-        })
+       setFetchedCategories((prevState)=>{
+           prevState = prevState.map( c => {
+               if( c.id === data.id ){
+                   c.isChecked = data.isChecked
+               }
+               return c;
+           })
+
+           return prevState;
+       })
+        
     }
     
     useEffect( () => {
-        onSaveCriteria(categoriesFilter)
-    }, [ categoriesFilter ])
+        onSaveCriteria(fetchedCategories)
+    }, [ fetchedCategories ])
     
     return (
         <FilterContentWrapper>
             <StyledFilterHeaderIconWrapper title={'Selected Categories'} onExpanded={checkIsExpanded} />
             {isExpanded && <div className={styles['categories_form_controls']}>
-                <div className={styles['form_control']}>
-                    <Label for='frontend'>Frontend</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'frontend'} name='categories' id='frontend' onTriggerCheckbox={checkboxHandler} />
-                </div>
-                <div className={styles['form_control']}>
-                    <Label for='backend'>Backend</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'backend'} name='categories' id='backend' onTriggerCheckbox={checkboxHandler}/>
-                </div>
-                <div className={styles['form_control']}>
-                    <Label for='qa'>QA</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'quality_assurance'} name='categories' id='quality_assurance' onTriggerCheckbox={checkboxHandler}/>
-                </div>
-                <div className={styles['form_control']}>
-                    <Label for='infrastructure'>Infrastructure</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'infrastructure'} name='categories' id='infrastructure' onTriggerCheckbox={checkboxHandler}/>
-                </div>
+                { fetchedCategories.map( (c, i) => {
+                    return (
+                        <div className={styles['form_control']} key={i}>
+                            <Label for='frontend'>{ c.title }</Label>
+                            <CustomCheckbox isChecked={filterCtx.isChecked} value={c.id} name={c.type} id={c.id} onTriggerCheckbox={checkboxHandler} />
+                        </div>
+                    )
+                })}
             </div>}
         </FilterContentWrapper>
     )
 }
 
 export default CategoriesFilter
+
+export const formatCategoryData = (data) => {
+    return data.items.map( c => {
+        return {
+            id: c.code,
+            title: c.title,
+            type: 'categories',
+        }
+    })
+}

@@ -94,15 +94,17 @@ const JobsList = () => {
     const onFilterDataHandler = (data) => {
         setFilteredData(data)
     }
-    
+
     const categoryFilter = (job) => {
 
         if ( !queryParams.get('category') || queryParams.get('category') && queryParams.get('category').length === 0 ) {
             let toReturn = true;
             if( filteredData && Object.keys(filteredData).length > 0 ) {
-
+                
+                const clickedCategory = filteredData['categories'].find( c => c.id === job.category)
+                
                 if ( job.category && filteredData['categories'] ) {
-                    toReturn = filteredData['categories'][job.category].isChecked
+                    toReturn = clickedCategory.isChecked
                 }
             }
             return toReturn

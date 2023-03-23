@@ -51,7 +51,7 @@ const filterDataReducer = (state, action) => {
 const Sidebar = ({onSaveFiltersData}) => {
     let isByDefaultChecked = true;
     
-    const [queryParams, setQueryParams] = useSearchParams();
+    const [queryParams] = useSearchParams();
     
     const [filterData, dispatchFilterData] = useReducer(filterDataReducer, {
         categories: [],

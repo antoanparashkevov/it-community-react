@@ -25,7 +25,7 @@ import action from "./action";
 import { action as logoutAction } from '../components/pages/auth/Logout'
 
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
-// import { formatCategoryData } from "../components/applying/JobForm";
+import { formatCategoryData } from '../components/layout/filters/CategoriesFilter';
 import { formatJobDetailsData } from '../components/pages/applying/JobDetails';
 import { formatJobEditData } from "../components/pages/profile/EditJob";
 import { formatProfileData } from '../components/pages/profile/Profile';
@@ -53,6 +53,7 @@ export const routes = createBrowserRouter([
                 children: [
                     {
                         index: true,
+                        loader: ({request, params}) => loader('/categoryData/categories', formatCategoryData, ['company']),
                         element: <JobsList/>,
                     },
                     {
@@ -106,7 +107,6 @@ export const routes = createBrowserRouter([
             },
             {
                 path: 'create',
-                // loader: ({request, params}) => loader('/categoryData/categories', formatCategoryData, ['company']),
                 id:'create-job',
                 element: <CreateJob/>
             },
