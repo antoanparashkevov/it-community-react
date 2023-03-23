@@ -25,6 +25,9 @@ const JobsList = () => {
     
     const [queryParams, setQueryParams] = useSearchParams();
     
+    useEffect( () => {
+        window.scroll( { top: 100, behavior: 'smooth' } )
+    }, [])
 
     useEffect(() => {
         // validation for the page query param

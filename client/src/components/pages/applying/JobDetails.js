@@ -1,12 +1,12 @@
 import styles from './JobDetails.module.scss'
-import { json, Link, Outlet, useParams, useRouteLoaderData, useLocation } from "react-router-dom";
+import { Link, Outlet, useRouteLoaderData, useLocation } from "react-router-dom";
 import React from "react";
 import { useEffect, useState } from "react";
 
 //UI components
 import { BaseCard } from "../../UI/BaseCard";
 import { SquareButton } from "../../UI/BaseButton";
-import { RemoteBadge, WorkCategoryBadge1, WorkCategoryBadge2, WorkCategoryBadge3 } from "../../UI/BaseBadge";
+import { RemoteBadge, WorkCategoryBadge1 } from "../../UI/BaseBadge";
 
 //hooks
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
@@ -44,7 +44,7 @@ const JobDetails = () => {
                         <BaseCard className={styles['job_item_container']}>
                             <div className={styles['job_item_header_applying_btn']}>
                                 <h1 className={styles['job_item_header_title']}>{ job.jobItem.jobName }</h1>
-                                {job.userData.userData.hasData === true && job.userData.userData.roles.includes('user') && <SquareButton as={Link} to={applyButtonLink} onClick={() => window.scroll({ top: 120})}>Apply now</SquareButton>}
+                                {job.userData.userData.hasData === true && job.userData.userData.roles.includes('user') && <SquareButton as={Link} to={applyButtonLink} onClick={() => window.scroll({ top: 120, behavior: 'smooth' })}>Apply now</SquareButton>}
                             </div>
                             <div className={styles['job_item_work_type_badges']}>
                                 {job.jobItem.workType.map((type, index)=> {
