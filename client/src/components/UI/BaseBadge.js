@@ -49,6 +49,7 @@ export const RemoteBadge = styled(CounterBadge)`
 export const WorkCategoryBadge1 = styled(CounterBadge)`
     background-color: #3d008d;
     color: white;
+    width: unset;
 `
 
 export const WorkCategoryBadge2 = styled(CounterBadge)`

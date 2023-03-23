@@ -5,6 +5,8 @@ const LabelWrapper = styled.label`
     align-items: center;
     display: flex;
     margin-right: 15px;
+    width: 135px;
+    height: 50px;
 `
 
 const LabelText = styled.span`

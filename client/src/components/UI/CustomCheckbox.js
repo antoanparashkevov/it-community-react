@@ -12,7 +12,7 @@ const Checkmark = styled.span`
         display: none;
         position: absolute;
         right: 17px;
-        top: 14px;
+        top: 27px;
         width: 6px;
         height: 11px;
         border: solid white;
