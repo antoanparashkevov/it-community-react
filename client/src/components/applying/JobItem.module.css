@@ -110,12 +110,23 @@
     background-color: #8fbc8f;
 }
 
-.company_info_city {
-    
+.company_actions {
+    order: -1;
+    margin: 5px 10px;
 }
 
-.company_info_country_wrapper {
+/* RESPONSIVE */
+
+@media screen and (max-width: 450px) {
+    .company_info_right_arrow {
+        display: none;
+    }
     
+    .company_actions,
+    .company_info_city_wrapper,
+    .company_info_salary_wrapper {
+        margin: 0;
+    }
 }
 
 /* COMPANY INFO END */

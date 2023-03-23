@@ -33,13 +33,15 @@ const JobItem = ({ job, hideCompanyLogoWidth, children, editURL }) => {
                     </header>
                     <section className={styles['company_info_additional_info']}>
                         <div className={styles['company_info_city_wrapper']}>
-                            <address className={styles['company_info_city']}>{ job.city } city</address>
+                            <address>{ job.city } city</address>
                         </div>
                         <SalaryBadge />
                         <div className={styles['company_info_right_arrow']}>
                             <img src="https://dev.bg/wp-content/themes/jobsdevbg/images/arrow-right-black.svg" alt="right_arrow"/>
                         </div>
-                        {children}
+                        <div className={styles['company_actions']}>
+                            {children}
+                        </div>
                     </section>
                     
                 </div>

@@ -97,9 +97,7 @@ const Profile = () => {
                                 hideCompanyLogoWidth={750} 
                                 editURL={`${job._id}/edit`}
                             >
-                                <div className={styles['job_actions']}>
                                     <DeleteButton className={styles['job_actions_delete']} onClick={(e) => tryToDelete(e, job._id)}>Delete</DeleteButton>
-                                </div>
                             </JobItem>
                         ))}
                         { jobs && jobs.length === 0 && <h1>You don't have any jobs! Create one now!</h1> }
