@@ -16,13 +16,24 @@ const Pagination = ( { jobsPerPage, totalJobs, onHandleCurrentPage } ) => {
             behavior: "smooth",
         });
         
-        setQueryParams(prev => {
-            return {
-                ...prev,
-                category: queryParams.get('category'),
-                page: clickedPage
-            }
-        })
+        if ( queryParams.get('category') ) {
+            setQueryParams(prev => {
+                return {
+                    ...prev,
+                    category: queryParams.get('category'),
+                    page: clickedPage
+                }
+            })
+        } else {
+            setQueryParams(prev => {
+                return {
+                    ...prev,
+                    page: clickedPage
+                }
+            })
+        }
+        
+        
     }
     
     

@@ -44,7 +44,7 @@ const JobDetails = () => {
                         <BaseCard className={styles['job_item_container']}>
                             <div className={styles['job_item_header_applying_btn']}>
                                 <h1 className={styles['job_item_header_title']}>{ job.jobItem.jobName }</h1>
-                                {job.userData.userData.hasData === true && job.userData.userData.roles.includes('user') && <SquareButton as={Link} to={applyButtonLink}>Apply now</SquareButton>}
+                                {job.userData.userData.hasData === true && job.userData.userData.roles.includes('user') && <SquareButton as={Link} to={applyButtonLink} onClick={() => window.scroll({ top: 120})}>Apply now</SquareButton>}
                             </div>
                             <div className={styles['job_item_work_type_badges']}>
                                 {job.jobItem.workType.map((type, index)=> {
