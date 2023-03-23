@@ -17,7 +17,7 @@ import useHttp from "../../hooks/use-http";
 //utils
 import { getAuthData } from "../../util/auth";
 
-const ApplyForm = ( { initialEmailValue, companyId, onResolved }) => {
+const ApplyForm = ( { initialEmailValue, companyId }) => {
     let formIsValid;
     let response;
     
@@ -83,7 +83,6 @@ const ApplyForm = ( { initialEmailValue, companyId, onResolved }) => {
             resetNameInput();
             resetEmailInput();
             resetMsgInput();
-            onResolved(resolved)
             navigate('/posters/' + params.posterId)
         }
 

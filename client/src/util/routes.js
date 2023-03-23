@@ -53,7 +53,7 @@ export const routes = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        loader: ({request, params}) => loader('/categoryData/categories', formatCategoryData, ['company']),
+                        loader: ({request, params}) => loader('/categoryData/categories', formatCategoryData),
                         element: <JobsList/>,
                     },
                     {

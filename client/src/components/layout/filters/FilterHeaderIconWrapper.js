@@ -1,15 +1,19 @@
 import styles from "./CategoriesFilter.module.css";
 import Arrow from "../../UI/BaseArrow";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const FilterHeaderIconWrapper = ({className, title, onExpanded, hideArrow}) => {
     const [isExpanded, setIsExpanded] = useState(true);
 
     const expandCollapseCategories = () => {
-        setIsExpanded((prevState) => !prevState)
-        onExpanded(isExpanded)
+        setIsExpanded(!isExpanded)
     }
+    
+    useEffect( () => {
+        onExpanded(isExpanded)
+    }, [isExpanded])
+    
     return (
         <div className={className} onClick={expandCollapseCategories}>
             <h1>{ title }</h1>

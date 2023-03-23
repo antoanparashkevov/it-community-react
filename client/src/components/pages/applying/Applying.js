@@ -12,10 +12,6 @@ import SeparationLine from "../../UI/SeparationLine";
 const Applying = () => {
     const data = useRouteLoaderData('poster-details')
     
-    useEffect( () => {
-        console.log('Data from Applying component >>> ', data)
-    }, []);
-    
     return (
         <BaseCard className={styles['applying_container']}>
             <h1 className={styles['applying_header']}>Send a message</h1>
