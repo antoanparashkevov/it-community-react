@@ -59,9 +59,10 @@ async function authAction(req,res, action, httpErrorStatus) {
         
     } catch (err) {
         const message = parseError(err)
-        console.log('message >>> ', message)
+        
         //400 -> bad request!
-        //400 -> unauthorized
+        //401 -> unauthorized
+        
         res.status(httpErrorStatus).json({
             message
         })

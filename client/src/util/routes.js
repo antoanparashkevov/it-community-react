@@ -17,6 +17,7 @@ import CreateJob from "../components/pages/applying/CreateJob";
 import AdminRootLayout from "../components/admin/AdminRootLayout";
 import CreateCategory from "../components/pages/admin/CreateCategory";
 import CreateSubCategory from "../components/pages/admin/CreateSubCategory";
+import EditJob from "../components/pages/profile/EditJob";
 
 //utils
 import loader from "./loader";
@@ -80,7 +81,18 @@ export const routes = createBrowserRouter([
                 path: 'profile',
                 id: 'profile-info',
                 loader: ( { request, params } ) => loader('/profileData/userInfo', formatProfileData, ['company']),
-                element: <Profile/>
+                element: <Profile/>,
+                children: [
+                    {
+                        path: ':jobId',
+                        children : [
+                            {
+                                path: 'edit',
+                                element: <EditJob/>
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 path: 'messages',

@@ -67,7 +67,7 @@ async function registerAsCompany(email,password, companyName, desc, employees, f
 
 async function loginAsCompany(email,password) {
     const user = await Company.findOne({email}).collation({locale: 'en', strength: 2})
-    console.log('user >>> ', user)
+    
     if(!user) {
         throw new Error ('Incorrect email or password')
     }

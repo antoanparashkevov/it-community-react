@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useRouteLoaderData } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useRouteLoaderData, Outlet } from "react-router-dom";
 import styles from './Profile.module.scss';
 
 //components
@@ -10,6 +10,7 @@ import { BaseCard } from "../../UI/BaseCard";
 import SeparationLine from "../../UI/SeparationLine";
 import BaseDialog from "../../UI/BaseDialog";
 import BaseSpinner from "../../UI/BaseSpinner";
+import { DeleteButton, EditButton } from "../../UI/BaseButton";
 
 //hooks
 import useHttp from "../../../hooks/use-http";
@@ -17,6 +18,7 @@ import useHttp from "../../../hooks/use-http";
 
 const Profile = () => {
     const profileInfo = useRouteLoaderData('profile-info');
+    const navigate = useNavigate();
     const { isLoading, error, resetError, sendRequest } = useHttp();
     
     const [tryingToDelete, setTryingToDelete] = useState(false);
@@ -33,6 +35,15 @@ const Profile = () => {
                 window.location.reload();
             }
         }
+    }
+    
+    const tryToDelete = (jobId) => {
+        setTryingToDelete(true)
+        setJobId(jobId)
+    }
+    
+    const editHandle = (jobId) => {
+        navigate(`${jobId}/edit`)
     }
     
     return (
@@ -83,10 +94,21 @@ const Profile = () => {
                 <BaseCard style={ { padding: '1.5rem'} }>
                     <div className={styles['profile_list_jobs_container']}>
                         { jobs && jobs.length > 0 && jobs.map( (job, index) => (
-                            <JobItem key={index} job={job} hideCompanyLogoWidth={750} forProfile onDelete={(data) => {setTryingToDelete(data.toDelete); setJobId(data.jobId)}}/>
+                            <JobItem 
+                                key={index} 
+                                job={job} 
+                                hideCompanyLogoWidth={750} 
+                                forProfile 
+                            >
+                                <div className={styles['job_actions']}>
+                                    <EditButton className={styles['job_actions_edit']} onClick={() => editHandle(job._id)}>Edit</EditButton>
+                                    <DeleteButton className={styles['job_actions_delete']} onClick={() => tryToDelete(job._id)}>Delete</DeleteButton>
+                                </div>
+                            </JobItem>
                         ))}
                         { jobs && jobs.length === 0 && <h1>You don't have any jobs! Create one now!</h1> }
                     </div>
+                    <Outlet />
                 </BaseCard>
             </section>
         </React.Fragment>
