@@ -80,7 +80,7 @@ const loader = async (url, formatData, userType) => {
             // throw new Response(JSON.stringify({ message: error.message || 'Something went wrong!' }))
             //an alternative to
             throw json( { message: error.message || 'Something went wrong!' }, {
-                status: 500
+                status: 400
             } )
         }
     }

@@ -10,24 +10,22 @@ import Footer from "../layout/Footer";
 import { RoundedLink } from "../UI/BaseLinks";
 
 //hooks
-// import { useRouteError } from "react-router-dom";
+import { useRouteError } from "react-router-dom";
 
 const ErrorPage = () => {
     /*
     * if we return a Response as an error, the useRouteError hook will return an object with 'status' property and 'data' property
     * */
-    // const errorResponse = useRouteError();
+    const errorResponse = useRouteError();
     
     let title = 'An error occurred!';
-    
-    
-    //TODO FIX THE ERROR PAGE
-    // let message = 
-    //     errorResponse && Object.keys(errorResponse.data).length > 0  ?
-    //         errorResponse.data.message :
-    //         null;
-    const message = ''
-    // console.log('errorResponse', errorResponse)
+    console.log('errorResponse', errorResponse)
+    let message = 
+        errorResponse.message ? 
+            errorResponse.message : 
+            errorResponse.data.message ? 
+                errorResponse.data.message :
+                'Something went wrong!'
     
     return (
         <React.Fragment>
