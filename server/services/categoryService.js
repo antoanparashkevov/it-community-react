@@ -5,7 +5,7 @@ async function getAll() {
 }
 
 async function getByCode(code) {
-    return Category.findOne({code: code}).populate('subCategories');
+    return Category.findOne({code: code}).populate('subCategories').lean();
 }
 
 async function create(item) {

@@ -1,6 +1,6 @@
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import styles from './JobForm.module.scss';
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //UI components
 import { RoundedButton } from "../UI/BaseButton";
@@ -16,7 +16,7 @@ import BaseSpinner from "../UI/BaseSpinner";
 import useInput from "../../hooks/use-input";
 import useHttp from "../../hooks/use-http";
 
-const JobForm = () => {
+const JobForm = ({ job, className, isImported }) => {
     const { isLoading, error, resetError, sendRequest } = useHttp();
     const navigate = useNavigate();
     let resp = null;
@@ -76,14 +76,42 @@ const JobForm = () => {
     
     /* CATEGORIES START */
     
-    const [orderedCategoryListData] = useState(useRouteLoaderData('create-job'))
+    const [orderedCategoryListData, setOrderedCategoryListData] = useState([])
+    const [placeholderCategoryValue, setPlaceholderCategoryValue] = useState('')
+    const [selectedCategoryType, setSelectedCategoryType] = useState(null)
     
-    const [placeholderCategoryValue, setPlaceholderCategoryValue] = useState(orderedCategoryListData[0].title)
+    const fetchCategories = async () => {
+       await sendRequest('/categoryData/categories', 'GET', formatCategoryData)
+    }
     
-    const [selectedCategoryType, setSelectedCategoryType] = useState({
-        title: orderedCategoryListData[0].title,
-        code: orderedCategoryListData[0].code
-    })
+    const formatCategoryData = (data) => {
+        const modifiedData = data.items.map( c => {
+            return {
+                title: c.title,
+                code: c.code
+            }
+        })
+        
+        if( isImported ) {
+            setPlaceholderCategoryValue(job.category.title)
+            setSelectedCategoryType(job.category)
+        } else {
+            setPlaceholderCategoryValue(modifiedData[0].title)
+            setSelectedCategoryType({
+                title: modifiedData[0].title,
+                code: modifiedData[0].code
+            })
+        }
+        
+       
+
+        setOrderedCategoryListData(modifiedData)
+    }
+    
+    useEffect(() => {
+        fetchCategories();
+        
+    }, [])
     
     const handleCategoryChange = (dataObject) => {
         setPlaceholderCategoryValue(dataObject.value);
@@ -99,16 +127,18 @@ const JobForm = () => {
     
     const [subCategories, setSubCategories] = useState(null)
     
-    const fetchSubCategories = useCallback( async () => {
-        await sendRequest('/categoryData/categories?where=categoryType%3D' + selectedCategoryType.code, 'GET', formatSubCategories)//%22 means ", %3D means = 
-    },[selectedCategoryType])
-
+    const fetchSubCategories =  async () => {
+        if( selectedCategoryType && Object.keys(selectedCategoryType).length > 0 ) {
+            await sendRequest('/categoryData/categories?where=categoryType%3D' + selectedCategoryType.code, 'GET', formatSubCategories)//%22 means ", %3D means = 
+        }
+    }
     
     const formatSubCategories = (data) => {
         const subCategories = data.category.subCategories.map( s => {
             return {
                 title: s.title,
-                code: s.code
+                code: s.code,
+                object_id: s._id
             }
         })
          setSubCategories(subCategories)
@@ -116,10 +146,11 @@ const JobForm = () => {
         if( subCategories ) {
             setSubCategoryCheckbox([])
             subCategories.forEach( c => {
-                setSubCategoryCheckbox( prevState =>  {
+                setSubCategoryCheckbox( prevState => {
                     const subCategoryCheckbox = {
                         isChecked: isDefaultCheckboxChecked,
-                        id: c.code
+                        id: c.code,
+                        object_id: c.object_id
                     }
                     // const duplicatedSubCategoryIndex = prevState.findIndex( c => c.id === subCategoryCheckbox.id)
                     // if( duplicatedSubCategoryIndex !== -1) {
@@ -171,9 +202,16 @@ const JobForm = () => {
         }
     ] 
     
-    const [placeholderSeniorityValue, setPlaceholderSeniorityValue] = useState(orderedSeniorityData[0].title)
+    const [placeholderSeniorityValue, setPlaceholderSeniorityValue] = useState(isImported ? job.seniority : orderedSeniorityData[0].title)
     
-    const [selectedSeniorityType, setSelectedSeniorityType] = useState(orderedSeniorityData[0])
+    const [selectedSeniorityType, setSelectedSeniorityType] = useState(
+        isImported ?
+            {
+                title: job.seniority,
+                code: job.seniority_code
+            } :
+            orderedSeniorityData[0]
+    )
     
     const handleSeniorityChange = (dataObject) => {
         setPlaceholderSeniorityValue(dataObject.value)
@@ -192,7 +230,10 @@ const JobForm = () => {
         reset : resetJobNameInput,
         valueChangeHandler : jobNameInputChangeHandler,
         inputBlurHandler: jobNameInputBlurHandler
-    } = useInput(value => value.trim() !== '' && value.trim().length >= 5 && value.trim().length <= 30)
+    } = useInput(
+        value => value.trim() !== '' && value.trim().length >= 5 && value.trim().length <= 30,
+        isImported ? job.jobName : null
+    )
     
     const {
         value : enteredSalary,
@@ -200,7 +241,10 @@ const JobForm = () => {
         reset : resetSalaryInput,
         valueChangeHandler : salaryInputChangeHandler,
         inputBlurHandler: salaryInputBlurHandler
-    } = useInput(value => value);
+    } = useInput(
+        value => value,
+        isImported && job.salary ? job.salary : null
+    );
 
     const {
         value : enteredDesc,
@@ -209,7 +253,10 @@ const JobForm = () => {
         reset : resetDescInput,
         valueChangeHandler : descInputChangeHandler,
         inputBlurHandler: descInputBlurHandler
-    } = useInput(value => value.trim() !== '' && value.trim().length > 20)
+    } = useInput(
+        value => value.trim() !== '' && value.trim().length > 20,
+        isImported ? job.desc : null
+    )
     
     const {
         value : enteredCity,
@@ -218,7 +265,10 @@ const JobForm = () => {
         reset : resetCityInput,
         valueChangeHandler : cityInputChangeHandler,
         inputBlurHandler: cityInputBlurHandler
-    } = useInput(value => value.trim() !== '')
+    } = useInput(
+        value => value.trim() !== '',
+        isImported ? job.city : null
+    )
 
 
     formIsValid = enteredJobNameIsValid && enteredSalaryIsValid && enteredDescIsValid && enteredCityIsValid;
@@ -254,20 +304,27 @@ const JobForm = () => {
             resetSalaryInput();
             resetDescInput();
             resetCityInput();
-            navigate('/posters/' + resp._id);
+            
+            if ( isImported ) {
+                navigate('/profile');
+                window.location.reload();
+            } else {
+                navigate('/posters/' + resp._id);
+            }
         }
         
     }
     
     const postJob = async () => {
         let selectedSubCategories = subCategoryCheckbox.filter( s => s.isChecked ).map( s =>  s.id )
+        let selectedSubCategoriesObjectIds = subCategoryCheckbox.filter( s => s.isChecked).map( s => s.object_id )
         let selectedWorkTypes = workTypeCheckbox.filter( w_type => w_type.isChecked).map( w_type => w_type.id.charAt(0).toUpperCase() + w_type.id.slice(1))
         
-        await sendRequest('/jobData/jobs','POST', (data) => resp = data, {
+        await sendRequest(`/jobData/jobs${isImported ? `/${job._id}` : ''}`,isImported ? 'PUT' : 'POST', (data) => resp = data, {
             jobName: enteredJobName,
             workType: selectedWorkTypes,
             categoryCode: selectedCategoryType.code,
-            subCategories: selectedSubCategories,
+            subCategories: isImported ? selectedSubCategoriesObjectIds : selectedSubCategories,
             seniority: selectedSeniorityType.title,
             salary: enteredSalary ? enteredSalary : null,
             desc: enteredDesc,
@@ -281,133 +338,135 @@ const JobForm = () => {
 
     return (
         <React.Fragment>
-            {error && <BaseDialog show={!!error} fixed={false} onCloseDialog={resetError} title='An error occurred during fetching categories/subcategories!'>{error}</BaseDialog>}
+            {error && <BaseDialog show={!!error} fixed={false} onCloseDialog={resetError} title='An error occurred during fetching categories or subcategories!'>{error}</BaseDialog>}
             {isLoading && <BaseSpinner />}
-            <form onSubmit={ formSubmissionHandler } className={ styles['apply_form'] }>
+            {!isLoading && !error &&
+                <form onSubmit={ formSubmissionHandler } className={ `${styles['apply_form']} ${className}` }>
 
-                <div className={ formControlClasses(jobNameInputHasError) }>
+                    <div className={ formControlClasses(jobNameInputHasError) }>
 
-                    {jobNameInputHasError && <p>Please enter a valid non-empty job name with maximum 30 characters!</p>}
-                    <Label for="job_name">Job name*</Label>
-                    <Input
-                        id='job_name'
-                        name='job_name'
-                        onChange={ jobNameInputChangeHandler }
-                        onBlur={ jobNameInputBlurHandler }
-                        value={ enteredJobName }
-                    />
-                </div>
-
-                <div className={styles['form-control']}>
-                    <Label for="work_type">Work type*</Label>
-                    <div className={styles['form_control_work_type_wrapper']}>
-
-                        {orderedWorkTypeListData.map( (w_type, index ) =>
-                            <div className={styles['form_control_subcategory']} key={index}>
-                                <Label for={w_type.code}>{ w_type.title }</Label>
-                                <CustomCheckbox
-                                    isChecked={isDefaultCheckboxChecked}
-                                    value={w_type.code}
-                                    id={w_type.code}
-                                    name={w_type.code}
-                                    onTriggerCheckbox={handleWorkTypeChange}
-                                />
-                            </div>
-                        )}
+                        {jobNameInputHasError && <p>Please enter a valid non-empty job name with maximum 30 characters!</p>}
+                        <Label for="job_name">Job name*</Label>
+                        <Input
+                            id='job_name'
+                            name='job_name'
+                            onChange={ jobNameInputChangeHandler }
+                            onBlur={ jobNameInputBlurHandler }
+                            value={ enteredJobName }
+                        />
                     </div>
-                </div>
 
-                <div className={styles['form-control']}>
-                    <Label for="category_type">Category type*</Label>
-                    <DataSelectorWrapper
-                        closeOnHover
-                        selectorData={orderedCategoryListData}
-                        initialPlaceholderValue={placeholderCategoryValue}
-                        onResubForNewData={handleCategoryChange}
-                    />
-                </div>
+                    <div className={styles['form-control']}>
+                        <Label for="work_type">Work type*</Label>
+                        <div className={styles['form_control_work_type_wrapper']}>
 
-
-                {isLoading && <BaseSpinner />}
-                { subCategories && <div className={styles['form-control']}>
-
-                    <Label for="subcategory_type">Choose sub categories (at least one*)</Label>
-
-                    <div className={styles['form_control_subcategory_wrapper']}>
-
-                        {subCategories.map( (sub_cat, index ) =>
-                            <div className={styles['form_control_subcategory']} key={index}>
-                                <Label for={sub_cat.code}>{ sub_cat.title }</Label>
-                                <CustomCheckbox
-                                    isChecked={isDefaultCheckboxChecked}
-                                    value={sub_cat.code}
-                                    id={sub_cat.code}
-                                    name={sub_cat.category}
-                                    onTriggerCheckbox={subCategoryCheckboxHandler}
-                                />
-                            </div>
-                        )}
+                            {orderedWorkTypeListData.map( (w_type, index ) =>
+                                <div className={styles['form_control_subcategory']} key={index}>
+                                    <Label for={w_type.code}>{ w_type.title }</Label>
+                                    <CustomCheckbox
+                                        isChecked={isDefaultCheckboxChecked}
+                                        value={w_type.code}
+                                        id={w_type.code}
+                                        name={w_type.code}
+                                        onTriggerCheckbox={handleWorkTypeChange}
+                                    />
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div> }
 
-                <div className={styles['form-control']}>
-                    <Label for="seniority">Seniority*</Label>
-                    <DataSelectorWrapper
-                        selectorData={orderedSeniorityData}
-                        initialPlaceholderValue={placeholderSeniorityValue}
-                        onResubForNewData={handleSeniorityChange}
-                        closeOnHover
-                    />
-                </div>
+                    <div className={styles['form-control']}>
+                        <Label for="category_type">Category type*</Label>
+                        <DataSelectorWrapper
+                            closeOnHover
+                            selectorData={orderedCategoryListData}
+                            initialPlaceholderValue={placeholderCategoryValue}
+                            onResubForNewData={handleCategoryChange}
+                        />
+                    </div>
 
-                <div className={ styles['form-control'] }>
 
-                    <Label for="salary">Salary</Label>
-                    <Input
-                        typeCat='number'
-                        id='salary'
-                        name='salary'
-                        onChange={ salaryInputChangeHandler }
-                        onBlur={ salaryInputBlurHandler }
-                        value={ enteredSalary }
-                    />
-                </div>
+                    {isLoading && <BaseSpinner />}
+                    { subCategories && <div className={styles['form-control']}>
 
-                <div className={ formControlClasses(cityInputHasError) }>
+                        <Label for="subcategory_type">Choose sub categories (at least one*)</Label>
 
-                    {cityInputHasError && <p>Please enter a valid non-empty city which is located in Bulgaria!</p>}
-                    <Label for="city">City in Bulgaria*</Label>
-                    <Input
-                        id='city'
-                        name='city'
-                        onChange={ cityInputChangeHandler }
-                        onBlur={ cityInputBlurHandler }
-                        value={ enteredCity }
-                    />
-                </div>
+                        <div className={styles['form_control_subcategory_wrapper']}>
 
-                <div className={ formControlClasses(descInputHasError) }>
+                            {subCategories.map( (sub_cat, index ) =>
+                                <div className={styles['form_control_subcategory']} key={index}>
+                                    <Label for={sub_cat.code}>{ sub_cat.title }</Label>
+                                    <CustomCheckbox
+                                        isChecked={isDefaultCheckboxChecked}
+                                        value={sub_cat.code}
+                                        id={sub_cat.code}
+                                        name={sub_cat.category}
+                                        onTriggerCheckbox={subCategoryCheckboxHandler}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    </div> }
 
-                    {descInputHasError && <p>Please enter a valid non-empty description with at least 20 characters!</p>}
-                    <Label for="desc">Job description*</Label>
-                    <TextArea
-                        id='desc'
-                        name='desc'
-                        onChange={ descInputChangeHandler }
-                        onBlur={ descInputBlurHandler }
-                        value={ enteredDesc }
-                    />
-                </div>
-                <div className={ styles['form-actions'] }>
+                    <div className={styles['form-control']}>
+                        <Label for="seniority">Seniority*</Label>
+                        <DataSelectorWrapper
+                            selectorData={orderedSeniorityData}
+                            initialPlaceholderValue={placeholderSeniorityValue}
+                            onResubForNewData={handleSeniorityChange}
+                            closeOnHover
+                        />
+                    </div>
 
-                    <RoundedButton
-                        type='submit'
-                        disabled={ !formIsValid }
-                    >
-                        Create
-                    </RoundedButton>
-                </div>
-            </form>
+                    <div className={ styles['form-control'] }>
+
+                        <Label for="salary">Salary</Label>
+                        <Input
+                            typeCat='number'
+                            id='salary'
+                            name='salary'
+                            onChange={ salaryInputChangeHandler }
+                            onBlur={ salaryInputBlurHandler }
+                            value={ enteredSalary }
+                        />
+                    </div>
+
+                    <div className={ formControlClasses(cityInputHasError) }>
+
+                        {cityInputHasError && <p>Please enter a valid non-empty city which is located in Bulgaria!</p>}
+                        <Label for="city">City in Bulgaria*</Label>
+                        <Input
+                            id='city'
+                            name='city'
+                            onChange={ cityInputChangeHandler }
+                            onBlur={ cityInputBlurHandler }
+                            value={ enteredCity }
+                        />
+                    </div>
+
+                    <div className={ formControlClasses(descInputHasError) }>
+
+                        {descInputHasError && <p>Please enter a valid non-empty description with at least 20 characters!</p>}
+                        <Label for="desc">Job description*</Label>
+                        <TextArea
+                            id='desc'
+                            name='desc'
+                            onChange={ descInputChangeHandler }
+                            onBlur={ descInputBlurHandler }
+                            value={ enteredDesc }
+                        />
+                    </div>
+                    <div className={ styles['form-actions'] }>
+
+                        <RoundedButton
+                            type='submit'
+                            disabled={ !formIsValid }
+                        >
+                            { isImported ? 'Edit' : 'Create' }
+                        </RoundedButton>
+                    </div>
+                </form>
+            }
         </React.Fragment>
     )
 }
@@ -415,11 +474,11 @@ const JobForm = () => {
 
 export default JobForm;
 
-export const formatCategoryData = (data) => {
-    return data.items.map( c => {
-        return {
-            title: c.title,
-            code: c.code
-        }
-    })
-}
+// export const formatCategoryData = (data) => {
+//     return data.items.map( c => {
+//         return {
+//             title: c.title,
+//             code: c.code
+//         }
+//     })
+// }

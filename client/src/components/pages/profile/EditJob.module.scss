@@ -1,0 +1,17 @@
+.edit_form_wrapper {
+    width: 80%;
+    position: fixed;
+    z-index: 100;
+    background-color: #FFFFFF;
+    left: 10%;
+    top: 5%;
+    bottom: 5%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    max-height: 100%;
+    overflow-x: hidden;
+    height: auto;
+}
+
+.edit_form {
+    overflow-y: auto;
+}

@@ -9,7 +9,7 @@ async function getByCategory(category_code) {
 }
 
 async function getById(id) {
-    return Job.findById(id).populate('category').populate('subCategory').populate('companyId');
+    return Job.findById(id).populate('category').populate('subCategory').populate('companyId').lean();
 }
 
 async function create(item) {
@@ -20,20 +20,24 @@ async function getJobRegistration(ownerId) {
     return Job.find({companyId: ownerId})
 }
 
-// async function update(itemId, modifiedItemData) {
-//     let existing = await Job.findById(itemId)
-//    
-//     console.log('Existing job item >>>', existing)
-//    
-//     //TODO update all entries wit the correct ones
-//     existing.firstName = modifiedItemData.firstName
-//     existing.lastName = modifiedItemData.lastName
-//     existing.description = modifiedItemData.description
-//     existing.hourlyRate = modifiedItemData.hourlyRate
-//     existing.skills = modifiedItemData.skills
-//
-//     return await existing.save()//will return the saved Job Registration
-// }
+async function update(itemId, modifiedItemData, categoryId) {
+    let existing = await Job.findById(itemId)
+
+    existing.jobName = modifiedItemData.jobName
+    existing.workType = modifiedItemData.workType
+    existing.category = categoryId
+    existing.category_code = modifiedItemData.categoryCode
+    existing.subCategory = modifiedItemData.subCategories
+    existing.seniority = modifiedItemData.seniority
+    existing.desc = modifiedItemData.desc
+    existing.city = modifiedItemData.city
+    
+    if( modifiedItemData.salary ) {
+        existing.salary = modifiedItemData.salary
+    }
+    
+    return await existing.save()//will return the saved Job Registration
+}
 
 async function deleteById(id) {
     return Job.findByIdAndRemove(id)
@@ -45,6 +49,7 @@ module.exports = {
     getJobRegistration,
     getById,
     create,
+    update,
     deleteById
 }
 

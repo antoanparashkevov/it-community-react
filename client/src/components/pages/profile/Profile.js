@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useRouteLoaderData, Outlet } from "react-router-dom";
+import React, { useState } from "react";
+import { useRouteLoaderData, Outlet } from "react-router-dom";
 import styles from './Profile.module.scss';
 
 //components
@@ -10,7 +10,7 @@ import { BaseCard } from "../../UI/BaseCard";
 import SeparationLine from "../../UI/SeparationLine";
 import BaseDialog from "../../UI/BaseDialog";
 import BaseSpinner from "../../UI/BaseSpinner";
-import { DeleteButton, EditButton } from "../../UI/BaseButton";
+import { DeleteButton } from "../../UI/BaseButton";
 
 //hooks
 import useHttp from "../../../hooks/use-http";
@@ -18,7 +18,6 @@ import useHttp from "../../../hooks/use-http";
 
 const Profile = () => {
     const profileInfo = useRouteLoaderData('profile-info');
-    const navigate = useNavigate();
     const { isLoading, error, resetError, sendRequest } = useHttp();
     
     const [tryingToDelete, setTryingToDelete] = useState(false);
@@ -37,13 +36,11 @@ const Profile = () => {
         }
     }
     
-    const tryToDelete = (jobId) => {
+    const tryToDelete = (e, jobId) => {
+        e.preventDefault();//stop propagation
+        
         setTryingToDelete(true)
         setJobId(jobId)
-    }
-    
-    const editHandle = (jobId) => {
-        navigate(`${jobId}/edit`)
     }
     
     return (
@@ -98,11 +95,10 @@ const Profile = () => {
                                 key={index} 
                                 job={job} 
                                 hideCompanyLogoWidth={750} 
-                                forProfile 
+                                editURL={`${job._id}/edit`}
                             >
                                 <div className={styles['job_actions']}>
-                                    <EditButton className={styles['job_actions_edit']} onClick={() => editHandle(job._id)}>Edit</EditButton>
-                                    <DeleteButton className={styles['job_actions_delete']} onClick={() => tryToDelete(job._id)}>Delete</DeleteButton>
+                                    <DeleteButton className={styles['job_actions_delete']} onClick={(e) => tryToDelete(e, job._id)}>Delete</DeleteButton>
                                 </div>
                             </JobItem>
                         ))}

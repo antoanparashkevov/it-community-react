@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getAll, create, getById, update, deleteById, getByCategory } = require("../services/jobService");
+const { getAll, create, getById, update: updateJob, deleteById, getByCategory } = require("../services/jobService");
 const { getByCode: getSubCategoryByCode } = require('../services/subCategoryService');
 const { getByCode: getCategoryByCode } = require("../services/categoryService");
 
@@ -8,6 +8,7 @@ const parseError = require('../util/parseError')
 const { hasUser, hasRole } = require("../middlewares/guards");
 const formatDate = require('../util/formatDate')
 const getUserData = require('../util/getUserData');
+const transformWhiteSpacesUnderscore = require('../util/transformWhiteSpacesUnderscore');
 
 const setCookie = require("../util/setCookie");
 
@@ -41,8 +42,12 @@ router.get('/jobs/:jobId', async (req,res) => {
         const item = await getById(jobId);
         const user = getUserData(req.user, req.token);
         
+        let seniority_code = transformWhiteSpacesUnderscore(item['seniority']);
+        
+        item.seniority_code = seniority_code
+        
         res.json({
-            jobItem: item,
+            jobItem: { ...item, seniority_code },
             visited: req.cookies[`visited_${jobId}`] || '1',
             user
         })
@@ -119,17 +124,19 @@ router.post('/jobs', hasUser(), hasRole(), async (req,res)  => {
 router.put('/jobs/:jobId', hasUser(), hasRole(), async (req,res) => {
     
     const jobId = req.params['jobId'];
-    const data = req.body;
+    const formData = req.body;
     
     const item = await getById(jobId);
     
-    if(req.user._id !== item['_ownerId'].toString()) {
+    if(req.user._id !== item['companyId']._id.toString()) {
         return res.status(403).json({message: "You cannot modify this resource!"})
-        
     }
     
     try {
-        const result = await update(jobId, data)
+        const selectedCategory = await getCategoryByCode(formData.categoryCode)
+        
+        const result = await updateJob(jobId, formData, selectedCategory['_id'])
+        
         res.json(result)
     } catch (err) {
         const message = parseError(err);

@@ -3,10 +3,10 @@ import ReactDom from 'react-dom';
 import styles from './BaseDialog.module.scss';
 
 //UI components
-import { DeleteButton, EditButton, RoundedButton } from "./BaseButton";
+import { DeleteButton, RoundedButton } from "./BaseButton";
 import { getAuthToken } from "../../util/auth";
 
-const Backdrop = ({ tryClose, show }) => {
+export const Backdrop = ({ tryClose, show }) => {
     return (
         <React.Fragment>
             { show && <div

@@ -25,8 +25,9 @@ import action from "./action";
 import { action as logoutAction } from '../components/pages/auth/Logout'
 
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
-import { formatCategoryData } from "../components/applying/JobForm";
+// import { formatCategoryData } from "../components/applying/JobForm";
 import { formatJobDetailsData } from '../components/pages/applying/JobDetails';
+import { formatJobEditData } from "../components/pages/profile/EditJob";
 import { formatProfileData } from '../components/pages/profile/Profile';
 import { getAuthToken } from "./auth";
 
@@ -84,13 +85,10 @@ export const routes = createBrowserRouter([
                 element: <Profile/>,
                 children: [
                     {
-                        path: ':jobId',
-                        children : [
-                            {
-                                path: 'edit',
-                                element: <EditJob/>
-                            }
-                        ]
+                        path: ':posterId/edit',
+                        id: 'edit-job',
+                        loader: ( { request, params } ) => loader('/jobData/jobs/' + params['posterId'], formatJobEditData, ['company']),
+                        element: <EditJob/>
                     }
                 ]
             },
@@ -108,7 +106,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: 'create',
-                loader: ({request, params}) => loader('/categoryData/categories', formatCategoryData, ['company']),
+                // loader: ({request, params}) => loader('/categoryData/categories', formatCategoryData, ['company']),
                 id:'create-job',
                 element: <CreateJob/>
             },
