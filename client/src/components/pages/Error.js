@@ -19,7 +19,7 @@ const ErrorPage = () => {
     const errorResponse = useRouteError();
     
     let title = 'An error occurred!';
-    console.log('errorResponse', errorResponse)
+    
     let message = 
         errorResponse.message ? 
             errorResponse.message : 
