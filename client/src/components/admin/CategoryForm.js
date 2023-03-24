@@ -1,5 +1,5 @@
 import styles from './CategoryForm.module.scss';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
 
 //hooks
@@ -14,9 +14,15 @@ import BaseDialog from "../UI/BaseDialog";
 const CategoryForm = () => {
     const navigation = useNavigation();
     let error = useActionData();
-    const [showDialog, setShowDialog] = useState(true);
+    const [showDialog, setShowDialog] = useState(false);
     
     let formIsValid;
+    
+    useEffect( () => {
+        if (error) {
+            setShowDialog(true)
+        }
+    }, [error])
     
     const {
         value : enteredCategoryName,
@@ -34,12 +40,12 @@ const CategoryForm = () => {
     }
 
     const handleError = () => {
-        setShowDialog(false)
+        setShowDialog(!showDialog)
+        error = null;
     }
     
     return (
        <React.Fragment>
-           {/*TODO fix the handle Error process*/}
            { error && showDialog === true &&
                <BaseDialog 
                    show={!!error && showDialog === true} 
