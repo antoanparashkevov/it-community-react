@@ -15,6 +15,10 @@ const EditJob = () => {
     
     const tryClose = () => {
         navigate('/profile')
+        window.scroll({
+            top: 100,
+            behavior: 'smooth'
+        })
         setShowForm(false)
     }
     
@@ -29,7 +33,7 @@ const EditJob = () => {
             {
                 ReactDOM.createPortal(
                     <section className={styles['edit_form_wrapper']}>
-                        <JobForm job={job.jobItem} className={styles['edit_form']} isImported/>
+                        <JobForm job={job.jobItem} className={styles['edit_form']} isImported onCloseEditForm={tryClose}/>
                     </section>,
                     document.getElementById('overlay-root'))
             }

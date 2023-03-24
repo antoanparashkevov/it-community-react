@@ -18,7 +18,7 @@ const HamburgerBar = styled.span`
         border-radius: 10px;
     `
 
-const CloseBar = styled(HamburgerBar)`
+export const CloseBar = styled(HamburgerBar)`
     border: 3px solid #E0E0E0;
     background-color: #E0E0E0;
     position: absolute;

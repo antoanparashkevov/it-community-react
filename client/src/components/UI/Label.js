@@ -15,7 +15,7 @@ const LabelText = styled.span`
     font-weight: 700;
     text-overflow: ellipsis;
     width: 100%;
-    white-space: nowrap;
+    white-space: ${props => props['activate_ellipsis'] ? 'nowrap' : 'unset'};
     overflow: hidden;
 `
 
@@ -23,7 +23,7 @@ const Label = (props) => {
     return (
         <React.Fragment>
             <LabelWrapper htmlFor={props.for} style={props.style} className={props.className}>
-                <LabelText>{props.children}</LabelText>
+                <LabelText activate_ellipsis={props.activate_ellipsis}>{props.children}</LabelText>
             </LabelWrapper>
         </React.Fragment>
     )    

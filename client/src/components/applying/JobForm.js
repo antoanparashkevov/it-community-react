@@ -12,14 +12,18 @@ import CustomCheckbox from "../UI/CustomCheckbox";
 import BaseDialog from "../UI/BaseDialog";
 import BaseSpinner from "../UI/BaseSpinner";
 import SeparationLine from "../UI/SeparationLine";
+import { CloseBar } from "../layout/TheHeader";
 
 //hooks
 import useInput from "../../hooks/use-input";
 import useHttp from "../../hooks/use-http";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
-const JobForm = ({ job, className, isImported }) => {
+const JobForm = ({ job, className, isImported, onCloseEditForm }) => {
     const { isLoading, error, resetError, sendRequest } = useHttp();
     const navigate = useNavigate();
+    const { width: windowWidth } = useWindowDimensions();
+    
     let resp = null;
     
     let isDefaultCheckboxChecked = true;
@@ -344,6 +348,14 @@ const JobForm = ({ job, className, isImported }) => {
                 <React.Fragment>
                     {isImported && 
                         <React.Fragment>
+                            {windowWidth <= 500 &&
+                                <div className={styles['close_bar_btn_wrapper']} onClick={() => onCloseEditForm()}>
+                                    <div className={styles['close_bar_btn']}>
+                                        <CloseBar />
+                                        <CloseBar />
+                                    </div>
+                                </div>
+                            }
                             <header className={styles['job_form_heading']}>
                                 <h1>Edit form</h1>
                             </header>
@@ -404,7 +416,7 @@ const JobForm = ({ job, className, isImported }) => {
 
                                 {subCategories.map( (sub_cat, index ) =>
                                     <div className={styles['form_control_subcategory']} key={index}>
-                                        <Label for={sub_cat.code} className={isImported ? styles['form_label_subcategory_imported'] : styles['form_label_subcategory']}>{ sub_cat.title }</Label>
+                                        <Label for={sub_cat.code} activate_ellipsis={!!isImported} className={isImported ? styles['form_label_subcategory_imported'] : styles['form_label_subcategory']}>{ sub_cat.title }</Label>
                                         <CustomCheckbox
                                             isChecked={isDefaultCheckboxChecked}
                                             value={sub_cat.code}

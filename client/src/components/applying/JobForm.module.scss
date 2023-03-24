@@ -69,3 +69,21 @@
         max-width: 80px;
     }
 }
+
+/* CLOSE BUTTON START */
+
+.close_bar_btn_wrapper {
+    position: absolute;
+    display: flex;
+    width: 30px;
+    height: 20px;
+    top: 2rem;
+    flex-direction: column;
+    right: 1rem;
+    justify-content: space-between;
+}
+
+.close_bar_btn {
+    position: relative;
+}
+/* CLOSE BUTTON END */
