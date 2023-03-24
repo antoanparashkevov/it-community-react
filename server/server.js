@@ -1,12 +1,9 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 
+require('dotenv').config();//this will read .env file and paste everything inside the process.env object
+
 const mongoose = require("mongoose");
-
-const port = 3030;
-
-//TODO with environment
-const CONNECTION_STR = 'mongodb://localhost:27017/it-community'
 
 //Controllers...
 const authController = require('./controllers/authController')
@@ -32,7 +29,7 @@ async function start() {
     const app = express();
 
     try {
-       await mongoose.connect(CONNECTION_STR, {
+       await mongoose.connect(process.env['DATABASE_CONNECTION'], {
            useUnifiedTopology: true,
            useNewUrlParser: true
        })
@@ -53,15 +50,15 @@ async function start() {
        })
     });
     
-    app.use('/authData', authController)
-    app.use('/jobData', jobController)
-    app.use('/applicationData', applicationController)
-    app.use('/categoryData', categoryController)
-    app.use('/subCategoryData', subCategoryController)
-    app.use('/profileData', profileController)
-    app.use('/cookieData', cookieController)
+    app.use(process.env['AUTH_MOUNT_API_URL'], authController)
+    app.use(process.env['JOB_MOUNT_API_URL'], jobController)
+    app.use(process.env['APPLICATION_MOUNT_API_URL'], applicationController)
+    app.use(process.env['CATEGORY_MOUNT_API_URL'], categoryController)
+    app.use(process.env['SUBCATEGORY_MOUNT_API_URL'], subCategoryController)
+    app.use(process.env['PROFILE_MOUNT_API_URL'], profileController)
+    app.use(process.env['COOKIE_MOUNT_API_URL'], cookieController)
     
-    app.get('/userData', (req, res) => {
+    app.get(process.env['USER_API_URL'], (req, res) => {
         const user = getUserData(req.user, req.token)
         try {
             res.json(user);
@@ -71,7 +68,7 @@ async function start() {
         }
     })
     
-    app.listen(port, () => console.log('Server listening on port ' + port))
+    app.listen(process.env['DATABASE_PORT'], () => console.log('Server listening on port ' + process.env['DATABASE_PORT']))
 }
 
 
