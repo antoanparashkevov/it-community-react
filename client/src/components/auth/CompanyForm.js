@@ -67,11 +67,26 @@ const CompanyForm = ( { authMode } ) => {
         inputBlurHandler : foundationYearBlurHandler
     } = useInput(value => {
         let year  = value.split('-')[0];
-         //TODO enhance the check 
-        if( year ) {
-            return !(Number(year) < 1900 || Number(year) > new Date().getFullYear());
-        }
+        let month = value.split('-')[1];
+        let day = value.split('-')[2];
         
+        if( year && month && day ) {
+            return !(
+                Number(year) < 1900 || 
+                (
+                    Number(year) > new Date().getFullYear() ||
+                    (
+                        Number(month) > new Date().getMonth() + 1 && 
+                        Number(year) === new Date().getFullYear()
+                    ) ||
+                    (
+                        Number(month) === new Date().getMonth() + 1 &&
+                        Number(year) === new Date().getFullYear() &&
+                        Number(day) > new Date().getDate()
+                    )
+                )
+            );
+        } 
     });
     
     const {
