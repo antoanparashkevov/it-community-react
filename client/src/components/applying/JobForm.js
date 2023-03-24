@@ -1,4 +1,4 @@
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from './JobForm.module.scss';
 import React, { useEffect, useState } from "react";
 
@@ -11,6 +11,7 @@ import Label from "../UI/Label";
 import CustomCheckbox from "../UI/CustomCheckbox";
 import BaseDialog from "../UI/BaseDialog";
 import BaseSpinner from "../UI/BaseSpinner";
+import SeparationLine from "../UI/SeparationLine";
 
 //hooks
 import useInput from "../../hooks/use-input";
@@ -237,7 +238,6 @@ const JobForm = ({ job, className, isImported }) => {
     
     const {
         value : enteredSalary,
-        isValid: enteredSalaryIsValid,
         reset : resetSalaryInput,
         valueChangeHandler : salaryInputChangeHandler,
         inputBlurHandler: salaryInputBlurHandler
@@ -341,131 +341,141 @@ const JobForm = ({ job, className, isImported }) => {
             {error && <BaseDialog show={!!error} fixed={false} onCloseDialog={resetError} title='An error occurred during fetching categories or subcategories!'>{error}</BaseDialog>}
             {isLoading && <BaseSpinner />}
             {!isLoading && !error &&
-                <form onSubmit={ formSubmissionHandler } className={ `${styles['apply_form']} ${className}` }>
+                <React.Fragment>
+                    {isImported && 
+                        <React.Fragment>
+                            <header className={styles['job_form_heading']}>
+                                <h1>Edit form</h1>
+                            </header>
+                            <SeparationLine max-width='400px' style={ { margin: '0 auto' } }></SeparationLine>
+                        </React.Fragment>
+                    }
+                    <form onSubmit={ formSubmissionHandler } className={ `${styles['apply_form']} ${className}` }>
 
-                    <div className={ formControlClasses(jobNameInputHasError) }>
+                        <div className={ formControlClasses(jobNameInputHasError) }>
 
-                        {jobNameInputHasError && <p>Please enter a valid non-empty job name with maximum 30 characters!</p>}
-                        <Label for="job_name">Job name*</Label>
-                        <Input
-                            id='job_name'
-                            name='job_name'
-                            onChange={ jobNameInputChangeHandler }
-                            onBlur={ jobNameInputBlurHandler }
-                            value={ enteredJobName }
-                        />
-                    </div>
-
-                    <div className={styles['form-control']}>
-                        <Label for="work_type">Work type*</Label>
-                        <div className={styles['form_control_work_type_wrapper']}>
-
-                            {orderedWorkTypeListData.map( (w_type, index ) =>
-                                <div className={styles['form_control_subcategory']} key={index}>
-                                    <Label for={w_type.code}>{ w_type.title }</Label>
-                                    <CustomCheckbox
-                                        isChecked={isDefaultCheckboxChecked}
-                                        value={w_type.code}
-                                        id={w_type.code}
-                                        name={w_type.code}
-                                        onTriggerCheckbox={handleWorkTypeChange}
-                                    />
-                                </div>
-                            )}
+                            {jobNameInputHasError && <p>Please enter a valid non-empty job name with maximum 30 characters!</p>}
+                            <Label for="job_name">Job name*</Label>
+                            <Input
+                                id='job_name'
+                                name='job_name'
+                                onChange={ jobNameInputChangeHandler }
+                                onBlur={ jobNameInputBlurHandler }
+                                value={ enteredJobName }
+                            />
                         </div>
-                    </div>
 
-                    <div className={styles['form-control']}>
-                        <Label for="category_type">Category type*</Label>
-                        <DataSelectorWrapper
-                            closeOnHover
-                            selectorData={orderedCategoryListData}
-                            initialPlaceholderValue={placeholderCategoryValue}
-                            onResubForNewData={handleCategoryChange}
-                        />
-                    </div>
+                        <div className={styles['form-control']}>
+                            <Label for="work_type">Work type*</Label>
+                            <div className={styles['form_control_work_type_wrapper']}>
 
-
-                    {isLoading && <BaseSpinner />}
-                    { subCategories && <div className={styles['form-control']}>
-
-                        <Label for="subcategory_type">Choose sub categories (at least one*)</Label>
-
-                        <div className={styles['form_control_subcategory_wrapper']}>
-
-                            {subCategories.map( (sub_cat, index ) =>
-                                <div className={styles['form_control_subcategory']} key={index}>
-                                    <Label for={sub_cat.code}>{ sub_cat.title }</Label>
-                                    <CustomCheckbox
-                                        isChecked={isDefaultCheckboxChecked}
-                                        value={sub_cat.code}
-                                        id={sub_cat.code}
-                                        name={sub_cat.category}
-                                        onTriggerCheckbox={subCategoryCheckboxHandler}
-                                    />
-                                </div>
-                            )}
+                                {orderedWorkTypeListData.map( (w_type, index ) =>
+                                    <div className={styles['form_control_subcategory']} key={index}>
+                                        <Label for={w_type.code} className={isImported ? styles['form_label_workType_imported'] : styles['form_label_workType']}>{ w_type.title }</Label>
+                                        <CustomCheckbox
+                                            isChecked={isDefaultCheckboxChecked}
+                                            value={w_type.code}
+                                            id={w_type.code}
+                                            name={w_type.code}
+                                            onTriggerCheckbox={handleWorkTypeChange}
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div> }
 
-                    <div className={styles['form-control']}>
-                        <Label for="seniority">Seniority*</Label>
-                        <DataSelectorWrapper
-                            selectorData={orderedSeniorityData}
-                            initialPlaceholderValue={placeholderSeniorityValue}
-                            onResubForNewData={handleSeniorityChange}
-                            closeOnHover
-                        />
-                    </div>
+                        <div className={styles['form-control']}>
+                            <p>Category type*</p>
+                            <DataSelectorWrapper
+                                closeOnHover
+                                selectorData={orderedCategoryListData}
+                                initialPlaceholderValue={placeholderCategoryValue}
+                                onResubForNewData={handleCategoryChange}
+                            />
+                        </div>
 
-                    <div className={ styles['form-control'] }>
 
-                        <Label for="salary">Salary</Label>
-                        <Input
-                            typeCat='number'
-                            id='salary'
-                            name='salary'
-                            onChange={ salaryInputChangeHandler }
-                            onBlur={ salaryInputBlurHandler }
-                            value={ enteredSalary }
-                        />
-                    </div>
+                        {isLoading && <BaseSpinner />}
+                        { subCategories && <div className={styles['form-control']}>
 
-                    <div className={ formControlClasses(cityInputHasError) }>
+                            <span>Choose sub categories (at least one*)</span>
 
-                        {cityInputHasError && <p>Please enter a valid non-empty city which is located in Bulgaria!</p>}
-                        <Label for="city">City in Bulgaria*</Label>
-                        <Input
-                            id='city'
-                            name='city'
-                            onChange={ cityInputChangeHandler }
-                            onBlur={ cityInputBlurHandler }
-                            value={ enteredCity }
-                        />
-                    </div>
+                            <div className={styles['form_control_subcategory_wrapper']}>
 
-                    <div className={ formControlClasses(descInputHasError) }>
+                                {subCategories.map( (sub_cat, index ) =>
+                                    <div className={styles['form_control_subcategory']} key={index}>
+                                        <Label for={sub_cat.code} className={isImported ? styles['form_label_subcategory_imported'] : styles['form_label_subcategory']}>{ sub_cat.title }</Label>
+                                        <CustomCheckbox
+                                            isChecked={isDefaultCheckboxChecked}
+                                            value={sub_cat.code}
+                                            id={sub_cat.code}
+                                            name={sub_cat.category}
+                                            onTriggerCheckbox={subCategoryCheckboxHandler}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </div> }
 
-                        {descInputHasError && <p>Please enter a valid non-empty description with at least 20 characters!</p>}
-                        <Label for="desc">Job description*</Label>
-                        <TextArea
-                            id='desc'
-                            name='desc'
-                            onChange={ descInputChangeHandler }
-                            onBlur={ descInputBlurHandler }
-                            value={ enteredDesc }
-                        />
-                    </div>
-                    <div className={ styles['form-actions'] }>
+                        <div className={styles['form-control']}>
+                            <Label for="seniority">Seniority*</Label>
+                            <DataSelectorWrapper
+                                selectorData={orderedSeniorityData}
+                                initialPlaceholderValue={placeholderSeniorityValue}
+                                onResubForNewData={handleSeniorityChange}
+                                closeOnHover
+                            />
+                        </div>
 
-                        <RoundedButton
-                            type='submit'
-                            disabled={ !formIsValid }
-                        >
-                            { isImported ? 'Edit' : 'Create' }
-                        </RoundedButton>
-                    </div>
-                </form>
+                        <div className={ styles['form-control'] }>
+
+                            <Label for="salary">Salary</Label>
+                            <Input
+                                typeCat='number'
+                                id='salary'
+                                name='salary'
+                                onChange={ salaryInputChangeHandler }
+                                onBlur={ salaryInputBlurHandler }
+                                value={ enteredSalary }
+                            />
+                        </div>
+
+                        <div className={ formControlClasses(cityInputHasError) }>
+
+                            {cityInputHasError && <p>Please enter a valid non-empty city which is located in Bulgaria!</p>}
+                            <Label for="city">City in Bulgaria*</Label>
+                            <Input
+                                id='city'
+                                name='city'
+                                onChange={ cityInputChangeHandler }
+                                onBlur={ cityInputBlurHandler }
+                                value={ enteredCity }
+                            />
+                        </div>
+
+                        <div className={ formControlClasses(descInputHasError) }>
+
+                            {descInputHasError && <p>Please enter a valid non-empty description with at least 20 characters!</p>}
+                            <Label for="desc">Job description*</Label>
+                            <TextArea
+                                id='desc'
+                                name='desc'
+                                onChange={ descInputChangeHandler }
+                                onBlur={ descInputBlurHandler }
+                                value={ enteredDesc }
+                            />
+                        </div>
+                        <div className={ styles['form-actions'] }>
+
+                            <RoundedButton
+                                type='submit'
+                                disabled={ !formIsValid }
+                            >
+                                { isImported ? 'Edit' : 'Create' }
+                            </RoundedButton>
+                        </div>
+                    </form>
+                </React.Fragment>
             }
         </React.Fragment>
     )

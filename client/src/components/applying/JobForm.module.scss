@@ -19,8 +19,9 @@
 .form_control_work_type_wrapper,
 .form_control_subcategory_wrapper {
     display: flex;
-    justify-content: center;
-    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .form_control_subcategory {
@@ -38,6 +39,33 @@
 
 @media screen and (max-width: 660px) {
     .apply_form {
-        padding: 0 1rem;
+        padding: 0;
+    }
+}
+
+.job_form_heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 10px;
+}
+
+.form_control_subcategory .form_label_subcategory,
+.form_control_subcategory .form_label_subcategory_imported {
+    max-width: max-content;
+}
+
+.form_control_subcategory .form_label_workType,
+.form_control_subcategory .form_label_workType_imported {
+    max-width: max-content;
+}
+
+@media screen and (max-width: 500px) {
+    
+    .form_label_workType_imported,
+    .form_label_subcategory_imported {
+        max-width: 80px;
     }
 }

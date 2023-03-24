@@ -13,12 +13,16 @@ const LabelText = styled.span`
     color: var(--gray-color);
     font-size: 16px;
     font-weight: 700;
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
 `
 
 const Label = (props) => {
     return (
         <React.Fragment>
-            <LabelWrapper htmlFor={props.for} style={props.style}>
+            <LabelWrapper htmlFor={props.for} style={props.style} className={props.className}>
                 <LabelText>{props.children}</LabelText>
             </LabelWrapper>
         </React.Fragment>
