@@ -6,6 +6,7 @@ import styled from "styled-components";
 import TheHeader from "./layout/TheHeader";
 import Footer from "./layout/Footer";
 import { calculateExpirationDate, getAuthToken } from "../util/auth";
+import styles from "./pages/applying/Board.module.css";
 
 export const HeaderWrapper = styled.header`
     width: 100%;
@@ -18,6 +19,7 @@ export const MainWrapper = styled.main`
         align-items: center;
         justify-content: center;
         padding: 2rem;
+        position: relative;
 `
 
 export const FooterWrapper = styled.footer`
@@ -56,6 +58,21 @@ const RootLayout = () => {
         
     }, [token, submit])
     
+const LinearGradient = styled.div`
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    background-image: linear-gradient(
+            90deg,
+            rgb(77, 118, 255, 0) 0%,
+            rgb(77, 118, 255, 0.2) 20%,
+            rgb(77, 118, 255, 0.3) 65%,
+            rgb(77, 118, 255, 0)
+    );
+
+`
+    
     return (
         <React.Fragment>
             <HeaderWrapper>
@@ -63,7 +80,11 @@ const RootLayout = () => {
             </HeaderWrapper>
 
             <MainWrapper>
-                <Outlet />
+                {
+                    window.location.pathname === '/' &&
+                    <LinearGradient />
+                }
+                <Outlet  />
             </MainWrapper>
 
             <FooterWrapper>
