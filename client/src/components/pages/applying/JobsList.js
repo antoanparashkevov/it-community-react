@@ -19,7 +19,6 @@ import Pagination from "../../applying/Pagination";
 import { useSearchParams } from "react-router-dom";
 
 const JobsList = () => {
-    // TODO on small view to display filters
     const { width: windowWidth } = useWindowDimensions()
     const { isLoading, error, resetError, sendRequest } = useHttp();
     

@@ -18,6 +18,7 @@ import useHttp from "../../../hooks/use-http";
 
 const Profile = () => {
     const profileInfo = useRouteLoaderData('profile-info');
+    //TODO use defer
     const { isLoading, error, resetError, sendRequest } = useHttp();
     
     const [tryingToDelete, setTryingToDelete] = useState(false);

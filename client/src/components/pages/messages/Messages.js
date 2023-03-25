@@ -20,6 +20,7 @@ const Messages = () => {
     const { isLoading, error, resetError, sendRequest } = useHttp()
     
     const user = useRouteLoaderData('root');
+    //TODO use defer
     
     useEffect( () => {
         fetchMessages()

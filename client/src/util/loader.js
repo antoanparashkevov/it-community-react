@@ -3,7 +3,7 @@ import { getAuthToken } from "./auth";
 
 const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';
 
-//TODO USE DEFER
+//TODO use defer
 const loader = async (url, formatData, userType) => {
     
     // console.log('HOST', host)

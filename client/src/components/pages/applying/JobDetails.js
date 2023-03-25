@@ -15,6 +15,7 @@ const JobDetails = () => {
     const { width: windowWidth } = useWindowDimensions()
     const location = useLocation();
     const data = useRouteLoaderData('poster-details');
+    //TODO use defer
     
     const [isApplyFormVisible, setIsApplyFormVisible] = useState(false);
     const [applyButtonLink, setApplyButtonLink] = useState('apply');

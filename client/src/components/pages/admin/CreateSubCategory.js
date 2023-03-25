@@ -5,10 +5,8 @@ import FormPageContent from "../../UI/FormPageContent";
 import SubCategoryForm from "../../admin/SubCategoryForm";
 
 const CreateSubCategory = () => {
-   const categories = useRouteLoaderData('admin')
-    
-    console.log('categories from CreateSubCategory >>> ', categories);
-   
+    const categories = useRouteLoaderData('admin')
+    //TODO use defer
     return (
         <FormPageContent title='Create a sub category'>
             <SubCategoryForm categories={categories} />
