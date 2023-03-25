@@ -28,6 +28,20 @@ export const FooterWrapper = styled.footer`
         background-color: var(--footer-bg-color);
 `
 
+const LinearGradient = styled.div`
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    background-image: linear-gradient(
+            90deg,
+            rgb(77, 118, 255, 0) 0%,
+            rgb(77, 118, 255, 0.2) 20%,
+            rgb(77, 118, 255, 0.3) 65%,
+            rgb(77, 118, 255, 0)
+    );
+`
+
 const RootLayout = () => {
     const token = getAuthToken()
     const submit = useSubmit();
@@ -57,21 +71,6 @@ const RootLayout = () => {
         }
         
     }, [token, submit])
-    
-const LinearGradient = styled.div`
-    position: absolute;
-    top: 0;
-    width: 100vw;
-    height: 100%;
-    background-image: linear-gradient(
-            90deg,
-            rgb(77, 118, 255, 0) 0%,
-            rgb(77, 118, 255, 0.2) 20%,
-            rgb(77, 118, 255, 0.3) 65%,
-            rgb(77, 118, 255, 0)
-    );
-
-`
     
     return (
         <React.Fragment>

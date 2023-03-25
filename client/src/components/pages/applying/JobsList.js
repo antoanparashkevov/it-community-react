@@ -13,7 +13,7 @@ import JobItem from "../../applying/JobItem";
 //UI components
 import NoDataAvailable from "../../UI/NoDataAvailable";
 import BaseDialog from "../../UI/BaseDialog";
-import JobListSkeletonLoading from "../../UI/JobListSkeletonLoading";
+import JobListSkeletonLoading from "../../applying/skeletons/JobListSkeletonLoading";
 
 import Pagination from "../../applying/Pagination";
 import { useSearchParams } from "react-router-dom";
@@ -173,21 +173,24 @@ const JobsList = () => {
                 <Sidebar onSaveFiltersData={onFilterDataHandler} />
             </BaseCard>
             {error && <BaseDialog show={!!error} onCloseDialog={resetError} fixed={false} title='An error occurred during fetching the jobs!'>{error}</BaseDialog>}
-            {isLoading ? 
-                <JobListSkeletonLoading /> :
-                <div className={styles['posters_list_wrapper']}>
-                    { jobsLength > 0 ? 
-                        filteredJobs
-                        .slice(indexOfFirstJob, indexOfLastJob)
-                        .map((job, index) => (
-                            <JobItem key={ index } job={ job }/>
-                        )) : <NoDataAvailable title='No Data Available' />
-                    }
-                    {
-                       jobsLength > 0 && <Pagination totalJobs={jobsLength} jobsPerPage={jobsPerPage} onHandleCurrentPage={changeCurrentPage} />
-                    }
-                    
-                </div>
+            {isLoading ?
+                (
+                    <JobListSkeletonLoading />
+                ) :
+                (
+                    <div className={styles['posters_list_wrapper']}>
+                        { jobsLength > 0 ?
+                            filteredJobs
+                                .slice(indexOfFirstJob, indexOfLastJob)
+                                .map((job, index) => (
+                                    <JobItem key={ index } job={ job }/>
+                                )) : <NoDataAvailable title='No Data Available' />
+                        }
+                        {
+                            jobsLength > 0 && <Pagination totalJobs={jobsLength} jobsPerPage={jobsPerPage} onHandleCurrentPage={changeCurrentPage} />
+                        }
+                    </div>
+                )
             }
         </section>
     )
