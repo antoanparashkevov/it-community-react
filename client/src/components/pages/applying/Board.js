@@ -9,6 +9,9 @@ import useHttp from "../../../hooks/use-http";
 import BaseDialog from "../../UI/BaseDialog";
 import BaseSpinner from "../../UI/BaseSpinner";
 
+//UI components
+import { RoundedLink } from "../../UI/BaseLinks";
+
 //token
 import { getAuthToken } from "../../../util/auth";
 
@@ -34,7 +37,14 @@ const Board = () => {
             {/*TODO MAYBE REPLACE WITH A SKELETON LOADING*/}
             {isLoading && <BaseSpinner />}
             <section className={styles['homepage_main']}>
-            {/*TODO ADD A SHOW ALL BUTTON ABOVE THE CATEGORIES TO SHOW ALL LISTS FOR ALL CATEGORIES*/}
+                <div className={styles['show_all_btn_wrapper']}>
+                    <RoundedLink
+                        to={'posters?page=1'}
+                        className={styles['show_all_btn']}
+                    >
+                        See the grouped posters
+                    </RoundedLink>
+                </div>
                 <div className={`${styles['homepage_categories']}`}>
 
                     { categories.map((category, index) =>

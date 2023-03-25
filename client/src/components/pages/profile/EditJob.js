@@ -23,7 +23,6 @@ const EditJob = () => {
     }
     
     return (
-        // TODO fix the edit form styles
         <React.Fragment>
             {
                 ReactDOM.createPortal(

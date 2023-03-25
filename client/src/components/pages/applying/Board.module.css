@@ -10,6 +10,23 @@ section.homepage_main {
     margin-bottom: 58px;
     border-radius: 15px;
     background-color: var(--header-bg-color);
+    position: relative;
+}
+
+.show_all_btn_wrapper {
+    position: absolute;
+    top: -25px;
+    width: 147px;
+    height: 80px;
+}
+
+.show_all_btn_wrapper .show_all_btn {
+    background-color: #304FFE;
+    color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 div.homepage_categories {
