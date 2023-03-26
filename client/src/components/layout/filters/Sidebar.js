@@ -3,6 +3,7 @@ import React, { useEffect, useReducer } from "react";
 
 //import UI components
 import SeparationLine from "../../UI/SeparationLine";
+import { CloseBar } from "../TheHeader";
 
 //import filter components
 import CategoriesFilter from "./CategoriesFilter";
@@ -48,7 +49,7 @@ const filterDataReducer = (state, action) => {
     }
 }
 
-const Sidebar = ({onSaveFiltersData}) => {
+const Sidebar = ({onSaveFiltersData, onCloseSidebar, fullScreen}) => {
     let isByDefaultChecked = true;
     
     const [queryParams] = useSearchParams();
@@ -97,19 +98,27 @@ const Sidebar = ({onSaveFiltersData}) => {
        <FilterContext.Provider value={{
            isChecked : isByDefaultChecked
        }}>
-       <aside className={styles['sidebar']}>
+       <aside className={`${styles['sidebar']} ${fullScreen ? styles['sidebar_full'] : ''}`}>
+           { fullScreen &&
+               <div className={styles['close_bar_btn_wrapper']} onClick={() => onCloseSidebar()}>
+                   <div className={styles['close_bar_btn']}>
+                       <CloseBar />
+                       <CloseBar />
+                   </div>
+               </div>
+           }
            { 
                !queryParams.get('category') &&
                <React.Fragment>
-                   <CategoriesFilter onSaveCriteria={getCategoriesCriteria} />
+                   <CategoriesFilter onSaveCriteria={getCategoriesCriteria} fullScreen={fullScreen} />
                    <SeparationLine/>
                </React.Fragment>
            }
-            <SeniorityFilter onSaveCriteria={getSeniorityCriteria} />
+            <SeniorityFilter onSaveCriteria={getSeniorityCriteria} fullScreen={fullScreen} />
             <SeparationLine/>
-            <WorkTypeFilter onSaveCriteria={getWorkTypeCriteria} />
+            <WorkTypeFilter onSaveCriteria={getWorkTypeCriteria} fullScreen={fullScreen} />
             <SeparationLine/>
-            <SalaryFilter onSaveCriteria={getSalaryCriteria} />
+            <SalaryFilter onSaveCriteria={getSalaryCriteria} fullScreen={fullScreen} />
        </aside>
        </FilterContext.Provider>
    )

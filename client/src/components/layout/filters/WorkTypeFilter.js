@@ -11,36 +11,40 @@ import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 import { useContext } from "react";
 import FilterContext from "../../../store/filter-context";
 import filterContext from "../../../store/filter-context";
-const WorkTypeFilter = ({ onSaveCriteria }) => {
+const WorkTypeFilter = ({ onSaveCriteria, fullScreen }) => {
     let filterCtx = useContext(filterContext)
     const [isExpanded, setIsExpanded] = useState(true)
-    const [workTypeFilter, setWorkTypeFilter] = useState({
-        office: {
+    const [workTypeFilter, setWorkTypeFilter] = useState([
+        {
             isChecked: filterCtx.isChecked,
             id: 'office',
             type: 'work_type'
         },
-        remote: {
+        {
             isChecked: filterCtx.isChecked,
             id: 'remote',
             type: 'work_type'
         },
-        hybrid: {
+        {
             isChecked: filterCtx.isChecked,
             id: 'hybrid',
             type: 'work_type'
         }
-    })
+    ])
     const checkIsExpanded = (data) =>{
         setIsExpanded(data);
     }
     
     const checkboxHandler = (data) => {
         setWorkTypeFilter( (prevState) => {
-            return {
-                ...prevState,
-                [data.id]: data
-            }
+            prevState = prevState.map( c => {
+                if( c.id === data.id ){
+                    c.isChecked = data.isChecked
+                }
+                return c;
+            })
+
+            return prevState;
         })
     }
     
@@ -49,21 +53,29 @@ const WorkTypeFilter = ({ onSaveCriteria }) => {
     }, [ workTypeFilter ])
 
     return (
-        <FilterContentWrapper>
-            <StyledFilterHeaderIconWrapper title='Work type' onExpanded={checkIsExpanded} />
-            {isExpanded && <div className={styles['categories_form_controls']}>
-                <div className={styles['form_control']}>
-                    <Label for='office'>Office</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'office'} name='work_type' id='office' onTriggerCheckbox={checkboxHandler} />
-                </div>
-                <div className={styles['form_control']}>
-                    <Label for='home'>Remote</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'remote'} name='work_type' id='remote' onTriggerCheckbox={checkboxHandler} />
-                </div>
-                <div className={styles['form_control']}>
-                    <Label for='hybrid'>Hybrid</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'hybrid'} name='work_type' id='hybrid' onTriggerCheckbox={checkboxHandler} />
-                </div>
+        <FilterContentWrapper className={`${fullScreen ? styles['work_type_wrapper_full'] : ''}`}>
+            <StyledFilterHeaderIconWrapper 
+                title='Work type' 
+                onExpanded={checkIsExpanded} 
+                className={`${fullScreen ? styles['work_type_header_wrapper_full'] : ''}`}
+            />
+            {isExpanded && <div className={`${styles['categories_form_controls']} ${fullScreen ? styles['work_type_form_controls_full'] : ''}`}>
+                {
+                    workTypeFilter.map( w => {
+                        return (
+                            <div className={`${styles['form_control']} ${fullScreen ? styles['work_type_form_control_full'] : ''}`} key={w.id}>
+                                <Label for={ w.id }>{ (w.id.charAt(0).toUpperCase() + w.id.slice(1)).replace('_', ' ') }</Label>
+                                <CustomCheckbox 
+                                    isChecked={filterCtx.isChecked} 
+                                    value={ w.id } 
+                                    name={ w.type } 
+                                    id={ w.id } 
+                                    onTriggerCheckbox={checkboxHandler}
+                                />
+                            </div>
+                        )
+                    })
+                }
             </div>}
         </FilterContentWrapper>
     )

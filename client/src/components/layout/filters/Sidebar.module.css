@@ -5,7 +5,29 @@
     width: 250px;
     text-transform: uppercase;
     padding: 1rem;
+    position: relative;
 }
 
-.sidebar_filters {
+/* FULL SCREEN MODE START */
+
+.sidebar_full {
+    width: 100%;
+    height: 100%;
 }
+
+.close_bar_btn_wrapper {
+    position: absolute;
+    display: flex;
+    width: 30px;
+    height: 20px;
+    top: 5px;
+    flex-direction: column;
+    right: 5px;
+    justify-content: space-between;
+}
+
+.close_bar_btn {
+    position: relative;
+}
+
+/* FULL SCREEN MODE END */

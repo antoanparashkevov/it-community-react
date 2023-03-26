@@ -14,6 +14,7 @@ import JobItem from "../../applying/JobItem";
 import NoDataAvailable from "../../UI/NoDataAvailable";
 import BaseDialog from "../../UI/BaseDialog";
 import JobListSkeletonLoading from "../../applying/skeletons/JobListSkeletonLoading";
+import { OutlineButton } from "../../UI/BaseButton";
 
 import Pagination from "../../applying/Pagination";
 import { useSearchParams } from "react-router-dom";
@@ -23,6 +24,7 @@ const JobsList = () => {
     const { isLoading, error, resetError, sendRequest } = useHttp();
     
     const [queryParams, setQueryParams] = useSearchParams();
+    const [showFilterSection, setShowFilterSection] = useState(false)
     
     useEffect( () => {
         window.scroll( { top: 100, behavior: 'smooth' } )
@@ -93,6 +95,8 @@ const JobsList = () => {
         
     }, [])
     
+    console.log('jobs >>> ', jobs)
+    
     const onFilterDataHandler = (data) => {
         setFilteredData(data)
     }
@@ -121,12 +125,13 @@ const JobsList = () => {
             if( job.workType && job.workType.length > 0 ) {
                 
                 for(let type of job.workType) {
-                    toReturn = filteredData['workType'][type].isChecked
+                    toReturn = filteredData['workType'].find( c => c.id === type).isChecked
                     
                     if( toReturn === false ) {
                         break;
                     }
                 }
+                
             }
         }
         return toReturn
@@ -136,8 +141,10 @@ const JobsList = () => {
         let toReturn = true;
         if( filteredData && Object.keys(filteredData).length > 0 ) {
             
-            if( job.seniority ) {
-                toReturn = filteredData['seniority'][job.seniority].isChecked
+            const clickedSeniority = filteredData['seniority'].find( c => c.id === job.seniority)
+            
+            if( job.seniority && filteredData['seniority'] ) {
+                toReturn = clickedSeniority.isChecked
             }
         }
         return toReturn
@@ -168,9 +175,24 @@ const JobsList = () => {
     
     return (
         <section className={`${styles['posters_container']} container`}>
-            <BaseCard hide={windowWidth <= 744} className={styles['aside_wrapper']}>
-                <Sidebar onSaveFiltersData={onFilterDataHandler} />
-            </BaseCard>
+            {
+                (
+                    showFilterSection === true ||
+                    windowWidth > 744
+                ) &&
+                <BaseCard className={`${styles['aside_wrapper']} ${showFilterSection ? styles['aside_wrapper_full'] : ''}`}>
+                    <Sidebar onSaveFiltersData={onFilterDataHandler} fullScreen={showFilterSection} onCloseSidebar={() => setShowFilterSection(false)}/>
+                </BaseCard>
+            }
+            {
+                windowWidth <= 744 &&
+                <OutlineButton className={styles['posters_filter_btn']} onClick={() => setShowFilterSection(true)}>
+                    Filters
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11.627" height="10.565" viewBox="0 0 11.627 10.565">
+                        <path id="Icon_feather-filter" data-name="Icon feather-filter" d="M13.627,4.5H3L7.251,9.527V13l2.125,1.063V9.527Z" transform="translate(-2.5 -4)" fill="none" stroke="#374ffe" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                    </svg>
+                </OutlineButton>
+            }
             {error && <BaseDialog show={!!error} onCloseDialog={resetError} fixed={false} title='An error occurred during fetching the jobs!'>{error}</BaseDialog>}
             {isLoading ?
                 (

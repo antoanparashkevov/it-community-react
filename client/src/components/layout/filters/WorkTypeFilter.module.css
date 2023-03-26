@@ -82,3 +82,24 @@
     margin-right: 15px;
 }
 
+/* FULL SCREEN MODE START */
+
+.work_type_wrapper_full {
+    align-items: center;
+}
+
+.work_type_header_wrapper_full {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.work_type_form_controls_full {
+    width: 100%;
+}
+
+.work_type_form_control_full {
+    width: 100%;
+    justify-content: space-between;
+}
+
+/* FULL SCREEN MODE END */

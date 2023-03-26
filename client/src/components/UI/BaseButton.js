@@ -30,8 +30,8 @@ export const Button = styled.button`
 
 export const OutlineButton = styled(Button)`
     background-color: transparent;
-    border: 1px solid #270041;
-    color: #270041;
+    border: 1px solid #304FFE;
+    color: #304FFE;
     
     &:active,
     &:hover {

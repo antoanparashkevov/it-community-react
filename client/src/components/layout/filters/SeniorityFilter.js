@@ -11,32 +11,33 @@ import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 import { useContext } from "react";
 import FilterContext from "../../../store/filter-context";
 
-const SeniorityFilter = ({onSaveCriteria}) => {
+const SeniorityFilter = ({ onSaveCriteria, fullScreen }) => {
     const filterCtx = useContext(FilterContext)
     
     const [isExpanded, setIsExpanded] = useState(true)
-    const [seniorityFilter, setSeniorityFilter] = useState({ 
-        intern: {
+    
+    const [seniorityFilter, setSeniorityFilter] = useState([ 
+        {
             isChecked: filterCtx.isChecked,
             id: 'intern',
             type: 'seniority'
         },
-        junior: {
+        {
             isChecked: filterCtx.isChecked,
             id: 'junior',
             type: 'seniority'
         },
-        senior: {
+        {
             isChecked: filterCtx.isChecked,
             id: 'senior',
             type: 'seniority'
         },
-        team_lead: {
+        {
             isChecked: filterCtx.isChecked,
             id: 'team_lead',
             type: 'seniority'
         }
-    })
+    ])
 
     const checkIsExpanded = (data) =>{
         setIsExpanded(data);
@@ -45,10 +46,14 @@ const SeniorityFilter = ({onSaveCriteria}) => {
 
     const checkboxHandler = (data) => {
         setSeniorityFilter( (prevState) => {
-            return {
-                ...prevState,
-                [data.id]: data
-            }
+            prevState = prevState.map( c => {
+                if( c.id === data.id ){
+                    c.isChecked = data.isChecked
+                }
+                return c;
+            })
+
+            return prevState;
         })
     }
 
@@ -57,25 +62,29 @@ const SeniorityFilter = ({onSaveCriteria}) => {
     }, [seniorityFilter])
     
     return (
-        <FilterContentWrapper>
-            <StyledFilterHeaderIconWrapper title='Seniority level' onExpanded={checkIsExpanded} />
-            {isExpanded &&  <div className={styles['categories_form_controls']}>
-                <div className={styles['form_control']}>
-                    <Label for='internship'>Internship</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'intern'} name='seniority' id='intern' onTriggerCheckbox={checkboxHandler} />
-                </div>
-                <div className={styles['form_control']}>
-                    <Label for='junior'>Junior</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'junior'} name='seniority' id='junior' onTriggerCheckbox={checkboxHandler} />
-                </div>
-                <div className={styles['form_control']}>
-                    <Label for='senior'>Senior</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'senior'} name='seniority' id='senior' onTriggerCheckbox={checkboxHandler} />
-                </div>
-                <div className={styles['form_control']}>
-                    <Label for='team_lead'>Team Lead</Label>
-                    <CustomCheckbox isChecked={filterCtx.isChecked} value={'team_lead'} name='seniority' id='team_lead' onTriggerCheckbox={checkboxHandler} />
-                </div>
+        <FilterContentWrapper className={`${fullScreen ? styles['seniority_wrapper_full'] : ''}`}>
+            <StyledFilterHeaderIconWrapper 
+                title='Seniority level' 
+                onExpanded={checkIsExpanded} 
+                className={`${fullScreen ? styles['seniority_header_wrapper_full'] : ''}`} 
+            />
+            {isExpanded &&  <div className={`${styles['categories_form_controls']} ${fullScreen ? styles['seniority_form_controls_full'] : ''}`}>
+                {
+                    seniorityFilter.map( s => {
+                        return (
+                            <div className={`${styles['form_control']} ${styles['form_control_full']}`} key={ s.id }>
+                                <Label for={ s.id }>{ (s.id.charAt(0).toUpperCase() + s.id.slice(1)).replace('_', ' ') }</Label>
+                                <CustomCheckbox 
+                                    isChecked={filterCtx.isChecked} 
+                                    value={ s.id } 
+                                    name={ s.type } 
+                                    id={ s.id } 
+                                    onTriggerCheckbox={checkboxHandler} 
+                                />
+                            </div>
+                        )
+                    })
+                }
             </div>}
         </FilterContentWrapper>
     )

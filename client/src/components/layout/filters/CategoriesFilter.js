@@ -12,7 +12,7 @@ import { useContext } from "react";
 import FilterContext from "../../../store/filter-context";
 import { useLoaderData } from "react-router-dom";
 
-const CategoriesFilter = ({onSaveCriteria}) => {
+const CategoriesFilter = ({onSaveCriteria, fullScreen}) => {
     let filterCtx = useContext(FilterContext)
     const [fetchedCategories, setFetchedCategories] = useState(useLoaderData());
     
@@ -37,7 +37,7 @@ const CategoriesFilter = ({onSaveCriteria}) => {
     }
     
     const checkboxHandler = (data) => {
-       setFetchedCategories((prevState)=>{
+       setFetchedCategories((prevState) => {
            prevState = prevState.map( c => {
                if( c.id === data.id ){
                    c.isChecked = data.isChecked
@@ -55,12 +55,22 @@ const CategoriesFilter = ({onSaveCriteria}) => {
     }, [ fetchedCategories ])
     
     return (
-        <FilterContentWrapper>
-            <StyledFilterHeaderIconWrapper title={'Selected Categories'} onExpanded={checkIsExpanded} />
-            {isExpanded && <div className={styles['categories_form_controls']}>
+        <FilterContentWrapper className={`${fullScreen ? styles['categories_wrapper_full'] : ''}`}>
+            <StyledFilterHeaderIconWrapper 
+                title={'Selected Categories'} 
+                onExpanded={checkIsExpanded} 
+                className={`${fullScreen ? styles['categories_header_wrapper_full'] : ''}`}
+            />
+            {isExpanded && <div className={`${styles['categories_form_controls']} ${fullScreen ? styles['categories_form_controls_full'] : ''}`}>
                 { fetchedCategories.map( (c, i) => {
                     return (
-                        <div className={styles['form_control']} key={i}>
+                        <div 
+                            className={`
+                                ${styles['form_control']} 
+                                ${fullScreen ? styles['categories_form_control_full'] : ''}
+                            `} 
+                            key={i} 
+                        >
                             <Label for='frontend'>{ c.title }</Label>
                             <CustomCheckbox isChecked={filterCtx.isChecked} value={c.id} name={c.type} id={c.id} onTriggerCheckbox={checkboxHandler} />
                         </div>
