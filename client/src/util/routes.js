@@ -72,6 +72,7 @@ export const routes = createBrowserRouter([
                                     {
                                         path: 'apply',
                                         element: <Applying/>
+                                    //     TODO add guard
                                     }
                                 ]
                             },
@@ -96,6 +97,7 @@ export const routes = createBrowserRouter([
             {
                 path: 'messages',
                 element: <Messages/>
+                //     TODO add guard
             },
             {
                 path: 'auth',
@@ -109,6 +111,7 @@ export const routes = createBrowserRouter([
                 path: 'create',
                 id:'create-job',
                 element: <CreateJob/>
+            //     TODO add guard
             },
             {
                 path: 'admin',
