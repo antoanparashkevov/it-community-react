@@ -19,6 +19,12 @@ import useInput from "../../hooks/use-input";
 import useHttp from "../../hooks/use-http";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 
+//data
+import { SeniorityFilterDataModified } from "../../data/SeniorityFilterDataModified";
+import { WorkTypeFilterDataModified } from "../../data/WorkTypeFilterDataModified";
+import { WorkTypeCheckboxData } from "../../data/WorkTypeCheckboxData";
+
+
 const JobForm = ({ job, className, isImported, onCloseEditForm }) => {
     const { isLoading, error, resetError, sendRequest } = useHttp();
     const navigate = useNavigate();
@@ -30,40 +36,14 @@ const JobForm = ({ job, className, isImported, onCloseEditForm }) => {
     let formIsValid;
 
     /* WORK TYPE START */
-    const orderedWorkTypeListData = [
-        {
-            code: 'hybrid',
-            title : 'Hybrid',
-        },
-        {
-          code: 'office',
-          title : 'Office'  
-        },
-        {
-            code: 'remote',
-            title : 'Remote'
-        }
-    ]
+    const orderedWorkTypeListData = WorkTypeFilterDataModified;
     
-    const [workTypeCheckbox, setWorkTypeCheckbox] = useState(
-          [
-              {
-                  isChecked : isDefaultCheckboxChecked,
-                  id: 'hybrid',
-                  type: 'hybrid',
-              },
-              {
-                  isChecked : isDefaultCheckboxChecked,
-                  id: 'office',
-                  type: 'office',
-              },
-              {
-                  isChecked : isDefaultCheckboxChecked,
-                  id: 'remote',
-                  type: 'remote',
-              },
-          ]
-    )
+    const [workTypeCheckbox, setWorkTypeCheckbox] = useState(WorkTypeCheckboxData.map((w => {
+        return {
+            ...w,
+            isChecked: isDefaultCheckboxChecked
+        }
+    })))
 
     const handleWorkTypeChange = (data) => {
 
@@ -188,24 +168,7 @@ const JobForm = ({ job, className, isImported, onCloseEditForm }) => {
     
     /* SENIORITY START */
     
-    const orderedSeniorityData = [
-        {
-            title: 'Team Lead',
-            code: 'team_lead',
-        },
-        {
-            title: 'Junior',
-            code: 'junior'
-        },
-        {
-            title: 'Intern',
-            code: 'intern'
-        },
-        {
-            title: 'Senior',
-            code: 'senior'
-        }
-    ] 
+    const orderedSeniorityData = SeniorityFilterDataModified;
     
     const [placeholderSeniorityValue, setPlaceholderSeniorityValue] = useState(isImported ? job.seniority : orderedSeniorityData[0].title)
     

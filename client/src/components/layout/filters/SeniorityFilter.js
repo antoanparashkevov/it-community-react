@@ -11,39 +11,33 @@ import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 import { useContext } from "react";
 import FilterContext from "../../../store/filter-context";
 
+//data
+import { SeniorityFilterData } from "../../../data/SeniorityFilterData";
+
 const SeniorityFilter = ({ onSaveCriteria, fullScreen }) => {
     const filterCtx = useContext(FilterContext)
     
     const [isExpanded, setIsExpanded] = useState(true)
     
-    const [seniorityFilter, setSeniorityFilter] = useState([ 
-        {
-            isChecked: filterCtx.isChecked,
-            id: 'intern',
-            type: 'seniority'
-        },
-        {
-            isChecked: filterCtx.isChecked,
-            id: 'junior',
-            type: 'seniority'
-        },
-        {
-            isChecked: filterCtx.isChecked,
-            id: 'senior',
-            type: 'seniority'
-        },
-        {
-            isChecked: filterCtx.isChecked,
-            id: 'team_lead',
-            type: 'seniority'
-        }
-    ])
+    const [seniorityFilter, setSeniorityFilter] = useState(SeniorityFilterData)
+    
+    useEffect( () => {
+        setSeniorityFilter((prevState) => {
+            prevState = prevState.map( s => {
+                return {
+                    ...s,
+                    isChecked : filterCtx.isChecked
+                }
+            })
+            
+            return prevState;
+        })
+    }, [])
 
     const checkIsExpanded = (data) =>{
         setIsExpanded(data);
     }
-
-
+    
     const checkboxHandler = (data) => {
         setSeniorityFilter( (prevState) => {
             prevState = prevState.map( c => {

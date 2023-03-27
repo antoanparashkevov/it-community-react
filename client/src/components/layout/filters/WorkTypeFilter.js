@@ -9,28 +9,30 @@ import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 
 //context
 import { useContext } from "react";
-import FilterContext from "../../../store/filter-context";
 import filterContext from "../../../store/filter-context";
+
+//data
+import { WorkTypeFilterData } from "../../../data/WorkTypeFilterData";
+
 const WorkTypeFilter = ({ onSaveCriteria, fullScreen }) => {
     let filterCtx = useContext(filterContext)
     const [isExpanded, setIsExpanded] = useState(true)
-    const [workTypeFilter, setWorkTypeFilter] = useState([
-        {
-            isChecked: filterCtx.isChecked,
-            id: 'office',
-            type: 'work_type'
-        },
-        {
-            isChecked: filterCtx.isChecked,
-            id: 'remote',
-            type: 'work_type'
-        },
-        {
-            isChecked: filterCtx.isChecked,
-            id: 'hybrid',
-            type: 'work_type'
-        }
-    ])
+    const [workTypeFilter, setWorkTypeFilter] = useState(WorkTypeFilterData);
+    
+    
+    useEffect( () => {
+        setWorkTypeFilter(prevState => {
+            prevState = prevState.map( w => {
+                return {
+                    ...w,
+                    isChecked: filterCtx.isChecked
+                }
+            })
+            
+            return prevState;
+        })
+    },[])
+    
     const checkIsExpanded = (data) =>{
         setIsExpanded(data);
     }
