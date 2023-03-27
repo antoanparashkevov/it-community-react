@@ -95,8 +95,6 @@ const JobsList = () => {
         
     }, [])
     
-    console.log('jobs >>> ', jobs)
-    
     const onFilterDataHandler = (data) => {
         setFilteredData(data)
     }
@@ -175,15 +173,9 @@ const JobsList = () => {
     
     return (
         <section className={`${styles['posters_container']} container`}>
-            {
-                (
-                    showFilterSection === true ||
-                    windowWidth > 744
-                ) &&
-                <BaseCard className={`${styles['aside_wrapper']} ${showFilterSection ? styles['aside_wrapper_full'] : ''}`}>
-                    <Sidebar onSaveFiltersData={onFilterDataHandler} fullScreen={showFilterSection} onCloseSidebar={() => setShowFilterSection(false)}/>
-                </BaseCard>
-            }
+            <BaseCard hide={ windowWidth <= 744 && showFilterSection === false } className={`${styles['aside_wrapper']} ${showFilterSection && windowWidth <= 744 ? styles['aside_wrapper_full'] : ''}`}>
+                <Sidebar onSaveFiltersData={onFilterDataHandler} fullScreen={showFilterSection && windowWidth <= 744 } onCloseSidebar={() => setShowFilterSection(false)}/>
+            </BaseCard>
             {
                 windowWidth <= 744 &&
                 <OutlineButton className={styles['posters_filter_btn']} onClick={() => setShowFilterSection(true)}>
