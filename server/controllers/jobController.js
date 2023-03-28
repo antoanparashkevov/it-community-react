@@ -46,11 +46,13 @@ router.get('/jobs/:jobId', async (req,res) => {
         
         item.seniority_code = seniority_code
         
-        res.json({
-            jobItem: { ...item, seniority_code },
-            visited: req.cookies[`visited_${jobId}`] || '1',
-            user
-        })
+       setTimeout(()=>{
+           res.json({
+               jobItem: { ...item, seniority_code },
+               visited: req.cookies[`visited_${jobId}`] || '1',
+               user
+           })
+       }, 4000)
 
     } catch ( err ) {
         const message = parseError(err)
