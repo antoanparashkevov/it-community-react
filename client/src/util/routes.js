@@ -17,7 +17,7 @@ import CreateJob from "../components/pages/applying/CreateJob";
 import AdminRootLayout from "../components/admin/AdminRootLayout";
 import CreateCategory from "../components/pages/admin/CreateCategory";
 import CreateSubCategory, { categoryDefer } from "../components/pages/admin/CreateSubCategory";
-import EditJob from "../components/pages/profile/EditJob";
+import EditJob, { jobEditDefer } from "../components/pages/profile/EditJob";
 
 //utils
 import loader from "./loader";
@@ -91,7 +91,7 @@ export const routes = createBrowserRouter([
                     {
                         path: ':posterId/edit',
                         id: 'edit-job',
-                        loader: ( { request, params } ) => loader('/jobData/jobs/' + params['posterId'], formatJobEditData, ['company']),
+                        loader: ( { request, params } ) => jobEditDefer(params),
                         element: <EditJob/>
                     }
                 ]
@@ -118,17 +118,18 @@ export const routes = createBrowserRouter([
             {
                 path: 'admin',
                 element: <AdminRootLayout/>,
-                loader: ({request, params}) => categoryDefer(),
-                id: 'admin',
+                loader: () => loader(null,null,['admin']),
                 children: [
                     {
                         path: 'category',
                         action: ({request, params}) => action(request, params, transformCategoryFormData , '/categoryData/categories', '/admin/subcategory'),
+                        id: 'admin',
                         element: <CreateCategory/>
                     },
                     {
                         path: 'subcategory',
                         // action: ({request, params}) => action(request, params, transformSubCategoryFormData, '/subCategoryData/subcategories'),
+                        loader: ({request, params}) => categoryDefer(),
                         element: <CreateSubCategory/>
                     }
                 ]

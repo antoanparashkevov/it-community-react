@@ -1,4 +1,4 @@
-import { Await, defer, useRouteLoaderData } from "react-router-dom";
+import { Await, defer, useLoaderData } from "react-router-dom";
 
 //UI components
 import FormPageContent from "../../UI/FormPageContent";
@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import BaseSpinner from "../../UI/BaseSpinner";
 
 const CreateSubCategory = () => {
-    const { categories } = useRouteLoaderData('admin')
+    const { categories } = useLoaderData()
     
     return (
        <Suspense fallback={<BaseSpinner />}>

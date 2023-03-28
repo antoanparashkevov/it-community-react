@@ -1,17 +1,19 @@
 import ReactDOM from "react-dom";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import styles from './EditJob.module.scss';
 
 //UI components
 import { Backdrop } from "../../UI/BaseDialog";
 import JobForm from "../../applying/JobForm";
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { Await, defer, useNavigate, useRouteLoaderData } from "react-router-dom";
+import loader from "../../../util/loader";
+import BaseSpinnerAlt from "../../UI/BaseSpinnerAlt";
 
 const EditJob = () => {
     const navigate = useNavigate();
     const [showForm, setShowForm] = useState(true);
     
-    const job = useRouteLoaderData('edit-job');
+    const { job } = useRouteLoaderData('edit-job');
 
     const tryClose = () => {
         navigate('/profile')
@@ -23,20 +25,28 @@ const EditJob = () => {
     }
     
     return (
-        <React.Fragment>
-            {
-                ReactDOM.createPortal(
-                    <Backdrop tryClose={tryClose} show={showForm} />,
-                    document.getElementById('backdrop-root'))
-            }
-            {
-                ReactDOM.createPortal(
-                    <section className={styles['edit_form_wrapper']}>
-                        <JobForm job={job.jobItem} className={styles['edit_form']} isImported onCloseEditForm={tryClose}/>
-                    </section>,
-                    document.getElementById('overlay-root'))
-            }
-        </React.Fragment>
+        <Suspense fallback={<BaseSpinnerAlt />}>
+            <Await resolve={job}>
+                {
+                    (job) => (
+                        <React.Fragment>
+                            {
+                                ReactDOM.createPortal(
+                                    <Backdrop tryClose={tryClose} show={showForm} />,
+                                    document.getElementById('backdrop-root'))
+                            }
+                            {
+                                ReactDOM.createPortal(
+                                    <section className={styles['edit_form_wrapper']}>
+                                        <JobForm job={job['jobItem']} className={styles['edit_form']} isImported onCloseEditForm={tryClose}/>
+                                    </section>,
+                                    document.getElementById('overlay-root'))
+                            }
+                        </React.Fragment>
+                    )
+                }
+            </Await>
+        </Suspense>
     )
 }
 
@@ -62,3 +72,16 @@ export const formatJobEditData = (data) => {
 
     }
 }
+
+async function jobEditLoader(params) {
+    return loader('/jobData/jobs/' + params['posterId'], formatJobEditData, ['company'])
+}
+
+export function jobEditDefer(params) {
+    return defer({
+        job: jobEditLoader(params)
+    })
+}
+
+
+

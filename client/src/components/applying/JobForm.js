@@ -274,7 +274,6 @@ const JobForm = ({ job, className, isImported, onCloseEditForm }) => {
             
             if ( isImported ) {
                 navigate('/profile');
-                window.location.reload();
             } else {
                 navigate('/posters/' + resp._id);
             }

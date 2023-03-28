@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { BaseCard } from "../../UI/BaseCard";
 import { SquareButton } from "../../UI/BaseButton";
 import { RemoteBadge, WorkCategoryBadge1 } from "../../UI/BaseBadge";
+import BaseSpinnerAlt from "../../UI/BaseSpinnerAlt";
 
 //hooks
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
@@ -35,7 +36,7 @@ const JobDetails = () => {
     
     return (
         <React.Fragment>
-            <Suspense fallback={<p>Loading ... </p>}>
+            <Suspense fallback={<BaseSpinnerAlt/>}>
                 <Await resolve={jobDetailsData}>
                     {
                         (job) => (
