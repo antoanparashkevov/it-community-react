@@ -1,5 +1,5 @@
 import React, { useState, Suspense } from "react";
-import { useRouteLoaderData, Outlet, defer, Await } from "react-router-dom";
+import { useRouteLoaderData, Outlet, defer, Await, redirect } from "react-router-dom";
 import styles from './Profile.module.scss';
 
 //components
@@ -15,6 +15,9 @@ import { DeleteButton } from "../../UI/BaseButton";
 //hooks
 import useHttp from "../../../hooks/use-http";
 import loader from "../../../util/loader";
+
+//guard
+import companyGuard from "../../../util/companyGuard";
 
 
 const Profile = () => {
@@ -126,8 +129,14 @@ async function profileLoader () {
     return loader('/profileData/userInfo', formatProfileData, ['company'])
 }
 
-export function profileDefer() {
-    return defer({
-        profileData: profileLoader()//profileLoader() will return Promise which we will resolve with async/await in the Profile component
-    })
+export async function profileDefer() {
+    
+    const response = await companyGuard();
+    
+    if( response === 'passed' ) {
+        return defer({
+            profileData: profileLoader()//profileLoader() will return Promise which we will resolve with async/await in the Profile component
+        })
+    } return redirect('/auth')
+    
 }
