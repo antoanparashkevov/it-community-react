@@ -22,10 +22,12 @@ router.get('/categories', async (req,res) => {
             })
         } else {
             let items = await getAll()
-            res.json({ 
-                items,
-                user
-            })
+            setTimeout( () => {
+                res.json({
+                    items,
+                    user
+                })
+            }, 3000)
         }
     } catch ( error ) {
         const message = parseError( error );

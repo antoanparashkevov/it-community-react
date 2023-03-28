@@ -16,7 +16,7 @@ import CreateJob from "../components/pages/applying/CreateJob";
 //Admin Components
 import AdminRootLayout from "../components/admin/AdminRootLayout";
 import CreateCategory from "../components/pages/admin/CreateCategory";
-import CreateSubCategory from "../components/pages/admin/CreateSubCategory";
+import CreateSubCategory, { categoryDefer } from "../components/pages/admin/CreateSubCategory";
 import EditJob from "../components/pages/profile/EditJob";
 
 //utils
@@ -119,7 +119,7 @@ export const routes = createBrowserRouter([
             {
                 path: 'admin',
                 element: <AdminRootLayout/>,
-                loader: ({request, params}) => loader('/categoryData/categories', (data) => data.items, ['admin']),
+                loader: ({request, params}) => categoryDefer(),
                 id: 'admin',
                 children: [
                     {

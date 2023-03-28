@@ -1,5 +1,5 @@
 import React, { useState, Suspense, useEffect } from "react";
-import { useRouteLoaderData, Outlet, defer, Await, redirect } from "react-router-dom";
+import { useRouteLoaderData, Outlet, defer, Await, redirect, useNavigation } from "react-router-dom";
 import styles from './Profile.module.scss';
 
 //components
@@ -27,6 +27,8 @@ const Profile = () => {
     const [tryingToDelete, setTryingToDelete] = useState(false);
     const [jobId, setJobId] = useState(null);
     
+    const navigation = useNavigation();
+    
     const deleteAction = async (data) => {
         if( data === true && jobId ) {
             const response = await sendRequest('/jobData/jobs/' + jobId, 'DELETE');
@@ -46,6 +48,8 @@ const Profile = () => {
     
     return (
         <React.Fragment>
+            { navigation.state === 'loading' && <BaseSpinner />}
+            {/*TODO change the spinner*/}
             { isLoading && <BaseSpinner /> }
             { error && 
                 <BaseDialog 
