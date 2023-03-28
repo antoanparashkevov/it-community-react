@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Outlet, useSubmit } from 'react-router-dom'
+import React, { Suspense, useEffect } from "react";
+import { Await, defer, Outlet, useRouteLoaderData, useSubmit } from 'react-router-dom'
 import styled from "styled-components";
 
 //components
@@ -9,6 +9,7 @@ import { calculateExpirationDate, getAuthData, getAuthToken } from "../util/auth
 
 //context
 import AuthContext from "../store/auth-context";
+import loader from "../util/loader";
 
 export const HeaderWrapper = styled.header`
     width: 100%;
@@ -46,7 +47,7 @@ const LinearGradient = styled.div`
 
 const RootLayout = () => {
     const token = getAuthToken()
-    const userData = getAuthData()
+    const { authData } = useRouteLoaderData('root');
     
     const submit = useSubmit();
     
@@ -77,32 +78,46 @@ const RootLayout = () => {
     }, [token, submit])
     
     return (
-        <AuthContext.Provider 
-            value={
+        <Suspense fallback={<p>Loading....</p>}>
+            <Await resolve={authData}>
                 {
-                    userData : userData,
-                    token: token,
-                    isLoggedIn: !!token,
-                }
-            }
-        >
-            <HeaderWrapper>
-                <TheHeader/>
-            </HeaderWrapper>
+                    (authData) => (
+                        <AuthContext.Provider
+                            value={
+                                {
+                                    userData : authData['userData'],
+                                    token: token,
+                                    isLoggedIn: !!token,
+                                }
+                            }
+                        >
+                            <HeaderWrapper>
+                                <TheHeader/>
+                            </HeaderWrapper>
 
-            <MainWrapper>
-                {
-                    window.location.pathname === '/' &&
-                    <LinearGradient />
-                }
-                <Outlet  />
-            </MainWrapper>
+                            <MainWrapper>
+                                {
+                                    window.location.pathname === '/' &&
+                                    <LinearGradient />
+                                }
+                                <Outlet  />
+                            </MainWrapper>
 
-            <FooterWrapper>
-                <Footer/>
-            </FooterWrapper>
-        </AuthContext.Provider>
+                            <FooterWrapper>
+                                <Footer/>
+                            </FooterWrapper>
+                        </AuthContext.Provider>
+                    )
+                }
+            </Await>
+        </Suspense>
     )
 }
 
 export default RootLayout;
+
+export function authDefer() {
+    return defer({
+        authData: loader('/userData', data => data)
+    })
+}

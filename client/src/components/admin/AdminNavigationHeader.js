@@ -1,10 +1,13 @@
 import styles from './AdminNavigationHeader.module.scss';
 import { NavigationLinkAsButton } from "../UI/BaseLinks";
-import React from "react";
-import { Form, useRouteLoaderData } from "react-router-dom";
+import React, { useContext } from "react";
+import { Form } from "react-router-dom";
+
+//context
+import AuthContext from "../../store/auth-context";
 
 const AdminNavigationHeader = ( { onNavMode } ) => {
-    const user = useRouteLoaderData('root')
+    const authData = useContext(AuthContext)
     
     const changeNavMode = () => {
         onNavMode('user')
@@ -34,7 +37,7 @@ const AdminNavigationHeader = ( { onNavMode } ) => {
                     </NavigationLinkAsButton>
                 </li>
             </Form>
-            { user && user.token && user.userData.roles.includes('admin') && 
+            { authData && authData.token && authData.userData.roles.includes('admin') && 
                 <li className={styles['navbar_link']} >
                     <NavigationLinkAsButton as='button' className={styles['switch_btn']} onClick={changeNavMode}>
                         User Nav

@@ -8,7 +8,6 @@ import UserNavigationHeader from "./UserNavigationHeader";
 
 //UI components
 import { NavigationLink } from "../UI/BaseLinks";
-import { useRouteLoaderData } from "react-router-dom";
 
 //context
 import AuthContext from "../../store/auth-context";
@@ -35,10 +34,9 @@ export const CloseBar = styled(HamburgerBar)`
 const TheHeader = () => {
     let [activateBar, updateActivateBar] = useState(false)
     
-    const user = useRouteLoaderData('root')
     const authData = useContext(AuthContext);
     
-    console.log('AuthData >>> ', authData)
+    console.log('authData', authData)
     
     const [adminNavigation, setAdminNavigation] = useState(false)
 
@@ -75,12 +73,12 @@ const TheHeader = () => {
         }
     }
 
-    const navigation = user && user.userData && user.userData.roles.includes('admin') && adminNavigation === true ? <AdminNavigationHeader onNavMode={handleNavMode} /> : <UserNavigationHeader onNavMode={handleNavMode}/>
+    const navigation = authData && authData.userData && authData.userData.roles.includes('admin') && adminNavigation === true ? <AdminNavigationHeader onNavMode={handleNavMode} /> : <UserNavigationHeader onNavMode={handleNavMode}/>
     
     return (
         <nav className={`${styles['navbar']} ${activateBar ? styles['navbar_mobile_height'] : ''}`}>
             <div className={styles['navbar_title']}>
-                <NavigationLink to="/">IT-COMMUNITY{user && user.userData && user.userData.roles.includes('admin') && adminNavigation === true ? '-ADMIN' : ''}</NavigationLink>
+                <NavigationLink to="/">IT-COMMUNITY{authData && authData.userData && authData.userData.roles.includes('admin') && adminNavigation === true ? '-ADMIN' : ''}</NavigationLink>
             </div>
             <div className={styles['toggle_buttons']} onClick={toggleNavbar}>
                 {chooseButton()}

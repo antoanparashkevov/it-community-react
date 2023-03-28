@@ -1,12 +1,15 @@
 import styles from './UserNavigationHeader.module.scss';
-import React from "react";
-import { Form, useRouteLoaderData } from 'react-router-dom';
+import React, { useContext } from "react";
+import { Form } from 'react-router-dom';
 
 //UI components
 import { NavigationLink, NavigationLinkAsButton } from "../UI/BaseLinks";
 
+//context
+import AuthContext from "../../store/auth-context";
+
 const UserNavigationHeader = ( { onNavMode } ) => {
-    const user = useRouteLoaderData('root');
+    const authData = useContext(AuthContext)
     
     const changeNavMode = () => {
         onNavMode('admin')
@@ -17,7 +20,7 @@ const UserNavigationHeader = ( { onNavMode } ) => {
             <li className={styles['navbar_link']}>
                 <NavigationLink to="posters?page=1" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavigationLink>
             </li>
-            {user && user.userData && user.userData.roles.includes('company') &&
+            {authData && authData.userData && (authData.userData.roles && authData.userData.roles.includes('company')) &&
                 <React.Fragment>
                     <li className={styles['navbar_link']}>
                         <NavigationLink to="profile" className={({isActive})=> isActive ? 'active' : undefined}>Profile</NavigationLink>
@@ -40,7 +43,7 @@ const UserNavigationHeader = ( { onNavMode } ) => {
                     </li>
                 </React.Fragment>
             }
-            { !user || !user.token &&
+            { !authData || !authData.token &&
                 <li className={styles['navbar_link']}>
                     <NavigationLinkAsButton
                         to="auth?mode=login"
@@ -50,7 +53,7 @@ const UserNavigationHeader = ( { onNavMode } ) => {
                     </NavigationLinkAsButton>
                 </li>
             }
-            { user && user.token &&
+            { authData && authData.token &&
                 <Form method='post' action='/logout'>
                     <li className={styles['navbar_link']} >
                         <NavigationLinkAsButton as='button' className={styles['logout_btn']}>
@@ -60,7 +63,7 @@ const UserNavigationHeader = ( { onNavMode } ) => {
                 </Form>
             }
             {
-                user && user.token && user.userData.roles.includes('admin') &&
+                authData && authData.token && (authData.userData.roles && authData.userData.roles.includes('admin')) &&
                 <li className={styles['navbar_link']}>
                     <NavigationLinkAsButton as='button' className={styles['logout_btn']} onClick={changeNavMode}>
                         Admin Nav

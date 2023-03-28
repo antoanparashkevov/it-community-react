@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import React from "react";
 
 //components
-import RootLayout from "../components/Root";
+import RootLayout, { authDefer } from "../components/Root";
 import ErrorPage from "../components/pages/Error";
 import Board from "../components/pages/applying/Board";
 import JobsList from "../components/pages/applying/JobsList";
@@ -39,7 +39,7 @@ export const routes = createBrowserRouter([
         element: <RootLayout/>,
         errorElement: <ErrorPage/>,//this route will be triggered whenever a loader throws an Error or when a user visits wrong URL
         id: 'root',
-        loader: ({request, params}) => getAuthToken() !== 'EXPIRED' ? loader('/userData') : null,
+        loader: ({request, params}) => authDefer(),
         children: [
             {
                 // or path: ''

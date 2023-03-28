@@ -28,7 +28,7 @@ const Messages = () => {
     }, []);
     
     const fetchMessages = async () => {
-      await sendRequest(`/applicationData/applications/${authData.userData.userId}`, 'GET', handleResponse);
+      await sendRequest(`/applicationData/applications/${authData.userData._id}`, 'GET', handleResponse);
     }
     
     const handleResponse = (data) => {
