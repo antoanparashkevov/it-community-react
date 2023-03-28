@@ -26,9 +26,7 @@ import { action as logoutAction } from '../components/pages/auth/Logout'
 
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
 import { formatCategoryData } from '../components/layout/filters/CategoriesFilter';
-import { formatJobDetailsData } from '../components/pages/applying/JobDetails';
 import { formatJobEditData } from "../components/pages/profile/EditJob";
-import { formatProfileData } from '../components/pages/profile/Profile';
 import { getAuthToken } from "./auth";
 import userGuard from "./userGuard";
 
@@ -83,11 +81,14 @@ export const routes = createBrowserRouter([
             },
             {
                 path: 'profile',
-                id: 'profile-info',
-                loader: ( { request, params } ) => profileDefer(),
-                //todo company guard
-                element: <Profile/>,
+                loader: () => loader(null,null,['company']),
                 children: [
+                    {
+                        index: true,
+                        id: 'profile-info',
+                        loader: ( { request, params } ) => profileDefer(),
+                        element: <Profile/>,
+                    },
                     {
                         path: ':posterId/edit',
                         id: 'edit-job',

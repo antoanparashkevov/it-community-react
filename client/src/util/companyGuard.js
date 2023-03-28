@@ -12,16 +12,18 @@ const companyGuard = async () => {
         const data = await response.json();
 
         if( data.userData.hasData === false ) {
-            return 'notpassed';
+            return redirect('/auth');
         }
 
         if (data.userData.hasData && data.userData.roles.includes('company') === false) {
-            return 'notpassed';
+            return redirect('/auth');
+
         }
     } else {
-        return 'notpassed';
+        return redirect('/auth');
+
     }
-    return 'passed';
+    return null;
 }
 
 export default companyGuard;

@@ -12,7 +12,7 @@ const EditJob = () => {
     const [showForm, setShowForm] = useState(true);
     
     const job = useRouteLoaderData('edit-job');
-    //TODO use defer
+
     const tryClose = () => {
         navigate('/profile')
         window.scroll({
