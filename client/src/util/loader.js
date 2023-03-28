@@ -23,29 +23,39 @@ const loader = async (url, formatData, userType) => {
     if ( userType ) {
         
         if ( userType.includes('company') ) {
-            const response = await fetch(host + '/userData', options)
 
-            const data = await response.json();
+            if ( token ) {
+                const response = await fetch(host + '/userData', options)
 
-            if( data.userData.hasData === false ) {
-                return redirect('/auth')
-            }
+                const data = await response.json();
 
-            if (data.userData.hasData && data.userData.roles.includes('company') === false) {
+                if( data.userData.hasData === false ) {
+                    return redirect('/auth')
+                }
+
+                if (data.userData.hasData && data.userData.roles.includes('company') === false) {
+                    return redirect('/auth')
+                }
+            } else {
                 return redirect('/auth')
             }
         }
 
         if( userType.includes('admin') ) {
-            const response = await fetch(host + '/userData', options)
+            
+            if( token ) {
+                const response = await fetch(host + '/userData', options)
 
-            const data = await response.json();
+                const data = await response.json();
 
-            if( data.userData.hasData === false ){
-                return redirect('/auth')
-            }
+                if( data.userData.hasData === false ){
+                    return redirect('/auth')
+                }
 
-            if (data.userData.hasData && data.userData.roles.includes('admin') === false) {
+                if (data.userData.hasData && data.userData.roles.includes('admin') === false) {
+                    return redirect('/auth')
+                }
+            } else {
                 return redirect('/auth')
             }
         }
@@ -84,7 +94,7 @@ const loader = async (url, formatData, userType) => {
             } )
         }
     }
-    return null;
+        return null;
 }
 
 export default loader;

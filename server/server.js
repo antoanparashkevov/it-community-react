@@ -61,10 +61,7 @@ async function start() {
     app.get(process.env['USER_API_URL'], (req, res) => {
         const user = getUserData(req.user, req.token)
         try {
-            setTimeout(() => {
-                res.json(user);
-                
-            }, 3000)
+            res.json(user);
         } catch ( err ) {
             const message = parseError(err);
             res.status(400).json({ message })

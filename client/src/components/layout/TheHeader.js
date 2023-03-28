@@ -10,6 +10,9 @@ import UserNavigationHeader from "./UserNavigationHeader";
 import { NavigationLink } from "../UI/BaseLinks";
 import { useRouteLoaderData } from "react-router-dom";
 
+//context
+import AuthContext from "../../store/auth-context";
+
 const HamburgerBar = styled.span`
         display: block;
         background-color: #CECECE;
@@ -33,6 +36,10 @@ const TheHeader = () => {
     let [activateBar, updateActivateBar] = useState(false)
     
     const user = useRouteLoaderData('root')
+    const authData = useContext(AuthContext);
+    
+    console.log('AuthData >>> ', authData)
+    
     const [adminNavigation, setAdminNavigation] = useState(false)
 
     const toggleNavbar = () => {

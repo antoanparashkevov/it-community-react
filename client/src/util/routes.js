@@ -30,6 +30,7 @@ import { formatJobDetailsData } from '../components/pages/applying/JobDetails';
 import { formatJobEditData } from "../components/pages/profile/EditJob";
 import { formatProfileData } from '../components/pages/profile/Profile';
 import { getAuthToken } from "./auth";
+import userGuard from "./userGuard";
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
@@ -71,8 +72,8 @@ export const routes = createBrowserRouter([
                                 children: [
                                     {
                                         path: 'apply',
+                                        loader: ( { request, params } ) => userGuard(),
                                         element: <Applying/>
-                                    //     TODO add guard
                                     }
                                 ]
                             },
@@ -96,8 +97,8 @@ export const routes = createBrowserRouter([
             },
             {
                 path: 'messages',
+                loader: ({request, params}) => loader(null, null, ['company']),
                 element: <Messages/>
-                //     TODO add guard
             },
             {
                 path: 'auth',
@@ -110,8 +111,8 @@ export const routes = createBrowserRouter([
             {
                 path: 'create',
                 id:'create-job',
+                loader: ({request, params}) => loader(null, null, ['company']),
                 element: <CreateJob/>
-            //     TODO add guard
             },
             {
                 path: 'admin',
