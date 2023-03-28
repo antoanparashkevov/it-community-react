@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './Board.module.css'
 
 //components
@@ -14,7 +14,6 @@ import { RoundedLink } from "../../UI/BaseLinks";
 //token
 import { getAuthToken } from "../../../util/auth";
 import BoardSkeletonLoading from "../../applying/skeletons/BoardSkeletonLoading";
-import { useNavigation } from "react-router-dom";
 
 const Board = () => {
     const [categories, setCategories] = useState([])

@@ -1,5 +1,5 @@
 import styles from './CompanyForm.module.scss';
-import React, { useCallback, useMemo, useState } from "react";
+import React from "react";
 
 //UI components
 import { Input } from "../layout/Input";
@@ -9,7 +9,7 @@ import Label from "../UI/Label";
 //hooks
 import useInput from "../../hooks/use-input";
 import { TextArea } from "../UI/TextArea";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useHttp from "../../hooks/use-http";
 import BaseDialog from "../UI/BaseDialog";
 import BaseSpinner from "../UI/BaseSpinner";

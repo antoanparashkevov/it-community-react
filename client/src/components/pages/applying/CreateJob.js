@@ -4,8 +4,6 @@ import React from "react";
 import JobForm from "../../applying/JobForm";
 
 //UI components
-import { BaseCard } from "../../UI/BaseCard";
-import SeparationLine from "../../UI/SeparationLine";
 import FormPageContent from "../../UI/FormPageContent";
 
 const CreateJob = () => {

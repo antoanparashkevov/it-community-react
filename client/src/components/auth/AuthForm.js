@@ -1,5 +1,5 @@
 import styles from './AuthForm.module.scss';
-import React, { useCallback } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 //UI components

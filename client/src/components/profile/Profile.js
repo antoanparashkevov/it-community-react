@@ -1,5 +1,5 @@
-import React, { useState, Suspense, useEffect } from "react";
-import { useRouteLoaderData, Outlet, defer, Await, redirect, useNavigation } from "react-router-dom";
+import React, { useState, Suspense } from "react";
+import { useRouteLoaderData, Outlet, defer, Await, useNavigation } from "react-router-dom";
 import styles from './Profile.module.scss';
 
 //components

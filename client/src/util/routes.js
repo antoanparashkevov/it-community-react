@@ -26,7 +26,6 @@ import { action as logoutAction } from '../components/pages/auth/Logout'
 
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
 import { formatCategoryData } from '../components/layout/filters/CategoriesFilter';
-import { formatJobEditData } from "../components/pages/profile/EditJob";
 import userGuard from "./userGuard";
 
 //create a relation between the routes and the components,
@@ -38,7 +37,7 @@ export const routes = createBrowserRouter([
         element: <RootLayout/>,
         errorElement: <ErrorPage/>,//this route will be triggered whenever a loader throws an Error or when a user visits wrong URL
         id: 'root',
-        loader: ({request, params}) => authDefer(),
+        loader: () => authDefer(),
         children: [
             {
                 // or path: ''
@@ -51,13 +50,13 @@ export const routes = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        loader: ({request, params}) => loader('/categoryData/categories', formatCategoryData),
+                        loader: () => loader('/categoryData/categories', formatCategoryData),
                         element: <JobsList/>,
                     },
                     {
                         path: ':posterId',
                         id: 'poster-details',
-                        loader: ({request, params}) => jobDetailsDefer(params),
+                        loader: ({params}) => jobDetailsDefer(params),
                         children: [
                             {
                                 index: true,
@@ -69,7 +68,7 @@ export const routes = createBrowserRouter([
                                 children: [
                                     {
                                         path: 'apply',
-                                        loader: ( { request, params } ) => userGuard(),
+                                        loader: ( ) => userGuard(),
                                         element: <Applying/>
                                     }
                                 ]
@@ -85,20 +84,20 @@ export const routes = createBrowserRouter([
                     {
                         index: true,
                         id: 'profile-info',
-                        loader: ( { request, params } ) => profileDefer(),
+                        loader: ( ) => profileDefer(),
                         element: <Profile/>,
                     },
                     {
                         path: ':posterId/edit',
                         id: 'edit-job',
-                        loader: ( { request, params } ) => jobEditDefer(params),
+                        loader: ( { params } ) => jobEditDefer(params),
                         element: <EditJob/>
                     }
                 ]
             },
             {
                 path: 'messages',
-                loader: ({request, params}) => loader(null, null, ['company']),
+                loader: () => loader(null, null, ['company']),
                 element: <Messages/>
             },
             {
@@ -112,7 +111,7 @@ export const routes = createBrowserRouter([
             {
                 path: 'create',
                 id:'create-job',
-                loader: ({request, params}) => loader(null, null, ['company']),
+                loader: () => loader(null, null, ['company']),
                 element: <CreateJob/>
             },
             {
@@ -129,7 +128,7 @@ export const routes = createBrowserRouter([
                     {
                         path: 'subcategory',
                         // action: ({request, params}) => action(request, params, transformSubCategoryFormData, '/subCategoryData/subcategories'),
-                        loader: ({request, params}) => categoryDefer(),
+                        loader: () => categoryDefer(),
                         element: <CreateSubCategory/>
                     }
                 ]

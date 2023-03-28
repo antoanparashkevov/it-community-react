@@ -21,7 +21,7 @@ const ApplyForm = ( { initialEmailValue, companyId }) => {
     let formIsValid;
     let response;
     
-    const { isLoading, error, resetError, sendRequest, resolved } = useHttp();
+    const { isLoading, error, resetError, sendRequest } = useHttp();
     const navigate = useNavigate();
     const params = useParams();
     

@@ -5,7 +5,7 @@ import styled from "styled-components";
 //components
 import TheHeader from "./layout/TheHeader";
 import Footer from "./layout/Footer";
-import { calculateExpirationDate, getAuthData, getAuthToken } from "../util/auth";
+import { calculateExpirationDate, getAuthToken } from "../util/auth";
 
 //context
 import AuthContext from "../store/auth-context";

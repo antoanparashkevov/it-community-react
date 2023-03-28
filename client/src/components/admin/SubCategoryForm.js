@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from './SubCategoryForm.module.scss'
-import { useActionData, useNavigation } from "react-router-dom";
+import { useNavigation } from "react-router-dom";
 
 //hooks
 import useInput from "../../hooks/use-input";

@@ -1,4 +1,4 @@
-import { json, redirect, useSubmit } from "react-router-dom";
+import { json, redirect } from "react-router-dom";
 import { getAuthToken } from "./auth";
 
 const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';

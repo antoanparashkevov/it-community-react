@@ -1,9 +1,9 @@
 export default function useFormatDate (date, dateFormat) {
-    let formattedDate = ''
+    let formattedDate;
     
-    let year = '';
-    let month = '';
-    let day = '';
+    let year;
+    let month;
+    let day;
     
     year = date.split('-')[2];
     month = date.split('-')[1];
