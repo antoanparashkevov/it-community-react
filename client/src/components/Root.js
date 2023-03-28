@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { Outlet, useSubmit } from 'react-router-dom'
 import styled from "styled-components";
 
-//Components
+//components
 import TheHeader from "./layout/TheHeader";
 import Footer from "./layout/Footer";
-import { calculateExpirationDate, getAuthToken } from "../util/auth";
-import styles from "./pages/applying/Board.module.css";
+import { calculateExpirationDate, getAuthData, getAuthToken } from "../util/auth";
+
+//context
+import AuthContext from "../store/auth-context";
 
 export const HeaderWrapper = styled.header`
     width: 100%;
@@ -44,6 +46,8 @@ const LinearGradient = styled.div`
 
 const RootLayout = () => {
     const token = getAuthToken()
+    const userData = getAuthData()
+    
     const submit = useSubmit();
     
     
@@ -73,7 +77,15 @@ const RootLayout = () => {
     }, [token, submit])
     
     return (
-        <React.Fragment>
+        <AuthContext.Provider 
+            value={
+                {
+                    userData : userData,
+                    token: token,
+                    isLoggedIn: !!token,
+                }
+            }
+        >
             <HeaderWrapper>
                 <TheHeader/>
             </HeaderWrapper>
@@ -89,7 +101,7 @@ const RootLayout = () => {
             <FooterWrapper>
                 <Footer/>
             </FooterWrapper>
-        </React.Fragment>
+        </AuthContext.Provider>
     )
 }
 

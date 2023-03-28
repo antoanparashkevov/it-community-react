@@ -1,5 +1,5 @@
 import styles from './Messages.module.scss';
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 
 //components
@@ -14,20 +14,22 @@ import useHttp from "../../../hooks/use-http";
 import BaseDialog from "../../UI/BaseDialog";
 import BaseSpinner from "../../UI/BaseSpinner";
 
+//context
+import AuthContext from "../../../store/auth-context";
+
 const Messages = () => {
     const [messages, setMessages] = useState([])
     
-    const { isLoading, error, resetError, sendRequest } = useHttp()
+    const authData = useContext(AuthContext);
     
-    const user = useRouteLoaderData('root');
-    //TODO use defer
+    const { isLoading, error, resetError, sendRequest } = useHttp()
     
     useEffect( () => {
         fetchMessages()
-    }, [user]);
+    }, []);
     
     const fetchMessages = async () => {
-      await sendRequest(`/applicationData/applications/${user.userData._id}`, 'GET', handleResponse);
+      await sendRequest(`/applicationData/applications/${authData.userData.userId}`, 'GET', handleResponse);
     }
     
     const handleResponse = (data) => {
@@ -35,26 +37,34 @@ const Messages = () => {
     }
     
     return (
-        <React.Fragment>
-            {error &&
-                <BaseDialog fixed={false} show={!!error} title='Something went wrong with the authentication process' onCloseDialog={resetError}>
-                    {error}
-                </BaseDialog>
+        <AuthContext.Consumer>
+            {
+                (ctx) => {
+                    return (
+                        <React.Fragment>
+                            {error &&
+                                <BaseDialog fixed={false} show={!!error} title='Something went wrong with the authentication process' onCloseDialog={resetError}>
+                                    {error}
+                                </BaseDialog>
+                            }
+                            {isLoading && <BaseSpinner />}
+                            <section className={styles['messages_container']}>
+                                <BaseCard className={styles['messages_wrapper']}>
+                                    <h1 className={styles['messages_title']}>Incoming messages</h1>
+                                    <SeparationLine />
+                                    <ul role='list' className={styles['messages_list']}>
+                                        { messages && messages.length > 0 && messages.map((m, index) => {
+                                            return <MessageItem message={ m } key={ index }/>
+                                        }) }
+                                        { messages && messages.length === 0 && <h1>You don't have any messages!</h1> }
+                                    </ul>
+                                </BaseCard>
+                            </section>
+                        </React.Fragment>
+                    )
+                }
             }
-            {isLoading && <BaseSpinner />}
-            <section className={styles['messages_container']}>
-                <BaseCard className={styles['messages_wrapper']}>
-                    <h1 className={styles['messages_title']}>Incoming messages</h1>
-                    <SeparationLine />
-                    <ul role='list' className={styles['messages_list']}>
-                        { messages && messages.length > 0 && messages.map((m, index) => {
-                            return <MessageItem message={ m } key={ index }/>
-                        }) }
-                        { messages && messages.length === 0 && <h1>You don't have any messages!</h1> }
-                    </ul>
-                </BaseCard>
-            </section>
-        </React.Fragment>
+        </AuthContext.Consumer>
        
     )
 }
