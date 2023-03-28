@@ -10,6 +10,7 @@ import { calculateExpirationDate, getAuthData, getAuthToken } from "../util/auth
 //context
 import AuthContext from "../store/auth-context";
 import loader from "../util/loader";
+import BaseSpinnerAlt from "./UI/BaseSpinnerAlt";
 
 export const HeaderWrapper = styled.header`
     width: 100%;
@@ -78,7 +79,7 @@ const RootLayout = () => {
     }, [token, submit])
     
     return (
-        <Suspense fallback={<p>Loading....</p>}>
+        <Suspense fallback={<BaseSpinnerAlt />}>
             <Await resolve={authData}>
                 {
                     (authData) => (

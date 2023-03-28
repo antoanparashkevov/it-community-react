@@ -36,8 +36,6 @@ const TheHeader = () => {
     
     const authData = useContext(AuthContext);
     
-    console.log('authData', authData)
-    
     const [adminNavigation, setAdminNavigation] = useState(false)
 
     const toggleNavbar = () => {

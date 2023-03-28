@@ -15,6 +15,7 @@ import { DeleteButton } from "../../UI/BaseButton";
 //hooks
 import useHttp from "../../../hooks/use-http";
 import loader from "../../../util/loader";
+import BaseSpinnerAlt from "../../UI/BaseSpinnerAlt";
 
 //guard
 
@@ -48,8 +49,7 @@ const Profile = () => {
     
     return (
         <React.Fragment>
-            { navigation.state === 'loading' && <BaseSpinner />}
-            {/*TODO change the spinner*/}
+            { navigation.state === 'loading' && <BaseSpinnerAlt />}
             { isLoading && <BaseSpinner /> }
             { error && 
                 <BaseDialog 
@@ -73,7 +73,7 @@ const Profile = () => {
                     This action cannot be undone!
                 </BaseDialog>
             }
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<BaseSpinnerAlt />}>
                 <Await resolve={profileData}>
                     {
                         (profileData) => (
