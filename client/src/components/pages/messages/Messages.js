@@ -51,6 +51,7 @@ const Messages = () => {
                                 <BaseCard className={styles['messages_wrapper']}>
                                     <h1 className={styles['messages_title']}>Incoming messages</h1>
                                     <SeparationLine />
+                                    {/*TODO show the corresponding post*/}
                                     <ul role='list' className={styles['messages_list']}>
                                         { messages && messages.length > 0 && messages.map((m, index) => {
                                             return <MessageItem message={ m } key={ index }/>
