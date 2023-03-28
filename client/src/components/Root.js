@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from "react";
-import { Await, defer, Outlet, useRouteLoaderData, useSubmit } from 'react-router-dom'
+import { Await, defer, Outlet, useNavigation, useRouteLoaderData, useSubmit } from 'react-router-dom'
 import styled from "styled-components";
 
 //components
@@ -49,6 +49,7 @@ const LinearGradient = styled.div`
 const RootLayout = () => {
     const token = getAuthToken()
     const { authData } = useRouteLoaderData('root');
+    const navigation = useNavigation();
     
     const submit = useSubmit();
     
@@ -96,6 +97,7 @@ const RootLayout = () => {
                                 <TheHeader/>
                             </HeaderWrapper>
 
+                            { navigation.state === 'loading' ? <BaseSpinnerAlt /> : null }
                             <MainWrapper>
                                 {
                                     window.location.pathname === '/' &&

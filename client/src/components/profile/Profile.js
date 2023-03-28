@@ -3,19 +3,19 @@ import { useRouteLoaderData, Outlet, defer, Await, redirect, useNavigation } fro
 import styles from './Profile.module.scss';
 
 //components
-import JobItem from "../../applying/JobItem";
+import JobItem from "../applying/JobItem";
 
 //UI components
-import { BaseCard } from "../../UI/BaseCard";
-import SeparationLine from "../../UI/SeparationLine";
-import BaseDialog from "../../UI/BaseDialog";
-import BaseSpinner from "../../UI/BaseSpinner";
-import { DeleteButton } from "../../UI/BaseButton";
+import { BaseCard } from "../UI/BaseCard";
+import SeparationLine from "../UI/SeparationLine";
+import BaseDialog from "../UI/BaseDialog";
+import BaseSpinner from "../UI/BaseSpinner";
+import { DeleteButton } from "../UI/BaseButton";
 
 //hooks
-import useHttp from "../../../hooks/use-http";
-import loader from "../../../util/loader";
-import BaseSpinnerAlt from "../../UI/BaseSpinnerAlt";
+import useHttp from "../../hooks/use-http";
+import loader from "../../util/loader";
+import BaseSpinnerAlt from "../UI/BaseSpinnerAlt";
 
 //guard
 

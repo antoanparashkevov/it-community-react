@@ -8,7 +8,7 @@ import Board from "../components/pages/applying/Board";
 import JobsList from "../components/pages/applying/JobsList";
 import JobDetails, { jobDetailsDefer } from "../components/pages/applying/JobDetails";
 import Applying from "../components/pages/applying/Applying";
-import Profile, { profileDefer } from "../components/pages/profile/Profile";
+import Profile, { profileDefer } from "../components/profile/Profile";
 import Messages from "../components/pages/messages/Messages";
 import UserAuth from "../components/pages/auth/UserAuth";
 import CreateJob from "../components/pages/applying/CreateJob";
@@ -27,7 +27,6 @@ import { action as logoutAction } from '../components/pages/auth/Logout'
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
 import { formatCategoryData } from '../components/layout/filters/CategoriesFilter';
 import { formatJobEditData } from "../components/pages/profile/EditJob";
-import { getAuthToken } from "./auth";
 import userGuard from "./userGuard";
 
 //create a relation between the routes and the components,

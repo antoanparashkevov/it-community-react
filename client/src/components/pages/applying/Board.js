@@ -15,12 +15,10 @@ import { RoundedLink } from "../../UI/BaseLinks";
 import { getAuthToken } from "../../../util/auth";
 import BoardSkeletonLoading from "../../applying/skeletons/BoardSkeletonLoading";
 import { useNavigation } from "react-router-dom";
-import BaseSpinnerAlt from "../../UI/BaseSpinnerAlt";
 
 const Board = () => {
     const [categories, setCategories] = useState([])
     const {isLoading, error, sendRequest: fetchCategories, resetError} = useHttp()
-    const navigation = useNavigation();
     
     useEffect(() => {
         fetchData()
@@ -44,7 +42,6 @@ const Board = () => {
                     ) :
                     (
                         <section className={styles['homepage_main']}>
-                            { navigation.state === 'loading' ? <BaseSpinnerAlt /> : null }
                             <div className={styles['show_all_btn_wrapper']}>
                                 <RoundedLink
                                     to={'posters?page=1'}
