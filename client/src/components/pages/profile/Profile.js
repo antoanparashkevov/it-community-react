@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useRouteLoaderData, Outlet } from "react-router-dom";
+import React, { useState, Suspense } from "react";
+import { useRouteLoaderData, Outlet, defer, Await } from "react-router-dom";
 import styles from './Profile.module.scss';
 
 //components
@@ -14,18 +14,16 @@ import { DeleteButton } from "../../UI/BaseButton";
 
 //hooks
 import useHttp from "../../../hooks/use-http";
+import loader from "../../../util/loader";
 
 
 const Profile = () => {
-    const profileInfo = useRouteLoaderData('profile-info');
-    //TODO use defer
+    const { profileData } = useRouteLoaderData('profile-info');
+    
     const { isLoading, error, resetError, sendRequest } = useHttp();
     
     const [tryingToDelete, setTryingToDelete] = useState(false);
     const [jobId, setJobId] = useState(null);
-    
-    const userData = profileInfo.userData;
-    const jobs = profileInfo.jobs;
     
     const deleteAction = async (data) => {
         if( data === true && jobId ) {
@@ -69,43 +67,51 @@ const Profile = () => {
                     This action cannot be undone!
                 </BaseDialog>
             }
-            <section className={`${styles['profile_root']} container`}>
-                <BaseCard>
-                    <div className={styles['profile_info_container']}>
-                        <div className={styles['profile_info_wrapper']}>
-                            <div className={styles['profile_info_company_name']}>
-                                <h2><em>Welcome, { userData.companyName }</em></h2>
-                            </div>
-                            <div className={styles['profile_info_desc']}>
-                                <h3>Email: <i>{ userData.email }</i></h3>
-                                <h3>Foundation Year: <i>{ userData.foundationYear }</i></h3>
-                                <h3>Employees: <i>{ userData.employees }</i></h3>
-                                <p><strong>Company description:</strong><i> { userData.desc } </i></p>
-                            </div>
-                        </div>
-                        <SeparationLine degrees='90deg' max-width='100px' className={styles['separation_line']}/>
-                        <div className={styles['profile_info_image']}>
-                            <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
-                        </div>
-                    </div>
-                </BaseCard>
-                <BaseCard style={ { padding: '1.5rem'} }>
-                    <div className={styles['profile_list_jobs_container']}>
-                        { jobs && jobs.length > 0 && jobs.map( (job, index) => (
-                            <JobItem 
-                                key={index} 
-                                job={job} 
-                                hideCompanyLogoWidth={750} 
-                                editURL={`${job._id}/edit`}
-                            >
-                                    <DeleteButton className={styles['job_actions_delete']} onClick={(e) => tryToDelete(e, job._id)}>Delete</DeleteButton>
-                            </JobItem>
-                        ))}
-                        { jobs && jobs.length === 0 && <h1>You don't have any jobs! Create one now!</h1> }
-                    </div>
-                    <Outlet />
-                </BaseCard>
-            </section>
+            <Suspense fallback={<p>Loading...</p>}>
+                <Await resolve={profileData}>
+                    {
+                        (profileData) => (
+                            <section className={`${styles['profile_root']} container`}>
+                                <BaseCard>
+                                    <div className={styles['profile_info_container']}>
+                                        <div className={styles['profile_info_wrapper']}>
+                                            <div className={styles['profile_info_company_name']}>
+                                                <h2><em>Welcome, { profileData['userData'].companyName }</em></h2>
+                                            </div>
+                                            <div className={styles['profile_info_desc']}>
+                                                <h3>Email: <i>{ profileData['userData'].email }</i></h3>
+                                                <h3>Foundation Year: <i>{ profileData['userData'].foundationYear }</i></h3>
+                                                <h3>Employees: <i>{ profileData['userData'].employees }</i></h3>
+                                                <p><strong>Company description:</strong><i> { profileData['userData'].desc } </i></p>
+                                            </div>
+                                        </div>
+                                        <SeparationLine degrees='90deg' max-width='100px' className={styles['separation_line']}/>
+                                        <div className={styles['profile_info_image']}>
+                                            <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
+                                        </div>
+                                    </div>
+                                </BaseCard>
+                                <BaseCard style={ { padding: '1.5rem'} }>
+                                    <div className={styles['profile_list_jobs_container']}>
+                                        { profileData['jobs'] && profileData['jobs'].length > 0 && profileData['jobs'].map( (job, index) => (
+                                            <JobItem
+                                                key={index}
+                                                job={job}
+                                                hideCompanyLogoWidth={750}
+                                                editURL={`${job._id}/edit`}
+                                            >
+                                                <DeleteButton className={styles['job_actions_delete']} onClick={(e) => tryToDelete(e, job._id)}>Delete</DeleteButton>
+                                            </JobItem>
+                                        ))}
+                                        { profileData['jobs'] && profileData['jobs'].length === 0 && <h1>You don't have any jobs! Create one now!</h1> }
+                                    </div>
+                                    <Outlet />
+                                </BaseCard>
+                            </section>
+                        )
+                    }
+                </Await>
+            </Suspense>
         </React.Fragment>
     )
 }
@@ -114,4 +120,14 @@ export default Profile;
 
 export const formatProfileData = (data) => {
     return data;
+}
+
+async function profileLoader () {
+    return loader('/profileData/userInfo', formatProfileData, ['company'])
+}
+
+export function profileDefer() {
+    return defer({
+        profileData: profileLoader()//profileLoader() will return Promise which we will resolve with async/await in the Profile component
+    })
 }

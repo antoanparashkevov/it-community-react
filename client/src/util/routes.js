@@ -6,9 +6,9 @@ import RootLayout from "../components/Root";
 import ErrorPage from "../components/pages/Error";
 import Board from "../components/pages/applying/Board";
 import JobsList from "../components/pages/applying/JobsList";
-import JobDetails from "../components/pages/applying/JobDetails";
+import JobDetails, { jobDetailsDefer } from "../components/pages/applying/JobDetails";
 import Applying from "../components/pages/applying/Applying";
-import Profile from "../components/pages/profile/Profile";
+import Profile, { profileDefer } from "../components/pages/profile/Profile";
 import Messages from "../components/pages/messages/Messages";
 import UserAuth from "../components/pages/auth/UserAuth";
 import CreateJob from "../components/pages/applying/CreateJob";
@@ -59,7 +59,7 @@ export const routes = createBrowserRouter([
                     {
                         path: ':posterId',
                         id: 'poster-details',
-                        loader: ({request, params}) => loader('/jobData/jobs/' + params['posterId'], formatJobDetailsData),
+                        loader: ({request, params}) => jobDetailsDefer(params),
                         children: [
                             {
                                 index: true,
@@ -83,7 +83,7 @@ export const routes = createBrowserRouter([
             {
                 path: 'profile',
                 id: 'profile-info',
-                loader: ( { request, params } ) => loader('/profileData/userInfo', formatProfileData, ['company']),
+                loader: ( { request, params } ) => profileDefer(),
                 element: <Profile/>,
                 children: [
                     {

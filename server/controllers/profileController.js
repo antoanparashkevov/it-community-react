@@ -7,7 +7,10 @@ const router = require('express').Router()
 router.get('/userInfo', hasUser(), hasRole(), async (req,res)=> {
     try{
         const jobs = await getJobRegistration(req.user._id)
-        res.json({ userData: req.user, jobs })
+        setTimeout(()=> {
+            res.json({ userData: req.user, jobs })
+            
+        }, 4000)
     }catch (err) {
         const message = parseError(err)
         res.status(400).json({message})
