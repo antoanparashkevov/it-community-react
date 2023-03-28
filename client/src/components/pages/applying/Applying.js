@@ -1,5 +1,5 @@
 import { Await, useRouteLoaderData } from "react-router-dom";
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import styles from './Applying.module.css'
 
 //components

@@ -1,6 +1,5 @@
 import styles from './Messages.module.scss';
 import React, { useContext, useEffect, useState } from "react";
-import { useRouteLoaderData } from "react-router-dom";
 
 //components
 import MessageItem from "../../messages/MessageItem";

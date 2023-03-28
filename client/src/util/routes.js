@@ -85,6 +85,7 @@ export const routes = createBrowserRouter([
                 path: 'profile',
                 id: 'profile-info',
                 loader: ( { request, params } ) => profileDefer(),
+                //todo company guard
                 element: <Profile/>,
                 children: [
                     {

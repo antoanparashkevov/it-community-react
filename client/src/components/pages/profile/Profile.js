@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, Suspense, useEffect } from "react";
 import { useRouteLoaderData, Outlet, defer, Await, redirect } from "react-router-dom";
 import styles from './Profile.module.scss';
 
@@ -17,7 +17,6 @@ import useHttp from "../../../hooks/use-http";
 import loader from "../../../util/loader";
 
 //guard
-import companyGuard from "../../../util/companyGuard";
 
 
 const Profile = () => {
@@ -126,17 +125,11 @@ export const formatProfileData = (data) => {
 }
 
 async function profileLoader () {
-    return loader('/profileData/userInfo', formatProfileData, ['company'])
+    return loader('/profileData/userInfo', formatProfileData)
 }
 
 export async function profileDefer() {
-    
-    const response = await companyGuard();
-    
-    if( response === 'passed' ) {
         return defer({
             profileData: profileLoader()//profileLoader() will return Promise which we will resolve with async/await in the Profile component
         })
-    } return redirect('/auth')
-    
 }
