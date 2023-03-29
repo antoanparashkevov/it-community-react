@@ -5,12 +5,13 @@ import styled from "styled-components";
 //components
 import TheHeader from "./layout/TheHeader";
 import Footer from "./layout/Footer";
-import { calculateExpirationDate, getAuthToken } from "../util/auth";
+import { calculateExpirationDate } from "../util/auth";
 
 //context
 import AuthContext from "../store/auth-context";
-import loader from "../util/loader";
-import BaseSpinnerAlt from "./UI/BaseSpinnerAlt";
+
+//hooks
+import useAuth from "../hooks/use-auth";
 
 export const HeaderWrapper = styled.header`
     width: 100%;
@@ -47,19 +48,15 @@ const LinearGradient = styled.div`
 `
 
 const RootLayout = () => {
-    const token = getAuthToken()
-    const { authData } = useRouteLoaderData('root');
-    const navigation = useNavigation();
-    
     const submit = useSubmit();
-    
+    const authData = useAuth();
     
     useEffect(() => {
-        if( !token ) {//it should be null if you are not authenticated.
+        if( !authData.token ) {//it should be null if you are not authenticated.
             return;
         }
         
-        if ( token === 'EXPIRED' ) {
+        if ( authData.token === 'EXPIRED' ) {
             submit(null, {
                 action: '/logout',
                 method: 'POST'
@@ -77,50 +74,35 @@ const RootLayout = () => {
             }, tokenDuration)//1h
         }
         
-    }, [token, submit])
+    }, [authData.token, submit])
     
     return (
-        <Suspense fallback={<BaseSpinnerAlt />}>
-            <Await resolve={authData}>
+        <AuthContext.Provider
+            value={
                 {
-                    (authData) => (
-                        <AuthContext.Provider
-                            value={
-                                {
-                                    userData : authData['userData'],
-                                    token: token,
-                                    isLoggedIn: !!token,
-                                }
-                            }
-                        >
-                            <HeaderWrapper>
-                                <TheHeader/>
-                            </HeaderWrapper>
-
-                            { navigation.state === 'loading' ? <BaseSpinnerAlt /> : null }
-                            <MainWrapper>
-                                {
-                                    window.location.pathname === '/' &&
-                                    <LinearGradient />
-                                }
-                                <Outlet  />
-                            </MainWrapper>
-
-                            <FooterWrapper>
-                                <Footer/>
-                            </FooterWrapper>
-                        </AuthContext.Provider>
-                    )
+                    userData : authData['userData'],
+                    token: authData.token,
+                    isLoggedIn: !!authData.token,
                 }
-            </Await>
-        </Suspense>
+            }
+        >
+            <HeaderWrapper>
+                <TheHeader/>
+            </HeaderWrapper>
+    
+            <MainWrapper>
+                {
+                    window.location.pathname === '/' &&
+                    <LinearGradient />
+                }
+                <Outlet  />
+            </MainWrapper>
+    
+            <FooterWrapper>
+                <Footer/>
+            </FooterWrapper>
+        </AuthContext.Provider>
     )
 }
 
 export default RootLayout;
-
-export function authDefer() {
-    return defer({
-        authData: loader('/userData', data => data)
-    })
-}

@@ -2,10 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import React from "react";
 
 //components
-import RootLayout, { authDefer } from "../components/Root";
+import RootLayout from "../components/Root";
 import ErrorPage from "../components/pages/Error";
 import Board from "../components/pages/applying/Board";
-import JobsList from "../components/pages/applying/JobsList";
+import JobsList, { categoriesDefer } from "../components/pages/applying/JobsList";
 import JobDetails, { jobDetailsDefer } from "../components/pages/applying/JobDetails";
 import Applying from "../components/pages/applying/Applying";
 import Profile, { profileDefer } from "../components/profile/Profile";
@@ -25,7 +25,6 @@ import action from "./action";
 import { action as logoutAction } from '../components/pages/auth/Logout'
 
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
-import { formatCategoryData } from '../components/layout/filters/CategoriesFilter';
 import userGuard from "./userGuard";
 
 //create a relation between the routes and the components,
@@ -36,8 +35,6 @@ export const routes = createBrowserRouter([
         path: '/',
         element: <RootLayout/>,
         errorElement: <ErrorPage/>,//this route will be triggered whenever a loader throws an Error or when a user visits wrong URL
-        id: 'root',
-        loader: () => authDefer(),
         children: [
             {
                 // or path: ''
@@ -46,11 +43,11 @@ export const routes = createBrowserRouter([
             },
             {
                 path: 'posters',
-                id: 'posters',
                 children: [
                     {
                         index: true,
-                        loader: () => loader('/categoryData/categories', formatCategoryData),
+                        id: 'jobs-list',
+                        loader: () => categoriesDefer(),
                         element: <JobsList/>,
                     },
                     {

@@ -1,4 +1,5 @@
 import { json, redirect } from "react-router-dom";
+import jwtDecode from 'jwt-decode';
 import { getAuthToken } from "./auth";
 
 const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';
@@ -15,7 +16,14 @@ const loader = async (url, formatData, userType) => {
         headers: {}
     }
 
+    let authData = null;
     if ( token ) {
+        authData = {
+            userData: {
+                ...jwtDecode(token),
+                hasData: true,
+            }
+        }
         options.headers['X-Authorization'] = token;
     }
     
@@ -23,16 +31,13 @@ const loader = async (url, formatData, userType) => {
         
         if ( userType.includes('company') ) {
 
-            if ( token ) {
-                const response = await fetch(host + '/userData', options)
+            if ( authData && token ) {
 
-                const data = await response.json();
-
-                if( data.userData.hasData === false ) {
+                if( authData.userData.hasData === false ) {
                     return redirect('/auth')
                 }
 
-                if (data.userData.hasData && data.userData.roles.includes('company') === false) {
+                if (authData.userData.hasData && authData.userData.roles.includes('company') === false) {
                     return redirect('/auth')
                 }
             } else {
@@ -42,16 +47,13 @@ const loader = async (url, formatData, userType) => {
 
         if( userType.includes('admin') ) {
             
-            if( token ) {
-                const response = await fetch(host + '/userData', options)
+            if( authData && token ) {
 
-                const data = await response.json();
-
-                if( data.userData.hasData === false ){
+                if( authData.userData.hasData === false ){
                     return redirect('/auth')
                 }
 
-                if (data.userData.hasData && data.userData.roles.includes('admin') === false) {
+                if (authData.userData.hasData && authData.userData.roles.includes('admin') === false) {
                     return redirect('/auth')
                 }
             } else {
