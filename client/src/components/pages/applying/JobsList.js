@@ -1,5 +1,5 @@
 import styles from './JobsList.module.css'
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 //hooks
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
@@ -17,7 +17,10 @@ import JobListSkeletonLoading from "../../applying/skeletons/JobListSkeletonLoad
 import { OutlineButton } from "../../UI/BaseButton";
 
 import Pagination from "../../applying/Pagination";
-import { useSearchParams } from "react-router-dom";
+import { Await, defer, useRouteLoaderData, useSearchParams } from "react-router-dom";
+import BaseSpinnerAlt from "../../UI/BaseSpinnerAlt";
+import CategoryContext from "../../../store/category-context";
+import loader from "../../../util/loader";
 
 const JobsList = () => {
     const { width: windowWidth } = useWindowDimensions()
@@ -25,6 +28,7 @@ const JobsList = () => {
     
     const [queryParams, setQueryParams] = useSearchParams();
     const [showFilterSection, setShowFilterSection] = useState(false)
+    const { categories } = useRouteLoaderData('jobs-list');
     
     useEffect( () => {
         window.scroll( { top: 100, behavior: 'smooth' } )
@@ -172,41 +176,77 @@ const JobsList = () => {
         .filter(salaryFilter)
     
     return (
-        <section className={`${styles['posters_container']} container`}>
-            <BaseCard hide={ windowWidth <= 744 && showFilterSection === false } className={`${styles['aside_wrapper']} ${showFilterSection && windowWidth <= 744 ? styles['aside_wrapper_full'] : ''}`}>
-                <Sidebar onSaveFiltersData={onFilterDataHandler} fullScreen={showFilterSection && windowWidth <= 744 } onCloseSidebar={() => setShowFilterSection(false)}/>
-            </BaseCard>
-            {
-                windowWidth <= 744 &&
-                <OutlineButton className={styles['posters_filter_btn']} onClick={() => setShowFilterSection(true)}>
-                    Filters
-                    <svg xmlns="http://www.w3.org/2000/svg" width="11.627" height="10.565" viewBox="0 0 11.627 10.565">
-                        <path id="Icon_feather-filter" data-name="Icon feather-filter" d="M13.627,4.5H3L7.251,9.527V13l2.125,1.063V9.527Z" transform="translate(-2.5 -4)" fill="none" stroke="#374ffe" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                    </svg>
-                </OutlineButton>
-            }
-            {error && <BaseDialog show={!!error} onCloseDialog={resetError} fixed={false} title='An error occurred during fetching the jobs!'>{error}</BaseDialog>}
-            {isLoading ?
-                (
-                    <JobListSkeletonLoading />
-                ) :
-                (
-                    <div className={styles['posters_list_wrapper']}>
-                        { jobsLength > 0 ?
-                            filteredJobs
-                                .slice(indexOfFirstJob, indexOfLastJob)
-                                .map((job, index) => (
-                                    <JobItem key={ index } job={ job }/>
-                                )) : <NoDataAvailable title='No Data Available' />
-                        }
-                        {
-                            jobsLength > 0 && <Pagination totalJobs={jobsLength} jobsPerPage={jobsPerPage} onHandleCurrentPage={changeCurrentPage} />
-                        }
-                    </div>
-                )
-            }
-        </section>
+        <Suspense fallback={<BaseSpinnerAlt />}>
+            <section className={`${styles['posters_container']} container`}>
+                <Await resolve={categories}>
+                    {
+                        (categories) => (
+                            <CategoryContext.Provider
+                                value={{
+                                    categories : categories,
+                                    hasData : categories.length > 0
+                                }}
+                            >
+                                <BaseCard hide={ windowWidth <= 744 && showFilterSection === false } className={`${styles['aside_wrapper']} ${showFilterSection && windowWidth <= 744 ? styles['aside_wrapper_full'] : ''}`}>
+                                    <Sidebar onSaveFiltersData={onFilterDataHandler} fullScreen={showFilterSection && windowWidth <= 744 } onCloseSidebar={() => setShowFilterSection(false)}/>
+                                </BaseCard>
+                                {
+                                    windowWidth <= 744 &&
+                                    <OutlineButton className={styles['posters_filter_btn']} onClick={() => setShowFilterSection(true)}>
+                                        Filters
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11.627" height="10.565" viewBox="0 0 11.627 10.565">
+                                            <path id="Icon_feather-filter" data-name="Icon feather-filter" d="M13.627,4.5H3L7.251,9.527V13l2.125,1.063V9.527Z" transform="translate(-2.5 -4)" fill="none" stroke="#374ffe" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                                        </svg>
+                                    </OutlineButton>
+                                }
+                            </CategoryContext.Provider>
+                        )
+                    }
+                </Await>
+                
+                {error && <BaseDialog show={!!error} onCloseDialog={resetError} fixed={false} title='An error occurred during fetching the jobs!'>{error}</BaseDialog>}
+                {isLoading ?
+                    (
+                        <JobListSkeletonLoading />
+                    ) :
+                    (
+                        <div className={styles['posters_list_wrapper']}>
+                            { jobsLength > 0 ?
+                                filteredJobs
+                                    .slice(indexOfFirstJob, indexOfLastJob)
+                                    .map((job, index) => (
+                                        <JobItem key={ index } job={ job }/>
+                                    )) : <NoDataAvailable title='No Data Available' />
+                            }
+                            {
+                                jobsLength > 0 && <Pagination totalJobs={jobsLength} jobsPerPage={jobsPerPage} onHandleCurrentPage={changeCurrentPage} />
+                            }
+                        </div>
+                    )
+                }
+                </section>
+        </Suspense>
     )
 }
 
 export default JobsList;
+
+const formatCategoryData = (data) => {
+    return data.items.map( c => {
+        return {
+            id: c.code,
+            title: c.title,
+            type: 'categories',
+        }
+    })
+}
+
+async function categoriesLoader() {
+    return loader('/categoryData/categories', formatCategoryData)
+}
+
+export function categoriesDefer() {
+    return defer({
+        categories: categoriesLoader()
+    })
+}

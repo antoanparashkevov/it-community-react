@@ -10,11 +10,13 @@ import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 //context
 import { useContext } from "react";
 import FilterContext from "../../../store/filter-context";
-import { useLoaderData } from "react-router-dom";
+import CategoryContext from "../../../store/category-context";
 
 const CategoriesFilter = ({onSaveCriteria, fullScreen}) => {
     let filterCtx = useContext(FilterContext)
-    const [fetchedCategories, setFetchedCategories] = useState(useLoaderData());
+    let categoryCtx = useContext(CategoryContext)
+    
+    const [fetchedCategories, setFetchedCategories] = useState(categoryCtx.categories);
     
     const [isExpanded, setIsExpanded] = useState(true)
     
@@ -83,12 +85,3 @@ const CategoriesFilter = ({onSaveCriteria, fullScreen}) => {
 
 export default CategoriesFilter
 
-export const formatCategoryData = (data) => {
-    return data.items.map( c => {
-        return {
-            id: c.code,
-            title: c.title,
-            type: 'categories',
-        }
-    })
-}
