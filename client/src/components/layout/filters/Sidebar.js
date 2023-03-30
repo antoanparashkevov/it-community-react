@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styles from './Sidebar.module.css'
 
 //import UI components
