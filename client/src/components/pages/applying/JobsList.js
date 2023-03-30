@@ -17,12 +17,13 @@ import NoDataAvailable from "../../UI/NoDataAvailable";
 import BaseDialog from "../../UI/BaseDialog";
 import JobListSkeletonLoading from "../../applying/skeletons/JobListSkeletonLoading";
 import { OutlineButton } from "../../UI/BaseButton";
-import BaseSpinnerAlt from "../../UI/BaseSpinnerAlt";
 
 //context
-import CategoryContext from "../../../store/category-context";
+import FilterContext from "../../../store/filter-context";
 
 const JobsList = () => {
+    let isByDefaultFiltersChecked = true;
+    
     const { width: windowWidth } = useWindowDimensions();
     const { isLoading, error, resetError, sendRequest } = useHttp();
     
@@ -194,10 +195,11 @@ const JobsList = () => {
                             <JobListSkeletonLoading />
                         ) :
                         (
-                            <CategoryContext.Provider
+                            <FilterContext.Provider
                                 value={{
                                     categories : categories,
-                                    hasData : categories.length > 0
+                                    hasData : categories.length > 0,
+                                    isChecked : isByDefaultFiltersChecked
                                 }}
                             >
                                 <section className={`${styles['posters_container']} container`}>
@@ -226,7 +228,7 @@ const JobsList = () => {
                                         }
                                     </div>
                                 </section>
-                            </CategoryContext.Provider>
+                            </FilterContext.Provider>
                         )
                 }
             </React.Fragment>

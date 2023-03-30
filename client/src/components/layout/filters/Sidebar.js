@@ -1,5 +1,6 @@
-import styles from './Sidebar.module.css'
 import React, { useEffect, useReducer } from "react";
+import { useSearchParams } from "react-router-dom";
+import styles from './Sidebar.module.css'
 
 //import UI components
 import SeparationLine from "../../UI/SeparationLine";
@@ -10,10 +11,6 @@ import CategoryFilter from "./CategoryFilter";
 import SeniorityFilter from "./SeniorityFilter";
 import SalaryFilter from "./SalaryFilter";
 import WorkTypeFilter from "./WorkTypeFilter";
-
-//context
-import FilterContext from "../../../store/filter-context";
-import { useSearchParams } from "react-router-dom";
 
 //can be created outside the scope of this component function. It does not need to interact with anything inside the component function.
 const filterDataReducer = (state, action) => {
@@ -50,8 +47,6 @@ const filterDataReducer = (state, action) => {
 }
 
 const Sidebar = ({onSaveFiltersData, onCloseSidebar, fullScreen}) => {
-    let isByDefaultChecked = true;
-    
     const [queryParams] = useSearchParams();
     
     const [filterData, dispatchFilterData] = useReducer(filterDataReducer, {
@@ -95,9 +90,6 @@ const Sidebar = ({onSaveFiltersData, onCloseSidebar, fullScreen}) => {
     }, [filterData])
     
    return (
-       <FilterContext.Provider value={{
-           isChecked : isByDefaultChecked
-       }}>
        <aside className={`${styles['sidebar']} ${fullScreen ? styles['sidebar_full'] : ''}`}>
            { fullScreen &&
                <div className={styles['close_bar_btn_wrapper']} onClick={() => onCloseSidebar()}>
@@ -120,7 +112,6 @@ const Sidebar = ({onSaveFiltersData, onCloseSidebar, fullScreen}) => {
             <SeparationLine/>
             <SalaryFilter onSaveCriteria={getSalaryCriteria} fullScreen={fullScreen} />
        </aside>
-       </FilterContext.Provider>
    )
 }
 

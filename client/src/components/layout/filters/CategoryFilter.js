@@ -9,12 +9,12 @@ import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 
 //context
 import { useContext } from "react";
-import CategoryContext from "../../../store/category-context";
+import FilterContext from "../../../store/filter-context";
 
 const CategoryFilter = ({onSaveCriteria, fullScreen}) => {
-    let categoryCtx = useContext(CategoryContext)
+    let filterCtx = useContext(FilterContext)
 
-    const [fetchedCategories, setFetchedCategories] = useState(categoryCtx.categories);
+    const [fetchedCategories, setFetchedCategories] = useState(filterCtx.categories);
     
     const [isExpanded, setIsExpanded] = useState(true)
     
@@ -58,7 +58,7 @@ const CategoryFilter = ({onSaveCriteria, fullScreen}) => {
                             key={i} 
                         >
                             <Label for='frontend'>{ c.title }</Label>
-                            <CustomCheckbox isChecked={c.isChecked} value={c.id} name={c.type} id={c.id} onTriggerCheckbox={checkboxHandler} />
+                            <CustomCheckbox isChecked={filterCtx.isChecked} value={c.id} name={c.type} id={c.id} onTriggerCheckbox={checkboxHandler} />
                         </div>
                     )
                 })}

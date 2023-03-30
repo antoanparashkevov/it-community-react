@@ -9,13 +9,13 @@ import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 
 //context
 import { useContext } from "react";
-import filterContext from "../../../store/filter-context";
+import FilterContext from "../../../store/filter-context";
 
 //data
 import { WorkTypeFilterData } from "../../../data/WorkTypeFilterData";
 
 const WorkTypeFilter = ({ onSaveCriteria, fullScreen }) => {
-    let filterCtx = useContext(filterContext)
+    let filterCtx = useContext(FilterContext)
     const [isExpanded, setIsExpanded] = useState(true)
     const [workTypeFilter, setWorkTypeFilter] = useState(WorkTypeFilterData);
     
