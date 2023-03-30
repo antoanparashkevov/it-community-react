@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import styles from './Sidebar.module.css'
 
 //import UI components
@@ -47,7 +47,7 @@ const filterDataReducer = (state, action) => {
 }
 
 const Sidebar = ({onSaveFiltersData, onCloseSidebar, fullScreen}) => {
-    const [queryParams] = useSearchParams();
+    const location = useLocation();
     
     const [filterData, dispatchFilterData] = useReducer(filterDataReducer, {
         categories: [],
@@ -100,7 +100,11 @@ const Sidebar = ({onSaveFiltersData, onCloseSidebar, fullScreen}) => {
                </div>
            }
             <CategoryFilter onSaveCriteria={getCategoriesCriteria} fullScreen={fullScreen} />
-            <SeparationLine/>
+           {
+               location.search.includes('?category=') === false ?
+                    <SeparationLine/> :
+                    null
+           }
             <SeniorityFilter onSaveCriteria={getSeniorityCriteria} fullScreen={fullScreen} />
             <SeparationLine/>
             <WorkTypeFilter onSaveCriteria={getWorkTypeCriteria} fullScreen={fullScreen} />
