@@ -99,13 +99,8 @@ const Sidebar = ({onSaveFiltersData, onCloseSidebar, fullScreen}) => {
                    </div>
                </div>
            }
-           { 
-               !queryParams.get('category') &&
-               <React.Fragment>
-                   <CategoryFilter onSaveCriteria={getCategoriesCriteria} fullScreen={fullScreen} />
-                   <SeparationLine/>
-               </React.Fragment>
-           }
+            <CategoryFilter onSaveCriteria={getCategoriesCriteria} fullScreen={fullScreen} />
+            <SeparationLine/>
             <SeniorityFilter onSaveCriteria={getSeniorityCriteria} fullScreen={fullScreen} />
             <SeparationLine/>
             <WorkTypeFilter onSaveCriteria={getWorkTypeCriteria} fullScreen={fullScreen} />

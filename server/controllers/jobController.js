@@ -16,20 +16,22 @@ router.get('/jobs', async (req,res) => {
     let items = []
     let categories = []
     try {
+        categories = await getAllCategories();
         if( req.query && req.query.where ) {
             let categoryCode = req.query.where.split('=')[1]
             items = await getByCategory(categoryCode);
         } else {
-            categories = await getAllCategories();
             items = await getAll();
         }
         const user = getUserData(req.user, req.token)
 
-        res.json({
-            user,
-            jobs: items,
-            categories: categories
-        })
+        setTimeout(()=>{
+            res.json({
+                user,
+                jobs: items,
+                categories: categories
+            })
+        }, 3000)
 
     } catch ( err ) {
         const message = parseError(err);

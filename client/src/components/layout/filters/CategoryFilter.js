@@ -10,9 +10,11 @@ import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 //context
 import { useContext } from "react";
 import FilterContext from "../../../store/filter-context";
+import { useLocation } from "react-router-dom";
 
 const CategoryFilter = ({onSaveCriteria, fullScreen}) => {
     let filterCtx = useContext(FilterContext)
+    const location = useLocation();
 
     const [fetchedCategories, setFetchedCategories] = useState(filterCtx.categories);
     
@@ -41,7 +43,7 @@ const CategoryFilter = ({onSaveCriteria, fullScreen}) => {
     }, [ fetchedCategories ])
     
     return (
-        <FilterContentWrapper className={`${fullScreen ? styles['categories_wrapper_full'] : ''}`}>
+        <FilterContentWrapper style={{display: `${location.search.includes('?category=') ? 'none' : 'block'}`}} className={`${fullScreen ? styles['categories_wrapper_full'] : ''}`}>
             <StyledFilterHeaderIconWrapper 
                 title={'Selected Categories'} 
                 onExpanded={checkIsExpanded} 

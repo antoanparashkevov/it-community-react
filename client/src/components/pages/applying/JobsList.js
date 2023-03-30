@@ -78,7 +78,7 @@ const JobsList = () => {
         } else {
             sendRequest('/jobData/jobs', 'GET', transformJobData)
         }
-    }, [])
+    }, [queryParams.get('category')])
     
     useEffect(() => {
         // validation for the page query param
