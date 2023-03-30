@@ -6,7 +6,7 @@ import SeparationLine from "../../UI/SeparationLine";
 import { CloseBar } from "../TheHeader";
 
 //import filter components
-import CategoriesFilter from "./CategoriesFilter";
+import CategoryFilter from "./CategoryFilter";
 import SeniorityFilter from "./SeniorityFilter";
 import SalaryFilter from "./SalaryFilter";
 import WorkTypeFilter from "./WorkTypeFilter";
@@ -110,7 +110,7 @@ const Sidebar = ({onSaveFiltersData, onCloseSidebar, fullScreen}) => {
            { 
                !queryParams.get('category') &&
                <React.Fragment>
-                   <CategoriesFilter onSaveCriteria={getCategoriesCriteria} fullScreen={fullScreen} />
+                   <CategoryFilter onSaveCriteria={getCategoriesCriteria} fullScreen={fullScreen} />
                    <SeparationLine/>
                </React.Fragment>
            }

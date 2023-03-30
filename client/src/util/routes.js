@@ -5,7 +5,7 @@ import React from "react";
 import RootLayout from "../components/Root";
 import ErrorPage from "../components/pages/Error";
 import Board from "../components/pages/applying/Board";
-import JobsList, { categoriesDefer } from "../components/pages/applying/JobsList";
+import JobsList from "../components/pages/applying/JobsList";
 import JobDetails, { jobDetailsDefer } from "../components/pages/applying/JobDetails";
 import Applying from "../components/pages/applying/Applying";
 import Profile, { profileDefer } from "../components/profile/Profile";
@@ -46,8 +46,6 @@ export const routes = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        id: 'jobs-list',
-                        loader: () => categoriesDefer(),
                         element: <JobsList/>,
                     },
                     {

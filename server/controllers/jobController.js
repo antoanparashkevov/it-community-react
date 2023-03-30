@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { getAll, create, getById, update: updateJob, deleteById, getByCategory } = require("../services/jobService");
 const { getByCode: getSubCategoryByCode } = require('../services/subCategoryService');
-const { getByCode: getCategoryByCode } = require("../services/categoryService");
+const { getAll: getAllCategories, getByCode: getCategoryByCode } = require("../services/categoryService");
 
 //utils
 const parseError = require('../util/parseError')
@@ -14,11 +14,13 @@ const setCookie = require("../util/setCookie");
 
 router.get('/jobs', async (req,res) => {
     let items = []
+    let categories = []
     try {
         if( req.query && req.query.where ) {
             let categoryCode = req.query.where.split('=')[1]
             items = await getByCategory(categoryCode);
         } else {
+            categories = await getAllCategories();
             items = await getAll();
         }
         const user = getUserData(req.user, req.token)
@@ -26,6 +28,7 @@ router.get('/jobs', async (req,res) => {
         res.json({
             user,
             jobs: items,
+            categories: categories
         })
 
     } catch ( err ) {

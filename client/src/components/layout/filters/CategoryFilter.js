@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from './CategoriesFilter.module.css'
+import styles from './CategoryFilter.module.css'
 
 //import UI components
 import CustomCheckbox from "../../UI/CustomCheckbox";
@@ -9,30 +9,14 @@ import { StyledFilterHeaderIconWrapper } from "./FilterHeaderIconWrapper";
 
 //context
 import { useContext } from "react";
-import FilterContext from "../../../store/filter-context";
 import CategoryContext from "../../../store/category-context";
 
-const CategoriesFilter = ({onSaveCriteria, fullScreen}) => {
-    let filterCtx = useContext(FilterContext)
+const CategoryFilter = ({onSaveCriteria, fullScreen}) => {
     let categoryCtx = useContext(CategoryContext)
-    
+
     const [fetchedCategories, setFetchedCategories] = useState(categoryCtx.categories);
     
     const [isExpanded, setIsExpanded] = useState(true)
-    
-    useEffect( () => {
-        setFetchedCategories((prevState) => {
-            prevState = prevState.map(c => {
-                return {
-                    ...c,
-                    isChecked: filterCtx.isChecked
-                }
-            })
-            return prevState;
-        })
-        
-    }, [])
-    
     
     const checkIsExpanded = (data) =>{
         setIsExpanded(data);
@@ -74,7 +58,7 @@ const CategoriesFilter = ({onSaveCriteria, fullScreen}) => {
                             key={i} 
                         >
                             <Label for='frontend'>{ c.title }</Label>
-                            <CustomCheckbox isChecked={filterCtx.isChecked} value={c.id} name={c.type} id={c.id} onTriggerCheckbox={checkboxHandler} />
+                            <CustomCheckbox isChecked={c.isChecked} value={c.id} name={c.type} id={c.id} onTriggerCheckbox={checkboxHandler} />
                         </div>
                     )
                 })}
@@ -83,5 +67,5 @@ const CategoriesFilter = ({onSaveCriteria, fullScreen}) => {
     )
 }
 
-export default CategoriesFilter
+export default CategoryFilter
 
