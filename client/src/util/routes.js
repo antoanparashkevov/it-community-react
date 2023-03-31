@@ -25,7 +25,6 @@ import action from "./action";
 import { action as logoutAction } from '../components/pages/auth/Logout'
 
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
-import userGuard from "./userGuard";
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
@@ -63,7 +62,6 @@ export const routes = createBrowserRouter([
                                 children: [
                                     {
                                         path: 'apply',
-                                        loader: ( ) => userGuard(),
                                         element: <Applying/>
                                     }
                                 ]
