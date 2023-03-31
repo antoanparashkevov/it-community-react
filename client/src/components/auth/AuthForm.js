@@ -1,6 +1,6 @@
 import styles from './AuthForm.module.scss';
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 //UI components
 import { Input } from "../layout/Input";
@@ -22,6 +22,7 @@ const AuthForm = ( { authMode } ) => {
     
     const { isLoading, error, resetError, setAdditionalErrors, sendRequest } = useHttp();
     const navigate = useNavigate();
+    const location = useLocation();
     
     const {
         value : enteredEmail,
@@ -67,7 +68,14 @@ const AuthForm = ( { authMode } ) => {
            handleAuthentication(authResponse.email, authResponse._id, authResponse.accessToken)
            resetPasswordInput();
            resetEmailInput();
-           navigate('/')
+           
+           console.log('location >>>', location)
+           if( location.state?.from ) {
+               navigate(location.state.from)
+           } else {
+                navigate('/')
+           }
+           
        }
     }
     

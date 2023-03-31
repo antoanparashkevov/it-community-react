@@ -9,7 +9,7 @@ import Label from "../UI/Label";
 //hooks
 import useInput from "../../hooks/use-input";
 import { TextArea } from "../UI/TextArea";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useHttp from "../../hooks/use-http";
 import BaseDialog from "../UI/BaseDialog";
 import BaseSpinner from "../UI/BaseSpinner";
@@ -22,6 +22,7 @@ const CompanyForm = ( { authMode } ) => {
     
     const { isLoading, error, resetError, setAdditionalErrors, sendRequest: postRequest } = useHttp();
     const navigate = useNavigate();
+    const location = useLocation();
     
     const {
         value : enteredEmail,
@@ -171,7 +172,13 @@ const CompanyForm = ( { authMode } ) => {
             resetLogoInput();
             resetFoundationYearInput();
             resetEmployeesInput();
-            navigate('/')
+
+            console.log('location >>>', location)
+            if( location.state?.from ) {
+                navigate(location.state.from)
+            } else {
+                navigate('/')
+            }
         }
       
     }
