@@ -14,6 +14,7 @@ import useHttp from "../../hooks/use-http";
 import BaseDialog from "../UI/BaseDialog";
 import BaseSpinner from "../UI/BaseSpinner";
 import { handleAuthentication } from "../../util/auth";
+import axios from "axios";
 
 const CompanyForm = ( { authMode } ) => {
     let formIsValid;
@@ -59,6 +60,15 @@ const CompanyForm = ( { authMode } ) => {
     } = useInput(value => value.trim() !== '' && value.trim().length >= 40 && value.trim().length <= 70);
     
     const {
+        value: logoInputValue,
+        isValid : logoInputIsValid,
+        hasError : logoInputHasError,
+        reset : resetLogoInput,
+        logoChangeHandler,
+        inputBlurHandler : logoBlurHandler
+    } = useInput(value => value && Object.getPrototypeOf(value));
+    
+    const {
         value : enteredFoundationYear,
         isValid : foundationYearInputIsValid,
         hasError : foundationYearInputHasError,
@@ -99,7 +109,7 @@ const CompanyForm = ( { authMode } ) => {
     } = useInput( value => !isNaN(value) && Number(value) >= 1 );
     
     if( authMode === 'signup') {
-        formIsValid = emailInputIsValid && passwordInputIsValid && companyNameInputIsValid && descriptionInputIsValid && foundationYearInputIsValid && employeesInputIsValid
+        formIsValid = emailInputIsValid && passwordInputIsValid && companyNameInputIsValid && descriptionInputIsValid && foundationYearInputIsValid && employeesInputIsValid && logoInputIsValid
     } else if ( authMode === 'login' ) {
         formIsValid = emailInputIsValid && passwordInputIsValid
     }
@@ -112,26 +122,54 @@ const CompanyForm = ( { authMode } ) => {
             a http req is sent to the server to the same address
         */
         event.preventDefault();
-
-        if(authMode !== 'login' || authMode !== 'signup') {
-            setAdditionalErrors('Invalid authentication mode!')
-        }
-
+        
+        const data = new FormData();//simple Javascript class instance
+        
+        data.append('email', enteredEmail)
+        data.append('password', enteredPassword)
+        data.append('companyName', enteredCompanyName)
+        data.append('desc', enteredDescription)
+        data.append('employees', enteredEmployees)
+        data.append('foundationYear', Number(enteredFoundationYear.split('-')[0]))
+        data.append('logo', logoInputValue)
+        
         // console.log('email >>> ', enteredEmail);
         // console.log('password >>> ', enteredPassword);
         // console.log('companyName >>> ', enteredCompanyName);
         // console.log('description >>> ', enteredDescription);
+        // console.log('logoData >>> ', logoInputValue);
         // console.log('foundationYear >>> ', enteredFoundationYear);
         // console.log('employees >>> ', enteredEmployees);
         
-        await authRequest();
-
-        if( typeof error !== 'undefined' && error === null) { 
+        if( authMode === 'signup' ) {
+            axios.post(`http://localhost:3030/authData/${authMode}_company`, data).then(res => {
+                handleAuthentication(res.data.email, res.data._id, res.data.accessToken)
+                resetEmailInput();
+                resetPasswordInput();
+                resetCompanyNameInput();
+                resetDescriptionInput();
+                resetLogoInput();
+                resetFoundationYearInput();
+                resetEmployeesInput();
+                navigate('/')
+            }).catch(err => {
+                console.log('err', err);
+                setAdditionalErrors(err.response.data.message)
+            })
+            
+        } else if ( authMode === 'login' ) {
+             await authRequest();
+        } else {
+            setAdditionalErrors('Invalid authentication mode!')
+        }
+        
+        if( typeof error !== 'undefined' && error === null && authMode === 'login' ) { 
             handleAuthentication(authResponse.email, authResponse._id, authResponse.accessToken)
             resetEmailInput();
             resetPasswordInput();
             resetCompanyNameInput();
             resetDescriptionInput();
+            resetLogoInput();
             resetFoundationYearInput();
             resetEmployeesInput();
             navigate('/')
@@ -142,25 +180,13 @@ const CompanyForm = ( { authMode } ) => {
    
 
     const authRequest = async () => {
-        let fieldsToPost;
         
-        if( authMode === 'login' ) {
-            fieldsToPost = {
-                email: enteredEmail,
-                password: enteredPassword,
-            }
-        } else if ( authMode === 'signup' ) {
-            fieldsToPost = {
-                email: enteredEmail,
-                password: enteredPassword,
-                companyName: enteredCompanyName,
-                desc: enteredDescription,
-                employees: Number(enteredEmployees),
-                foundationYear: Number(enteredFoundationYear.split('-')[0])
-            }
+        let fieldsToPost = {
+            email: enteredEmail,
+            password: enteredPassword,
         }
         
-        await postRequest(`/authData/${authMode}_company` , 'POST', (data) => authResponse = data, {
+        await postRequest(`/authData/login_company` , 'POST', (data) => authResponse = data, {
            ...fieldsToPost
         })
 
@@ -182,7 +208,7 @@ const CompanyForm = ( { authMode } ) => {
                 </BaseDialog>
             }
             {isLoading && <BaseSpinner />}
-            <form className={ styles['apply_company_form'] } onSubmit={ formSubmissionHandler }>
+            <form className={ styles['apply_company_form'] }>
                 <div className={ formControlClasses(emailInputHasError) }>
 
                     {emailInputHasError && <p>Please enter a valid non-empty name!</p>}
@@ -235,6 +261,21 @@ const CompanyForm = ( { authMode } ) => {
                                 value={ enteredDescription }
                             />
                         </div>
+
+                        <div className={ formControlClasses(logoInputHasError) }>
+
+                            {logoInputHasError && <p>Please select one image!</p>}
+                            <Label for="logo">CompanyLogo*</Label>
+                            <Input
+                                id='logo'
+                                name='logo'
+                                typeCat='file'
+                                accept=".png, .jpg, .jpeg"
+                                onChange={ logoChangeHandler }
+                                onBlur={ logoBlurHandler }
+                            />
+                        </div>
+                        
                         <div className={ formControlClasses(employeesInputHasError) }>
 
                             {employeesInputHasError && <p>The Employees field must contain a non-negative value</p>}
@@ -267,7 +308,7 @@ const CompanyForm = ( { authMode } ) => {
                     <Button
                         className={ styles['form-main-btn'] }
                         disabled={ !formIsValid }
-                        type='submit'
+                        onClick={formSubmissionHandler}
                     >
                         { submitButtonCaption }
                     </Button>
