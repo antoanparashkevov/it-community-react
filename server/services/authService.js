@@ -63,7 +63,7 @@ async function registerAsCompany(email,password, companyName, desc, employees, f
         employees,
         roles: ['user', 'company']
     });
-    console.log('response', createToken(user, 'company'))
+
     return createToken(user, 'company')
 }
 

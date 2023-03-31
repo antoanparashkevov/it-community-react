@@ -17,8 +17,7 @@ router.post('/signup_company',
     body('email').isEmail().withMessage('Invalid email'),
     body('password').isLength({min: 6}).withMessage('Password must be at least 6 characters long!'),
     async (req,res) => {
-        console.log('req.file', req.file)
-        console.log('req.body', req.body)
+
         await authAction(req,res,'register_company',400)
 })
 

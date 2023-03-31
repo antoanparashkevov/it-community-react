@@ -153,7 +153,6 @@ const CompanyForm = ( { authMode } ) => {
                 resetEmployeesInput();
                 navigate('/')
             }).catch(err => {
-                console.log('err', err);
                 setAdditionalErrors(err.response.data.message)
             })
             
