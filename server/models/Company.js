@@ -38,7 +38,10 @@ const companySchema = new Schema({
         type: [String],
         required: true
     },
-//     TODO add image for each company
+    logo: {
+        type: String,
+        required: true
+    }
 })
 
 companySchema.index({email: 1}/*asc order*/, {
