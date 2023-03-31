@@ -19,7 +19,7 @@ export const calculateExpirationDate = () => {
     let expirationDate = new Date(storedExpirationDate);
     let now = new Date();
     
-    return expirationDate.getTime() - now.getTime();//returns a timestamp in milliseconds
+    return expirationDate.getTime() - now.getTime();//returns the timestamp in milliseconds
 }
 
 export function handleAuthentication(email, id, token) {

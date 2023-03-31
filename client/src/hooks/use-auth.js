@@ -4,7 +4,7 @@ import jwtDecode from 'jwt-decode';
 const useAuth = () => {
     const token = getAuthToken();
     
-    if ( token ) {
+    if ( token && token !== 'EXPIRED' ) {
         const decodedPayload = jwtDecode(token);
         
         return {

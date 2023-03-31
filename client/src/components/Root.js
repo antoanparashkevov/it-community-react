@@ -5,7 +5,7 @@ import styled from "styled-components";
 //components
 import TheHeader from "./layout/TheHeader";
 import Footer from "./layout/Footer";
-import { calculateExpirationDate } from "../util/auth";
+import { calculateExpirationDate, getAuthToken } from "../util/auth";
 
 //context
 import AuthContext from "../store/auth-context";
@@ -50,13 +50,14 @@ const LinearGradient = styled.div`
 const RootLayout = () => {
     const submit = useSubmit();
     const authData = useAuth();
+    let token = getAuthToken();
     
     useEffect(() => {
-        if( !authData.token ) {//it should be null if you are not authenticated.
+        if( !token ) {//it should be null if you are not authenticated.
             return;
         }
         
-        if ( authData.token === 'EXPIRED' ) {
+        if ( token === 'EXPIRED' ) {
             submit(null, {
                 action: '/logout',
                 method: 'POST'
@@ -74,7 +75,7 @@ const RootLayout = () => {
             }, tokenDuration)//1h
         }
         
-    }, [authData.token, submit])
+    }, [token, submit])
     
     return (
         <AuthContext.Provider
