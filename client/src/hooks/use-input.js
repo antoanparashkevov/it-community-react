@@ -11,7 +11,11 @@ const useInput = (validateInputHandler, initialValue) => {
     const valueChangeHandler = (event) => {
         setInputValue(event.target.value);
     }
-
+    
+    const logoChangeHandler = (event) => {
+        setInputValue(event.target.files[0]);
+    }
+    
     const inputBlurHandler = () => {
         setIsTouched(true);
     }
@@ -32,6 +36,7 @@ const useInput = (validateInputHandler, initialValue) => {
         hasError,
         reset,
         valueChangeHandler,
+        logoChangeHandler,
         inputBlurHandler
     }
 }
