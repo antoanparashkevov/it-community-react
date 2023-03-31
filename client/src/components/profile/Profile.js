@@ -93,7 +93,7 @@ const Profile = () => {
                                         </div>
                                         <SeparationLine degrees='90deg' max-width='100px' className={styles['separation_line']}/>
                                         <div className={styles['profile_info_image']}>
-                                            <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
+                                            <img src={profileData['userData'].logo ? profileData['userData'].logo : 'https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png'} alt="Company Logo"/>
                                         </div>
                                     </div>
                                 </BaseCard>
