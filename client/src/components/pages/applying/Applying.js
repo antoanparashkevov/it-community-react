@@ -1,4 +1,4 @@
-import { Await, useRouteLoaderData } from "react-router-dom";
+import { Await, Navigate, useLocation, useRouteLoaderData } from "react-router-dom";
 import React, { Suspense } from "react";
 import styles from './Applying.module.css'
 
@@ -8,9 +8,16 @@ import ApplyForm from "../../applying/ApplyForm";
 //UI components
 import { BaseCard } from "../../UI/BaseCard";
 import SeparationLine from "../../UI/SeparationLine";
+import { getAuthToken } from "../../../util/auth";
 
 const Applying = () => {
     const { jobDetailsData } = useRouteLoaderData('poster-details')
+    const location = useLocation();
+    let token = getAuthToken();
+    
+    if(!token) {
+        return <Navigate to='/auth?mode=login' replace state={ {from: location} } relative />
+    }
     
     return (
         <Suspense fallback={<p>Loading...</p>}>
