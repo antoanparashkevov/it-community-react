@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 require('dotenv').config();//this will read .env file and paste everything inside the process.env object
 
@@ -39,10 +40,14 @@ async function start() {
     }
 
     app.use(cookieParser());
-    app.use(express.json());
+    app.use(bodyParser.json())
+    app.use(bodyParser.urlencoded({
+        extended: false
+    }))
     app.use(cors());
     app.use(trimBody());
     app.use(session());
+    app.use('/uploads', express.static('uploads'));//access this folder publicly 
     
     app.get('/', (req,res)=>{
        res.json({
