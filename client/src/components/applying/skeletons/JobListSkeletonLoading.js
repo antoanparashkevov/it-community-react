@@ -5,6 +5,7 @@ const JobListSkeletonLoading = ( {rows} ) => {
     
     return (
         <div className={styles['posters_list_skeleton_loading_root']}>
+            <div className={styles['sidebar_skeleton_loading_container']}></div>
             <div className={styles['posters_list_skeleton_loading_container']}>
                     {
                         defaultRows.map(n => {
