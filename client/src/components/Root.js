@@ -1,5 +1,5 @@
-import React, { Suspense, useEffect } from "react";
-import { Await, defer, Outlet, useNavigation, useRouteLoaderData, useSubmit } from 'react-router-dom'
+import React, { useEffect } from "react";
+import { Outlet, useSubmit } from 'react-router-dom'
 import styled from "styled-components";
 
 //components
@@ -36,7 +36,7 @@ export const FooterWrapper = styled.footer`
 const LinearGradient = styled.div`
     position: absolute;
     top: 0;
-    width: 100vw;
+    width: 100%;
     height: 100%;
     background-image: linear-gradient(
             90deg,

@@ -1,6 +1,6 @@
-import styles from './UserNavigationHeader.module.scss';
 import React, { useContext } from "react";
 import { Form } from 'react-router-dom';
+import styles from './UserNavigationHeader.module.scss';
 
 //UI components
 import { NavigationLink, NavigationLinkAsButton } from "../UI/BaseLinks";

@@ -1,13 +1,17 @@
-import ReactDOM from "react-dom";
 import React, { Suspense, useState } from "react";
+import ReactDOM from "react-dom";
+import { Await, defer, useNavigate, useRouteLoaderData } from "react-router-dom";
 import styles from './EditJob.module.scss';
 
 //UI components
 import { Backdrop } from "../../UI/BaseDialog";
 import JobForm from "../../applying/JobForm";
-import { Await, defer, useNavigate, useRouteLoaderData } from "react-router-dom";
+
+//loader
 import loader from "../../../util/loader";
-import BaseSpinnerAlt from "../../UI/BaseSpinnerAlt";
+
+//layouts
+import Fallback from "../../layout/Fallback";
 
 const EditJob = () => {
     const navigate = useNavigate();
@@ -25,7 +29,8 @@ const EditJob = () => {
     }
     
     return (
-        <Suspense fallback={<BaseSpinnerAlt />}>
+        <Suspense fallback={<Fallback />}>
+            <div style={ { width: '100%', height: '100vh'} }></div>
             <Await resolve={job}>
                 {
                     (job) => (

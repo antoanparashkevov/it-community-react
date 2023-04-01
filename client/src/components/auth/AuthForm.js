@@ -69,8 +69,7 @@ const AuthForm = ( { authMode } ) => {
            resetPasswordInput();
            resetEmailInput();
            
-           console.log('location >>>', location)
-           if( location.state?.from ) {
+           if( location.state?.from ) {//navigate to the last visited link
                navigate(location.state.from)
            } else {
                 navigate('/')
@@ -95,12 +94,13 @@ const AuthForm = ( { authMode } ) => {
     
     return (
         <React.Fragment>
-            {error && 
+            {error ? 
                 <BaseDialog fixed={false} show={!!error} title='Something went wrong with the authentication process' onCloseDialog={resetError}>
                     {error}
-                </BaseDialog>
+                </BaseDialog> :
+                null
             }
-            {isLoading && <BaseSpinner />}
+            { isLoading && <BaseSpinner /> }
             <form className={ styles['apply_form'] } onSubmit={ formSubmissionHandler }>
                 <div className={ formControlClasses(emailInputHasError) }>
 
@@ -137,6 +137,7 @@ const AuthForm = ( { authMode } ) => {
                     >
                         { submitButtonCaption }
                     </Button>
+                    
                     <OutlineButton
                         className={ styles['form-second-btn'] }
                         type='button'

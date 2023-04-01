@@ -30,7 +30,7 @@ const JobForm = ({ job, className, isImported, onCloseEditForm }) => {
     const navigate = useNavigate();
     const { width: windowWidth } = useWindowDimensions();
     
-    let resp = null;
+    let jobResponse = null;
     
     let isDefaultCheckboxChecked = true;
     let formIsValid;
@@ -266,7 +266,7 @@ const JobForm = ({ job, className, isImported, onCloseEditForm }) => {
         }
         
         //clearing the form
-        if( !error && resp ) {
+        if( !error && jobResponse ) {
             resetJobNameInput();
             resetSalaryInput();
             resetDescInput();
@@ -275,7 +275,7 @@ const JobForm = ({ job, className, isImported, onCloseEditForm }) => {
             if ( isImported ) {
                 navigate('/profile');
             } else {
-                navigate('/posters/' + resp._id);
+                navigate('/posters/' + jobResponse._id);
             }
         }
         
@@ -286,7 +286,7 @@ const JobForm = ({ job, className, isImported, onCloseEditForm }) => {
         let selectedSubCategoriesObjectIds = subCategoryCheckbox.filter( s => s.isChecked).map( s => s.object_id )
         let selectedWorkTypes = workTypeCheckbox.filter( w_type => w_type.isChecked).map( w_type => w_type.id.charAt(0).toUpperCase() + w_type.id.slice(1))
         
-        await sendRequest(`/jobData/jobs${isImported ? `/${job._id}` : ''}`,isImported ? 'PUT' : 'POST', (data) => resp = data, {
+        await sendRequest(`/jobData/jobs${isImported ? `/${job._id}` : ''}`,isImported ? 'PUT' : 'POST', (data) => jobResponse = data, {
             jobName: enteredJobName,
             workType: selectedWorkTypes,
             categoryCode: selectedCategoryType.code,

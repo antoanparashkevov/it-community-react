@@ -10,6 +10,9 @@ import { BaseCard } from "../../UI/BaseCard";
 import SeparationLine from "../../UI/SeparationLine";
 import { getAuthToken } from "../../../util/auth";
 
+//layouts
+import Fallback from "../../layout/Fallback";
+
 const Applying = () => {
     const { jobDetailsData } = useRouteLoaderData('poster-details')
     const location = useLocation();
@@ -20,7 +23,7 @@ const Applying = () => {
     }
     
     return (
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<Fallback />}>
             <Await resolve={jobDetailsData}>
                 {
                     (data) => (

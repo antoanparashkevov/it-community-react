@@ -50,7 +50,7 @@ const UserAuth = () => {
                 <span style={ { fontWeight: switchToCompany ? '700' : 'normal'} }>As a company</span>
                 <BaseSlider onTriggerSlider={switchMode} isChecked={switchToCompany} />
             </div>
-            {form}
+            { form }
         </FormPageContent>
     )
 }

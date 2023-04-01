@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import BaseSpinner from "../../UI/BaseSpinner";
 
 const CreateSubCategory = () => {
-    const { categories } = useLoaderData()
+    const { categories } = useLoaderData();
     
     return (
        <Suspense fallback={<BaseSpinner />}>

@@ -33,7 +33,20 @@ const Board = () => {
     
     return (
         <React.Fragment>
-            {error && <BaseDialog show={!!error} onCloseDialog={resetError} fixed={false} title={getAuthToken() === 'EXPIRED' ? 'Your session expired!' : 'Something went wrong with fetching the Categories!'}>{ getAuthToken() === 'EXPIRED' ? 'Reload the page and sign in again' : error }</BaseDialog>}
+            {error ?
+                <BaseDialog 
+                    show={!!error} 
+                    onCloseDialog={resetError} 
+                    fixed={false} 
+                    title={
+                        getAuthToken() === 'EXPIRED' ?
+                            'Your session expired!' :
+                            'Something went wrong with fetching the Categories!'
+                    }>
+                    { getAuthToken() === 'EXPIRED' ? 'Reload the page and sign in again' : error }
+                </BaseDialog> :
+                null
+            }
             {
                 isLoading ?
                     (

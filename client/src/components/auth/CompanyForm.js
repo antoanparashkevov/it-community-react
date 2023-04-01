@@ -152,7 +152,13 @@ const CompanyForm = ( { authMode } ) => {
                 resetLogoInput();
                 resetFoundationYearInput();
                 resetEmployeesInput();
-                navigate('/')
+                
+                if( location.state?.from ) {
+                    navigate(location.state.from)
+                } else {
+                    navigate('/')
+                }
+                
             }).catch(err => {
                 setAdditionalErrors(err.response.data.message)
             })
@@ -173,14 +179,12 @@ const CompanyForm = ( { authMode } ) => {
             resetFoundationYearInput();
             resetEmployeesInput();
 
-            console.log('location >>>', location)
             if( location.state?.from ) {
                 navigate(location.state.from)
             } else {
                 navigate('/')
             }
         }
-      
     }
 
    

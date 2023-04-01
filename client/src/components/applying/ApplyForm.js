@@ -111,12 +111,13 @@ const ApplyForm = ( { initialEmailValue, companyId }) => {
     
     return (
         <React.Fragment>
-            { error &&
+            { error ?
                 <BaseDialog fixed={false} show={!!error} title='Something went wrong with sending your message!' onCloseDialog={resetError}>
                     {error}
-                </BaseDialog>
+                </BaseDialog> :
+                null
             }
-            {isLoading && <BaseSpinner />}
+            { isLoading && <BaseSpinner /> }
             <form onSubmit={ formSubmissionHandler } className={ styles['apply_form'] }>
                 <div className={ formControlClasses(nameInputHasError) }>
 

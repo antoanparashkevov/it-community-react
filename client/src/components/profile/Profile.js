@@ -19,6 +19,10 @@ import BaseSpinnerAlt from "../UI/BaseSpinnerAlt";
 
 //guard
 
+//layout
+import Fallback from "../layout/Fallback";
+
+
 
 const Profile = () => {
     const { profileData } = useRouteLoaderData('profile-info');
@@ -51,7 +55,7 @@ const Profile = () => {
         <React.Fragment>
             { navigation.state === 'loading' && <BaseSpinnerAlt />}
             { isLoading && <BaseSpinner /> }
-            { error && 
+            { error ? 
                 <BaseDialog 
                     show={!!error} 
                     onCloseDialog={resetError} 
@@ -59,7 +63,8 @@ const Profile = () => {
                     fixed={false}
                 >
                     {error}
-                </BaseDialog>
+                </BaseDialog> : 
+                null
             }
             { tryingToDelete && 
                 <BaseDialog 
@@ -73,50 +78,52 @@ const Profile = () => {
                     This action cannot be undone!
                 </BaseDialog>
             }
-            <Suspense fallback={<BaseSpinnerAlt />}>
-                <Await resolve={profileData}>
-                    {
-                        (profileData) => (
-                            <section className={`${styles['profile_root']} container`}>
-                                <BaseCard>
-                                    <div className={styles['profile_info_container']}>
-                                        <div className={styles['profile_info_wrapper']}>
-                                            <div className={styles['profile_info_company_name']}>
-                                                <h2><em>Welcome, { profileData['userData'].companyName }</em></h2>
+            <Suspense fallback={<Fallback />}>
+                <section className={`${styles['profile_root']} container`}>
+                        <Await resolve={profileData}>
+                            {
+                                (profileData) => (
+                                    <React.Fragment>
+                                        <BaseCard>
+                                            <div className={styles['profile_info_container']}>
+                                                <div className={styles['profile_info_wrapper']}>
+                                                    <div className={styles['profile_info_company_name']}>
+                                                        <h2><em>Welcome, { profileData['userData'].companyName }</em></h2>
+                                                    </div>
+                                                    <div className={styles['profile_info_desc']}>
+                                                        <h3>Email: <i>{ profileData['userData'].email }</i></h3>
+                                                        <h3>Foundation Year: <i>{ profileData['userData'].foundationYear }</i></h3>
+                                                        <h3>Employees: <i>{ profileData['userData'].employees }</i></h3>
+                                                        <p><strong>Company description:</strong><i> { profileData['userData'].desc } </i></p>
+                                                    </div>
+                                                </div>
+                                                <SeparationLine degrees='90deg' max-width='100px' className={styles['separation_line']}/>
+                                                <div className={styles['profile_info_image']}>
+                                                    <img src={profileData['userData'].logo ? profileData['userData'].logo : 'https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png'} alt="Company Logo"/>
+                                                </div>
                                             </div>
-                                            <div className={styles['profile_info_desc']}>
-                                                <h3>Email: <i>{ profileData['userData'].email }</i></h3>
-                                                <h3>Foundation Year: <i>{ profileData['userData'].foundationYear }</i></h3>
-                                                <h3>Employees: <i>{ profileData['userData'].employees }</i></h3>
-                                                <p><strong>Company description:</strong><i> { profileData['userData'].desc } </i></p>
+                                        </BaseCard>
+                                        <BaseCard style={ { padding: '1.5rem'} }>
+                                            <div className={styles['profile_list_jobs_container']}>
+                                                { profileData['jobs'] && profileData['jobs'].length > 0 && profileData['jobs'].map( (job, index) => (
+                                                    <JobItem
+                                                        key={index}
+                                                        job={job}
+                                                        hideCompanyLogoWidth={750}
+                                                        editURL={`${job._id}/edit`}
+                                                    >
+                                                        <DeleteButton className={styles['job_actions_delete']} onClick={(e) => tryToDelete(e, job._id)}>Delete</DeleteButton>
+                                                    </JobItem>
+                                                ))}
+                                                { profileData['jobs'] && profileData['jobs'].length === 0 && <h1>You don't have any jobs! Create one now!</h1> }
                                             </div>
-                                        </div>
-                                        <SeparationLine degrees='90deg' max-width='100px' className={styles['separation_line']}/>
-                                        <div className={styles['profile_info_image']}>
-                                            <img src={profileData['userData'].logo ? profileData['userData'].logo : 'https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png'} alt="Company Logo"/>
-                                        </div>
-                                    </div>
-                                </BaseCard>
-                                <BaseCard style={ { padding: '1.5rem'} }>
-                                    <div className={styles['profile_list_jobs_container']}>
-                                        { profileData['jobs'] && profileData['jobs'].length > 0 && profileData['jobs'].map( (job, index) => (
-                                            <JobItem
-                                                key={index}
-                                                job={job}
-                                                hideCompanyLogoWidth={750}
-                                                editURL={`${job._id}/edit`}
-                                            >
-                                                <DeleteButton className={styles['job_actions_delete']} onClick={(e) => tryToDelete(e, job._id)}>Delete</DeleteButton>
-                                            </JobItem>
-                                        ))}
-                                        { profileData['jobs'] && profileData['jobs'].length === 0 && <h1>You don't have any jobs! Create one now!</h1> }
-                                    </div>
-                                    <Outlet />
-                                </BaseCard>
-                            </section>
-                        )
-                    }
-                </Await>
+                                        </BaseCard>
+                                    </React.Fragment>
+                                )
+                            }
+                        </Await>
+                    <Outlet />
+            </section>
             </Suspense>
         </React.Fragment>
     )

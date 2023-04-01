@@ -4,6 +4,7 @@ const MessageItem = ({message}) => {
     const emailLink = () => {
         return 'mailto:' + message.email
     }
+    
     return (
         <li className={styles['message_item']}>
             <header className={styles['message_header']}>

@@ -8,15 +8,16 @@ import useHttp from "../../../hooks/use-http";
 
 //components
 import Sidebar from "../../layout/filters/Sidebar";
-import { BaseCard } from "../../UI/BaseCard";
 import JobItem from "../../applying/JobItem";
 import Pagination from "../../applying/Pagination";
+import JobListSkeletonLoading from "../../applying/skeletons/JobListSkeletonLoading";
 
 //UI components
 import NoDataAvailable from "../../UI/NoDataAvailable";
 import BaseDialog from "../../UI/BaseDialog";
-import JobListSkeletonLoading from "../../applying/skeletons/JobListSkeletonLoading";
 import { OutlineButton } from "../../UI/BaseButton";
+import { BaseCard } from "../../UI/BaseCard";
+
 
 //context
 import FilterContext from "../../../store/filter-context";

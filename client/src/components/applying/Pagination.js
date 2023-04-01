@@ -4,8 +4,9 @@ import { useSearchParams } from "react-router-dom";
 const Pagination = ( { jobsPerPage, totalJobs, onHandleCurrentPage } ) => {
     const pageNumbers = [];
     const [queryParams, setQueryParams] = useSearchParams()
+    
     for( let i = 1; i <= Math.ceil(totalJobs / jobsPerPage); i++ ) {
-        pageNumbers.push(i);//if we have 11 jobs, and jobs per page are 5, we will push 1,2,3, because 11/5 = 2.2. Math ceil always round up
+        pageNumbers.push(i);//if we have 11 jobs and jobs per page are 5, we will push 1,2,3, because 11/5 = 2.2. Math ceil always rounds up -> 3
     }
     
     const changePage = (clickedPage) => {
