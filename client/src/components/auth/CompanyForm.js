@@ -124,7 +124,14 @@ const CompanyForm = ( { authMode } ) => {
         */
         event.preventDefault();
         
-        const data = new FormData();//simple Javascript class instance
+        //using FormData API
+        /*
+        *
+        * It uses the same format a form would use if the encoding type were set to 'multipart/form-data'
+        * with .append we add the key because we handle this form with the onChange event and not with HTML
+        * 
+        * */
+        const data = new FormData();//creates a new FormData object
         
         data.append('email', enteredEmail)
         data.append('password', enteredPassword)
@@ -143,25 +150,32 @@ const CompanyForm = ( { authMode } ) => {
         // console.log('employees >>> ', enteredEmployees);
         
         if( authMode === 'signup' ) {
-            axios.post(`http://localhost:3030/authData/${authMode}_company`, data).then(res => {
-                handleAuthentication(res.data.email, res.data._id, res.data.accessToken)
-                resetEmailInput();
-                resetPasswordInput();
-                resetCompanyNameInput();
-                resetDescriptionInput();
-                resetLogoInput();
-                resetFoundationYearInput();
-                resetEmployeesInput();
+            //multipart/form-data as content-type is automatically added by axios :)
+            axios.post(`http://localhost:3030/authData/${authMode}_company`, data)
+                .then(res => {
+                    
+                    console.log('res >>> ', res)
+                    if ( res.status === 200 || res.statusText === 'OK') {
+                        handleAuthentication(res.data.email, res.data._id, res.data.accessToken)
+                        resetEmailInput();
+                        resetPasswordInput();
+                        resetCompanyNameInput();
+                        resetDescriptionInput();
+                        resetLogoInput();
+                        resetFoundationYearInput();
+                        resetEmployeesInput();
+
+                        if( location.state?.from ) {
+                            navigate(location.state.from)
+                        } else {
+                            navigate('/')
+                        }
+                    }
                 
-                if( location.state?.from ) {
-                    navigate(location.state.from)
-                } else {
-                    navigate('/')
-                }
-                
-            }).catch(err => {
-                setAdditionalErrors(err.response.data.message)
-            })
+                })
+                .catch(err => {
+                    setAdditionalErrors(err.response.data.message)
+                })
             
         } else if ( authMode === 'login' ) {
              await authRequest();
