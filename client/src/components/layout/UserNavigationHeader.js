@@ -43,15 +43,18 @@ const UserNavigationHeader = ( { onNavMode } ) => {
                     </li>
                 </React.Fragment>
             }
-            { !authData || !authData.token &&
-                <li className={styles['navbar_link']}>
-                    <NavigationLinkAsButton
-                        to="auth?mode=login"
-                        className={({isActive})=> isActive ? 'active' : undefined}
-                    >
-                        Sign in
-                    </NavigationLinkAsButton>
-                </li>
+            { !authData || 
+                (
+                    !authData.token &&
+                    <li className={styles['navbar_link']}>
+                        <NavigationLinkAsButton
+                            to="auth?mode=login"
+                            className={({isActive})=> isActive ? 'active' : undefined}
+                        >
+                            Sign in
+                        </NavigationLinkAsButton>
+                    </li>
+                )
             }
             { authData && authData.token &&
                 <Form method='post' action='/logout'>

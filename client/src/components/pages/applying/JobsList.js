@@ -117,7 +117,13 @@ const JobsList = () => {
 
     const categoryFilter = (job) => {
 
-        if ( !queryParams.get('category') || queryParams.get('category') && queryParams.get('category').length === 0 ) {
+        if ( 
+            !queryParams.get('category') || 
+            (
+                queryParams.get('category') &&
+                queryParams.get('category').length === 0
+            )
+        ) {
             let toReturn = true;
             if( filteredData && Object.keys(filteredData).length > 0 ) {
                 
