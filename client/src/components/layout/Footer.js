@@ -1,9 +1,11 @@
 import styles from './Footer.module.css'
 import { FaFacebookF, FaFigma } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { getAuthToken } from "../../util/auth";
 
 const Footer = () => {
     const iconStyles = { fontSize : '1.5rem', cursor : 'pointer' }
+    const token = getAuthToken();
     
     const mediaIconLinkHandle = (type) => {
         if(type === 'facebook') {
@@ -34,11 +36,22 @@ const Footer = () => {
                                 Jobs
                             </Link>
                         </li>
-                        <li>
-                            <Link to='/companies'>
-                                Companies
-                            </Link>
-                        </li>
+                        {
+                            (
+                                !token || 
+                                (
+                                    token &&
+                                    token === 'EXPIRED'
+                                )
+                            ) ?
+                                <li>
+                                    <Link to='/auth?mode=login'>
+                                        Sign in
+                                    </Link>
+                                </li>
+                                :
+                                null
+                        }
                     </ul>
                 </div>
             </section>

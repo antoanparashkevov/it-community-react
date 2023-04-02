@@ -46,18 +46,21 @@ const Messages = () => {
                                     {error}
                                 </BaseDialog>
                             }
-                            {isLoading && <BaseSpinner />}
                             <section className={styles['messages_container']}>
                                 <BaseCard className={styles['messages_wrapper']}>
                                     <h1 className={styles['messages_title']}>Incoming messages</h1>
                                     <SeparationLine />
-                                    {/*TODO show the corresponding post*/}
-                                    <ul role='list' className={styles['messages_list']}>
-                                        { messages && messages.length > 0 && messages.map((m, index) => {
-                                            return <MessageItem message={ m } key={ index }/>
-                                        }) }
-                                        { messages && messages.length === 0 && <h1>You don't have any messages!</h1> }
-                                    </ul>
+                            {
+                                isLoading ?
+                                    <BaseSpinner />
+                                    :
+                                        <ul role='list' className={styles['messages_list']}>
+                                            { messages && messages.length > 0 && messages.map((m, index) => {
+                                                return <MessageItem message={ m } key={ index }/>
+                                            }) }
+                                            { messages && messages.length === 0 && <h1>You don't have any messages!</h1> }
+                                        </ul>
+                            }
                                 </BaseCard>
                             </section>
                         </React.Fragment>

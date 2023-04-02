@@ -21,12 +21,17 @@
     margin: 0;
 }
 
-.event_container {
+.event_container,
+.filters_btn_loading_container {
     height: 160px;
     margin-bottom: 20px;
     border-radius: 8px;
     position: relative;
     animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.posters_list_skeleton_loading_container .filters_btn_loading_container {
+    height: 47px;
 }
 
 @keyframes skeleton-loading {
@@ -35,5 +40,11 @@
     }
     100% {
         background-color: hsl(200, 20%, 95%);
+    }
+}
+
+@media screen and (max-width: 744px) {
+    .posters_list_skeleton_loading_container {
+        width: 90%;
     }
 }

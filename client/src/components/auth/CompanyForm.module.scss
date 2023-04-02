@@ -27,3 +27,9 @@
 .form-actions .form-second-btn:active {
     border: none;
 }
+
+@media screen and (max-width: 460px) {
+    .apply_company_form {
+        padding: 0;
+    }
+}
