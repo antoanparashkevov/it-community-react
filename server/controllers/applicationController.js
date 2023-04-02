@@ -11,9 +11,11 @@ router.get('/applications/:companyId', hasUser(), hasRole(), async (req,res)=>{
         const companyId = req.params['companyId'];
         let items = await getById(companyId);
         
-        res.json({
-            applicationItems: items,
-        })
+        setTimeout(() => {
+            res.json({
+                applicationItems: items,
+            })
+        }, 1500)
     }catch ( err ) {
         const message = parseError(err)
         res.status(400).json({message})
@@ -25,7 +27,10 @@ router.post('/applications', hasUser(), async (req,res)=> {
     
     try{
         const item = await create(formData)
-        res.json(item)
+        setTimeout(() => {
+            res.json(item)
+            
+        }, 1500)
     }catch (err) {
         const message = parseError(err)
         res.status(400).json({message})
