@@ -1,70 +1,154 @@
-# Getting Started with Create React App
+# IT-COMMUNITY
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can visit the project from here: http://localhost:3000
 
-## Available Scripts
+# Table of Contents
+- <a href="#about">About this Project</a>
+- <a href="#design">Design</a>
+- <a href="#how-to-run">How to run the app on your computer</a>
+- <a href="#features">Features</a>
+- <a href="#future-features">Future Features</a>
+- <a href="#project-structure">Project Structure</a>
+- <a href="#tools">Tools</a>
+- <a href="#application-pictures">Application Pictures</a>
 
-In the project directory, you can run:
+# <p id="about">About this project</p>
 
-### `npm start`
+It-Community is a Job Board web application that makes it easier for the user to find their desired job. It also helps companies find quality staff.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# <p id="design">Design</p>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The amazing design was provided by <a href="https://www.figma.com/">Figma</a>
 
-### `npm test`
+- Here you can find more about the design: <a href="https://www.figma.com/file/tqyxHF9RfEQyLEMCzFDvhz/it-community">It-Community Design</a>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# <p id="how-to-run">How to run the app on your computer</p>
 
-### `npm run build`
+1. You can download the project ZIP file or you can clone the repository directly.
+2. Open the project with IDE/Code Editor like VS Code or any of the Jetbrains product which supports the JavaScript syntax.
+4. Open the terminal then navigate to `client` folder with the `cd client` command.
+5. Install all modules that are listed on `package.json` file and their dependencies with `npm install` or `yarn install`.
+6. Type `npm start:development` to run the project in the browser. It will start on `http://localhost:3000`, but you can change it to another URL if necessary. Type `y` to do it.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# <p id="features">Features</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- <strong>Authentication</strong>
+    - Login
+      - log in with existing account
 
-### `npm run eject`
+    - Register as user
+      - create new account
+    
+    - Register as company
+      - create new account
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    - Admin role
+       - #NOTE: this is supported only for the staff 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- <strong>Jobs</strong>
+    - Job
+        - browse all categories and subcategories 
+        - browse all jobs
+        - filter jobs by different criteria
+        - view detailed page for each job
+        - create new job (for Company role only)
+        - apply for a job (Authentication feature)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- <strong>Messages</strong>
+    - Company role only
+        - browse all received messages
+        - show the job ad the user has applied to (FUTURE Feature)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- <strong>Profile</strong>
+    - Company role only
+        - view details for you company (company logo, foundation year, employees, email, company name)
+        - view all your job postings.
+        - edit job
+        - delete job
 
-## Learn More
+- <strong>Admin Panel</strong>
+    - Admin role only
+      - create category
+      - create subcategory
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# <p id="future-features">Future Features</p>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- <strong>Show the Job ad the user has applied to</strong>
 
-### Code Splitting
+- <strong>Chat</strong>
+    - send message to user who has applied for a job
+  
+- <strong>Email Verification</strong>
+    - email verification after each sign up/sign in 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# <p id="project-structure">Project Structure</p>
+- Client
+    - components
+        - auth
+           - AuthForm - Auth form component for user authentication (sign in/signup)
+           - CompanyForm - Company form component for company authentication (sign in/signup)
+        - applying
+           - skeletons
+             -  BoardSkeleton - Board skeleton animation during fetching categories/subcategories
+             -  JobListSkeleton - JobList skeleton animation during fetching jobs
+           - ApplyForm - Apply form for sending a message to the company who created the job
+           - JobForm - Job form for creating a new job
+        - messages
+            - MessageItem - Each message box 
+        - profile
+            - Profile - responsible for the Profile feature
+        - admin
+            - AdminNavigationHeader - a special navigation only for the admin role only
+            - CategoryForm - Category form for creating a new category
+            - SubCategoryForm - SubCategory form for creating a new subcategory
+            - TheHeader - Web app name and the navigation
+        - layout
+            - Filter components
+            - Footer
+            - UserNavigationHeader - the navigation header for the user role only
+    - hooks - outsourcing stateful logic into reusable functions
+        - use-auth
+            - manage the local storage and handling the authentication. Get the auth token, validate the auth token and check if it is expires or not
+        - use-http
+            - skeleton/template for making requests
+        - use-input
+            - skeleton/template for any input around the Web App
+        - use-window-dimensions
+            - calculates the window dimensions (viewport)
+    - store - Context API 
+        - auth-context
+            - manage the auth context
+        - filter-context
+            - manage the filter context 
+    - util - manages the action, the loader, and the auth guards
+    - styles - stores scss file that are used globally
 
-### Analyzing the Bundle Size
+- Server
+    - middlewares - all middlewares needed for all endpoints
+    - .env - all of the project constant variables
+    - controllers - used to handle request data from the client and make calls to the database models with the help of services
+    - models - stores MongoDB schema models
+    - services - responsible for accessing MongoDB schemas and manipulating data
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# <p id="tools">Tools</p>
 
-### Making a Progressive Web App
+- <a href="https://react.dev/">React</a>
+- <a href="https://www.figma.com/">Figma</a>
+- <a href="https://sass-lang.com/">Scss</a>
+- <a href="https://app.cyclic.sh/">Cyclic</a>
+- <a href="https://nodejs.org/en/">Node</a>
+- <a href="https://expressjs.com/">Express</a>
+- <a href="https://www.npmjs.com/package/nodemon">nodemon</a>
+- <a href="https://www.mongodb.com/">MongoDB</a>
+- <a href="https://mongoosejs.com/">Mongoose</a>
+- <a href="https://jwt.io/">jwt</a>
+- <a href="https://www.npmjs.com/package/bcrypt">bcrypt</a>
+- <a href="https://www.npmjs.com/package/dotenv">dotenv</a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# <p id="application-pictures">Application Pictures</p>
 
-### Advanced Configuration
+## Desktop
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Mobile
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
