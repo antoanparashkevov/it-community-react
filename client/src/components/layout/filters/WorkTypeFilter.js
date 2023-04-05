@@ -39,14 +39,14 @@ const WorkTypeFilter = ({ onSaveCriteria, fullScreen }) => {
     
     const checkboxHandler = (data) => {
         setWorkTypeFilter( (prevState) => {
-            prevState = prevState.map( c => {
+            const newState = prevState.map( c => {
                 if( c.id === data.id ){
                     c.isChecked = data.isChecked
                 }
                 return c;
             })
-            //TODO modify and return new state, not the old one
-            return prevState;
+            
+            return newState;
         })
     }
     
