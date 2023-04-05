@@ -150,5 +150,26 @@ The amazing design was provided by <a href="https://www.figma.com/">Figma</a>
 
 ## Desktop
 
+![main_page_d](https://user-images.githubusercontent.com/80749603/230060655-c894ff80-40d6-46a2-9dc4-156ca9b9b22f.png)
+
+![job_list_d](https://user-images.githubusercontent.com/80749603/230060719-e7d2f452-bbc6-46be-8e7a-b3f7f38ebfa9.png)
+
+![job_details_d](https://user-images.githubusercontent.com/80749603/230060768-09761921-eee8-4791-baf4-aa882c8508de.png)
+
+![apply_d](https://user-images.githubusercontent.com/80749603/230060927-e123e044-b552-4330-9654-23e3893aabd3.png)
+
+![profile_d](https://user-images.githubusercontent.com/80749603/230060961-e5fc6d4b-dbaa-4ca0-b893-de395262b400.png)
+
+![company_registration_d](https://user-images.githubusercontent.com/80749603/230060981-41383adb-f739-49bc-b507-11f7d1cbc8b2.png)
+
 ## Mobile
 
+![main_page_m](https://user-images.githubusercontent.com/80749603/230061037-ad74a71c-144a-489b-99ad-53f175b6c64c.png)
+
+![job_list_m](https://user-images.githubusercontent.com/80749603/230061053-cc450dd6-3676-471e-b4b0-2a4230df22ad.png)
+
+![job_details_m](https://user-images.githubusercontent.com/80749603/230061083-8963c094-7f12-4dc1-a596-902ab5135a23.png)
+
+![profile_m](https://user-images.githubusercontent.com/80749603/230061098-3a5d261f-6a1c-4f6e-94e9-faf7cf7a4d83.png)
+
+![create_job_m](https://user-images.githubusercontent.com/80749603/230061110-b6053de5-5343-4709-8946-f34b2d0f6162.png)
