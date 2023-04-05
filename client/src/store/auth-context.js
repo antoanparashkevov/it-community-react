@@ -1,7 +1,7 @@
-import React from "react";
+import { createContext } from "react";
 
 //it is an object that contains a component
-const AuthContext = React.createContext({
+const AuthContext = createContext({
     userData: null,
     token: '',
     isLoggedIn: false,

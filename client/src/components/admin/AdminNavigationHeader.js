@@ -17,7 +17,7 @@ const AdminNavigationHeader = ( { onNavMode } ) => {
             <li className={styles['navbar_link']}>
                 <NavigationLinkAsButton
                     to="admin/category"
-                    className={({isActive})=> isActive ? 'active' : undefined}
+                    className={({isActive})=> isActive ? 'active' : ''}
                 >
                     Category
                 </NavigationLinkAsButton>
@@ -25,7 +25,7 @@ const AdminNavigationHeader = ( { onNavMode } ) => {
             <li className={styles['navbar_link']}>
                 <NavigationLinkAsButton
                     to="admin/subcategory"
-                    className={({isActive})=> isActive ? 'active' : undefined}
+                    className={({isActive})=> isActive ? 'active' : ''}
                 >
                     Subcategory
                 </NavigationLinkAsButton>
