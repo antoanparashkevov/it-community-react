@@ -46,7 +46,7 @@ const LinearGradient = styled.div`
             rgb(77, 118, 255, 0)
     );
 `
-
+//TODO implement Lazy Loading
 const RootLayout = () => {
     const submit = useSubmit();
     const authData = useAuth();

@@ -23,14 +23,14 @@ const SeniorityFilter = ({ onSaveCriteria, fullScreen }) => {
     
     useEffect( () => {
         setSeniorityFilter((prevState) => {
-            prevState = prevState.map( s => {
+            const newState = prevState.map( s => {
                 return {
                     ...s,
                     isChecked : filterCtx.isChecked
                 }
             })
             
-            return prevState;
+            return newState;
         })
     }, [])
 
@@ -46,7 +46,7 @@ const SeniorityFilter = ({ onSaveCriteria, fullScreen }) => {
                 }
                 return c;
             })
-
+            //TODO modify and return new state, not the old one
             return prevState;
         })
     }

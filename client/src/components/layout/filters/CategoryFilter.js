@@ -26,14 +26,14 @@ const CategoryFilter = ({onSaveCriteria, fullScreen}) => {
     
     const checkboxHandler = (data) => {
        setFetchedCategories((prevState) => {
-           prevState = prevState.map( c => {
+           const newState = prevState.map( c => {
                if( c.id === data.id ){
                    c.isChecked = data.isChecked
                }
                return c;
            })
-
-           return prevState;
+           
+           return newState;
        })
         
     }

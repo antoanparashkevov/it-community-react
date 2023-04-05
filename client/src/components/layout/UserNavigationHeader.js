@@ -18,17 +18,17 @@ const UserNavigationHeader = ( { onNavMode } ) => {
     return (
         <ul role='list' className={styles['user_links']}>
             <li className={styles['navbar_link']}>
-                <NavigationLink to="posters?page=1" className={({isActive})=> isActive ? 'active' : undefined}>Job Ads</NavigationLink>
+                <NavigationLink to="posters?page=1" className={({isActive})=> isActive ? 'active' : ''}>Job Ads</NavigationLink>
             </li>
             {authData && authData.userData && (authData.userData.roles && authData.userData.roles.includes('company')) &&
                 <React.Fragment>
                     <li className={styles['navbar_link']}>
-                        <NavigationLink to="profile" className={({isActive})=> isActive ? 'active' : undefined}>Profile</NavigationLink>
+                        <NavigationLink to="profile" className={({isActive})=> isActive ? 'active' : ''}>Profile</NavigationLink>
                     </li>
                     <li className={styles['navbar_link']}>
                         <NavigationLinkAsButton
                             to="create"
-                            className={({isActive})=> isActive ? 'active' : undefined}
+                            className={({isActive})=> isActive ? 'active' : ''}
                         >
                             Create
                         </NavigationLinkAsButton>
@@ -36,7 +36,7 @@ const UserNavigationHeader = ( { onNavMode } ) => {
                     <li className={styles['navbar_link']}>
                         <NavigationLinkAsButton
                             to="messages"
-                            className={({isActive})=> isActive ? 'active' : undefined}
+                            className={({isActive})=> isActive ? 'active' : ''}
                         >
                             Messages
                         </NavigationLinkAsButton>
@@ -49,7 +49,7 @@ const UserNavigationHeader = ( { onNavMode } ) => {
                     <li className={styles['navbar_link']}>
                         <NavigationLinkAsButton
                             to="auth?mode=login"
-                            className={({isActive})=> isActive ? 'active' : undefined}
+                            className={({isActive})=> isActive ? 'active' : ''}
                         >
                             Sign in
                         </NavigationLinkAsButton>

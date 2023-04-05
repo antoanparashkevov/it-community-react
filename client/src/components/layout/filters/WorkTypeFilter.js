@@ -22,14 +22,14 @@ const WorkTypeFilter = ({ onSaveCriteria, fullScreen }) => {
     
     useEffect( () => {
         setWorkTypeFilter(prevState => {
-            prevState = prevState.map( w => {
+            const newState = prevState.map( w => {
                 return {
                     ...w,
                     isChecked: filterCtx.isChecked
                 }
             })
             
-            return prevState;
+            return newState;
         })
     },[])
     
@@ -45,7 +45,7 @@ const WorkTypeFilter = ({ onSaveCriteria, fullScreen }) => {
                 }
                 return c;
             })
-
+            //TODO modify and return new state, not the old one
             return prevState;
         })
     }

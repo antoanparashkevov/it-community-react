@@ -14,7 +14,8 @@ import loader from "../../../util/loader";
 
 //layouts
 import Fallback from "../../layout/Fallback";
-
+//TODO show the visited counter on the top-right corner 
+//TODO move the footer to the bottom position
 const JobDetails = () => {
     const { width: windowWidth } = useWindowDimensions()
     const location = useLocation();
