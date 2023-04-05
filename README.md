@@ -154,10 +154,9 @@ The amazing design was provided by <a href="https://www.figma.com/">Figma</a>
 
 ![job_list_d](https://user-images.githubusercontent.com/80749603/230060719-e7d2f452-bbc6-46be-8e7a-b3f7f38ebfa9.png)
 
-![job_details_d](https://user-images.githubusercontent.com/80749603/230060768-09761921-eee8-4791-baf4-aa882c850
+![job_details_d](https://user-images.githubusercontent.com/80749603/230060768-09761921-eee8-4791-baf4-aa882c8508de.png)
 
 ![apply_d](https://user-images.githubusercontent.com/80749603/230060927-e123e044-b552-4330-9654-23e3893aabd3.png)
-8de.png)
 
 ![profile_d](https://user-images.githubusercontent.com/80749603/230060961-e5fc6d4b-dbaa-4ca0-b893-de395262b400.png)
 
