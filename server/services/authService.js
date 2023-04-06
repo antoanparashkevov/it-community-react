@@ -5,8 +5,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Company = require('../models/Company');
 
-const SECRET_KEY = 'IT-COMMUNITY-SECRET-KEY'
-
 let tokenBlackList = new Set();
 
 async function register(email,password) {
@@ -106,7 +104,7 @@ const createToken = function(user, role) {
     }
     
    return {
-       accessToken: jwt.sign(payload, SECRET_KEY, { expiresIn: '1h'}),
+       accessToken: jwt.sign(payload, process.env['JWT_SECRET'], { expiresIn: '1h'}),
        _id: user._id,
        email: user.email,
        roles: user.roles
@@ -126,7 +124,7 @@ function parseToken(token) {
     * role: user.role
     * */
     
-    return jwt.verify(token,SECRET_KEY) //the payload
+    return jwt.verify(token,process.env['JWT_SECRET']) //the payload
 }
 
 module.exports = {
