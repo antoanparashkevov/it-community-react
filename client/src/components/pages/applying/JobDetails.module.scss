@@ -49,8 +49,15 @@
 }
 
 .job_item_header_title {
+    display: flex;
+    flex-direction: column;
     color: var(--gray-color);
     font-size: 24px;
+}
+
+.job_item_header_counter {
+    font-size: 12px;
+    color: var(--gray-color);
 }
 
 .job_item_work_type_badges {

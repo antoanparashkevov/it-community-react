@@ -34,7 +34,6 @@ const CreateJob = lazy(() => import("../components/pages/applying/CreateJob"));
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
-// todo enhance the route guard
 export const routes = createBrowserRouter([
     {
         path: '/',

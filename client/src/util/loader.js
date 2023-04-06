@@ -13,6 +13,7 @@ const loader = async (url, formatData, userType) => {
 
     const options = {
         method: 'GET',
+        credentials: 'include',
         headers: {}
     }
 

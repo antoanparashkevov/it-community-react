@@ -25,6 +25,7 @@ const useHttp = () => {
     
         const options = {
             method: method,
+            credentials: 'include',
             headers: {}
         }
         

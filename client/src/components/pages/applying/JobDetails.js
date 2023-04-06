@@ -14,8 +14,7 @@ import loader from "../../../util/loader";
 
 //layouts
 import Fallback from "../../layout/Fallback";
-//TODO show the visited counter on the top-right corner 
-//TODO move the footer to the bottom position
+
 const JobDetails = () => {
     const { width: windowWidth } = useWindowDimensions()
     const location = useLocation();
@@ -48,7 +47,18 @@ const JobDetails = () => {
                                     <header className={styles['job_item_wrapper']}>
                                         <BaseCard className={styles['job_item_container']}>
                                             <div className={styles['job_item_header_applying_btn']}>
-                                                <h1 className={styles['job_item_header_title']}>{ job.jobItem.jobName }</h1>
+                                                <h1 className={styles['job_item_header_title']}>{ job.jobItem.jobName } 
+                                                    <span 
+                                                        className={styles['job_item_header_counter']}
+                                                    >
+                                                        {
+                                                            job.visited === '1' ?
+                                                                'You visited this job for the first time' :
+                                                                `You visited this job ${job.visited} times`
+                                                        }
+                                                    </span>
+                                                </h1>
+                                                
                                                 {job.userData.userData.hasData === true && job.userData.userData.roles.includes('user') && <SquareButton as={Link} to={applyButtonLink} onClick={() => window.scroll({ top: 120, behavior: 'smooth' })}>Apply now</SquareButton>}
                                             </div>
                                             <div className={styles['job_item_work_type_badges']}>
@@ -120,7 +130,8 @@ export const formatJobDetailsData = (data) => {
             city: data.jobItem.city,
             company: data.jobItem.companyId
         },
-        userData: data.user
+        userData: data.user,
+        visited: data.visited
         
     }
 }
