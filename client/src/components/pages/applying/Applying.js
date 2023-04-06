@@ -18,7 +18,7 @@ const Applying = () => {
     const location = useLocation();
     let token = getAuthToken();
     
-    if(!token) {
+    if( !token ) {
         return <Navigate to='/auth?mode=login' replace state={ {from: location} } relative />
     }
     

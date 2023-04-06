@@ -15,24 +15,35 @@ import BaseSpinner from "../../UI/BaseSpinner";
 
 //context
 import AuthContext from "../../../store/auth-context";
+import {Navigate, useLocation} from "react-router-dom";
 
 const Messages = () => {
     const [messages, setMessages] = useState([])
-    
     const authData = useContext(AuthContext);
-    
+    const location = useLocation();
     const { isLoading, error, resetError, sendRequest } = useHttp()
-    
+
+    const fetchMessages = async () => {
+        await sendRequest(`/applicationData/applications/${authData.userData._id}`, 'GET', handleResponse);
+    }
+
     useEffect( () => {
         fetchMessages()
     }, []);
-    
-    const fetchMessages = async () => {
-      await sendRequest(`/applicationData/applications/${authData.userData._id}`, 'GET', handleResponse);
-    }
-    
+
     const handleResponse = (data) => {
         setMessages(data.applicationItems);
+    }
+    
+    if (
+        (
+            authData && authData.userData.hasData === false
+        ) ||
+        (
+            authData.userData.hasData === true && authData.userData.roles.includes('company') === false
+        )
+    ) {
+        return <Navigate to='/auth?mode=login' replace state={ { from: location } }></Navigate>
     }
     
     return (
