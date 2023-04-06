@@ -26,7 +26,10 @@ const ModalOverlay = ({ children, title, fixed, tryClose, show, deleteAction, on
             in={show}
             mountOnEnter
             unmountOnExit
-            timeout={1000}
+            timeout={{
+                enter: 1000,
+                exit: 1500
+            }}
         >
             {
                 (state) => (
