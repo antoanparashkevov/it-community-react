@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDom from 'react-dom';
 import styles from './BaseDialog.module.scss';
+import Transition from "react-transition-group/Transition";
 
 //UI components
 import { DeleteButton, RoundedButton } from "./BaseButton";
@@ -21,28 +22,39 @@ const ModalOverlay = ({ children, title, fixed, tryClose, show, deleteAction, on
     let token = getAuthToken();
     
     return (
-        <React.Fragment>
-            { show && <dialog open className={styles['dialog']}>
-                <header className={styles['dialog_header']}>
-                    <h2>{title}</h2>
-                </header>
-                <section className={styles['dialog_section']}>{children}</section>
-                { fixed === false && token !== 'EXPIRED' && 
-                    <menu className={styles['dialog_menu']}>
-                        <RoundedButton onClick={tryClose}>Close</RoundedButton>
-                        { deleteAction &&
-                            <DeleteButton onClick={() => onDelete(true)}>Delete</DeleteButton>
-                        }
-                    </menu>
-                }
-                { token === 'EXPIRED' &&
-                    <menu className={styles['dialog_menu']}>
-                        <RoundedButton onClick={() => window.location.reload()}>Reload</RoundedButton>
-                    </menu>
-                }
-                
-            </dialog> }
-        </React.Fragment>
+        <Transition
+            in={show}
+            mountOnEnter
+            unmountOnExit
+            timeout={1000}
+        >
+            {
+                (state) => (
+                    <React.Fragment>
+                        { show && <dialog open className={`${styles['dialog']} ${styles[state]}`}>
+                            <header className={styles['dialog_header']}>
+                                <h2>{title}</h2>
+                            </header>
+                            <section className={styles['dialog_section']}>{children}</section>
+                            { fixed === false && token !== 'EXPIRED' &&
+                                <menu className={styles['dialog_menu']}>
+                                    <RoundedButton onClick={tryClose}>Close</RoundedButton>
+                                    { deleteAction &&
+                                        <DeleteButton onClick={() => onDelete(true)}>Delete</DeleteButton>
+                                    }
+                                </menu>
+                            }
+                            { token === 'EXPIRED' &&
+                                <menu className={styles['dialog_menu']}>
+                                    <RoundedButton onClick={() => window.location.reload()}>Reload</RoundedButton>
+                                </menu>
+                            }
+
+                        </dialog> }
+                    </React.Fragment>
+                )
+            }
+        </Transition>
     )
 }
 
