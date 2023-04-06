@@ -22,9 +22,10 @@ export const MainWrapper = styled.main`
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         padding: 2rem;
         position: relative;
+        flex-grow: 1;
 `
 
 export const FooterWrapper = styled.footer`
