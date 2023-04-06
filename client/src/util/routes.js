@@ -1,17 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
-import React from "react";
+import React, {lazy, Suspense} from "react";
+
+//loading spinner
+import Fallback from "../components/layout/Fallback";
 
 //components
 import RootLayout from "../components/Root";
 import ErrorPage from "../components/pages/Error";
 import Board from "../components/pages/applying/Board";
-import JobsList from "../components/pages/applying/JobsList";
 import JobDetails, { jobDetailsDefer } from "../components/pages/applying/JobDetails";
 import Applying from "../components/pages/applying/Applying";
 import Profile, { profileDefer } from "../components/profile/Profile";
-import Messages from "../components/pages/messages/Messages";
-import UserAuth from "../components/pages/auth/UserAuth";
-import CreateJob from "../components/pages/applying/CreateJob";
 
 //Admin Components
 import AdminRootLayout from "../components/admin/AdminRootLayout";
@@ -25,6 +24,13 @@ import action from "./action";
 import { action as logoutAction } from '../components/pages/auth/Logout'
 
 import { transformCategoryFormData } from "../components/admin/CategoryForm";
+
+//lazy loading
+//this is async operation -> returns a Promise
+const JobsList = lazy(() => import('../components/pages/applying/JobsList'));
+const UserAuth = lazy(() => import("../components/pages/auth/UserAuth"));
+const Messages = lazy(() => import("../components/pages/messages/Messages"));
+const CreateJob = lazy(() => import("../components/pages/applying/CreateJob"));
 
 //create a relation between the routes and the components,
 //or simply we register our routes here
@@ -45,28 +51,24 @@ export const routes = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <JobsList/>,
+                        //We wait for resolving the Promise with the Suspense component
+                        element: (
+                            <Suspense fallback={<Fallback />}>
+                                <JobsList/>
+                            </Suspense>
+                        ),
                     },
                     {
                         path: ':posterId',
                         id: 'poster-details',
+                        element: <JobDetails/>,
                         loader: ({params}) => jobDetailsDefer(params),
                         children: [
                             {
-                                index: true,
-                                element: <JobDetails/>,
-                            },
-                            {
-                                path: '',
-                                element: <JobDetails/>,
-                                children: [
-                                    {
-                                        path: 'apply',
-                                        element: <Applying/>
-                                    }
-                                ]
-                            },
-                        ],
+                                path: 'apply',
+                                element: <Applying/>
+                            }
+                        ]
                     },
                 ]
             },
@@ -77,25 +79,32 @@ export const routes = createBrowserRouter([
                     {
                         index: true,
                         id: 'profile-info',
-                        loader: ( ) => profileDefer(),
                         element: <Profile/>,
+                        loader: () => profileDefer()
                     },
                     {
                         path: ':posterId/edit',
                         id: 'edit-job',
-                        loader: ( { params } ) => jobEditDefer(params),
-                        element: <EditJob/>
+                        element: <EditJob/>,
+                        loader: ( { params } ) => jobEditDefer(params)
                     }
                 ]
             },
             {
                 path: 'messages',
-                loader: () => loader(null, null, ['company']),
-                element: <Messages/>
+                element: (
+                    <Suspense fallback={<Fallback />}>
+                        <Messages/>
+                    </Suspense>
+                )
             },
             {
                 path: 'auth',
-                element: <UserAuth/>
+                element: (
+                    <Suspense fallback={<Fallback />}>
+                        <UserAuth/>
+                    </Suspense>
+                )
             },
             {
               path: 'logout',
@@ -104,8 +113,11 @@ export const routes = createBrowserRouter([
             {
                 path: 'create',
                 id:'create-job',
-                loader: () => loader(null, null, ['company']),
-                element: <CreateJob/>
+                element: (
+                    <Suspense fallback={<Fallback />}>
+                        <CreateJob/>
+                    </Suspense>
+                )
             },
             {
                 path: 'admin',
