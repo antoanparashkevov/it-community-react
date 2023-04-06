@@ -25,13 +25,11 @@ router.get('/jobs', async (req,res) => {
         }
         const user = getUserData(req.user, req.token)
 
-        setTimeout(()=>{
-            res.json({
-                user,
-                jobs: items,
-                categories: categories
-            })
-        }, 3000)
+        res.json({
+            user,
+            jobs: items,
+            categories: categories
+        })
 
     } catch ( err ) {
         const message = parseError(err);
@@ -51,13 +49,11 @@ router.get('/jobs/:jobId', async (req,res) => {
         
         item.seniority_code = seniority_code
         
-       setTimeout(()=>{
-           res.json({
-               jobItem: { ...item, seniority_code },
-               visited: req.cookies[`visited_${jobId}`] || '1',
-               user
-           })
-       }, 4000)
+        res.json({
+           jobItem: { ...item, seniority_code },
+           visited: req.cookies[`visited_${jobId}`] || '1',
+           user
+        })
 
     } catch ( err ) {
         const message = parseError(err)
