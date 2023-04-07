@@ -1,6 +1,6 @@
 import { redirect } from "react-router-dom";
 
-const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';
+const host =  process.env.REACT_APP_REST_API_URL;
 
 export async function action () {
     await fetch(host + '/authData/logout')

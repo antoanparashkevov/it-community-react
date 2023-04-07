@@ -2,7 +2,7 @@ import { json, redirect } from "react-router-dom";
 import jwtDecode from 'jwt-decode';
 import { getAuthToken } from "./auth";
 
-const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';
+const host =  process.env.REACT_APP_REST_API_URL;
 
 const loader = async (url, formatData, userType) => {
     

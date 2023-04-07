@@ -1,7 +1,7 @@
 import { redirect } from "react-router-dom";
 import { getAuthToken } from "./auth";
 
-const host =  process.env.REACT_APP_DEFAULT_URL || 'http://localhost:3030';
+const host =  process.env.REACT_APP_REST_API_URL;
 
 const companyGuard = async () => {
     const token = getAuthToken();
