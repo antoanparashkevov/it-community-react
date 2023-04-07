@@ -53,7 +53,7 @@ const JobDetails = () => {
                                                     >
                                                         {
                                                             job.visited === '1' ?
-                                                                'You visited this job for the first time' :
+                                                                'You visit this job for the first time' :
                                                                 `You visited this job ${job.visited} times`
                                                         }
                                                     </span>
