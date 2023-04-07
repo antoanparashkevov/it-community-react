@@ -151,7 +151,7 @@ const CompanyForm = ( { authMode } ) => {
         
         if( authMode === 'signup' ) {
             //multipart/form-data as content-type is automatically added by axios :)
-            axios.post(`${process.env.REACT_APP_REST_API_URL}${authMode}_company`, data)
+            axios.post(`${process.env.REACT_APP_REST_API_URL}/authData/${authMode}_company`, data)
                 .then(res => {
                     
                     console.log('res >>> ', res)
