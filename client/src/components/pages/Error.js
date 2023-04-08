@@ -25,7 +25,7 @@ const ErrorPage = () => {
             errorResponse.message : 
             errorResponse.data.message ? 
                 errorResponse.data.message :
-                'Something went wrong!'
+                'This is not a valid page!'
     
     return (
         <React.Fragment>
