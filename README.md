@@ -62,7 +62,7 @@ The amazing design was provided by <a href="https://www.figma.com/">Figma</a>
 
 - <strong>Profile</strong>
     - Company role only
-        - view details for you company (company logo, foundation year, employees, email, company name)
+        - view details for your company (company logo, foundation year, employees, email, company name)
         - view all your job postings.
         - edit job
         - delete job
