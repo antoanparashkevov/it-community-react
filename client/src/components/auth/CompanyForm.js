@@ -154,7 +154,6 @@ const CompanyForm = ( { authMode } ) => {
             axios.post(`${process.env.REACT_APP_REST_API_URL}/authData/${authMode}_company`, data)
                 .then(res => {
                     
-                    console.log('res >>> ', res)
                     if ( res.status === 200 || res.statusText === 'OK') {
                         handleAuthentication(res.data.email, res.data._id, res.data.accessToken)
                         resetEmailInput();
