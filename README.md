@@ -28,7 +28,7 @@ The amazing design was provided by <a href="https://www.figma.com/">Figma</a>
 2. Open the project with IDE/Code Editor like VS Code or any of the Jetbrains product which supports the JavaScript syntax.
 4. Open the terminal then navigate to `client` folder with the `cd client` command.
 5. Install all modules that are listed on `package.json` file and their dependencies with `npm install` or `yarn install`.
-6. Type `npm start:development` to run the project in the browser. It will start on `http://localhost:3000`, but you can change it to another URL if necessary. Type `y` to do it.
+6. Type `npm start` to run the project in the browser. It will start on `http://localhost:3000`, but you can change it to another URL if necessary. Type `y` to do it.
 
 
 # <p id="features">Features</p>
