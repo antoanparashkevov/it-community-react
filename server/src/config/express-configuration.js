@@ -17,7 +17,7 @@ const configExpress = (app) => {
     }))
     app.use(trimBody());
     app.use(session());
-    app.use(express.static(__dirname));//access this folder publicly 
+    app.use('/uploads',express.static('uploads'));//access this folder publicly 
 }
 
 module.exports = configExpress;
