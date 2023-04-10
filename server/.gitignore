@@ -44,4 +44,4 @@ Thumbs.db
 /.env
 
 #Company logos
-uploads
+src/uploads
