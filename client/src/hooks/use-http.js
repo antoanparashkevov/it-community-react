@@ -89,9 +89,7 @@ const useHttp = () => {
     }
 
     if( resolved ) {
-        setTimeout( () => {
-            setResolved(false);
-        }, 4000)
+        setResolved(false);
     }
     
     return {

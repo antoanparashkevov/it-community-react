@@ -32,7 +32,7 @@ const Footer = () => {
                     <h1>JOBS</h1>
                     <ul role='list' className={styles['footer_column_jobs']}>
                         <li>
-                            <Link to='/posters'>
+                            <Link to='/posters?page=1'>
                                 Jobs
                             </Link>
                         </li>

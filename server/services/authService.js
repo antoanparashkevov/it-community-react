@@ -123,6 +123,7 @@ function parseToken(token) {
     * companyName?: role.companyName,
     * role: user.role
     * */
+    
     return jwt.verify(token,process.env['JWT_SECRET']) //the payload
 }
 
