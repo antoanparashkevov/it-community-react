@@ -13,11 +13,11 @@ import AuthContext from "../store/auth-context";
 //hooks
 import useAuth from "../hooks/use-auth";
 
-const HeaderWrapper = styled.header`
+export const HeaderWrapper = styled.header`
     width: 100%;
 `
 
-const MainWrapper = styled.main`
+export const MainWrapper = styled.main`
         background-color: var(--main-bg-color);
         display: flex;
         flex-direction: column;
@@ -28,7 +28,7 @@ const MainWrapper = styled.main`
         flex-grow: 1;
 `
  
-const FooterWrapper = styled.footer`
+export const FooterWrapper = styled.footer`
         display: flex;
         height: 270px;
         background-color: var(--footer-bg-color);
