@@ -15,6 +15,9 @@ import loader from "../../../util/loader";
 //layouts
 import Fallback from "../../layout/Fallback";
 
+//assets
+import emptyProfileLogo from '../../../assets/images/profile_image.webp';
+
 const JobDetails = () => {
     const { width: windowWidth } = useWindowDimensions()
     const location = useLocation();
@@ -87,7 +90,7 @@ const JobDetails = () => {
                                     <aside className={`${styles['sidebar_wrapper']} ${isApplyFormVisible ? styles['sidebar_wrapper_apply_form_is_visible'] : ''}`}>
                                         <BaseCard className={styles['sidebar_container']}>
                                             <div className={styles['sidebar_company_logo']}>
-                                                <img src={ job.jobItem.company.logo ? job.jobItem.company.logo : 'https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png' } alt="Company Logo"/>
+                                                <img src={ job?.jobItem?.company?.logo ? job?.jobItem?.company?.logo : emptyProfileLogo } alt="Company Logo"/>
                                             </div>
                                             <div className={styles['sidebar_company_title']}>
                                                 <p className={styles['sidebar_company_desc_para']}>{ job.jobItem.company.companyName }</p>
