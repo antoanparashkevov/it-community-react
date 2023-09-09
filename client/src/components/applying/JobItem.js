@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import styles from "./JobItem.module.css";
 
+import emptyProfileLogo from '../../assets/images/profile_image.webp';
+
+
 //hooks
 import useFormatDate from "../../hooks/use-format-date";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
@@ -23,7 +26,7 @@ const JobItem = ({ job, hideCompanyLogoWidth, children, editURL }) => {
         <Link to={ editURL ? editURL : job['id'] } className={styles['poster_list_item']}>
             { windowWidth > (hideCompanyLogoWidth ? hideCompanyLogoWidth : 500) &&  
                 <div className={styles['left_company_logo']}>
-                    <img src="https://dev.bg/wp-content/uploads/2019/12/anthill_logo_rgb_dev_new-260x106.png" alt="Company Logo"/>
+                    <img src={emptyProfileLogo} alt="Company Logo"/>
                 </div>
             }
             <div className={styles['right_company_info']}>
