@@ -116,7 +116,7 @@
 }
 
 .sidebar_container .sidebar_company_logo img {
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .sidebar_company_title {
@@ -149,7 +149,21 @@
     .sidebar_wrapper {
         width: 100%;
     }
+    
+    .sidebar_container {
+        align-items: center;
+    }
 
+    .sidebar_container .sidebar_company_logo {
+        width: 250px;
+        height: 350px;
+    }
+
+    .sidebar_container .sidebar_company_logo img {
+        width: 100%;
+        height: 100%;
+    }
+    
     .job_info_wrapper {
         margin-right: 0;
         margin-bottom: 30px;
