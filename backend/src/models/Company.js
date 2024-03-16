@@ -40,7 +40,6 @@ const companySchema = new Schema({
     },
     logo: {
         type: String,
-        required: true
     }
 })
 

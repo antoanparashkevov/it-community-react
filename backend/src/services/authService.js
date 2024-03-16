@@ -61,6 +61,7 @@ async function registerAsCompany(email,password, companyName, desc, employees, f
         employees,
         roles: ['user', 'company']
     });
+    console.log('created User >>> ', user)
 
     return createToken(user, 'company')
 }

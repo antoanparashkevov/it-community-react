@@ -17,10 +17,7 @@ configRoutes(app);
 //connect to the database before listening
 configDatabase(app).then(() => {
     app.listen(
-        process.env['PORT'],
-        () => console.log('Server listening on port ' + process.env['PORT'])
+        process.env['PORT'] || 5000,
+        () => console.log('Server listening on port ' + (process.env['PORT'] || 5000))
     )
-})
-    
-
-
+});

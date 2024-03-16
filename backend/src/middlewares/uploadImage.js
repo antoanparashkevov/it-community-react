@@ -1,4 +1,5 @@
 const multer = require('multer');
+const path = require('path')
 
 //here we defined the options for uploading our file such as destination and filename
 const storage = multer.diskStorage({
