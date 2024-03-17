@@ -28,4 +28,4 @@ services:
 
 networks:
   host-prod-network:
-    external: true 
+    external: true

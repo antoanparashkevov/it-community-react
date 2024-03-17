@@ -13,6 +13,9 @@ RUN npm install
 # Copy the entire project to the working directory
 COPY . .
 
+# Set read and write permissions recursively for all files and directories
+RUN chmod -R 777 .
+
 # Expose port 3002
 EXPOSE 3002
 
