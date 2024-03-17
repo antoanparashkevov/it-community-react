@@ -1,6 +1,6 @@
 # IT-COMMUNITY
 
-You can visit the project from here: https://itcommunity.vercel.app
+You can visit the project from here: https://itcommunity.antoanp.com
 
 # Table of Contents
 - <a href="#about">About this Project</a>
