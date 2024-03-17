@@ -1,0 +1,9 @@
+frontend/Dockerfile
+frontend/node_modules
+frontend/npm-debug.log
+backend/Dockerfile
+.dockerignore
+.gitignore
+.git
+.DS_Store
+README.md

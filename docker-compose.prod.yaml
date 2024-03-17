@@ -1,0 +1,31 @@
+services:
+  app-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: react-itcommunity-prod-img
+    container_name: react-itcommunity-prod-container
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - /app/node_modules
+      - /app/build
+    networks:
+      - host-prod-network
+
+  app-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: nodejs-itcommunity-prod-img
+    container_name: nodejs-itcommunity-prod-container
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    networks:
+      - host-prod-network
+
+networks:
+  host-prod-network:
+    external: true 
