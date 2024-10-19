@@ -1,0 +1,34 @@
+services:
+    itcommunity-backend:
+        build:
+            context: ./backend
+            network: host
+            extra_hosts:
+                - "mongo1:127.0.0.1"
+                - "mongo2:127.0.0.1"
+                - "mongo3:127.0.0.1"
+            dockerfile: Dockerfile
+        image: itcommunity-backend_prod
+        container_name: itcommunity-backend_container_prod
+        restart: unless-stopped
+        volumes:
+            - uploads-data:/app/uploads # Mount a volume for the uploads
+            - /home/antoanp/setup/mongo/ssl/:/app/.mongo_ssl/ # Persistent volume for MongoDB certificates
+        ports:
+            - "3006:3006"
+        networks:
+            - frontend
+            - backend
+
+# Define a named volume on the host machine that maps to the uploads folder on the container
+# Any image stored in the container's folder will be kept on the host machine
+volumes:
+    uploads-data:
+
+networks:
+    frontend:
+        name: frontend # Compose looks for a network called `frontend` and connects the containers to it
+        external: true
+    backend:
+        name: backend # Compose looks for a network called `backend` and connects the containers to it
+        external: true

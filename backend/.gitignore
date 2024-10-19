@@ -46,3 +46,6 @@ Thumbs.db
 
 #Company logos
 uploads
+
+#MongoDB
+.mongo_ssl/*
